@@ -1,0 +1,68 @@
+ERROR - 2024-01-29 10:38:23 --> Error connecting to the database: mysqli_sql_exception: Accès refusé pour l'utilisateur: 'root'@'@localhost' (mot de passe: OUI) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp\www\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp\www\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(244): CodeIgniter\BaseModel->findAll()
+#7 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(45): App\Controllers\BaseController->changer_livraison()
+#8 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(305): App\Controllers\login\LoginCont->authentifier()
+#9 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(180): App\Controllers\BaseController->teste_session()
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#11 E:\wamp\www\FirstContrat\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#12 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Accès refusé pour l'utilisateur: '****'@'@localhost' (mot de passe: OUI) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp\www\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp\www\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(244): CodeIgniter\BaseModel->findAll()
+#6 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(45): App\Controllers\BaseController->changer_livraison()
+#7 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(305): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(180): App\Controllers\BaseController->teste_session()
+#9 E:\wamp\www\FirstContrat\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#11 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#13 {main}
+ERROR - 2024-01-29 10:38:23 --> Error connecting to the database: mysqli_sql_exception: Accès refusé pour l'utilisateur: 'root'@'@localhost' (mot de passe: OUI) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#4 E:\wamp\www\FirstContrat\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp\www\FirstContrat\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(224): CodeIgniter\BaseModel->first()
+#7 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(46): App\Controllers\BaseController->changer_promotion()
+#8 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(305): App\Controllers\login\LoginCont->authentifier()
+#9 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(180): App\Controllers\BaseController->teste_session()
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#11 E:\wamp\www\FirstContrat\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#12 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Accès refusé pour l'utilisateur: '****'@'@localhost' (mot de passe: OUI) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#3 E:\wamp\www\FirstContrat\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp\www\FirstContrat\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(224): CodeIgniter\BaseModel->first()
+#6 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(46): App\Controllers\BaseController->changer_promotion()
+#7 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(305): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp\www\FirstContrat\app\Controllers\BaseController.php(180): App\Controllers\BaseController->teste_session()
+#9 E:\wamp\www\FirstContrat\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#11 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#13 {main}

@@ -1,0 +1,209 @@
+ERROR - 2024-01-25 12:30:00 --> mysqli_sql_exception: Unknown column 'ouv.id_categorie' in 'on clause' in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `p`.`des...', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `p`.`des...')
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `p`.`des...')
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `p`.`des...', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\pdf\DevisCont.php(89): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\pdf\DevisCont->index()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\pdf\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-01-25 12:30:16 --> mysqli_sql_exception: Unknown column 'ouv.id_categorie' in 'on clause' in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `p`.`des...', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `p`.`des...')
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `p`.`des...')
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `p`.`des...', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\pdf\DevisCont.php(89): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\pdf\DevisCont->index()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\pdf\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-01-25 13:23:49 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 13:23:49 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(26): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_notification()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(26): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_notification()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 13:23:49 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 13:24:36 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 13:24:36 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(26): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_notification()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *, date(...', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(26): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_notification()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 13:24:36 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', 'tol-misaina-tec...', 'bricodb', 3306, '', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#9 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `devis`....', Array, false)
+#3 C:\xampp\htdocs\FirstContrat\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\FirstContrat\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(337): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->afficher_devis()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-01-25 15:00:22 --> mysqli_sql_exception: Unknown column 'categorie.designation as categorie_designation type_profil.designation' in 'field list' in C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `command...', 0)
+#1 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `command...')
+#2 C:\xampp\htdocs\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `command...')
+#3 C:\xampp\htdocs\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `command...', Array, false)
+#4 C:\xampp\htdocs\FirstContrat\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\FirstContrat\app\Controllers\menuiserie\devis\DevisCont.php(198): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\devis\DevisCont->detail_devis()
+#7 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\devis\DevisCont))
+#8 C:\xampp\htdocs\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}

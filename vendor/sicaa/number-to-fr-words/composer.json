@@ -1,0 +1,29 @@
+{
+    "name": "sicaa/number-to-fr-words",
+    "description": "Simple and effective lib to convert number into french words",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sicaa",
+            "email": "jessica@pandoor.dev",
+            "homepage": "https://github.com/sicaa"
+        }
+    ],
+    "require": {
+        "php": ">=7.4 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sicaa\\NumberToFrWords\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/phpunit tests"
+        ]
+    }
+}

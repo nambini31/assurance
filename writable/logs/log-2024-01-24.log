@@ -1,0 +1,112 @@
+ERROR - 2024-01-24 06:45:52 --> mysqli_sql_exception: Champ 'max_dates.max_date' inconnu dans field list in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `f`.*, `...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `f`.*, `...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `f`.*, `...')
+#3 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `f`.*, `...', Array, false)
+#4 E:\wamp\www\FirstContrat\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp\www\FirstContrat\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp\www\FirstContrat\app\Controllers\menuiserie\facture\FactureCont.php(138): CodeIgniter\BaseModel->first()
+#7 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\facture\FactureCont->liste_facture_histo()
+#8 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\facture\FactureCont))
+#9 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-01-24 07:01:18 --> mysqli_sql_exception: Erreur de syntaxe près de ''' à la ligne 9 in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('\r\n             ...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('\r\n             ...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('\r\n             ...')
+#3 E:\wamp\www\FirstContrat\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('\r\n             ...')
+#4 E:\wamp\www\FirstContrat\app\Controllers\menuiserie\facture\FactureCont.php(147): CodeIgniter\Model->__call('query', Array)
+#5 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\facture\FactureCont->liste_facture_histo()
+#6 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\facture\FactureCont))
+#7 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-01-24 08:27:32 --> Class 'App\Controllers\login\Query' not found
+in APPPATH\Controllers\login\LoginCont.php on line 118.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\login\LoginCont->exportDatabase()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2024-01-24 08:29:56 --> mysqli_sql_exception: Erreur de syntaxe près de 'mysqldump -h localhost -u root -p bricodb > uploads/backup_2024-01-24_08-29-56.s' à la ligne 1 in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('mysqldump -h lo...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('mysqldump -h lo...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('mysqldump -h lo...')
+#3 E:\wamp\www\FirstContrat\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('mysqldump -h lo...')
+#4 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(118): CodeIgniter\Model->__call('query', Array)
+#5 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->exportDatabase()
+#6 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#7 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-01-24 08:29:56 --> Erreur de syntaxe près de 'mysqldump -h localhost -u root -p bricodb > uploads/backup_2024-01-24_08-29-56.s' à la ligne 1
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('mysqldump -h localhost -u root -p bricodb > uploads/backup_2024-01-24_08-29-56.sql')
+ 2 APPPATH\Controllers\login\LoginCont.php(118): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\login\LoginCont->exportDatabase()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2024-01-24 08:30:33 --> mysqli_sql_exception: Erreur de syntaxe près de 'mysqldump -h localhost -u root -p bricodb > uploads/backup_2024-01-24_08-30-33.s' à la ligne 1 in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('mysqldump -h lo...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('mysqldump -h lo...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('mysqldump -h lo...')
+#3 E:\wamp\www\FirstContrat\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('mysqldump -h lo...')
+#4 E:\wamp\www\FirstContrat\app\Controllers\login\LoginCont.php(117): CodeIgniter\Model->__call('query', Array)
+#5 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->exportDatabase()
+#6 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#7 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2024-01-24 12:03:45 --> mysqli_sql_exception: Le champ 'id_client' ne peut être vide (null) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `fa...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `fa...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `fa...')
+#3 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `fa...', Array, false)
+#4 E:\wamp\www\FirstContrat\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 E:\wamp\www\FirstContrat\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 E:\wamp\www\FirstContrat\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 E:\wamp\www\FirstContrat\app\Controllers\menuiserie\facture\FactureCont.php(276): CodeIgniter\Model->insert(Array)
+#8 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\facture\FactureCont->add_facture()
+#9 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\facture\FactureCont))
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-01-24 12:29:48 --> mysqli_sql_exception: Le champ 'id_client' ne peut être vide (null) in E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\wamp\www\FirstContrat\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `fa...', 0)
+#1 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `fa...')
+#2 E:\wamp\www\FirstContrat\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `fa...')
+#3 E:\wamp\www\FirstContrat\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `fa...', Array, false)
+#4 E:\wamp\www\FirstContrat\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 E:\wamp\www\FirstContrat\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 E:\wamp\www\FirstContrat\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 E:\wamp\www\FirstContrat\app\Controllers\menuiserie\facture\FactureCont.php(276): CodeIgniter\Model->insert(Array)
+#8 E:\wamp\www\FirstContrat\system\CodeIgniter.php(942): App\Controllers\menuiserie\facture\FactureCont->add_facture()
+#9 E:\wamp\www\FirstContrat\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\menuiserie\facture\FactureCont))
+#10 E:\wamp\www\FirstContrat\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\wamp\www\FirstContrat\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2024-01-24 14:19:50 --> syntax error, unexpected token "<<"
+in APPPATH\Controllers\dashboard\DashboardCont.php on line 86.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\FirstContrat\\app\\Controllers\\dashboard\\DashboardCont.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\dashboard\\DashboardCont')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\dashboard\\DashboardCont')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\dashboard\\DashboardCont', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-01-24 14:20:55 --> syntax error, unexpected token "<<"
+in APPPATH\Controllers\dashboard\DashboardCont.php on line 86.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\FirstContrat\\app\\Controllers\\dashboard\\DashboardCont.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\dashboard\\DashboardCont')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\dashboard\\DashboardCont')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\dashboard\\DashboardCont', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

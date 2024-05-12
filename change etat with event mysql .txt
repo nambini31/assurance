@@ -1,0 +1,149 @@
+CREATE EVENT Actualiser_prix ON SCHEDULE AT '2023-10-17 16:32:00' DO UPDATE PRODUITS  SET PRIX =  PRIX + 0.1*PRIX;
+
+
+
+CREATE EVENT Actualiser_prix ON SCHEDULE AT '2024-01-16 22:40:00' DO UPDATE devis SET etat = -1;
+
+
+
+
+
+************************* SQL Event **************************
+
+reel : CREATE EVENT change_etat_devis_comparaison ON SCHEDULE EVERY 1 SECOND DO UPDATE devis SET etat = -1, raison = 'date devis est expiré' WHERE etat = 1 AND NOW() < date_devis;
+
+reel 2 : DELIMITER //
+
+CREATE PROCEDURE updateFactureEtat()
+BEGIN
+    UPDATE facture
+    SET etat = 3
+    WHERE id_facture IN (
+        SELECT MIN(facture.id_facture) AS first_id
+        FROM devis
+        JOIN facture ON devis.id_devis = facture.id_devis
+        WHERE facture.etat = 1
+          AND devis.etat = 2
+          AND (DATE_ADD(facture.date_facture, INTERVAL (devis.duree_execution/2) DAY)) > NOW()
+        GROUP BY facture.id_devis
+    );
+END //
+
+DELIMITER ;
+
+
+
+CREATE EVENT updateFactureEvent
+ON SCHEDULE EVERY 1 DAY
+DO
+CALL updateFactureEtat();
+
+
+
+SET GLOBAL event_scheduler = ON;
+
+
+
+
+
+
+****************** CONFIG Sur Windows : ***********************
+
+Le fichier my.ini peut être situé dans le répertoire d'installation de MySQL dans XAMPP. Par exemple, dans le chemin :
+C:\xampp\mysql\bin\my.ini.
+
+Une fois que vous avez localisé le fichier my.cnf ou my.ini, ouvrez-le dans un éditeur de texte et ajoutez la ligne suivante dans la section [mysqld] :
+
+ini
+Copy code
+[mysqld]
+ajouter dans my.ini
+
+event_scheduler=ON
+
+
+
+////////////// TEST ////////////
+DELIMITER //
+
+CREATE PROCEDURE updateDevisStates() 
+BEGIN 
+UPDATE devis SET etat = 3 WHERE id_devis IN ( SELECT first_id FROM ( SELECT MIN(facture.id_facture) AS first_id FROM devis JOIN facture ON devis.id_devis = facture.id_devis WHERE facture.etat = 1 AND devis.etat = 2 AND (DATE_ADD(facture.date_facture, INTERVAL (devis.duree_execution/2) DAY)) > NOW() AND DAYOFWEEK(NOW()) NOT IN (1, 7) GROUP BY facture.id_devis ) AS subquery ); 
+END //
+
+DELIMITER ;
+
+CREATE EVENT updateDevisStates 
+ON SCHEDULE EVERY 1 DAY 
+DO 
+BEGIN CALL updateDevisStates(); 
+END //
+
+
+SET GLOBAL event_scheduler = ON;
+
+
+
+
+
+
+
+************************ LAST EVENT MYSQL **********************
+
+MySQL 1: 
+
+CREATE DEFINER=`root`@`localhost` EVENT `change_etat_devis_comparaison` ON SCHEDULE EVERY 1 SECOND STARTS '2024-01-17 15:02:12' ON COMPLETION PRESERVE ENABLE DO UPDATE devis
+  SET etat = -1, raison = 'date devis est expiré'
+  WHERE etat = 1
+    AND DAYOFWEEK(NOW()) NOT IN (1, 7) -- Exclure le dimanche (1) et le samedi (7)
+    AND WEEKDAY(NOW()) < 5 -- Ne considérer que les jours de semaine (0-4, du lundi au vendredi)
+    AND DATE_ADD(devis.date_devis, INTERVAL 20 DAY) < NOW()
+
+
+MySQL 2 
+
+DELIMITER //
+
+CREATE PROCEDURE updateDevisStates() 
+BEGIN 
+    UPDATE devis 
+    SET etat = 3 
+    WHERE id_devis IN (
+        SELECT first_id 
+        FROM (
+            SELECT MIN(facture.id_facture) AS first_id 
+            FROM devis 
+            JOIN facture ON devis.id_devis = facture.id_devis 
+            WHERE facture.etat = 1 
+                AND devis.etat = 2 
+                AND (facture.date_facture + INTERVAL (devis.duree_execution / 2) DAY) > NOW() 
+                AND DAYOFWEEK(NOW()) NOT IN (1, 7) 
+            GROUP BY facture.id_devis
+        ) AS subquery
+    ); 
+END //
+
+
+
+DELIMITER //
+
+CREATE EVENT IF NOT EXISTS updateDevisEtatto
+ON SCHEDULE EVERY 1 MINUTE 
+DO 
+BEGIN 
+    CALL updateDevisEtatto();
+END //
+
+DELIMITER ;
+
+
+MySQL 3:
+
+CREATE EVENT update_promotion_event ON SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP DO UPDATE promotion SET etat_promotion = 0 WHERE etat_promotion = 1 AND etat_actif = 1 AND date_fin < NOW();
+
+
+
+
+
+
+SET GLOBAL event_scheduler = ON;
