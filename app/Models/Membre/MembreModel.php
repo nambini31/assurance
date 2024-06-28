@@ -12,7 +12,7 @@ class MembreModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [	"nom_membre" ,	"contact_membre" ,	"email_membre" ,	"etat"];
+    protected $allowedFields    = [	"nom_membre" ,	"contact_membre" ,	"email_membre" , "description" , "ispaye" , "motifBloque" ,	"etat"];
 
     // Dates
     protected $useTimestamps = true;

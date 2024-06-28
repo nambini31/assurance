@@ -74,6 +74,12 @@ function liste_membre() {
 
 
                 dom: "Bfrtip",
+                
+                rowCallback: function (row, data) {
+                    
+                
+                },
+
                 buttons: [
                     {
                         className: "btn btn-sm btn-secondary btn-min-width ",
@@ -158,6 +164,10 @@ $("#ajout_membre").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
+        error: function(message) {
+            alertCustom("danger", 'ft-x', "Suppression non effectué");
+
+        },
         success: function (res) {
 
             if ($('#btn_add_membre').text() === "Modifier") {
@@ -198,6 +208,7 @@ $("#ajout_membre").off("submit").on("submit", function (e) {
         },
     });
 });
+
 
 function close_del_membre() {
     $("#card_membre").unblock();
@@ -243,6 +254,218 @@ function delete_membre(id) {
             backgroundColor: "transparent"
         }
     });
+
+
+
+
+}
+
+
+function bloque_membre(id) {
+
+
+    $("#card_membre").block({
+        message: `
+          
+          
+          <div class="card" style="max-width:400px ; ">
+          <div class="card-header">
+          Veuillez entrer le motif de bloquage 
+          </div>
+          <div class="card-content">
+              <div class="card-body">
+                  
+                     <form id="submitBloque">
+                     <input type="hidden" id='idmemberbloque' value="${id}" />
+                     <textarea name="motif" required id="motif"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de blocage"></textarea><br>
+                     <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
+                     <button type="button" onclick="close_del_membre()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+
+                     </form>
+  
+  
+              </div>
+          </div>
+          </div>
+        
+  
+  
+          `,
+
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+    $("#submitBloque").off("submit").on("submit", function (e) {
+        e.preventDefault();
+    
+        let id = $("#idmemberbloque").val();
+        let motif = $("#motif").val();
+    
+        $("#card_membre").unblock();
+    
+    
+        $.ajax({
+            beforeSend: function () {
+    
+                $("#card_membre").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",
+    
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });
+    
+            },
+            url: base + "bloque_membre",
+            type: "POST",
+            dataType: "JSON",
+            data: { id_membre: id , motif_membre : motif},
+            success: function (res) {
+    
+                $("#card_membre").unblock();
+    
+                if (res.id > 0) {
+    
+                    alertCustom("success", 'ft-check', "bloquage effectué avec succée");
+    
+                } else {
+    
+                    alertCustom("danger", 'ft-x', "bloquage non effectué");
+    
+                }
+    
+                liste_membre();
+    
+            },
+            error: function(message) {
+                alertCustom("danger", 'ft-x', "bloquage non effectué");
+    
+            }
+    
+        });
+        
+        
+    });
+
+
+}
+
+function debloque_membre(id) {
+
+
+    $("#card_membre").block({
+        message: `
+          
+          
+          <div class="card" style="max-width:400px ; ">
+          <div class="card-header" style="max-width:400px ;">
+                   <i class="ft-ban" style='color:rgb(233, 46, 46);font-size:50px'></i>
+          </div>
+          <div class="card-content">
+              <div class="card-body">
+                  <p>Voulez-vous debloqué ce membre  ?</p>
+  
+                      <button type="button" onclick="debloque_membre_from_dialog(`+ id + `)" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                      <button type="button" onclick="close_del_membre()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+  
+  
+              </div>
+          </div>
+          </div>
+        
+  
+  
+          `,
+
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+
+}
+
+
+function infos_membre(id) {
+
+    $.ajax({
+        url: base + "infos_membre",
+        type: "POST",
+        dataType: "JSON",
+        data: { id_membre: id },
+        error: function(message) {
+            alertCustom("danger", 'ft-x', "Error");
+
+        },
+        success: function (res) {
+
+            $("#card_membre").block({
+                message: `
+                  
+                  
+                  <div class="card" style="max-width:400px ; ">
+                  <div class="card-header" style="max-width:400px ;">
+                           <i class="ft-info primary" style='font-size:20px'></i>
+                  </div>
+                  <div class="card-content">
+                      <div class="card-body">
+                          <p>${res.motifBloque}</p>
+          
+                              <button type="button" onclick="close_del_membre()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Ok</button>
+          
+          
+                      </div>
+                  </div>
+                  </div>
+                
+                  `,
+        
+                overlayCSS: {
+                    backgroundColor: 'black',
+                    opacity: 0.1,
+                    cursor: "wait",
+        
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+           
+
+        },
+    });
+
+
+    
 
 
 }
@@ -296,6 +519,67 @@ function delete_membre_from_dialog(id) {
             liste_membre();
 
         },
+        
+        error: function(message) {
+            alertCustom("danger", 'ft-x', "Suppression non effectué");
+
+        }
+    });
+
+}
+
+function debloque_membre_from_dialog(id) {
+
+
+
+    $("#card_membre").unblock();
+
+    $.ajax({
+        beforeSend: function () {
+
+            $("#card_membre").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "debloque_membre",
+        type: "POST",
+        dataType: "JSON",
+        data: { id_membre: id },
+        success: function (res) {
+
+            $("#card_membre").unblock();
+
+            if (res.id > 0) {
+
+                alertCustom("success", 'ft-check', "bloquage effectué avec succée");
+
+            } else {
+
+                alertCustom("danger", 'ft-x', "bloquage non effectué");
+
+            }
+
+            liste_membre();
+
+        },
+        error: function(message) {
+            alertCustom("danger", 'ft-x', "bloquage non effectué");
+
+        }
+
     });
 
 }
@@ -320,10 +604,12 @@ function edit_membre(id) {
     var nom = $('#mem_' + id).data('nom_membre');
     var contact = $('#mem_' + id).data('contact_membre');
     var email = $('#mem_' + id).data('email_membre');
+    var describe = $('#mem_' + id).data('description');
 
     $('input[name="contact_membre"]').val(contact);
     $('input[name="nom_membre"]').val(nom);
-    $('input[name="email_membre"]').val(nom);
+    $('input[name="email_membre"]').val(email);
+    $('textarea[name="description"]').val(describe);
 
     $('input[name="id_membre"]').val(id);
 

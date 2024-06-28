@@ -41,6 +41,9 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('listes_membre', 'membre\MembreCont::listes_membre');
      $routes->post('ajout_membre', 'membre\MembreCont::ajout_membre');
      $routes->post('delete_membre', 'membre\MembreCont::delete_membre');
+     $routes->post('infos_membre', 'membre\MembreCont::infos_membre');
+     $routes->post('bloque_membre', 'membre\MembreCont::bloque_membre');
+     $routes->post('debloque_membre', 'membre\MembreCont::debloque_membre');
 
      //route pour patient
      $routes->get('patient', 'patient\PatientCont::index');

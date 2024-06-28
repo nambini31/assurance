@@ -77,6 +77,18 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="row">
+                                       
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="usercontact" class="">Email</label>
+                                                <textarea name="description" id="describe_membre"  class="form-control input-sm" cols="5" rows="10" placeholder="Description"></textarea>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     
                                 
                                 </div>

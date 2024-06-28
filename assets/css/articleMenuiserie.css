@@ -278,3 +278,7 @@ table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:
 input{
     font-weight: 500 !important;
 }
+
+.leave-row {
+    background-color: #ff5b5b29; /* Couleur de fond rouge pour marquer les lignes */
+}
