@@ -47,7 +47,13 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('lienpatient', 'patient\PatientCont::lien');
      $routes->post('listes_patient', 'patient\PatientCont::listes_patient');
      $routes->post('charge_membre', 'patient\PatientCont::charge_membre');
+     
+     //route pour titulaire
+     $routes->get('titulaire', 'titulaire\TitulaireCont::index');
+     $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
+     $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
 
+    
 
 
     //route medecin
