@@ -21,6 +21,7 @@ use App\Models\Patient\PatientModel;
 use App\Models\Specialiste\SpecialiteModel;
 use App\Models\Utilisateur\RoleModel;
 use App\Models\Utilisateur\TypeMedecinModel;
+use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 
@@ -53,6 +54,7 @@ abstract class BaseController extends Controller
     protected $cabinet;
     protected $clientApi;
     protected $membre;
+    protected $titulaire;
 
 
     public function __construct()
@@ -64,6 +66,7 @@ abstract class BaseController extends Controller
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
         $this->patient = new PatientModel();
+        $this->titulaire = new TitulaireModel();
         $this->specialite = new SpecialiteModel();
         $this->cabinet = new CabinetModel();
         $this->medecin = new MedecinModel();

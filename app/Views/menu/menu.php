@@ -9,6 +9,10 @@
             <li class=" nav-item" title="Visualiser patient"><a class="menu-item" data-id="patient" href="<?php echo base_url("lienpatient"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Patient
                    </span></a>
             </li>
+
+            <li class=" nav-item" title="Visualiser Titulaire"><a class="menu-item" data-id="titulaire" href="<?php echo base_url("lientitulaire"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Titulaire
+                   </span></a>
+            </li>
             
             <li class=" nav-item" title="Visualiser medecin"><a class="menu-item" data-id="medecin" href="<?php echo base_url("lienmedecin"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Medecin
                    </span></a>

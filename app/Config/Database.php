@@ -29,7 +29,6 @@ class Database extends Config
         'hostname'     => 'localhost',
         'username'     => 'root',
         'password'     => '',
-        // 'password'     => 'tol-misaina-tech',
         'database'     => 'assurance',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',

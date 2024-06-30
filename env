@@ -14,13 +14,13 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+# I_ENVIRONMENT = developpement
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-app.baseURL = 'http://localhost/FirstContrat/public'
+app.baseURL = 'http://assurance.mg/'
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
@@ -31,7 +31,7 @@ app.baseURL = 'http://localhost/FirstContrat/public'
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = gbrico
+database.default.database = assurance
 database.default.username = root
 database.default.password =
 database.default.DBDriver = 'MySQLi'
