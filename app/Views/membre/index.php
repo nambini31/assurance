@@ -82,7 +82,7 @@
                                        
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="usercontact" class="">Email</label>
+                                                <label for="usercontact" class="">Description</label>
                                                 <textarea name="description" id="describe_membre"  class="form-control input-sm" cols="5" rows="10" placeholder="Description"></textarea>
                                                 
                                             </div>

@@ -13,13 +13,58 @@ $(document).ready(function () {
     });
     $("#label_image").html('');
     refresh_user();
+    charge_role();
     
 });
 
 
+function charge_role() {
+  $.ajax({
+      url: base + 'getRole',
+      type: "POST",
+      
+      success: function (data) {
+          $("#select_role").empty();
+          $("#select_role").append(data);
+          $('select').selectpicker('refresh');
+          
+          $("#select_role").on('change', function name(params) {
+            var data = $(this).val();
+
+            if (data == 3) {
+              
+              charge_type(data);
+              
+            }
+            else{
+              $("#typeMedecin").empty();
+            }
+        })
+      }
+  });
+}
+function charge_type(data , id) {
+  $.ajax({
+      url: base + 'getTypeMedecin',
+      type: "POST",
+      data:{
+        id: data
+      },
+      success: function (data) {
+          $("#typeMedecin").empty();
+          $("#typeMedecin").append(data);
+          $('select').selectpicker('refresh');
+          $("#select_type").val(id);
+          $('select').selectpicker('refresh');
+          
+          
+      }
+  });
+}
+
 
 function refresh_user() {
-  $("#label_image").html('');
+  $("#label_imagetxt").html('');
 
   $("#nom").val("");
   $("#prenom").val("");
@@ -28,6 +73,7 @@ function refresh_user() {
   $("#password_confirmation").val("");
   $("#image").val("");
   $("#editUserId").val("");
+  $("#label_image").val("");
   $("#Simple").prop("checked", true);
   $("#ajouterButton").text("Ajouter");
 
@@ -116,11 +162,14 @@ function editUsers(id) {
         $("#editUserId").val(user.id_user);
         $("#nom").val(user.nom_user);
         $("#prenom").val(user.prenom_user);
-        $("#label_image").html(user.image);
-        if (user.role_user === "admin") {
-          $("#Admin").prop("checked", true);
+        $("#label_imagetxt").html(user.image);
+        $("#label_image").val(user.image);
+        $("#select_role").val(user.roleId);
+        $('select').selectpicker('refresh');
+        if (user.roleId == "3") {
+          charge_type(3,user.idTypeMedecin);
         } else {
-          $("#Simple").prop("checked", true);
+          $("#typeMedecin").empty();
         }
         $("#password").val(user.mdp_user);
         $("#password_confirmation").val(user.mdp_user);
@@ -163,82 +212,7 @@ function getSelectedRole() {
 // Fonction ajout et Modification  ************************************
 $("#ajout_utilisateur").off("submit").on("submit",function (e) {
   e.preventDefault();
-  var formData = new FormData();
-  var editUserId = $("#editUserId").val();
-  var nom = $("#nom").val();
-    var prenom = $("#prenom").val();
-    var role = $("#role").val();
-    var password = $("#password").val();
-    var password_confirmation = $("#password_confirmation").val();
-    var label_image = $("#label_image").text();
-    // var image_view = $("image_view").val();
-
-    
-    var image = $("#image")[0].files.length > 0 ? $("#image")[0].files[0] : null;
-
-    var fileInput = $("#image")[0];
-    console.log("File Input:", fileInput);
-
-    var files = fileInput.files;
-    console.log("Files:", files);
-
-  console.log(image);
-  // console.log(image_view);
-
-    var role = getSelectedRole();
-
-  // Append values to the FormData object
-
-  if (password === password_confirmation) {
-    var passkey = password;
-  formData.append("id", editUserId);
-    formData.append("nom", nom);
-    formData.append("prenom", prenom);
-    formData.append("password", passkey);
-    formData.append("role", role);
-    formData.append("label_image", label_image);
-    if (image) {
-      formData.append("image", image);
-    } 
-  }
-
-
-  console.log(editUserId);
-
-  if (editUserId) {
-    $.ajax({
-      beforeSend: function () {},
-      url: base + "modifier_utilisateur",
-      type: "POST",
-      processData: false,
-      contentType: false,
-      cache: false,
-      dataType: "JSON",
-      data: formData,
-      success: function (res) {
-        refresh_user();
-
-        //appler le Toast pour afficher le message
-        // if (res.status == "success") {
-        //   alertCustom("danger", "ft-x", "Modification non effectuée");
-        // }
-        if (res.status == "success") {
-          alertCustom(
-            "success",
-            "ft-check",
-            "Modification effectuée avec succès"
-          );
-          if(res.deconnecter){
-            deconnecter();
-          }
-        }else{
-          alertCustom("danger", "ft-x", "Modification non effectuée");
-        }
-        
-        // liste_caracteristique();
-      },
-    });
-  } else {
+  
     $.ajax({
       beforeSend: function () {},
       url: base + "ajout_utilisateur",
@@ -251,8 +225,25 @@ $("#ajout_utilisateur").off("submit").on("submit",function (e) {
       success: function (res) {
         
 
+        if ($("#ajouterButton").text() ==  "Modifier") {
+          if (res.status == "success") {
+            refresh_user();
+            alertCustom(
+              "success",
+              "ft-check",
+              "Modification effectuée avec succès"
+            );
+            if(res.deconnecter){
+              deconnecter();
+            }
+          }else{
+            alertCustom("danger", "ft-x", res.message);
+          }
+
+        }else{
+
         if (res.status == "failed") {
-          alertCustom("warning", "ft-alert-triangle", "Donnée déjà existante");
+          alertCustom("warning", "ft-alert-triangle", res.message);
         } else if (res.status == "success") {
           alertCustom("success", "ft-check", "Ajout avec succès");
           refresh_user();
@@ -261,15 +252,16 @@ $("#ajout_utilisateur").off("submit").on("submit",function (e) {
         }
         else if (res.status == "fail_p") {
           alertCustom("warning", "ft-check", "Le mot de passe est différent de celui de la confirmation.");
-      }
+        }
         
         else {
           alertCustom("danger", "ft-x", "Ajout non effectué");
         }
+      }
         // liste_caracteristique();
       },
     });
-  }
+
 });
 
 function close_overlay_liste_user() {
@@ -345,9 +337,10 @@ $("#annuler_user").on("click", function () {
 
 // Fonction pour vider les champs du formulaire **************************************************
 function Annuler_users() {
-  $("#label_image").html('');
+  $("#label_imagetxt").html('');
 
   $("#editUserId").val("");
+  $("#label_image").val("");
     $("#nom").val("");
     $("#prenom").val("");
     $("#role").val("");

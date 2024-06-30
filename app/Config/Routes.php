@@ -28,6 +28,8 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('modifier_utilisateur', 'utilisateur\UtilisateurCont::modifier');
     $routes->post('supprimer_utilisateur', 'utilisateur\UtilisateurCont::supprimer');
     $routes->post('get_utilisateur', 'utilisateur\UtilisateurCont::get_user_details');
+    $routes->post('getTypeMedecin', 'utilisateur\UtilisateurCont::getTypeMedecin');
+    $routes->post('getRole', 'utilisateur\UtilisateurCont::getRole');
 
     //route dashboard
     $routes->get('liendashboard', 'dashboard\DashboardCont::lien');

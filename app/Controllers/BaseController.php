@@ -19,6 +19,8 @@ use App\Models\Medecin\MedecinModel;
 use App\Models\Membre\MembreModel;
 use App\Models\Patient\PatientModel;
 use App\Models\Specialiste\SpecialiteModel;
+use App\Models\Utilisateur\RoleModel;
+use App\Models\Utilisateur\TypeMedecinModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 
@@ -39,7 +41,11 @@ abstract class BaseController extends Controller
     //deputation
     protected $connexion;
     protected $utilisateur;
+    protected $role;
     protected $session;
+    protected $typeMedecin;
+
+
     protected $patient;
     protected $medecin;
     protected $specialite;
@@ -53,6 +59,8 @@ abstract class BaseController extends Controller
     {
         //deputation
         $this->utilisateur = new UtilisateurModel();
+        $this->role = new RoleModel();
+        $this->typeMedecin = new TypeMedecinModel();
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
         $this->patient = new PatientModel();

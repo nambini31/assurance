@@ -17,15 +17,13 @@
                    </span></a>
             </li>
            
-            <?php
-            if (isset($_SESSION["role_user"]) && $_SESSION["role_user"] == "admin") {
-            ?>
+            
                 <li class=" nav-item"><a class="menu-item" data-id="utilisateur" href="<?php echo base_url("lienutilisateur"); ?>"><i class="la la-user"></i><span data-i18n="DataTables">Utilisateur
 
                         </span></a>
 
                 </li>
-            <?php } ?>
+            
 
 
            

@@ -15,64 +15,64 @@
                             <form id="ajout_utilisateur" class="form" method="post" action="ajout_utilisateur">
                                 <div class="row">
                                     <div class="col-12">
-                                        <fieldset class="form-group position-relative has-icon-left">
+                                        <fieldset class="form-group position-relative ">
                                             <input type="text" id="editUserId" name="editUserId" hidden>
                                             <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom" tabindex="1" required>
                                             <div class="form-control-position">
-                                                <i class="la la-user"></i>
                                             </div>
                                         </fieldset>
                                     </div>
                                     <div class="col-12">
-                                        <fieldset class="form-group position-relative has-icon-left">
+                                        <fieldset class="form-group position-relative ">
                                             <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom" tabindex="2" required>
                                             <div class="form-control-position">
-                                                <i class="la la-user"></i>
                                             </div>
                                         </fieldset>
                                     </div>
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="role" id="Admin" value="admin">
-                                        <label class="form-check-label" for="male">Admin</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="role" id="Simple" value="simple">
-                                        <label class="form-check-label" for="female">Simple</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-12">
-                                        <fieldset class="form-group position-relative has-icon-left">
+                                        <fieldset class="form-group position-relative ">
                                             <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" tabindex="5" required>
-                                            <div class="form-control-position">
-                                                <i class="la la-key"></i>
-                                            </div>
+                                            
                                         </fieldset>
                                     </div>
+
                                     <div class="col-12">
-                                        <fieldset class="form-group position-relative has-icon-left">
+                                        <fieldset class="form-group position-relative ">
                                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirmer le Mot de passe" tabindex="6" data-validation-matches-match="password" data-validation-matches-message="Password & Confirm Password must be the same." required>
                                             <div class="form-control-position">
-                                                <i class="la la-key"></i>
                                             </div>
-                                            <div class="help-block font-small-3"></div>
                                         </fieldset>
                                     </div>
+
+                                    <div class="col-12">
+                                        <fieldset class="form-group position-relative ">
+                                        <select class="selectpicker  form-control btn-sm" name="roleId"  required id="select_role" data-live-search='true' data-size='5' title='Role utilisateur'>
+                                                
+                                        </select>
+                                            
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12">
+                                        <fieldset class="form-group position-relative ">
+                                        <div id="typeMedecin"></div>
+                                            
+                                        </fieldset>
+                                    </div>
+                                    
                                 </div>
 
+                               
                                 <div class="row">
                                     <div class="col-12">
-                                        <fieldset class="form-group position-relative has-icon-left">
+                                        <fieldset class="form-group position-relative ">
 
                                             <input type="file" name="image" id="image" class="form-control" accept="image/*">
                                             <div class="form-control-position">
                                                 <i class="la la-image"></i>
                                             </div>
-                                            <label for="" id="label_image"></label>
+                                            <label for="" id="label_imagetxt"></label>
+                                            <input type="hidden" name="label_image" id="label_image" />
+
                                         </fieldset>
                                     </div>
                                 </div>

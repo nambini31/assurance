@@ -12,7 +12,7 @@ class LoginModel extends Model {
         'nom_user',
         'prenom_user',
         'mdp_user',
-        'role_user',
+        'roleId',
 
     ];
 

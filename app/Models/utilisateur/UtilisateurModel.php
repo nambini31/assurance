@@ -10,7 +10,7 @@ class UtilisateurModel extends Model {
     protected $primaryKey = 'id_user'; // Clé primaire de votre table
 
     protected $allowedFields = [
-        	'nom_user', 'prenom_user', 'mdp_user', 'role_user', 'etat', 'image', 
+        	'nom_user', 'prenom_user', 'mdp_user', 'etat', 'image' , "roleId" , 'idTypeMedecin', 
     ];
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

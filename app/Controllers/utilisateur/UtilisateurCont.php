@@ -10,25 +10,53 @@ class UtilisateurCont extends BaseController
 
     public function lien(): string
     {
-        if ($this->session->has('is_connected') && $this->session->get("role_user") == "admin") {
+       
             return view('utilisateur/index');
-        }
-        else {
-            return view('dashboard/index');
-        }
         
+        
+    }
+
+    public function getRole()
+    {
+        try {
+
+            $data =  $this->role->findAll();
+
+            $role = '';
+                foreach ($data as $value) {
+                    $role .= '
+                        <option value="' . $value['roleId'] . '"> '. $value['name'] . '</option> ';
+                }
+
+            echo $role;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    public function getTypeMedecin()
+    {
+        try {
+
+            $data =  $this->typeMedecin->findAll();
+
+            $type = '<select class="selectpicker  form-control btn-sm" name="idTypeMedecin" required id="select_type" data-live-search="true" data-size="5" title="Spécialité docteur">';
+                foreach ($data as $value) {
+                    $type .= '
+                        <option value="' . $value['idTypeMedecin'] . '"> '. $value['name'] . '</option> ';
+                }
+                $type .= '</select>';
+            echo $type;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
     }
 
     public function page_utilisateur()
     {
-        if ($this->session->has('is_connected') && $this->session->get("role_user") == "admin") {
+
             $content = view('utilisateur/index');
             return view('layout',['content' => $content]);
-        }
-        else{
-            $content = view('dashboard/index');
-        return view('layout', ['content' => $content]);
-        }
+       
         
     }
 
@@ -46,7 +74,7 @@ class UtilisateurCont extends BaseController
 
         try {
             // $utilisateurs = $this->utilisateur->findAll();
-            $utilisateurs = $this->utilisateur->where('etat', 1)->findAll();
+            $utilisateurs = $this->utilisateur->select("utilisateur.* , role.name , typeMedecin.name as typemedecin")->join('role' , "role.roleId = utilisateur.roleId")->join("typeMedecin","typeMedecin.idTypeMedecin = utilisateur.idTypeMedecin","left")->where('etat', 1)->findAll();
             $th = "
                 <thead>
                       <tr>
@@ -58,9 +86,9 @@ class UtilisateurCont extends BaseController
                         <th>Rôle</th>
                         "
                         ;
-            if ($this->session->has('is_connected') && $this->session->get("role_user") == "admin") {
+            
                 $th .= "<th>Actions</th>";
-            }
+           
                        
             $th .= " </tr>
                    
@@ -83,16 +111,16 @@ class UtilisateurCont extends BaseController
                         <td style="width : 50%">'.$value["nom_user"]. '</td> 
                         <td style="width : 50%">'.$value["prenom_user"].' </td>
                         <td style="width : 50%">'.$value["mdp_user"]. '</td> 
-                        <td style="width : 50%">'.$value["role_user"].' </td>' ;
+                        <td style="width : 50%">'.$value["name"].' '.$value["typemedecin"].' </td>' ;
 
                         
 
-                    if ($this->session->has('is_connected') && $this->session->get("role_user") == "admin") {
+                    
                         $th .= '
                         <td> <a class="info mr-1 " onclick="editUsers(' . $value["id_user"] .')"><i class=" la la-pencil"></i></a>
                         <a class="danger mr-1" onclick="supprimerUser('. $value["id_user"] .')"><i class=" la la-trash-o"></i></a> </td> 
                         ';
-                    } 
+                
                     
                     
                      $th .= '</tr>' ;
@@ -172,6 +200,7 @@ class UtilisateurCont extends BaseController
 
     public function ajouter()
 {
+
     try {
         // $validationRules = [
         //     'nom' => 'required',
@@ -185,7 +214,7 @@ class UtilisateurCont extends BaseController
 
             $password = $this->request->getPost('password');
             $confimPassword = $this->request->getPost('password_confirmation');
-
+        $id = $this->request->getPost('editUserId');
         // Check if the password length is less than 8 characters
         if (strlen($password) < 4 ) {
             echo json_encode(['status' => 'fail', 'message' => 'Le mot de passe doit contenir au moins 8 caractères.']);
@@ -217,16 +246,38 @@ class UtilisateurCont extends BaseController
                     'nom_user' => $this->request->getPost('nom'),
                     'prenom_user' => $this->request->getPost('prenom'),
                     'mdp_user' => $this->request->getPost('password'),
-                    'role_user' => $this->request->getPost('role'),
+                    'roleId' => $this->request->getPost('roleId'),
+                    'id_user' => $this->request->getPost('editUserId')
+
                 ];
     
-                $existingRecord = $this->utilisateur->where('nom_user', $data['nom_user'])->where('prenom_user', $data['prenom_user'])->where('role_user', $data['role_user'])->where('etat !=', 0)->first();
-    
+                $existingRecord = $this->utilisateur->where('nom_user', $data['nom_user'])->where('prenom_user', $data['prenom_user'])->where("etat <>", 0) ; 
+                
+                if ($id != '') {
+                    $existingRecord = $existingRecord->where('id_user !=', $id);
+                }
+                
+                $existingRecord = $existingRecord->first();
+
+                if (isset($_POST['idTypeMedecin'])) {
+                    $data += [
+                        'idTypeMedecin' => $this->request->getPost('idTypeMedecin')
+                    ];
+                }
+
                 if ($existingRecord) {
-                    echo json_encode(['status' => 'failed', 'message' => 'Utilisateur déjà existe.']);
+                    echo json_encode(['status' => 'failed', 'message' => 'Utilisateur existe déjà .']);
                 } else {
-                    $this->utilisateur->insert($data);
-                    echo json_encode(['status' => 'success', 'message' => 'Ajout succès.']);
+                    $this->utilisateur->save($data);
+                    if ($id == $_SESSION['id_user'] ) {                        
+                        echo json_encode(['status' => 'success',
+                            'message' => 'Mise à jour réussie.',
+                            'deconnecter' => true]);
+                    }else{
+
+                        echo json_encode(['status' => 'success', 'message' => 'Ajout succès.','deconnecter' => false]);
+
+                    }
                 }
             }
 
@@ -236,19 +287,47 @@ class UtilisateurCont extends BaseController
                     'nom_user' => $this->request->getPost('nom'),
                     'prenom_user' => $this->request->getPost('prenom'),
                     'mdp_user' => $this->request->getPost('password'),
-                    'role_user' => $this->request->getPost('role'),
                     'image' => 'icon.jpg', // Set a default image when no image is uploaded
+                    'roleId' => $this->request->getPost('roleId'),
+                    'id_user' => $this->request->getPost('editUserId'),
+
                 ];
 
-                $existingRecord = $this->utilisateur->where('nom_user', $data['nom_user'])->where('prenom_user', $data['prenom_user'])->where('role_user', $data['role_user'])->where("etat <>", 0)->first();
+                if (isset($_POST['idTypeMedecin'])) {
+                    $data += [
+                        'idTypeMedecin' => $this->request->getPost('idTypeMedecin')
+                    ];
+                }
+
+                $existingRecord = $this->utilisateur->where('nom_user', $data['nom_user'])->where('prenom_user', $data['prenom_user'])->where("etat <>", 0) ; 
+             
+                
+                if ($id != '') {
+                    $existingRecord = $existingRecord->where('id_user !=', $id);
+                    $label_image = $this->request->getPost('label_image');
+                    $data['image'] = $label_image;
+                }
+                
+                $existingRecord = $existingRecord->first();
 
                 if ($existingRecord) {
-                    echo json_encode(['status' => 'failed', 'message' => 'Utilisateur déjà existe.']);
+                    echo json_encode(['status' => 'failed', 'message' => 'Utilisateur existe déjà .']);
                 } else {
-                    $this->utilisateur->insert($data);
-                    echo json_encode(['status' => 'success', 'message' => 'Ajout succès.']);
+                    $this->utilisateur->save($data);
+                    if ($id == $_SESSION['id_user'] ) {                        
+                        echo json_encode(['status' => 'success',
+                            'message' => 'Mise à jour réussie.',
+                            'deconnecter' => true]);
+                    }else{
+
+                        echo json_encode(['status' => 'success', 'message' => 'Ajout succès.','deconnecter' => false]);
+
+                    }
                 }
             }
+
+            
+
         }
         }
         // else {
@@ -283,7 +362,7 @@ class UtilisateurCont extends BaseController
             $nom_user = $this->request->getPost('nom');
             $prenom_user = $this->request->getPost('prenom');
             $mdp_user = $this->request->getPost('password');
-            $role_user = $this->request->getPost('role');
+            $role_user = $this->request->getPost('roleId');
             $label_image = $this->request->getPost('label_image');
 
             // Check if the ID is valid

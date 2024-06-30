@@ -32,11 +32,8 @@
                     <li class="dropdown dropdown-user nav-item"><a style=" color : white" class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700"><?= ucfirst($_SESSION['nom_user']) . " " . ucfirst($_SESSION['prenom_user']) ?></span><span><img style="width: 38px; height: 38px; clip-path:circle();" src="<?php echo base_url() ?>/assets/img/user/<?= ($_SESSION['image_user'] == "") ? 'default.png' : $_SESSION['image_user'] ?>" alt="avatar"><i></i></span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-divider"></div>
-                            <?php
-                            if (isset($_SESSION["role_user"]) && $_SESSION["role_user"] == "admin") {
-                            ?>
-                            <a class="dropdown-item" href="#" onclick="exportDatabase()"><i class="ft-download"></i>Exporter la base de données</a>
-                            <?php } ?>
+                          
+                            
                             
                             <a class="dropdown-item" href="" onclick="deconnecter()"><i class="ft-power"></i>Deconnecter</a>
                         </div>
