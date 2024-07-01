@@ -5,9 +5,6 @@ $(document).ready(function () {
 
 });
 
-
-
-
 function charge_membre() {
     $.ajax({
         url: base + 'charge_membre',
@@ -15,22 +12,18 @@ function charge_membre() {
         success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
-            $('select').selectpicker('refresh');
-  
+            $("#membreId").append(data);
+            $('select').selectpicker('refresh');  
         }
     });
-  }
+}
 
-
-
-  $("#membre_choix").on('change', function name(params) {
+$("#membre_choix").on('change', function name(params) {
     liste_patient();
 })
 
-// ***********************************liste patient
-
+// *** affichage titulaire ----------------
 function listeTitulaire() {
-
     $.ajax({
         beforeSend: function () {
 
@@ -99,15 +92,14 @@ function listeTitulaire() {
                         className: "btn btn-sm btn-warning btn-min-width ",
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
-                            $('.entete_modal').text("Ajout Membre ");
-                            $('#btn_add_membre').text("Ajouter");
-                            $("#AddContactModal").modal(
+                            $('.entete_modal').text("Nouveau Titulaire");
+                            $('#btn_add_titualire').text("Ajouter");
+                            $("#createTitulaireModel").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );                           
-                            $('#ajout_membre')[0].reset();
-                            $("#id_membre_men_modif").val("");
-
+                            $('#createTitulaireForm')[0].reset();
+                            $("#id_titualire_men_modif").val("");
                         },
                     },
                 ],
@@ -116,26 +108,33 @@ function listeTitulaire() {
 
         },
     });
-
 }
+//--------------------------------------------------------
 
 
-// **************************ajout patient 
-$("#ajout_patient").off("submit").on("submit", function (e) {
+// ------ ajout Titualaire ----------------------
+$("#createTitulaireForm").off("submit").on("submit", function (e) {
     e.preventDefault();
 
-    let data = new FormData(this);
-
+    let formData = new FormData(this);
+    var photo = $("#photo")[0].files[0];
+    
+    // Vérifiez le type de fichier et la taille
+    if (!photo.type.startsWith('image/') || photo.size > 10485760) {
+        alert("Veuillez selectionner une image avec une talle < 10Mo");
+        return;
+    }
+    formData.append("photo", photo);
+    
     $.ajax({
         beforeSend: function () {
-            $("#modal_content_add_patient").block({
+            $("#modal_content_add_titulaire").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
                 overlayCSS: {
                     backgroundColor: "black",
                     opacity: 0.1,
                     cursor: "wait",
-
                 },
                 css: {
                     border: 0,
@@ -144,53 +143,37 @@ $("#ajout_patient").off("submit").on("submit", function (e) {
                 }
             });
         },
-        url: base + "ajout_patient",
+        url: base + "ajout_titulaire",
         type: "POST",
         processData: false,
         contentType: false,
         cache: false,
         dataType: "JSON",
-        data: data,
+        data: formData,
         success: function (res) {
-
-            if ($('#btn_add_patient').text() === "Modifier") {
-                if (res.id == 1) {
+            if (res.success) {
+                alert(" true")
+                if ($('#btn_add_patient').text() === "Modifier") {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
-                    liste_patient();
-                    annulerAjoutpatient();
-                    $("#AddContactModal").modal("hide");
-
-                } else if (res.id == 2) {
-                    alertCustom("danger", "ft-x", "Bureau de vote existe déjà");
-                } else {
-                    alertCustom("danger", "ft-x", "Ajout non effectué");
-
+                    listeTitulaire();
+                    annulerAjoutTitulaire();
+                    $("#createTitulaireModel").modal("hide");               
                 }
-                
-            } else {
-
-                if (res.id == 1) {
-                   
-                    annulerAjoutpatient();
+                else {            
+                    annulerAjoutTitulaire();
                     alertCustom("success", "ft-check", "Ajout effectué avec succée");
-                    liste_patient();
-                } else if (res.id == 2) {
-                    alertCustom("danger", "ft-x", "Bureau de vote existe déjà");
-                } else {
-                    alertCustom("danger", "ft-x", "Ajout non effectué");
-
-                }
+                    listeTitulaire();
+                    $("#createTitulaireModel").modal("hide");
+                }                
             }
-           
-
-            
-
-            $("#modal_content_add_patient").unblock();
-
-
-        },
+            else{                
+                alertCustom("danger", "ft-check", res.message);                
+            }
+            $("#modal_content_add_titulaire").unblock();
+        }
     });
 });
+//--------------------------------------------------------------
 
 function close_del_patient() {
     $("#card_patient").unblock();
@@ -300,16 +283,14 @@ var id_region = 0;
 var id_district = 0;
 var id_bv = 0;
 
-function edit_patient(id) {
-    
-
+function edit_patient(id) {  
     $('.entete_modal').text("Modification patient");
     $('#btn_add_patient').text("Modifier");
     $("#AddContactModal").modal(
         { backdrop: "static", keyboard: false },
         "show"
     );
-
+    
     var nom = $('#mem_' + id).data('nom_patient');
     var contact = $('#mem_' + id).data('contact_patient');
     var email = $('#mem_' + id).data('email_patient');
@@ -317,18 +298,15 @@ function edit_patient(id) {
     $('input[name="contact_patient"]').val(contact);
     $('input[name="nom_patient"]').val(nom);
     $('input[name="email_patient"]').val(nom);
-
     $('input[name="id_patient"]').val(id);
-
 }
 
 //*******************ANNULATION BUTTTON */
-
-function annulerAjoutpatient() {
-    $('#ajout_patient')[0].reset();
-    $("#id_patient_men_modif").val("");
+function annulerAjoutTitulaire() {
+    $('#createTitulaireForm')[0].reset();
+    $("#titulaireId").val("");
 }
-
+//-------------------------------------------------
 
 
 // ******************************filtre en tete *****************************************/////***/*/*/*/*/*/************************

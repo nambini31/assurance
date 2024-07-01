@@ -19,15 +19,46 @@ class TitulaireCont extends BaseController
         return view('titulaire/index');         
     }
 
-    public function ajout_patient()
+    public function ajout_titulaire()
     {
         try {
+            // Vérifiez si le fichier a été téléchargé sans erreur
+            if (isset($_FILES['photo']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
 
-            $id = $this->patient->save($_POST);
+                $currentDate = date('YmdHis');
+                $nom = $_POST['nom'];
+                $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                $namePhoto = $nom . '_' . $currentDate . '.' . $extension;
 
-            echo json_encode(["id" => 1]);
+                // Définissez le chemin de destination
+                $uploadDir = ROOTPATH . 'assets/img/titulaire/';
+                $uploadFile = $uploadDir . $namePhoto;
+
+                // Déplacez le fichier vers le répertoire de destination
+                move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile);
+                    
+                $_POST['photo'] = $namePhoto;
+                // $data['image'] = $namePhoto;
+
+                // Définissez le chemin de destination
+                // $uploadDir = 'uploads/';
+                // $uploadFile = $uploadDir . basename($_FILES['photo']['name']);
+
+                // Déplacez le fichier vers le répertoire de destination
+                // if (!move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile)) {
+                //     throw new Exception('Erreur lors du téléchargement du fichier.');
+                // }
+
+                // Ajoutez le chemin du fichier photo aux données POST
+            }
+            //  else {
+            //     throw new Exception('Veuillez sélectionner un fichier.');
+            // }
+            
+            $id = $this->titulaire->save($_POST);
+            echo json_encode(["success" => true ]);
         } catch (\Throwable $th) {
-            echo $th;
+            echo json_encode(["success" => false, "message" => $th->getMessage()]);
         }
     }
 

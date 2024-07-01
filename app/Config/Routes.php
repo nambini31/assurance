@@ -57,9 +57,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
      $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
      $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
-
-    
-
+     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
 
     //route medecin
     $routes->get('lienmedecin', 'medecin\MedecinCont::lien');
