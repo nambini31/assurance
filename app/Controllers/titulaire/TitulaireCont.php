@@ -28,7 +28,7 @@ class TitulaireCont extends BaseController
                 $currentDate = date('YmdHis');
                 $nom = $_POST['nom'];
                 $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-                $namePhoto = $nom . '_' . $currentDate . '.' . $extension;
+                $namePhoto = $nom.'_'.$currentDate.'.'.$extension;
 
                 // Définissez le chemin de destination
                 $uploadDir = ROOTPATH . 'assets/img/titulaire/';
