@@ -4,18 +4,22 @@ namespace App\Models\Consultation;
 
 use CodeIgniter\Model;
 
-class ConsultationModel extends Model
+class DetailconsultationModel extends Model
 {
-    protected $table            = 'consultation';
-    protected $primaryKey       = 'consultationId';
+    protected $table            = 'detailconsultation';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "idTypeMedecin" , "etat" , "isFinished"];
+    protected $allowedFields    = [
+        "motif"	, "typePersonneMalade" , "idPersonneMalade"	, "etat" ,	
+        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature"
+        	, "tension" ,	"poids" ,	"douleur" ,	"descriptionDouleur"
+    ];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

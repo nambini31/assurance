@@ -10,7 +10,7 @@ use App\Controllers\login\LoginCont;
 use App\Models\Cabinet\CabinetModel;
 
 use App\Models\Consultation\ConsultationModel;
-
+use App\Models\Consultation\DetailconsultationModel;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -45,12 +45,13 @@ abstract class BaseController extends Controller
     protected $role;
     protected $session;
     protected $typeMedecin;
+    protected $consultation;
+    protected $detailconsultation;
 
 
     protected $patient;
     protected $medecin;
     protected $specialite;
-    protected $consultation;
     protected $cabinet;
     protected $clientApi;
     protected $membre;
@@ -65,6 +66,9 @@ abstract class BaseController extends Controller
         $this->typeMedecin = new TypeMedecinModel();
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
+        $this->detailconsultation = new DetailconsultationModel();
+        
+
         $this->patient = new PatientModel();
         $this->titulaire = new TitulaireModel();
         $this->specialite = new SpecialiteModel();
