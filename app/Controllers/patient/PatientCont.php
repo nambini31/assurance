@@ -73,7 +73,8 @@ class PatientCont extends BaseController
         try {
             
 
-            $datas = ( $_POST["id_membre"] != ""  ) ? $this->patient->where("id_membre" , $_POST["id_membre"])->findAll() : [];
+            // $datas = ( $_POST["id_membre"] != ""  ) ? $this->patient->where("id_membre" , $_POST["id_membre"])->findAll() : [];
+            $datas = [];
 
 
             $th = "

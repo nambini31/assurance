@@ -24,6 +24,7 @@ use App\Models\Utilisateur\TypeMedecinModel;
 use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
+use App\Models\Examen\ExamenModel;
 
 
 /**
@@ -55,6 +56,7 @@ abstract class BaseController extends Controller
     protected $clientApi;
     protected $membre;
     protected $titulaire;
+    protected $examen;
 
 
     public function __construct()
@@ -71,6 +73,7 @@ abstract class BaseController extends Controller
         $this->cabinet = new CabinetModel();
         $this->medecin = new MedecinModel();
         $this->membre = new MembreModel();
+        $this->examen = new ExamenModel();
     }
 
     /**

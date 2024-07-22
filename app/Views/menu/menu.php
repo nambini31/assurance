@@ -1,8 +1,8 @@
 <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-
-            <li class=" nav-item" title="Visualiser visite"><a class="menu-item" data-id="consultation" href="<?php echo base_url("lienconsultation"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Visite
+              
+            <!-- <li class=" nav-item" title="Visualiser visite"><a class="menu-item" data-id="consultation" href="<?php echo base_url("lienconsultation"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Visite
                    </span></a>
             </li>
 
@@ -18,6 +18,11 @@
                    </span></a>
             </li>
             <li class=" nav-item" title="Visualiser medecin"><a class="menu-item" data-id="membre" href="<?php echo base_url("lienmembre"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Membres
+                   </span></a>
+            </li>
+
+             -->
+            <li class=" nav-item" title="Rapport d'examen"><a class="menu-item" data-id="examen" href="<?php echo base_url("lienexamen"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Examen Medical
                    </span></a>
             </li>
            

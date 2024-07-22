@@ -1,7 +1,7 @@
 @media print {
-  .content-header,
-  .buy-now,
-  .btn-print,
+  nav,
+  .form-actions,
+  .app-content,
   .footer,
   .open,
   .main-menu {
@@ -20,7 +20,9 @@
     position: relative;
     top: -80px !important; }
   .table-responsive {
-    -ms-overflow-style: none; } }
+    -ms-overflow-style: none; } 
+  
+  }
 
 @page {
   size: auto;

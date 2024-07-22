@@ -47,7 +47,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('bloque_membre', 'membre\MembreCont::bloque_membre');
      $routes->post('debloque_membre', 'membre\MembreCont::debloque_membre');
 
-     //route pour patient
+     //route pour examen
      $routes->get('patient', 'patient\PatientCont::index');
      $routes->get('lienpatient', 'patient\PatientCont::lien');
      $routes->post('listes_patient', 'patient\PatientCont::listes_patient');
@@ -86,3 +86,13 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('ajout_specialite', 'medecin\SpecialiteCont::ajout_specialite');
     $routes->post('liste_specialite', 'medecin\SpecialiteCont::liste_specialite');
     $routes->post('supprimer_specialite', 'medecin\SpecialiteCont::supprimer_specialite');
+
+
+    //route pour examen
+    $routes->get('examen', 'examen\ExamenCont::index');
+    $routes->get('lienexamen', 'examen\ExamenCont::lien');
+    $routes->post('listes_examen', 'examen\ExamenCont::listes_examen');
+    $routes->post('getExamenById', 'examen\ExamenCont::getExamenById');
+    $routes->post('ajout_examen', 'examen\ExamenCont::ajout_examen');
+    $routes->post('update_examen', 'examen\ExamenCont::update_examen');
+    $routes->post('delete_examen', 'examen\ExamenCont::delete_examen');
