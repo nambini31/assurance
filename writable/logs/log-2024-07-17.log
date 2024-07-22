@@ -1,0 +1,368 @@
+ERROR - 2024-07-17 15:13:12 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:13:14 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:13:15 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:50 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:53 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:21:54 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-07-17 15:23:39 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'assurance', 3306, '', 0)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2024-07-17 15:24:34 --> Undefined array key "nom_user"
+in APPPATH\Views\header\header.php on line 32.
+ 1 APPPATH\Views\header\header.php(32): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nom_user"', 'E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php', 32)
+ 2 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('header/header', [], true)
+ 5 APPPATH\Views\layout.php(13): view('header/header')
+ 6 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\layout.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('layout', [], true)
+ 9 APPPATH\Controllers\Consultation\ConsultationCont.php(13): view('layout', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-17 15:32:34 --> Undefined array key "nom_user"
+in APPPATH\Views\header\header.php on line 32.
+ 1 APPPATH\Views\header\header.php(32): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nom_user"', 'E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php', 32)
+ 2 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('header/header', [], true)
+ 5 APPPATH\Views\layout.php(13): view('header/header')
+ 6 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\layout.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('layout', [], true)
+ 9 APPPATH\Controllers\Consultation\ConsultationCont.php(13): view('layout', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-17 16:09:05 --> Undefined array key "nom_user"
+in APPPATH\Views\header\header.php on line 32.
+ 1 APPPATH\Views\header\header.php(32): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nom_user"', 'E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php', 32)
+ 2 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('header/header', [], true)
+ 5 APPPATH\Views\layout.php(13): view('header/header')
+ 6 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\layout.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('layout', [], true)
+ 9 APPPATH\Controllers\Consultation\ConsultationCont.php(13): view('layout', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-17 16:09:08 --> Undefined array key "nom_user"
+in APPPATH\Views\header\header.php on line 32.
+ 1 APPPATH\Views\header\header.php(32): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nom_user"', 'E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php', 32)
+ 2 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\header\\header.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('header/header', [], true)
+ 5 APPPATH\Views\layout.php(13): view('header/header')
+ 6 SYSTEMPATH\View\View.php(228): include('E:\\wamp64\\www\\Assurance\\app\\Views\\layout.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('layout', [], true)
+ 9 APPPATH\Controllers\Consultation\ConsultationCont.php(13): view('layout', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

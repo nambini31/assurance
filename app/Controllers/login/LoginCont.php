@@ -63,6 +63,7 @@ class LoginCont extends BaseController
                         $_SESSION['prenom_user'] = $result['prenom_user'];
                         $_SESSION['image_user'] = $result['image'];
                         $_SESSION['id_user'] = $result['id_user'];
+                        $_SESSION['roleId'] = $result['roleId'];
 
                         if ($_SESSION['id_user']) {
                             $designation = "Connecté";
