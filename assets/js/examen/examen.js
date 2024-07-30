@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $('select').selectpicker('refresh');
-    listeExamen();
-
+    listeExamen(); 
 });
 
 
@@ -35,7 +34,7 @@ function listeExamen() {
             $('#table-examen').DataTable({
                 destroy: true,
                 ordering: true,
-                order: [[0, "desc"]],
+                order: [[3, "desc"], [6, "asc"]],
                 responsive: true,
                 info: false,
                 paging: true,
@@ -75,12 +74,19 @@ function listeExamen() {
                         className: "btn btn-sm btn-warning btn-min-width ",
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
-                            $('#btn_add_examen').text("Envoyer au Docteur");
+                            $('#btn_add_examen').text("Envoyer Au Docteur");
+                            if ($("#getRoleConncted").val() == "3") {
+                                $('#btn_add_examen').text("Valider");                                
+                            }
+
                             $("#createExamenModel").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );                           
                             $('#createExamenForm')[0].reset();
+                            const today = new Date().toISOString().split('T')[0];
+
+                            $('.dateExamen').val(today);
                             $("#id_examen_men_modif").val("");
                         },
                     },
@@ -101,9 +107,12 @@ $("#createExamenForm").off("submit").on("submit", function (e) {
     let formData = new FormData(this);
 
     var url = "ajout_examen";
-    if ($('#btn_add_examen').text() === "Modifier"){
+    if ($('#btn_add_examen').text() === "Modifier" || $('#btn_add_examen').text() === "Terminer"){
         url = "update_examen";
     }
+    // else if ($('#btn_add_examen').text() === "Valider") {
+    //     url = "update_examen_by_docteur";        
+    // }
     $.ajax({
         beforeSend: function () {
             $("#modal_content_add_examen").block({
@@ -239,7 +248,7 @@ function delete_examen_from_dialog(id) {
 }
 
 // *****************modification examen
-function edit_examen(id) {      
+function edit_examen(id, verifRole) {      
     $.ajax({
         url: base + "getExamenById",
         type: "POST",
@@ -247,8 +256,12 @@ function edit_examen(id) {
         data: { ExamenId : id },
         success: function (res) {
             if (res) {
-                $('.entete_modal').text("Modification examen");
-                $('#btn_add_examen').text("Modifier");
+                // $('.entete_modal').text("Modification examen");
+                if (verifRole == 3) {
+                    $('#btn_add_examen').text("Terminer");
+                }else{
+                    $('#btn_add_examen').text("Modifier");
+                }
                 $('#examenId').val(res.data[0].ExamenId);
 
                 //completer le les champs ici

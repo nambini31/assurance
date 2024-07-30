@@ -44,7 +44,7 @@ class LoginCont extends BaseController
 
             if ($this->session !== null && $this->session->has('is_connected')) {
 
-                $content = view('dashboard/index');
+                $content = view('examen/index');
                 echo view('layout', ['content' => $content]);
             } else {
 

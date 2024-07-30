@@ -92,6 +92,8 @@ class ExamenModel extends Model
         'etatSanteConsidere',
         'remarquesSpeciales',
         'villeExamen',
+        'etatExamen',
+        'isDeleted'
     ];
     protected $useTimestamps = true;
     protected $createdField = 'createdAt';

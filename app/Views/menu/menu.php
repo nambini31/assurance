@@ -26,13 +26,16 @@
                    </span></a>
             </li>
            
-            
-                <li class=" nav-item"><a class="menu-item" data-id="utilisateur" href="<?php echo base_url("lienutilisateur"); ?>"><i class="la la-user"></i><span data-i18n="DataTables">Utilisateur
-
-                        </span></a>
-
-                </li>
-            
+            <?php 
+            //verifier si c'est superAdmin
+              if ($_SESSION['roleId'] == "5") {              
+            ?>
+              <li class=" nav-item"><a class="menu-item" data-id="utilisateur" href="<?php echo base_url("lienutilisateur"); ?>"><i class="la la-user"></i><span data-i18n="DataTables">Utilisateur
+                     </span></a>
+              </li>
+              <?php 
+                     }
+              ?>
 
 
            

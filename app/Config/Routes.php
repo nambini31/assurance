@@ -11,6 +11,7 @@ use CodeIgniter\Router\RouteCollection;
     
 
     //login user
+    $routes->get('/', 'login\LoginCont::index');
     $routes->get('login', 'login\LoginCont::index');
     $routes->get('redirect', 'login\LoginCont::redirect');
     $routes->POST('exportDatabase', 'login\LoginCont::exportDatabase');
@@ -71,7 +72,7 @@ use CodeIgniter\Router\RouteCollection;
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
     $routes->get('consultation', 'consultation\ConsultationCont::index');
-    $routes->get('/', 'consultation\ConsultationCont::index');
+    // $routes->get('/', 'consultation\ConsultationCont::index');
     $routes->post('charge_patient', 'consultation\ConsultationCont::charge_patient');
     $routes->post('charge_medecin', 'consultation\ConsultationCont::charge_medecin');
     $routes->post('listes_consultation', 'consultation\ConsultationCont::liste_consultation');
@@ -95,4 +96,5 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('getExamenById', 'examen\ExamenCont::getExamenById');
     $routes->post('ajout_examen', 'examen\ExamenCont::ajout_examen');
     $routes->post('update_examen', 'examen\ExamenCont::update_examen');
+    $routes->post('update_examen_by_docteur', 'examen\ExamenCont::update_examen_by_docteur');
     $routes->post('delete_examen', 'examen\ExamenCont::delete_examen');
