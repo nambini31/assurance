@@ -82,7 +82,7 @@ class ExamenCont extends BaseController
     }
     public function listes_examen()
     {
-        try {          
+        try {
             $datas =$this->examen->where("etatExamen" , 0)->where("isDeleted" , 1)->findAll();
             $thValidation = "";
             if ($_SESSION['roleId'] == 3 || $_SESSION['roleId'] == 5) {
@@ -126,11 +126,14 @@ class ExamenCont extends BaseController
                 }
                 $btn = '                
                         <td style="width:10%">
+                            <a class="info mr-1" title = "Imprimer"
+                            onclick="imprimerExamen('.$value_ar["ExamenId"].')"><i class="la la-print"></i></a> 
+
                             <a class="primary edit mr-1" title = "Editer"
                              onclick="edit_examen('.$value_ar["ExamenId"].', 4)"><i class="la la-edit"></i></a> 
 
-                             <a class="danger mr-1" title = "Supprimer"
-                             onclick="delete_examen('.$value_ar["ExamenId"].')"><i class="la la-trash"></i></a> 
+                            <a class="danger mr-1" title = "Supprimer"
+                            onclick="delete_examen('.$value_ar["ExamenId"].')"><i class="la la-trash"></i></a>
                         </td>
                 ';
 
@@ -163,6 +166,32 @@ class ExamenCont extends BaseController
         $selectedExamen = $this->examen->where("ExamenId" , $ExamenId)->find();
         echo json_encode(["data" => $selectedExamen]);
     }
+
+    //imprimer examen
+    // public function imprimerExamen(){
+    //     $this->pdf->SetMargins(0, 0, 8, 0);
+    //     $html = view('pdf/pdfExamen');
+    //     ini_set('display_errors', 1);
+    //     ini_set('display_startup_errors', 1);
+    //     error_reporting(E_ALL);
+
+    //     ini_set('memory_limit', '256M');
+
+    //     // Add the HTML content to the mPDF object
+    //     $this->pdf->writeHTML($html);
+
+    //     // Output the PDF
+    //     $pdfFileName = 'pdfExamen_' . date("dmYhi") . '.pdf';
+
+    //     // Enregistrer le PDF sur le serveur
+    //     $pdfFilePath = 'uploads/examen/' . $pdfFileName;
+
+    //     header('Content-type: application/force-download');
+    //     $this->pdf->Output($pdfFilePath, "F");
+    //     echo json_encode(array('file' => base_url() . $pdfFilePath));
+
+    //     exit();
+    // }
 
 }
 

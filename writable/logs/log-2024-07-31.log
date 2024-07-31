@@ -1,0 +1,54 @@
+CRITICAL - 2024-07-31 12:18:36 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:18:37 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:18:59 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:19:04 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:19:07 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:19:13 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:19:53 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:19:58 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-07-31 12:25:52 --> Class "Mpdf\Mpdf" not found
+in APPPATH\Controllers\BaseController.php on line 85.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\BaseController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

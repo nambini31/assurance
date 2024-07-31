@@ -98,3 +98,6 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('update_examen', 'examen\ExamenCont::update_examen');
     $routes->post('update_examen_by_docteur', 'examen\ExamenCont::update_examen_by_docteur');
     $routes->post('delete_examen', 'examen\ExamenCont::delete_examen');
+    //imprimer Examen
+    $routes->post('imprimerExamen', 'examen\ExamenCont::imprimerExamen');
+

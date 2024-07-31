@@ -14,6 +14,9 @@
 
 
                         <div class="card-content">
+                            <!-- <div>
+                                <input type="date" name="filtreDate" id="filtreDate">
+                            </div> -->
                             <div class="card-body" id="card-examen">
                                 <center>
                                     <h6 class="text-center" style="font-size: 14px; margin-bottom: -25px;">Listes Examens</h6>
@@ -217,7 +220,7 @@
 
                             <?php 
                                 // verifier si c'est Docteur
-                                if ($_SESSION['roleId'] == "3") {              
+                                if ($_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
                                 ?>
                             <div class="row">
                                 <h3>ACUITE AUDITIVE : </h3>
@@ -601,7 +604,7 @@
 
                             <?php 
                                 // verifier si c'est Infirmier
-                                if ($_SESSION['roleId'] == "4" || $_SESSION['roleId'] == "3") {              
+                                if ($_SESSION['roleId'] == "4" || $_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
                             ?>
                             <!-- affichage pour l'infirmer -->
                             <div class="row">
@@ -691,7 +694,7 @@
                             
                             <?php 
                                 // verifier si c'est Docteur
-                                if ($_SESSION['roleId'] == "3") {              
+                                if ($_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
                             ?>
                             <div class="row">
                                 <h3>IX-SYSTEME NERVEUX</h3>
@@ -869,7 +872,7 @@
                             <div class="form-actions right" >
                                 <?php
                                     // $titreBoutton = "Envoyer au Docteur";
-                                    // if ($_SESSION['roleId'] == "3") {
+                                    // if ($_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {
                                     //     $titreBoutton = "Valider";
                                     // }
                                 ?>

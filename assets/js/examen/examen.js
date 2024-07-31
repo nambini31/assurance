@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $('select').selectpicker('refresh');
-    listeExamen(); 
+    listeExamen();
+
+    //set date to flitre date
+    const today = new Date().toISOString().split('T')[0];
+    $('.dateExamen').val(today);
+
 });
 
 
@@ -41,7 +46,27 @@ function listeExamen() {
                 deferRender: true,
                 pageLength: 7,
                 "initComplete": function (settings, json) {
-                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                    // $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                
+                    var $searchBox = $('div.dataTables_filter input');
+                    $searchBox.attr('placeholder', 'Recherche').css("font-size", "7px");
+                    
+                    // Ajout de l'input date à côté de la recherche
+                    $searchBox.after(
+                        '<input type="date" id="filtreDate" style="margin-left: 10px; font-size: 7px;" class="">'
+                    );
+
+                    //definir les default date dans l'input
+                    const today = new Date().toISOString().split('T')[0];
+                    $('#filtreDate').val(today);
+                    $("#table-examen").DataTable().columns(3).search(today).draw();
+
+                    // Filtre de date
+                    $('#filtreDate').on('change', function() {
+                        var selectedDate = $(this).val();
+                        $("#table-examen").DataTable().columns(3).search(selectedDate).draw(); // Supposant que la date est dans la 4ème colonne (index 3)
+                    });
+                
                 },
                 language: {
                     "search": "",
@@ -85,12 +110,29 @@ function listeExamen() {
                             );                           
                             $('#createExamenForm')[0].reset();
                             const today = new Date().toISOString().split('T')[0];
-
                             $('.dateExamen').val(today);
+
                             $("#id_examen_men_modif").val("");
                         },
                     },
                 ],
+
+                //trasferer les date en francais
+                // columnDefs: [
+                //     {
+                //         targets: 3, // Cible la quatrième colonne (index 3)
+                //         render: function(data, type, row) {
+                //             if (type === 'display' || type === 'filter') {
+                //                 var date = new Date(data);
+                //                 var day = ("0" + date.getDate()).slice(-2);
+                //                 var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                //                 var year = date.getFullYear();
+                //                 return day + "-" + month + "-" + year;
+                //             }
+                //             return data;
+                //         }
+                //     }
+                // ]
             });
             $("#card-examen").unblock();
 
@@ -400,14 +442,36 @@ function filtrerexamen() {
 }
 
 //********* IMPRIMER ***************/
-$(document).ready(function () {
-    // print invoice with button
-
+function imprimerExamen(idExamen) {
+    $.ajax({
+        // beforeSend: function () {
+        //     $(".card").block({
+        //     message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+        //     overlayCSS: {
+        //         backgroundColor: "black",
+        //         opacity: 0.1,
+        //         cursor: "wait",
+        //     },
+        //     css: {
+        //         border: 0,
+        //         padding: 0,
+        //         backgroundColor: "transparent"
+        //     }
+        //     });
+        // },
+        url: base + 'imprimerExamen',
+        dataType: 'json',
     
-    $("#btn_print_examen").click(function () {
-     
-          window.print();
-        
-      
+        type: 'POST',
+        data: { idExamen: idExamen},
+        success: function (file) {
+            // $(".card").unblock();
+            window.open(file.file);
+            alertCustom("success", 'ft-check', "Bien imprimer");
+        },
+        error: function (data) {
+            // $(".card").unblock();
+            alertCustom("danger", 'ft-check', "Non imprimer");
+        }
     });
-  });
+  }

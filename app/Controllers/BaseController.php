@@ -25,6 +25,8 @@ use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
+use Mpdf\Mpdf;
+
 
 
 /**
@@ -48,7 +50,8 @@ abstract class BaseController extends Controller
     protected $typeMedecin;
     protected $consultation;
     protected $detailconsultation;
-
+    protected $pdf;
+    protected $dompdf;
 
     protected $patient;
     protected $medecin;
@@ -78,6 +81,9 @@ abstract class BaseController extends Controller
         $this->medecin = new MedecinModel();
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
+
+        $this->pdf = new Mpdf();
+
     }
 
     /**
