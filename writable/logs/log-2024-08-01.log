@@ -212,3 +212,120 @@ in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
  5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
  6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:02:39 --> fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240902.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240902.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:02:42 --> fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240902.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240902.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:02:49 --> fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240902.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240902.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240902.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:03:20 --> fopen(uploads/examen/pdfExamen_010820240903.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240903.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240903.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240903.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:03:43 --> fopen(uploads/examen/pdfExamen_010820240903.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240903.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240903.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240903.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:04:36 --> fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240904.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240904.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:04:38 --> fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240904.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240904.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:04:45 --> fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240904.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240904.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240904.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:41:09 --> fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240941.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240941.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:41:11 --> fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240941.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240941.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:41:12 --> fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240941.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240941.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:41:14 --> fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240941.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240941.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 09:41:27 --> fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240941.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240941.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(192): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240941.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

@@ -444,35 +444,34 @@ function filtrerexamen() {
 //********* IMPRIMER ***************/
 function imprimerExamen(idExamen) {
     $.ajax({
-        // beforeSend: function () {
-        //     $(".card").block({
-        //     message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
-        //     overlayCSS: {
-        //         backgroundColor: "black",
-        //         opacity: 0.1,
-        //         cursor: "wait",
-        //     },
-        //     css: {
-        //         border: 0,
-        //         padding: 0,
-        //         backgroundColor: "transparent"
-        //     }
-        //     });
-        // },
+        beforeSend: function () {
+            $("card-examen").block({
+            message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+            overlayCSS: {
+                backgroundColor: "black",
+                opacity: 0.1,
+                cursor: "wait",
+            },
+            css: {
+                border: 0,
+                padding: 0,
+                backgroundColor: "transparent"
+            }
+            });
+        },
         url: base + 'imprimerExamen',
         dataType: 'json',
     
         type: 'POST',
         data: { idExamen: idExamen},
         success: function (file) {
-            // $(".card").unblock();
+            $("card-examen").unblock();
             window.open(file.file);
-            alertCustom("success", 'ft-check', "Bien imprimer");
+            alertCustom("success", 'ft-check', "Bien imprimé");
         },
         error: function (data) {
-            // $(".card").unblock();
+            $("card-examen").unblock();
             alertCustom("danger", 'ft-check', "Non imprimer");
-            console.log(data);
         }
     });
   }

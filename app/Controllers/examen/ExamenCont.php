@@ -3,7 +3,7 @@
 namespace App\Controllers\examen;
 
 use App\Controllers\BaseController;
-use PhpParser\Node\Stmt\TryCatch;
+
 
 class ExamenCont extends BaseController
 {
@@ -170,36 +170,45 @@ class ExamenCont extends BaseController
     //imprimer examen
     public function imprimerExamen(){
         try {
-            //code...
+            // Initialisation de mPDF
             $this->pdf->SetMargins(0, 0, 8, 0);
+        
+            // Génération du contenu HTML
             $html = view('pdf/pdfExamen');
+        
+            // Configuration d'erreur
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
-            
-            ini_set('memory_limit', '256M');
-            
-            // Add the HTML content to the mPDF object
-            $this->pdf->writeHTML($html);
-            
-            // Output the PDF
-            $pdfFileName = 'pdfExamen_' . date("dmYhi") . '.pdf';
-            
-            // Enregistrer le PDF sur le serveur
-            $pdfFilePath = 'uploads/examen/' . $pdfFileName;
-            var_dump($pdfFilePath); die;
-            
-            header('Content-type: application/force-download');
-            $this->pdf->Output($pdfFilePath, "F");
-            // echo json_encode(array('file' => base_url() . $pdfFilePath));
-            
-            // exit();
-        } catch (\Throwable $th) {
-            var_dump($th);
-            throw $th;
-        }
-    }
         
+            // Limite de mémoire
+            ini_set('memory_limit', '256M');
+        
+            // Ajout du contenu HTML à mPDF
+            $this->pdf->WriteHTML($html);
+        
+            // Définition du nom du fichier PDF
+            $pdfFileName = 'pdfExamen_' . date("dmYhi") . '.pdf';
+            $pdfFilePath = 'public/uploads/examen/' . $pdfFileName;
+        
+            // Vérification des permissions du dossier
+            if (!is_writable(dirname($pdfFilePath))) {
+                throw new \Exception('Le dossier n\'est pas accessible en écriture : ' . dirname($pdfFilePath));
+            }
+        
+            // Enregistrement du fichier PDF
+            $this->pdf->Output($pdfFilePath, "F");
+        
+            // Réponse JSON avec le chemin du fichier
+            echo json_encode(['file' => base_url() . $pdfFilePath]);
+        } catch (\Throwable $th) {
+            // Gestion des exceptions
+            echo 'Erreur: ' . $th->getMessage();
+            error_log($th->getMessage()); // Enregistrer l'erreur dans les logs
+        }
+        
+    }
+
 }
 
 
