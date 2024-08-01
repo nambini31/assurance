@@ -472,6 +472,7 @@ function imprimerExamen(idExamen) {
         error: function (data) {
             // $(".card").unblock();
             alertCustom("danger", 'ft-check', "Non imprimer");
+            console.log(data);
         }
     });
   }

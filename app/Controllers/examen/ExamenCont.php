@@ -3,7 +3,7 @@
 namespace App\Controllers\examen;
 
 use App\Controllers\BaseController;
-
+use PhpParser\Node\Stmt\TryCatch;
 
 class ExamenCont extends BaseController
 {
@@ -168,31 +168,38 @@ class ExamenCont extends BaseController
     }
 
     //imprimer examen
-    // public function imprimerExamen(){
-    //     $this->pdf->SetMargins(0, 0, 8, 0);
-    //     $html = view('pdf/pdfExamen');
-    //     ini_set('display_errors', 1);
-    //     ini_set('display_startup_errors', 1);
-    //     error_reporting(E_ALL);
-
-    //     ini_set('memory_limit', '256M');
-
-    //     // Add the HTML content to the mPDF object
-    //     $this->pdf->writeHTML($html);
-
-    //     // Output the PDF
-    //     $pdfFileName = 'pdfExamen_' . date("dmYhi") . '.pdf';
-
-    //     // Enregistrer le PDF sur le serveur
-    //     $pdfFilePath = 'uploads/examen/' . $pdfFileName;
-
-    //     header('Content-type: application/force-download');
-    //     $this->pdf->Output($pdfFilePath, "F");
-    //     echo json_encode(array('file' => base_url() . $pdfFilePath));
-
-    //     exit();
-    // }
-
+    public function imprimerExamen(){
+        try {
+            //code...
+            $this->pdf->SetMargins(0, 0, 8, 0);
+            $html = view('pdf/pdfExamen');
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+            
+            ini_set('memory_limit', '256M');
+            
+            // Add the HTML content to the mPDF object
+            $this->pdf->writeHTML($html);
+            
+            // Output the PDF
+            $pdfFileName = 'pdfExamen_' . date("dmYhi") . '.pdf';
+            
+            // Enregistrer le PDF sur le serveur
+            $pdfFilePath = 'uploads/examen/' . $pdfFileName;
+            var_dump($pdfFilePath); die;
+            
+            header('Content-type: application/force-download');
+            $this->pdf->Output($pdfFilePath, "F");
+            // echo json_encode(array('file' => base_url() . $pdfFilePath));
+            
+            // exit();
+        } catch (\Throwable $th) {
+            var_dump($th);
+            throw $th;
+        }
+    }
+        
 }
 
 

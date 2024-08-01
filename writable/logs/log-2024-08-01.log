@@ -1,0 +1,214 @@
+CRITICAL - 2024-08-01 07:34:36 --> fopen(uploads/examen/pdfExamen_010820240734.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240734.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240734.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240734.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:35:03 --> fopen(uploads/examen/pdfExamen_010820240735.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240735.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240735.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240735.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:37:26 --> fopen(uploads/examen/pdfExamen_010820240737.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240737.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240737.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240737.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:37:47 --> fopen(uploads/examen/pdfExamen_010820240737.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240737.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240737.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240737.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:38:19 --> fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240738.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240738.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:38:43 --> fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240738.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240738.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:38:57 --> fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240738.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240738.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240738.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:39:04 --> fopen(uploads/examen/pdfExamen_010820240739.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240739.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240739.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(191): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240739.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:42:56 --> Cannot read an undeclared property Mpdf\Mpdf::$writeHTML
+in FCPATH\vendor\mpdf\mpdf\src\Strict.php on line 34.
+ 1 APPPATH\Controllers\examen\ExamenCont.php(182): Mpdf\Mpdf->__get('writeHTML')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:48:30 --> fopen(uploads/examen/pdfExamen_010820240748.pdf): Failed to open stream: No such file or directory
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(uploads/examen/pdfExamen_010820240748.pdf): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('uploads/examen/pdfExamen_010820240748.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('uploads/examen/pdfExamen_010820240748.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:50:10 --> fopen(http://assurance.mg/public/uploads/examen/pdfExamen_010820240750.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/public/uploads/examen/pdfExamen_010820240750.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/public/uploads/examen/pdfExamen_010820240750.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('http://assurance.mg/public/uploads/examen/pdfExamen_010820240750.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:50:49 --> fopen(http://assurance.mg/uploads/examen/pdfExamen_010820240750.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/uploads/examen/pdfExamen_010820240750.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/uploads/examen/pdfExamen_010820240750.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('http://assurance.mg/uploads/examen/pdfExamen_010820240750.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:52:14 --> fopen(http://assurance.mg/assets/pdfExamen_010820240752.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240752.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240752.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240752.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:52:54 --> fopen(http://assurance.mg/assets/pdfExamen_010820240752.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240752.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240752.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240752.pdf', 'F')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:53:28 --> fopen(http://assurance.mg/assets/pdfExamen_010820240753.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240753.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240753.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(190): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240753.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:56:55 --> fopen(http://assurance.mg/assets/pdfExamen_010820240756.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240756.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240756.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240756.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:57:24 --> fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240757.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240757.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:57:44 --> fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240757.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240757.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:57:48 --> fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240757.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240757.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240757.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 07:58:56 --> fopen(http://assurance.mg/assets/pdfExamen_010820240758.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240758.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240758.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240758.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 08:00:17 --> fopen(http://assurance.mg/assets/pdfExamen_010820240800.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240800.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240800.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240800.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 08:00:26 --> fopen(http://assurance.mg/assets/pdfExamen_010820240800.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240800.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240800.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240800.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 08:01:08 --> fopen(http://assurance.mg/assets/pdfExamen_010820240801.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240801.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240801.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240801.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-08-01 08:01:16 --> fopen(http://assurance.mg/assets/pdfExamen_010820240801.pdf): Failed to open stream: HTTP wrapper does not support writeable connections
+in FCPATH\vendor\mpdf\mpdf\src\Mpdf.php on line 9629.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(http://assurance.mg/assets/pdfExamen_010820240801.pdf): Failed to open stream: HTTP wrapper does not support writeable connections', 'C:\\xampp\\htdocs\\assurance\\vendor\\mpdf\\mpdf\\src\\Mpdf.php', 9629)
+ 2 FCPATH\vendor\mpdf\mpdf\src\Mpdf.php(9629): fopen('http://assurance.mg/assets/pdfExamen_010820240801.pdf', 'wb')
+ 3 APPPATH\Controllers\examen\ExamenCont.php(193): Mpdf\Mpdf->Output('http://assurance.mg/assets/pdfExamen_010820240801.pdf')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\examen\ExamenCont->imprimerExamen()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\examen\ExamenCont))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
