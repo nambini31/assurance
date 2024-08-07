@@ -2,8 +2,6 @@
 
 namespace Sicaa\NumberToFrWords;
 
-use PhpParser\Node\Expr\Cast\Double;
-
 final class NumberToFrWords
 {
     const UNITS = [
