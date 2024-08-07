@@ -465,12 +465,12 @@ function imprimerExamen(idExamen) {
         type: 'POST',
         data: { idExamen: idExamen},
         success: function (file) {
-            $("card-examen").unblock();
+            $("#card-examen").unblock();
             window.open(file.file);
             alertCustom("success", 'ft-check', "Bien imprimé");
         },
         error: function (data) {
-            $("card-examen").unblock();
+            $("#card-examen").unblock();
             alertCustom("danger", 'ft-check', "Non imprimer");
         }
     });

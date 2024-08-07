@@ -175,6 +175,7 @@ class ExamenCont extends BaseController
         
             // Génération du contenu HTML
             $html = view('pdf/pdfExamen');
+            // var_dump($html); die;
         
             // Configuration d'erreur
             ini_set('display_errors', 1);
@@ -205,8 +206,7 @@ class ExamenCont extends BaseController
             // Gestion des exceptions
             echo 'Erreur: ' . $th->getMessage();
             error_log($th->getMessage()); // Enregistrer l'erreur dans les logs
-        }
-        
+        }        
     }
 
 }

@@ -6,34 +6,51 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
-            margin: 20px;
+            margin: 1% 5%;
         }
+
+        /* header */
         .header {
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
         }
+        .header h1 {
+            flex: 1;
+            text-align: center;
+            border-style: solid;
+            padding: 20px;
+            margin-left: 2%;
+        }
+        /* fin header */
+
         .section {
-            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 10px 0px;
         }
         .section-title {
             font-weight: bold;
             text-decoration: underline;
-            margin-bottom: 10px;
+            margin-top: 20px;
         }
         .field {
+            display: flex;
             margin-bottom: 5px;
         }
         .label {
-            display: inline-block;
-            width: 180px;
-            font-weight: bold;
+            font-weight: inherit;
+            font-size: 13px;
         }
         .value {
             display: inline-block;
             width: calc(100% - 180px);
-            border-bottom: 1px solid #000;
+            border-bottom: 1px dashed #000;
+            flex: 1;
+            margin: 0% 2%;
+            font-size: 13px;
+            text-align: left;
         }
         .checkbox-group {
             display: flex;
@@ -76,57 +93,74 @@
         <img src="logoOmit.png" alt="" width="150">
         <h1>RAPPORT D'EXAMEN MEDICAL</h1>
     </div>
-    <div class="section">
-        <div class="field">
-            <span class="label">Établissement:</span>
-            <span class="value"></span>
-        </div>
-        <div class="field">
-            <span class="label">Nom et Prénoms:</span>
-            <span class="value">TSIATOSIKA, Daolahy</span>
-        </div>
-        <div class="field">
-            <span class="label">Date de naissance:</span>
-            <span class="value">14/10/1994</span>
-        </div>
-        <div class="field">
-            <span class="label">Profession:</span>
-            <span class="value">Agent de sécurité</span>
-        </div>
-        <div class="field">
-            <span class="label">Adresse:</span>
-            <span class="value">Milonjazo Betanimena</span>
-        </div>
-        <div class="field">
-            <span class="label">Examen médical effectué le:</span>
-            <span class="value">07 FEV 2024</span>
-        </div>
-        <div class="field">
-            <span class="label">Par le Docteur:</span>
-            <span class="value"></span>
-        </div>
+    
+    <div style="display: flex; align-items: center;">
+        <h2 style="text-transform: uppercase; text-decoration: underline;">Établissement:</h2>
+        <h2 style="margin-left: 25px; flex: 1; border-bottom: 1px dashed #000;">GSM</h2>
     </div>
 
     <div class="section">
-        <div class="section-title">BIOMÉTRIE</div>
-        <div class="field">
-            <span class="label">Poids:</span> <span class="value">63 kg</span>
-        </div>
-        <div class="field">
-            <span class="label">Taille:</span> <span class="value">1.70 m</span>
-        </div>
-        <div class="field">
-            <span class="label">TAG:</span> <span class="value">10%</span>
-        </div>
-        <div class="field">
-            <span class="label">TAD:</span> <span class="value">110</span>
-        </div>
-        <div class="field">
-            <span class="label">Acuité visuelle:</span> <span class="value">OG: 6/10, OD: 6/10</span>
-        </div>
-        <div class="field">
-            <span class="label">Acuité auditive:</span> <span class="value">Bonne</span>
-        </div>
+        <input type="checkbox"><span class="label">M</span>
+        <input type="checkbox"><span class="label">Mlle</span>
+        <input type="checkbox"><span class="label">Mme</span>
+        <span class="label" style="margin-left: 5%">Nom et Prénoms:</span>
+        <span class="value">TSIATOSIKA Daolahy</span>
+    </div>
+
+    <div class="section">
+        <span class="label" style="width: 130px;">Date de naissance:</span>
+        <span style="margin-right: 2%; width: 80px; border-bottom: 1px dashed #000;">14/10/1994</span>
+        <span class="label">Profession:</span>
+        <span class="value">Agent de sécurité Agent de sécurité Agent de sécurité Agent de sécurité</span>
+        <span class="label">Adresse:</span>
+        <span class="value">Milonjazo Betanimena</span>
+    </div>
+
+    <div class="section">
+        <span class="label">Examen médical effectué le: </span>
+        <span style="margin:0% 1%; width: 80px; border-bottom: 1px dashed #000;"> 07 FEV 2024</span>
+        <span class="label">Par le Docteur:</span>
+        <span class="value">Biby</span>
+    </div>
+
+    <div class="section-title">BIOMÉTRIE</div>
+    <div class="section">        
+        <span class="label">Poids:</span> <span class="value">63 kg</span>
+        <span class="label">Taille:</span> <span class="value">1.70 m</span>
+        <span class="label">TAG:</span> <span class="value">10%</span>
+        <span class="label">TAD:</span> <span class="value">110</span>
+    </div>
+
+    <div class="section-title">ACUITE VISUELLE</div>
+    <div class="section">    
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th width="100">OD</th>
+                    <th width="100">OG</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label">Avant correction : </td>
+                    <td style="text-align: center;"><span class="">2</span> /10</td>
+                    <td style="text-align: center;"><span>8</span> /10</td>
+                </tr>
+                <tr>
+                    <td class="label">Après correction : </td>
+                    <td style="text-align: center;"><span>2</span> /10</td>
+                    <td style="text-align: center;"><span>8</span> /10</td>
+                </tr>
+            </tbody>
+        </table>  
+    </div>
+
+    <div class="section">
+        <div style="font-weight: bold; text-decoration: underline;">ACUITE AUDITIVE : </div>
+        <input type="checkbox"><span class="label" style="margin-right: 2%;">Bonne</span>
+        <input type="checkbox"><span class="label" style="margin-right: 2%;">Mauvaise</span>
+        <input type="checkbox"><span class="label" style="margin-right: 2%;">Sourde</span>
     </div>
 
     <div class="section">
