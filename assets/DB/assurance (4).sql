@@ -55,7 +55,7 @@ CREATE TABLE `consultation` (
   `titulaireId` int(11) NOT NULL,
   `docteurId` int(11) NOT NULL,
   `typeConsultationId` int(11) NOT NULL,
-  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date DEFAULT NULL,
   `isFinished` int(11) NOT NULL DEFAULT 0 COMMENT '0 : encours ;\r\n1 : terminée'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -81,7 +81,7 @@ CREATE TABLE `detailconsultation` (
   `poids` varchar(10) DEFAULT NULL,
   `douleur` text NOT NULL,
   `descriptionDouleur` text DEFAULT NULL,
-  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -99,7 +99,7 @@ CREATE TABLE `detailmedicament` (
   `matin` varchar(50) DEFAULT NULL,
   `midi` varchar(50) DEFAULT NULL,
   `soir` varchar(50) DEFAULT NULL,
-  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -130,7 +130,7 @@ CREATE TABLE `enfant` (
   `dateNaiss` date DEFAULT NULL,
   `isActif` int(11) NOT NULL DEFAULT 1 COMMENT '0 : ne doit plus profité à cause du limite d''age .\r\n1 : doit profité(-20)',
   `etat` int(11) NOT NULL DEFAULT 1 COMMENT '0 : supprimé ;\r\n1 : non supprimé',
-  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
