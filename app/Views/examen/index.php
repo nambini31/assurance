@@ -50,14 +50,19 @@
                             <input type="hidden"  name="examenId"  id="examenId">
                             <div class="form-body" >     
 
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <h1>Logo OMIT</h1>
-                                </div>    
+                                <div class="form-row">
+                                    <div class="col-md-10">
+                                        <img src="<?= base_url() ?>assets/img/logoOmit.png" alt="" width="100">
+                                    </div>    
+                                    <div class="col-md-2 text-right">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
 
-                            </div>
-                                <div class="col-md-12 border-">
-                                    <h1>RAPPORT D'EXAMEN MEDICAL</h1>
+                                <div class="col-md-12 text-center">
+                                    <h1  style="border: 2px solid black; padding: 10px; display: inline-block;">RAPPORT D'EXAMEN MEDICAL</h1>
                                 </div>
                                 <br>
 

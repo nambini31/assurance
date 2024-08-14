@@ -5,7 +5,7 @@
     <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
     <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
-    <title>Député application</title>
+    <title>OMIT Assurance</title>
     <link rel="apple-touch-icon" href="<?php echo base_url() ?>/assets/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url() ?>/assets/ico/favicon.ico">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/vendors.min.css">
