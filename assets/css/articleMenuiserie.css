@@ -6,6 +6,19 @@ p, li ,a{
   
 }
 
+.navbar-nav {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+body.vertical-layout.vertical-menu .main-menu .main-menu-content {
+    padding-top: 50px;
+}
+
 td{
     color: #353131 !important;
     border: 1px solid #0000001c !important;
@@ -98,7 +111,7 @@ div.dataTables_wrapper div.dataTables_filter{
 
 .btn-warning:hover{
 
-    background-color: #296fd1 !important;
+    background-color: #05ec6d !important;
     box-shadow: 0 7px 12px 0 rgba(96, 96, 99, 0.16) !important;
 
 
@@ -106,19 +119,19 @@ div.dataTables_wrapper div.dataTables_filter{
 
 .main-menu.menu-dark .navigation > li.open > a {
     color: #ffffff;
-    border-right: 4px solid #1978ff;
+    border-right: 4px solid #05d363;
 }
 
 .btn-warning{
 
-    background-color: #1978ff !important;
+    background-color: #05d363 !important;
     border: none !important;
 
 }
 
 .btn-warning:focus, .btn-warning:active {
-    border-color: #1978ff !important;
-    background-color: #1978ff !important;
+    border-color: #05d363 !important;
+    background-color: #05d363 !important;
     color: #FFF !important;
 }
 
@@ -173,7 +186,7 @@ form .form-actions {
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #1978ff !important;
+    background-color: #05d363 !important;
 }
 
 .header-navbar .navbar-header .navbar-brand .brand-logo {
