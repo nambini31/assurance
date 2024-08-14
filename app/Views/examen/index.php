@@ -141,7 +141,7 @@
                                         <div class="col-md-9">
                                             <!-- <input type="text" id="docteurExamen" class="form-control border-primary" name="docteurExamen"> -->
 
-                                            <select class="selectpicker  form-control btn-sm" name="roleId"  id="select_docteur" data-live-search='true' data-size='5' title='Docteur'>
+                                            <select class="selectpicker  form-control btn-sm" name="docteurExamen"  id="docteurExamen" data-live-search='true' data-size='5' title='Docteur'>
                                                 
                                             </select>
                                         </div>

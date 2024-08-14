@@ -484,8 +484,8 @@ function imprimerExamen(idExamen) {
         type: "POST",
         
         success: function (data) {
-            $("#select_docteur").empty();
-            $("#select_docteur").append(data);
+            $("#docteurExamen").empty();
+            $("#docteurExamen").append(data);
             $('select').selectpicker('refresh');
         }
     });

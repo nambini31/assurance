@@ -216,12 +216,12 @@ class ExamenCont extends BaseController
     public function getDocteurExamen(){
         try {
 
-            $data =  $this->utilisateur->findAll();
+            $data =  $this->utilisateur->where("roleId", 3)->findAll();
 
             $listeDocteur = '';
             foreach ($data as $value) {
                 $listeDocteur .= '
-                    <option value="' . $value['roleId'] . '"> '. $value['name'] . '</option> ';
+                    <option value="' . $value['nom_user'] .' '. $value['prenom_user']  . '"> '. $value['nom_user'] .' '. $value['prenom_user'] . '</option> ';
             }
             echo $listeDocteur;
         } catch (\Throwable $th) {
