@@ -173,9 +173,12 @@ class ExamenCont extends BaseController
             // Initialisation de mPDF
             $this->pdf->SetMargins(0, 0, 8, 0);
         
-            // Génération du contenu HTML
-            $html = view('pdf/pdfExamen');
-            // var_dump($html); die;
+            $ExamenId= $_POST['idExamen'];
+            $selectedExamen = $this->examen->find($ExamenId);            
+
+            // Génération du contenu HTML selectedExamen
+            // var_dump($selectedExamen); die;
+            $html = view('pdf/pdfExamen', ["selectedExamen" => $selectedExamen]);
         
             // Configuration d'erreur
             ini_set('display_errors', 1);
