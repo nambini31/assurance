@@ -34,7 +34,7 @@ function listeExamen() {
         success: function (res) {
 
             let hide_btn_art = "";
-            if (sessionData && sessionData.roleId == "5") {
+            if (sessionData && sessionData.roleId != "3") {
                 hide_btn_art = "";
             } else {
                 hide_btn_art = "hidden";
