@@ -634,7 +634,7 @@
             </tr>
             <tr>
                 <td colspan="5"  style="text-align: center;">
-                    <h2>REMARQUES SPECIALES ET SUGGESTIONS DU MEDCIN</h2><br>
+                    <h2>REMARQUES SPECIALES ET SUGGESTIONS DU MEDECIN</h2><br>
                     <span><?= $selectedExamen['remarquesSpeciales'] ?></span>
                 </td>
             </tr>
