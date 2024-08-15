@@ -212,6 +212,24 @@ class ExamenCont extends BaseController
         }        
     }
 
+    /** Charger liste des Docteur */
+    public function getDocteurExamen(){
+        try {
+
+            $data =  $this->utilisateur->where("roleId", 3)->findAll();
+
+            $listeDocteur = '';
+            foreach ($data as $value) {
+                $listeDocteur .= '
+                    <option value="' . $value['nom_user'] .' '. $value['prenom_user']  . '"> '. $value['nom_user'] .' '. $value['prenom_user'] . '</option> ';
+            }
+            echo $listeDocteur;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /************************************************** */
+
 }
 
 

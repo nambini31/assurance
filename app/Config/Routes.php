@@ -100,4 +100,5 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('delete_examen', 'examen\ExamenCont::delete_examen');
     //imprimer Examen
     $routes->post('imprimerExamen', 'examen\ExamenCont::imprimerExamen');
+    $routes->post('getDocteurExamen', 'examen\ExamenCont::getDocteurExamen');
 

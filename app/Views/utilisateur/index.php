@@ -47,7 +47,7 @@
                                     <div class="col-12">
                                         <fieldset class="form-group position-relative ">
                                         <select class="selectpicker  form-control btn-sm" name="roleId"  required id="select_role" data-live-search='true' data-size='5' title='Role utilisateur'>
-                                                
+                                            
                                         </select>
                                             
                                         </fieldset>

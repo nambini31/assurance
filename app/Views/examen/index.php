@@ -139,7 +139,11 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 label-control" for="docteurExamen">par le docteur: </label>
                                         <div class="col-md-9">
-                                            <input type="text" id="docteurExamen" class="form-control border-primary" name="docteurExamen">
+                                            <!-- <input type="text" id="docteurExamen" class="form-control border-primary" name="docteurExamen"> -->
+
+                                            <select class="selectpicker  form-control btn-sm" name="docteurExamen"  id="docteurExamen" data-live-search='true' data-size='5' title='Docteur'>
+                                                
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

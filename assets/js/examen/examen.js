@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('select').selectpicker('refresh');
     listeExamen();
+    charge_docteur();
 
     //set date to flitre date
     const today = new Date().toISOString().split('T')[0];
@@ -472,6 +473,20 @@ function imprimerExamen(idExamen) {
         error: function (data) {
             $("#card-examen").unblock();
             alertCustom("danger", 'ft-check', "Non imprimer");
+        }
+    });
+  }
+
+  /* **** *** Charger liste docteur **** */
+  function charge_docteur() {
+    $.ajax({
+        url: base + 'getDocteurExamen',
+        type: "POST",
+        
+        success: function (data) {
+            $("#docteurExamen").empty();
+            $("#docteurExamen").append(data);
+            $('select').selectpicker('refresh');
         }
     });
   }
