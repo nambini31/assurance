@@ -32,6 +32,14 @@ function listeExamen() {
         url: base + "listes_examen",
         type: "POST",
         success: function (res) {
+
+            let hide_btn_art = "";
+            if (sessionData && sessionData.roleId == "5") {
+                hide_btn_art = "";
+            } else {
+                hide_btn_art = "hidden";
+            }
+
             if ($.fn.DataTable.isDataTable("table-examen")) {
                 $("#table-examen").DataTable().destroy();
             }
@@ -97,7 +105,7 @@ function listeExamen() {
                         },
                     },
                     {
-                        className: "btn btn-sm btn-warning btn-min-width ",
+                        className: "btn btn-sm btn-warning btn-min-width " + hide_btn_art,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
                             $('#btn_add_examen').text("Envoyer Au Docteur");

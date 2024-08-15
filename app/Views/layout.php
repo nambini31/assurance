@@ -20,6 +20,7 @@
     
 
     let base = "<?php echo base_url(); ?>";
+    var sessionData = <?= json_encode($_SESSION) ?>;
     
 </script>
     <div id="content">
