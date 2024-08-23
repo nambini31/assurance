@@ -865,7 +865,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="5">
-                                                    <h2>REMARQUES SPECIALES ET SUGGESTIONS DU MEDCIN</h2>
+                                                    <h2>REMARQUES SPECIALES ET SUGGESTIONS DU MEDECIN</h2>
                                                     <textarea id="remarquesSpeciales" rows="2" class="form-control" name="remarquesSpeciales"></textarea>
                                                 </td>
                                             </tr>

@@ -32,6 +32,14 @@ function listeExamen() {
         url: base + "listes_examen",
         type: "POST",
         success: function (res) {
+
+            let hide_btn_art = "";
+            if (sessionData && sessionData.roleId != "3") {
+                hide_btn_art = "";
+            } else {
+                hide_btn_art = "hidden";
+            }
+
             if ($.fn.DataTable.isDataTable("table-examen")) {
                 $("#table-examen").DataTable().destroy();
             }
