@@ -57,17 +57,18 @@ function listeExamen() {
                         '<input type="date" id="filtreDate" style="margin-left: 10px; font-size: 7px;" class="">'
                     );
 
+                    // Ajout des inputs de date pour la plage de recherche
+                    
                     //definir les default date dans l'input
                     const today = new Date().toISOString().split('T')[0];
                     $('#filtreDate').val(today);
                     $("#table-examen").DataTable().columns(3).search(today).draw();
-
+                    
                     // Filtre de date
                     $('#filtreDate').on('change', function() {
                         var selectedDate = $(this).val();
                         $("#table-examen").DataTable().columns(3).search(selectedDate).draw(); // Supposant que la date est dans la 4ème colonne (index 3)
-                    });
-                
+                    });                
                 },
                 language: {
                     "search": "",
@@ -79,25 +80,15 @@ function listeExamen() {
                 },
                 dom: "Bfrtip",
                 buttons: [
-                    // {
-                    //     extend: "excelHtml5",
-                    //     title: "Listes des Examen",
-                    //     className: "btn btn-sm btn-success",
-                    //     text: 'Excel',
-                    //     exportOptions: {
-                    //         columns: ':not(:last-child)'
-                    //     }
-
-                    // },
                     {
-                        className: "btn btn-sm btn-secondary btn-min-width ",
+                        className: "btn btn-sm btn-secondary",
                         text: '<i class="ft-refresh"> Actualiser</i>',
                         action: function () {
                             listeExamen();
                         },
                     },
                     {
-                        className: "btn btn-sm btn-warning btn-min-width ",
+                        className: "btn btn-sm btn-warning",
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
                             $('#btn_add_examen').text("Envoyer Au Docteur");
@@ -113,7 +104,7 @@ function listeExamen() {
                             const today = new Date().toISOString().split('T')[0];
                             $('.dateExamen').val(today);
 
-                            $("#id_examen_men_modif").val("");
+                            $("#id_examen_men_modif").val("");                            
                         },
                     },
                 ],
@@ -490,3 +481,13 @@ function imprimerExamen(idExamen) {
         }
     });
   }
+  /******************** ******************* */
+
+  /** Rechrche deux dates */
+$("#createExamenForm").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+    
+})
+  /******************************* */

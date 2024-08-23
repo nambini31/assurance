@@ -1,26 +1,44 @@
 <div class="app-content content">
     <div class="content-overlay"></div>
+
     <div class="content-wrapper">
         <div class="content-header row">
         </div>
         <div class="content-body">
             <div class="content-overlay"></div>
             <section class="row all-contacts">
+                
                 <div class="col-12">
-                    <div class="card">
+                    <h1 class="text-left" style="">Listes Examens Medicaux</h1>
+                    <!-- <form action="" method="post" id="deuxDateForm">
+                        <div class="card" id="">
+                            <div class="row mt-1 pb-1 mx-auto" style="">
+                                <div class="col-1">
+                                    <label for="date_debut_promotion">Du:</label>
+                                </div>
+                                <div class="col-3">
+                                    <input required type="date" id="dateDebutExamen" class="form-control input-sm" name="" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Début">
+                                </div>
 
-                    </div>
-                    <div class="card">
+                                <div class="col-1">
+                                    <label for="date_fin_promotion">Au: </label>
+                                </div>
+                                <div class="col-3">
+                                    <input required type="date" id="dateFinExamen" class="form-control input-sm" name="" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fin">
+                                </div>
 
+                                <div class="col-">                                
+                                    <button type="submit" id="btn_recherche" class=" btn btn-sm btn-info"><i class="ft-search"></i> Deux dates</i></button>
+                                </div>                                
+                            </div>
+                        </div>
+                    </form> -->
+
+                    <div class="card">
 
                         <div class="card-content">
-                            <!-- <div>
-                                <input type="date" name="filtreDate" id="filtreDate">
-                            </div> -->
                             <div class="card-body" id="card-examen">
-                                <center>
-                                    <h6 class="text-center" style="font-size: 14px; margin-bottom: -25px;">Listes Examens</h6>
-                                </center>
+                                
                                 <table id="table-examen" class="table table-white-space table-bordered no-wrap  text-center" style="width: 100% !important; overflow: auto !important; display: block !important;">
 
                                 </table>
