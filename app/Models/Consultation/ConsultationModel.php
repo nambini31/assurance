@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class ConsultationModel extends Model
 {
     protected $table            = 'consultation';
-    protected $primaryKey       = 'id_consultation';
+    protected $primaryKey       = 'consultationId';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["numero_patient" , "id_medecin" , "motif" , "etat"];
+    protected $allowedFields    = ["titulaireId" , "docteurId" , "idTypeMedecin" , "etat" , "isFinished"];
 
     // Dates
     protected $useTimestamps = true;

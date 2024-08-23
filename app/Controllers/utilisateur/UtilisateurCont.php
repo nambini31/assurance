@@ -11,7 +11,10 @@ class UtilisateurCont extends BaseController
     public function lien(): string
     {
        
+        if ($_SESSION['roleId'] == "5") {
+            
             return view('utilisateur/index');
+        }
         
         
     }
@@ -53,9 +56,11 @@ class UtilisateurCont extends BaseController
 
     public function page_utilisateur()
     {
+        if ($_SESSION['roleId'] == "5") {
 
             $content = view('utilisateur/index');
             return view('layout',['content' => $content]);
+        }
        
         
     }

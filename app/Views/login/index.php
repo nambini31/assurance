@@ -22,8 +22,10 @@
                     <div class="col-12 d-flex align-items-center justify-content-center" style="z-index: 99999999999 !important;">
                         <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
                             <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
-                                <div class="card-header border-0">
-                                    
+                            <div class="card-header border-0">
+                                    <div class="card-title text-center">
+                                        <img src="<?php echo base_url() ?>/assets/img/logoOmit.png" alt="branding logo" style="width: 25%;">
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                     

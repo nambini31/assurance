@@ -10,7 +10,7 @@ use App\Controllers\login\LoginCont;
 use App\Models\Cabinet\CabinetModel;
 
 use App\Models\Consultation\ConsultationModel;
-
+use App\Models\Consultation\DetailconsultationModel;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -24,6 +24,9 @@ use App\Models\Utilisateur\TypeMedecinModel;
 use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
+use App\Models\Examen\ExamenModel;
+use Mpdf\Mpdf;
+
 
 
 /**
@@ -45,16 +48,19 @@ abstract class BaseController extends Controller
     protected $role;
     protected $session;
     protected $typeMedecin;
-
+    protected $consultation;
+    protected $detailconsultation;
+    protected $pdf;
+    protected $dompdf;
 
     protected $patient;
     protected $medecin;
     protected $specialite;
-    protected $consultation;
     protected $cabinet;
     protected $clientApi;
     protected $membre;
     protected $titulaire;
+    protected $examen;
 
 
     public function __construct()
@@ -65,12 +71,19 @@ abstract class BaseController extends Controller
         $this->typeMedecin = new TypeMedecinModel();
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
+        $this->detailconsultation = new DetailconsultationModel();
+        
+
         $this->patient = new PatientModel();
         $this->titulaire = new TitulaireModel();
         $this->specialite = new SpecialiteModel();
         $this->cabinet = new CabinetModel();
         $this->medecin = new MedecinModel();
         $this->membre = new MembreModel();
+        $this->examen = new ExamenModel();
+
+        $this->pdf = new Mpdf();
+
     }
 
     /**

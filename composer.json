@@ -18,6 +18,7 @@
         "dompdf/dompdf": "^2.0",
         "ifsnop/mysqldump-php": "^2.12",
         "laminas/laminas-escaper": "^2.9",
+        "mpdf/mpdf": "^8.2",
         "psr/log": "^1.1",
         "sicaa/number-to-fr-words": "^1.0",
         "snapappointments/bootstrap-select": "^1.13",

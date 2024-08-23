@@ -142,8 +142,8 @@ function liste_consultation() {
                 buttons: [
 
                     {
-                        className: "btn btn-sm btn-secondary btn-min-width ",
-                        text: '<i class="ft-refresh"> Actualiser</i>',
+                        className: "btn btn-sm btn-secondary",
+                        text: '<i class="ft-rotate-cw"> </i>',
                         action: function () {
 
                             liste_consultation();
@@ -151,25 +151,14 @@ function liste_consultation() {
                         },
                     },
 
-                    {
-                        extend: "excelHtml5",
-                        title: "Liste délégués",
-                        className: "btn btn-sm btn-success",
-                        text: 'Excel',
-                        exportOptions: {
-                            columns: ':not(:last-child)'
-                        }
-
-                    },
+                 
                     {
                         className: "btn btn-sm btn-warning btn-min-width ",
-                        text: '<i class="ft-plus"> Ahouter</i>',
+                        text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
-                            $('.entete_modal').text("Ajout consultation ");
-                            $('#btn_add_consultation').text("Ajouter");
 
-                            $("#AddContactModal").modal(
+                            $("#AddConsultation").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );
@@ -187,6 +176,100 @@ function liste_consultation() {
 
         },
     });
+
+}
+function liste_patient(idconsultation , isFinished) {
+
+
+    $.ajax({
+        beforeSend: function () {
+
+            $("#AddConsultation").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "listes_patient_malade",
+        type: "POST",
+        data:{
+            idconsultation :  idconsultation ,
+            isFinished :  isFinished ,
+        },
+        success: function (res) {
+            if ($.fn.DataTable.isDataTable("table_patient")) {
+                $("#table_patient").DataTable().destroy();
+            } else {
+            }
+            $('#table_patient').empty();
+            $("#table_patient").append(res);
+
+
+            $('#table_patient').DataTable({
+                destroy: true,
+                ordering: true,
+                order: [[0, "desc"]],
+                responsive: true,
+                info: false,
+                paging: true,
+                deferRender: true,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                }
+                ,
+
+
+
+                dom: "Bfrtip",
+                buttons: [
+                    {
+                        className: "btn btn-sm btn-warning btn-min-width ",
+                        text: '<i class="ft-plus"> Ajouter</i>',
+                        action: function () {
+
+
+                            $("#AddConsultation").modal(
+                                { backdrop: "static", keyboard: false },
+                                "show"
+                            );
+                            annulerAjoutconsultation();
+
+
+                        },
+                    },
+                    
+
+
+                ],
+            });
+            $("#AddConsultation").unblock();
+
+        },
+    });
+    $("#AddConsultation").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
 
 }
 
@@ -403,11 +486,11 @@ var num = "";
 
 function annulerAjoutconsultation() {
 
-    $('#patient_select').selectpicker('val', []);
-    $('#medecin_select').selectpicker('val', []);
-    $("#id_consultation_men_modif").val("");
-    $("#motif").val("");
-    num = "";
+    // $('#patient_select').selectpicker('val', []);
+    // $('#medecin_select').selectpicker('val', []);
+    // $("#id_consultation_men_modif").val("");
+    // $("#motif").val("");
+    // num = "";
 }
 
 

@@ -33,8 +33,7 @@ class ConsultationCont extends BaseController
         try {
 
             $id = $_POST['id_consultation'];
-
-            $this->consultation->where('id_consultation', $id)->delete();
+            $this->consultation->update($id, ['etat' => 0]);
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
@@ -127,10 +126,11 @@ class ConsultationCont extends BaseController
                 
                 $datas =  $datas
             ->where('consultation.etat', 1)
-            ->select("medecin.nom_medecin ,membre.id_membre, patient.nom , patient.prenom, consultation.*")
-            ->join("medecin" , "medecin.id_medecin = consultation.id_medecin")
-            ->join("patient" , "consultation.numero_patient = patient.numero_patient")
-            ->join("membre" , "membre.id_membre = patient.id_membre")
+            ->select("titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
+            ->join("utilisateur" , "utilisateur.id_user = consultation.docteurId")
+            ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
+            ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
+            ->join("membre" , "membre.id_membre = titulaire.membreId")
             ->where('membre.id_membre', $_POST["id_membre"] ) ;
 
             }
@@ -138,13 +138,13 @@ class ConsultationCont extends BaseController
             if ($_POST["date_debut"] != "" ) {
                 
                 $datas = $datas
-                ->where("date(consultation.created_at) >= ", $_POST["date_debut"] );
+                ->where("date(consultation.createdAt) >= ", $_POST["date_debut"] );
 
             }
             if ( $_POST["date_fin"] != "") {
                 
                 $datas = $datas
-                ->where("date(consultation.created_at) <= ", $_POST["date_fin"] );
+                ->where("date(consultation.createdAt) <= ", $_POST["date_fin"] );
 
             }
 
@@ -156,10 +156,11 @@ class ConsultationCont extends BaseController
             $th = "
                     <thead>
                       <tr>
-                            <th>Numero</th>
-                            <th>Nom prenom</th>
-                            <th>Medecin</th>
-                            <th>Motif</th>
+                            <th>Carte N°</th>
+                            <th>Titulaire</th>
+                            <th>Docteur</th>
+                            <th>Type</th>
+                            <th>Nbr Patient</th>
                             <th>Date</th>
                             <th>Action</th>
                         </tr></thead> 
@@ -168,14 +169,79 @@ class ConsultationCont extends BaseController
             foreach ($ctegorie as $value) {
                 $th .=
                     '<tr>
-                        <td style="width : 10%;">' . $value["numero_patient"] . ' </td>
+                        <td style="width : 10%;">' . $value["consultationId"] . ' </td>
                         <td style="width : 20%;">' . $value["nom"] ." ". $value["prenom"] . ' </td>
-                        <td style="width : 20%;">' . $value["nom_medecin"] . '</td> 
-                        <td style="width : 30%;">' . $value["motif"] . '</td> 
-                        <td style="width : 10%;">' . $value["created_at"] . '</td> 
+                        <td style="width : 20%;">' . $value["nom_user"] ." ". $value["prenom_user"] . ' </td>
+                        <td style="width : 15%;">' . $value["designtypeconsultation"] . ' </td>
+                        <td style="width : 10%;">' . 5 . '</td> 
+                        <td style="width : 10%;">' . $value["createdAt"] . '</td> 
 
-                        <td style="width : 10%;"> <a class="info mr-1" data-id_membre="'.$value["id_membre"] .'" data-id_medecin="'.$value["id_medecin"] .'" data-numero_patient = "'.$value["numero_patient"] .'"  data-motif="'.$value["motif"] .'"   id="cons_'.$value["id_consultation"] .'"  onclick="edit_consultation(' . $value["id_consultation"] . ')"><i class=" la la-pencil"></i></a>
-                        <a class="danger mr-1" onclick="supprimerconsultation(' . $value["id_consultation"] . ')"><i class=" la la-trash-o"></i></a> </td> 
+                        <td style="width : 10%;"> 
+                        <a class="info mr-1"  onclick="liste_patient( ' . $value["consultationId"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>
+                        <a class="info mr-1"  onclick="edit_consultation(' . 1 . ')"><i class=" la la-pencil"></i></a>
+
+                        <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> </td> 
+                       </tr>';
+            }
+
+            $th .= "</tbody> ";
+
+            echo $th;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function listes_patient_malade()
+    {
+        try {
+            
+            $datas = $this->detailconsultation
+            ->select("
+            case 
+            when detailconsultation.TypepersonneMalade = 'Titulaire' then CONCAT(titulaire.nom, ' ', titulaire.prenom)
+            when detailconsultation.TypepersonneMalade = 'Conjoint(e)' then titulaire.nomprenomconjoint
+            ELSE CONCAT(enfant.nom, ' ', enfant.prenom)
+            END AS nom ,
+
+            case 
+            when detailconsultation.TypepersonneMalade = 'Titulaire' then titulaire.genre
+            when detailconsultation.TypepersonneMalade = 'Conjoint(e)' then titulaire.genreconjoint
+            ELSE enfant.genre
+            END AS genre 
+            
+            , detailconsultation.*")
+            ->join("titulaire", "titulaire.titulaireId = detailconsultation.titulaireId", "left")
+            ->join("enfant", "enfant.enfantId = detailconsultation.enfantId", "left")
+            ->where('detailconsultation.consultationId', $_POST["idconsultation"] )
+            ->findAll();
+
+            var_dump($datas); die;
+
+            $th = "
+                    <thead>
+                      <tr>
+                            <th>#</th>
+                            <th>Nom - prenoddm</th>
+                            <th>Genre</th>
+                            <th>Nbr Patient</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr></thead> 
+                        <tbody>";
+
+            foreach ($ctegorie as $value) {
+                $th .=
+                    '<tr>
+                        <td style="width : 10%;">' . $value["consultationId"] . ' </td>
+                        <td style="width : 20%;">' . $value["nom"] ." ". $value["prenom"] . ' </td>
+                        <td style="width : 20%;">' . $value["nom_user"] ." ". $value["prenom_user"] . ' </td>
+                        <td style="width : 15%;">' . $value["designtypeconsultation"] . ' </td>
+                        <td style="width : 10%;">' . 5 . '</td> 
+                        <td style="width : 10%;">' . $value["createdAt"] . '</td> 
+
+                        <td style="width : 10%;"> <a class="info mr-1"  onclick="edit_consultation(' . 1 . ')"><i class=" la la-pencil"></i></a>
+                        <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> </td> 
                        </tr>';
             }
 

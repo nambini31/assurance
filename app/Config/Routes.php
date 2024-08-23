@@ -11,6 +11,7 @@ use CodeIgniter\Router\RouteCollection;
     
 
     //login user
+    $routes->get('/', 'login\LoginCont::index');
     $routes->get('login', 'login\LoginCont::index');
     $routes->get('redirect', 'login\LoginCont::redirect');
     $routes->POST('exportDatabase', 'login\LoginCont::exportDatabase');
@@ -47,7 +48,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('bloque_membre', 'membre\MembreCont::bloque_membre');
      $routes->post('debloque_membre', 'membre\MembreCont::debloque_membre');
 
-     //route pour patient
+     //route pour examen
      $routes->get('patient', 'patient\PatientCont::index');
      $routes->get('lienpatient', 'patient\PatientCont::lien');
      $routes->post('listes_patient', 'patient\PatientCont::listes_patient');
@@ -57,7 +58,12 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
      $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
      $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
-     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
+     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');  
+
+     //route pour patient
+
+     $routes->post('listes_patient_malade', 'titulaire\ConsultationCont::listes_patient_malade');
+    //  $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
 
     //route medecin
     $routes->get('lienmedecin', 'medecin\MedecinCont::lien');
@@ -71,7 +77,7 @@ use CodeIgniter\Router\RouteCollection;
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
     $routes->get('consultation', 'consultation\ConsultationCont::index');
-    $routes->get('/', 'consultation\ConsultationCont::index');
+    // $routes->get('/', 'consultation\ConsultationCont::index');
     $routes->post('charge_patient', 'consultation\ConsultationCont::charge_patient');
     $routes->post('charge_medecin', 'consultation\ConsultationCont::charge_medecin');
     $routes->post('listes_consultation', 'consultation\ConsultationCont::liste_consultation');
@@ -86,3 +92,18 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('ajout_specialite', 'medecin\SpecialiteCont::ajout_specialite');
     $routes->post('liste_specialite', 'medecin\SpecialiteCont::liste_specialite');
     $routes->post('supprimer_specialite', 'medecin\SpecialiteCont::supprimer_specialite');
+
+
+    //route pour examen
+    $routes->get('examen', 'examen\ExamenCont::index');
+    $routes->get('lienexamen', 'examen\ExamenCont::lien');
+    $routes->post('listes_examen', 'examen\ExamenCont::listes_examen');
+    $routes->post('getExamenById', 'examen\ExamenCont::getExamenById');
+    $routes->post('ajout_examen', 'examen\ExamenCont::ajout_examen');
+    $routes->post('update_examen', 'examen\ExamenCont::update_examen');
+    $routes->post('update_examen_by_docteur', 'examen\ExamenCont::update_examen_by_docteur');
+    $routes->post('delete_examen', 'examen\ExamenCont::delete_examen');
+    //imprimer Examen
+    $routes->post('imprimerExamen', 'examen\ExamenCont::imprimerExamen');
+    $routes->post('getDocteurExamen', 'examen\ExamenCont::getDocteurExamen');
+
