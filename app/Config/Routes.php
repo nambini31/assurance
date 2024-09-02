@@ -58,7 +58,11 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
      $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
      $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
-     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');  
+     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');
+     $routes->post('delete_titulaire', 'titulaire\TitulaireCont::delete_titulaire');
+     $routes->post('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
+     $routes->get('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
+     $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
 
      //route pour patient
 

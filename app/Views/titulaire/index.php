@@ -25,7 +25,7 @@
 
                     </div>
                     <div class="card">
-
+                        
 
                         <div class="card-content">
                             <div class="card-body" id="card-titulaire">
@@ -59,7 +59,7 @@
                         <h3 class="modal-header entete_modal">
                         </h3>
                         <form class="form" method="post" id="createTitulaireForm">
-                            <input type="hidden"  name="titulaireId"  id="titulaireId">
+                            <input type="hidden"  name="titulaireId"  id="titulaireId" value="0">
                             <div class="form-body">     
 
                                 <div class="form-row">
@@ -70,99 +70,101 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label for="numCarte" class="col-form-label">Num Carte</label>
-                                        <input name="numCarte" id="numCarte" type="text" class="form-control">
+                                        <label for="numCnaps" class="col-form-label">Num Cnaps</label>
+                                        <input name="numCnaps" id="numCnaps" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Genre</label>
-                                        <select name="genre" id="genre" type="text" class="form-control">
-                                            <option value="homme">Homme</option>
+                                        <select name="genre" id="genre" type="text" class="form-control input-sm">
+                                            <option value="Homme">Homme</option>
                                             <option value="Femme">Femme</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Date de Naissance</label>
-                                        <input name="dateNaiss" id="dateNaiss" type="date" class="form-control">
+                                        <input name="dateNaiss" id="dateNaiss" type="date" class="form-control input-sm">
                                     </div>
                                 </div>   
 
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="nom" class="col-form-label">Nom</label>
-                                        <input name="nom" id="nom" type="text" class="form-control">
+                                        <input name="nom" id="nom" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label for="prenom" class="col-form-label">Prénom</label>
-                                        <input name="prenom" id="prenom" type="text" class="form-control">
+                                        <input name="prenom" id="prenom" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label for="cin" class="col-form-label">CIN</label>
-                                        <input name="cin" id="cin" type="number" class="form-control">
+                                        <input name="cin" id="cin" type="number" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Adresse</label>
-                                        <input name="adresse" id="adresse" type="text" class="form-control">
+                                        <input name="adresse" id="adresse" type="text" class="form-control input-sm">
                                     </div>
                                 </div> 
                                 
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Télephone</label>
-                                        <input name="telephone" id="telephone" type="text" class="form-control">
+                                        <input name="telephone" id="telephone" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label for="prenom" class="col-form-label">Fonction</label>
-                                        <input name="fonction" id="fonction" type="text" class="form-control">
+                                        <input name="fonction" id="fonction" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Date Embauche</label>
-                                        <input name="dateEmbauche" id="dateEmbauche" type="date" class="form-control">
+                                        <input name="dateEmbauche" id="dateEmbauche" type="date" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Date Débauche</label>
-                                        <input name="dateDebauche" id="dateDebauche" type="date" class="form-control">
+                                        <input name="dateDebauche" id="dateDebauche" type="date" class="form-control input-sm">
                                     </div>
                                 </div> 
                                 
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Photo</label>
-                                        <input name="photo" id="photo" type="file" class="form-control">
+                                        <input name="photo" id="photo" type="file" class="form-control input-sm">
+                                        <label for="" id="labelImageTitulaire"></label>
+                                        <input type="hidden" name="labelImageTitulaireIn" id="labelImageTitulaireIn" />
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label for="prenom" class="col-form-label">Email</label>
-                                        <input name="email" id="email" type="text" class="form-control">
+                                        <input name="email" id="email" type="text" class="form-control input-sm">
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-6">
                                         <label class="col-form-label">Nom et Prénom Conjoint(e)</label>
-                                        <input name="nomPrenomConjoint" id="nomPrenomConjoint" type="text" class="form-control">
+                                        <input name="nomPrenomConjoint" id="nomPrenomConjoint" type="text" class="form-control input-sm">
                                     </div>
-
-                                    <div class="form-group col-md-3">
-                                        <label class="col-form-label">Date Naiss Conjoint(e)</label>
-                                        <input name="dateNaissConjoint" id="dateNaissConjoint" type="date" class="form-control">
-                                    </div>
+                                    
                                 </div> 
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
+                                        <label class="col-form-label">Date Naiss Conjoint(e)</label>
+                                        <input name="dateNaissConjoint" id="dateNaissConjoint" type="date" class="form-control input-sm">
+                                    </div>
+                                    <div class="form-group col-md-4">
                                         <label class="col-form-label">Télephone Conjoint(e)</label>
-                                        <input name="telephoneConjoint" id="telephoneConjoint" type="text" class="form-control">
+                                        <input name="telephoneConjoint" id="telephoneConjoint" type="text" class="form-control input-sm">
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="prenom" class="col-form-label">Genre Conjoint(e)</label>
-                                        <select name="genreConjoint" id="genreConjoint" type="text" class="form-control">
+                                        <select name="genreConjoint" id="genreConjoint" type="text" class="form-control ">
                                             <option value="homme">Homme</option>
                                             <option value="Femme">Femme</option>
                                         </select>

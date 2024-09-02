@@ -118,13 +118,33 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
 
     let formData = new FormData(this);
     var photo = $("#photo")[0].files[0];
-    
-    // Vérifiez le type de fichier et la taille
-    if (!photo.type.startsWith('image/') || photo.size > 10485760) {
-        alert("Veuillez selectionner une image avec une talle < 10Mo");
-        return;
+    var url = "ajout_titulaire";
+
+    //verifier si c'st modifier
+    if ($('#titulaireId').val() != "0") {
+        url = "update_titulaire";
+        if (!photo) {
+            // Vérifiez le type de fichier et la taille
+            // if (!photo.type.startsWith('image/') || photo.size > 10485760) {
+            //     alert("Veuillez selectionner une image avec une talle < 10Mo");
+            //     return;
+            // }else{            
+            //     formData.append("photo", photo);                
+            // }
+            // formData.append("labelImageTitulaireIn", nomPhoto);                       
+            var nomPhoto = $('#labelImageTitulaire').html();
+            formData.append("photo", nomPhoto);                          
+        } 
     }
-    formData.append("photo", photo);
+    if (photo) {
+        // Vérifiez le type de fichier et la taille
+        if (!photo.type.startsWith('image/') || photo.size > 10485760) {
+            alert("Veuillez selectionner une image avec une talle < 10Mo");
+            return;
+        }else{            
+            formData.append("photo", photo);                
+        }
+    }    
     
     $.ajax({
         beforeSend: function () {
@@ -143,7 +163,7 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
                 }
             });
         },
-        url: base + "ajout_titulaire",
+        url: base + url,
         type: "POST",
         processData: false,
         contentType: false,
@@ -152,8 +172,7 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
         data: formData,
         success: function (res) {
             if (res.success) {
-                alert(" true")
-                if ($('#btn_add_patient').text() === "Modifier") {
+                if ($('#btn_add_titualire').text() === "Modifier") {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
                     listeTitulaire();
                     annulerAjoutTitulaire();
@@ -175,43 +194,31 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
 });
 //--------------------------------------------------------------
 
-function close_del_patient() {
-    $("#card_patient").unblock();
+function close_del_titulaire() {
+    $("#card-titulaire").unblock();
 }
 
 // *************************dialogue suppression deleate
-function delete_patient(id) {
-
-
-    $("#card_patient").block({
+function deleteTitulaire(id) {
+    $("#card-titulaire").block({
         message: `
-          
-          
-          <div class="card" style="max-width:400px ; ">
-          <div class="card-header" style="max-width:400px ;">
-                   <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
-          </div>
-          <div class="card-content">
-              <div class="card-body">
-                  <p>Voulez-vous supprimer ce patient  ?</p>
-  
-                      <button type="button" onclick="delete_patient_from_dialog(`+ id + `)" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
-                      <button type="button" onclick="close_del_patient()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
-  
-  
-              </div>
-          </div>
-          </div>
-        
-  
-  
-          `,
-
+            <div class="card" style="max-width:400px ; ">
+                <div class="card-header" style="max-width:400px ;">
+                    <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p>Voulez-vous supprimer ?</p>  
+                        <button type="button" onclick="delete_titulaire_from_dialog(`+ id + `)" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                        <button type="button" onclick="close_del_titulaire()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </div>
+                </div>
+            </div>
+        `,
         overlayCSS: {
             backgroundColor: 'black',
             opacity: 0.1,
             cursor: "wait",
-
         },
         css: {
             border: 0,
@@ -219,29 +226,20 @@ function delete_patient(id) {
             backgroundColor: "transparent"
         }
     });
-
-
 }
 
 
 // **************************suppression apres boite dialogue de suppression
-function delete_patient_from_dialog(id) {
-
-
-
-    $("#card_patient").unblock();
-
+function delete_titulaire_from_dialog(id) {
+    // $("#card-titulaire").unblock();
     $.ajax({
         beforeSend: function () {
-
-            $("#card_patient").block({
+            $("#card-titulaire").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
-
                 overlayCSS: {
                     backgroundColor: "black",
                     opacity: 0.1,
                     cursor: "wait",
-
                 },
                 css: {
                     border: 0,
@@ -249,62 +247,81 @@ function delete_patient_from_dialog(id) {
                     backgroundColor: "transparent"
                 }
             });
-
         },
-        url: base + "delete_patient",
+        url: base + "delete_titulaire",
         type: "POST",
         dataType: "JSON",
-        data: { id_patient: id },
+        data: { titulaireId: id },
         success: function (res) {
-
-            $("#card_patient").unblock();
-
+            $("#card-titulaire").unblock();
             if (res.id > 0) {
-
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
-
             } else {
-
                 alertCustom("danger", 'ft-x', "Suppression non effectué");
-
             }
-
-            liste_patient();
-
+            listeTitulaire();
         },
     });
-
 }
 
-// *****************modification patient
+// ***** modification *******/
+function editTitulaire(id) {
 
-var id_faritany = 0;
-var id_region = 0;
-var id_district = 0;
-var id_bv = 0;
+    $.ajax({
+        url: base + "getTitulaireById", // L'URL du contrôleur qui renvoie les données du titulaire
+        type: 'POST',
+        dataType: 'JSON',
+        data: { titulaireId: id }, // Passer l'id du titulaire à l'URL
+        success: function(res) {
+            var titulaire = res.data[0];
+            
+            // Remplir les champs du formulaire avec les données du titulaire
+            $('#titulaireId').val(titulaire.titulaireId);
+            $('#membreId').val(titulaire.membreId);
+            $('select').selectpicker('refresh');
+            $('#numCnaps').val(titulaire.numCnaps);
+            $('#nom').val(titulaire.nom);
+            $('#prenom').val(titulaire.prenom);
+            $('#genre').val(titulaire.genre);
+            $('#dateNaiss').val(titulaire.dateNaiss);
+            $('#telephone').val(titulaire.telephone);
+            $('#cin').val(titulaire.cin);
+            $('#adresse').val(titulaire.adresse);
+            $('#fonction').val(titulaire.fonction);
+            $('#dateEmbauche').val(titulaire.dateEmbauche);
+            $('#dateDebauche').val(titulaire.dateDebauche);
+            // Pour la photo, il peut être nécessaire de gérer cela différemment
+            $('#labelImageTitulaire').html(titulaire.photo);            
+            $('#labelImageTitulaireIn').val(titulaire.photo);
+            $('#email').val(titulaire.email);
+            $('#nomPrenomConjoint').val(titulaire.nomPrenomConjoint);
+            $('#dateNaissConjoint').val(titulaire.dateNaissConjoint);
+            $('#telephoneConjoint').val(titulaire.telephoneConjoint);
+            $('#genreConjoint').val(titulaire.genreConjoint);
 
-function edit_patient(id) {  
-    $('.entete_modal').text("Modification patient");
-    $('#btn_add_patient').text("Modifier");
-    $("#AddContactModal").modal(
-        { backdrop: "static", keyboard: false },
-        "show"
-    );
-    
-    var nom = $('#mem_' + id).data('nom_patient');
-    var contact = $('#mem_' + id).data('contact_patient');
-    var email = $('#mem_' + id).data('email_patient');
-
-    $('input[name="contact_patient"]').val(contact);
-    $('input[name="nom_patient"]').val(nom);
-    $('input[name="email_patient"]').val(nom);
-    $('input[name="id_patient"]').val(id);
+            // Afficher le formulaire (par exemple, en ouvrant un modal)
+            // $('#createTitulaireForm').modal('show');
+            $('.entete_modal').text("Modification");
+            $('#btn_add_titualire').text("Modifier");
+            $("#createTitulaireModel").modal(
+                { backdrop: "static", keyboard: false },
+                "show"
+            );
+        },
+        error: function(xhr, status, error) {
+            // Gestion des erreurs
+            console.log("Erreur lors de la récupération des données :", error);
+        }
+    });
 }
 
 //*******************ANNULATION BUTTTON */
 function annulerAjoutTitulaire() {
     $('#createTitulaireForm')[0].reset();
     $("#titulaireId").val("");
+    $("#labelImageTitulaire").html("");
+    $("#membreId").val("");
+    $('select').selectpicker('refresh');
 }
 //-------------------------------------------------
 

@@ -368,7 +368,7 @@ class UtilisateurCont extends BaseController
             $prenom_user = $this->request->getPost('prenom');
             $mdp_user = $this->request->getPost('password');
             $role_user = $this->request->getPost('roleId');
-            $label_image = $this->request->getPost('label_image');
+            $label_image = $this->request->getPost('label_image');+
 
             // Check if the ID is valid
             $existingRecord = $this->utilisateur->find($id);
