@@ -118,9 +118,10 @@ class TitulaireCont extends BaseController
     {
         try {
             $datas = $this->titulaire
-            ->where("etat" , 1)->findAll();
+            ->where("etat" , 1)->orderBy("titulaireId", 'desc')->findAll();
             $th = "
                 <thead>
+                    <th>#</th>
                     <th>Photo</th>
                     <th>Num Carte</th>
                     <th>Nom et Prénom</th>
@@ -132,9 +133,10 @@ class TitulaireCont extends BaseController
             ";
             $th .= "<tbody> ";
             
-
+            
+            $n=0;
             foreach ($datas as $value_ar) {
-
+                
                 //generation de numCarte
                 if ($value_ar["membreId"] != null) {
                     $membreId = $value_ar["membreId"];
@@ -166,11 +168,13 @@ class TitulaireCont extends BaseController
                         <a class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                     </td>
                 ';
-                $textAssuree = '<span class="badge badge-success" style="font-size:13px">Assuré</span>';
+                $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssure('.$value_ar["titulaireId"].')"><i class="ft-check"></i> Assuré</span>';
                 if ($value_ar["isActif"] == "0") {
-                    $textAssuree = '<span class="badge badge-danger" style="font-size:14px" >Non Assuré</span>';
+                    $textAssuree = '<span class="badge badge-danger" style="font-size:14px ; cursor: pointer;" onclick="assure('.$value_ar["titulaireId"].')" ><i class="la la-ban"></i> Non Assuré</span>';
                 }
+                $n++;
                 $th .= "                    
+                    <td style='width:10%'> ". $n ."</td>
                     <td style='width:10%'> ". $photo ."</td>
                     <td style='width:10%'> ". $numCartGenere ."</td>
                     <td style='width:20%'> ". $value_ar["nom"] ." ". $value_ar["prenom"] ."</td>
@@ -197,6 +201,30 @@ class TitulaireCont extends BaseController
         echo json_encode(["data" => $selectedData]);
     }
     /** ********************************/
+
+    /****** Mettre non assuré */
+    public function toNonAssure()
+    {
+        try {            
+            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 0 , "motifNonAssure"=> $_POST["motifNonAssure"]]);
+            echo json_encode(["id" => 1]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /***************************************** */
+
+    /****** Mettre non assuré */
+    public function toAssure()
+    {
+        try {            
+            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 1 , "motifNonAssure"=> $_POST["motifNonAssure"]]);
+            echo json_encode(["id" => 1]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /***************************************** */
 
 
     function genererNumeroCarte($nomMembre, $numeroCarte) {

@@ -65,7 +65,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="membreId" class="col-form-label">Membre</label>
-                                        <select name="membreId" id="membreId" class="selectpicker form-control" data-live-search='true'>
+                                        <select name="membreId" id="membreId" class="selectpicker form-control" data-live-search='true' required>
                                         </select>
                                     </div>
 
@@ -165,7 +165,7 @@
                                     <div class="form-group col-md-4">
                                         <label for="prenom" class="col-form-label">Genre Conjoint(e)</label>
                                         <select name="genreConjoint" id="genreConjoint" type="text" class="form-control ">
-                                            <option value="homme">Homme</option>
+                                            <option value="Homme">Homme</option>
                                             <option value="Femme">Femme</option>
                                         </select>
                                     </div>

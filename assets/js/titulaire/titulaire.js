@@ -52,7 +52,7 @@ function listeTitulaire() {
             $('#table-titulaire').DataTable({
                 destroy: true,
                 ordering: true,
-                order: [[0, "desc"]],
+                order: [[0, "asc"]],
                 responsive: true,
                 info: false,
                 paging: true,
@@ -283,6 +283,7 @@ function editTitulaire(id) {
             $('#nom').val(titulaire.nom);
             $('#prenom').val(titulaire.prenom);
             $('#genre').val(titulaire.genre);
+            $('select').selectpicker('refresh');
             $('#dateNaiss').val(titulaire.dateNaiss);
             $('#telephone').val(titulaire.telephone);
             $('#cin').val(titulaire.cin);
@@ -298,6 +299,7 @@ function editTitulaire(id) {
             $('#dateNaissConjoint').val(titulaire.dateNaissConjoint);
             $('#telephoneConjoint').val(titulaire.telephoneConjoint);
             $('#genreConjoint').val(titulaire.genreConjoint);
+            $('select').selectpicker('refresh');
 
             // Afficher le formulaire (par exemple, en ouvrant un modal)
             // $('#createTitulaireForm').modal('show');
@@ -336,6 +338,162 @@ $("#district_choix").on('change', function name(params) {
     chargeCommuneTous();
     chargeQuartierVider();
 });
+//******************************************************** */
+
+//** Metrre Non Assuré */
+function nomAssure(id) {
+    $("#card-titulaire").block({
+        message: `
+          <div class="card" style="max-width:400px ; ">
+            <div class="card-header">
+                Veuillez entrer le motif
+            </div>
+            <div class="card-content">
+                <div class="card-body">                  
+                    <form id="submitTitulaireToNonAssure">
+                        <input type="hidden" id='idTitulaireToNonAssure' value="${id}" />
+                        <textarea name="motifNonAssure" required id="motifNonAssure"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de non Assuré"></textarea><br>
+                        <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
+                        <button type="button" onclick="unblockCard()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </form>  
+                </div>
+            </div>
+          </div>
+          `,
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+    $("#submitTitulaireToNonAssure").off("submit").on("submit", function (e) {
+        e.preventDefault();    
+        let id = $("#idTitulaireToNonAssure").val();
+        let motif = $("#motifNonAssure").val();    
+        $("#card-titulaire").unblock();
+        $.ajax({
+            beforeSend: function () {    
+                $("#card-titulaire").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",    
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });    
+            },
+            url: base + "toNonAssure",
+            type: "POST",
+            dataType: "JSON",
+            data: { titulaireId: id , motifNonAssure : motif},
+            success: function (res) {    
+                $("#card-titulaire").unblock();    
+                if (res.id > 0) {    
+                    alertCustom("success", 'ft-check', "Titulaire devient non Assuré");    
+                } else {    
+                    alertCustom("danger", 'ft-x', "Non effectué");
+                }    
+                listeTitulaire();    
+            },
+            error: function(message) {
+                alertCustom("danger", 'ft-x', "Non effectué");
+            }
+        });
+    });
+}
+//************************************* */
+
+//** Metrre Assuré */
+function assure(id) {
+    $("#card-titulaire").block({
+        message: `
+          <div class="card" style="max-width:400px ; ">
+            <div class="card-header">
+                Veuillez entrer le motif
+            </div>
+            <div class="card-content">
+                <div class="card-body">                  
+                    <form id="submitTitulaireToAssure">
+                        <input type="hidden" id='idTitulaireToAssure' value="${id}" />
+                        <textarea name="motifAssure" required id="motifAssure"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de non Assuré"></textarea><br>
+                        <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
+                        <button type="button" onclick="unblockCard()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </form>  
+                </div>
+            </div>
+          </div>
+          `,
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+    $("#submitTitulaireToAssure").off("submit").on("submit", function (e) {
+        e.preventDefault();    
+        let id = $("#idTitulaireToAssure").val();
+        let motif = $("#motifAssure").val();    
+        $("#card-titulaire").unblock();
+        $.ajax({
+            beforeSend: function () {    
+                $("#card-titulaire").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",    
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });    
+            },
+            url: base + "toAssure",
+            type: "POST",
+            dataType: "JSON",
+            data: { titulaireId: id , motifNonAssure : motif},
+            success: function (res) {    
+                $("#card-titulaire").unblock();    
+                if (res.id > 0) {    
+                    alertCustom("success", 'ft-check', "Titulaire devient Assuré");    
+                } else {    
+                    alertCustom("danger", 'ft-x', "Non effectué");
+                }    
+                listeTitulaire();    
+            },
+            error: function(message) {
+                alertCustom("danger", 'ft-x', "Non effectué");
+            }
+        });
+    });
+}
+//************************************* */
+
+
+//** Unblock card */
+function unblockCard() {
+    $("#card-titulaire").unblock();
+}
+//************************************** */
 
 
 ///******************filtre patientr ******* */

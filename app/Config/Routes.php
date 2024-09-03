@@ -63,6 +63,8 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
      $routes->get('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
      $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
+     $routes->post('toNonAssure', 'titulaire\TitulaireCont::toNonAssure');
+     $routes->post('toAssure', 'titulaire\TitulaireCont::toAssure');
 
      //route pour patient
 
