@@ -53,6 +53,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('lienpatient', 'patient\PatientCont::lien');
      $routes->post('listes_patient', 'patient\PatientCont::listes_patient');
      $routes->post('charge_membre', 'patient\PatientCont::charge_membre');
+     $routes->post('charge_membre1', 'patient\PatientCont::charge_membre1');
      
      //route pour titulaire
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
@@ -62,36 +63,37 @@ use CodeIgniter\Router\RouteCollection;
 
      //route pour patient
 
-     $routes->post('listes_patient_malade', 'titulaire\ConsultationCont::listes_patient_malade');
+     $routes->post('listes_patient_malade', 'Consultation\ConsultationCont::listes_patient_malade');
+     $routes->post('getDocteurSelonType', 'Consultation\ConsultationCont::getDocteurSelonType');
     //  $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
 
     //route medecin
-    $routes->get('lienmedecin', 'medecin\MedecinCont::lien');
-    $routes->get('medecin', 'medecin\MedecinCont::index');
-    $routes->post('charge_specialite', 'medecin\MedecinCont::charge_specialite');
-    $routes->post('charge_cabinet', 'medecin\MedecinCont::charge_cabinet');
-    $routes->post('liste_medecin', 'medecin\MedecinCont::liste_medecin');
-    $routes->post('ajout_medecin', 'medecin\MedecinCont::ajout_medecin');
-    $routes->post('supprimer_medecin', 'medecin\MedecinCont::supprimer_medecin');
+    $routes->get('lienanalyse', 'analyse\AnalyseCont::lien');
+    $routes->get('analyse', 'analyse\AnalyseCont::index');
+    $routes->post('charge_type_analyse', 'analyse\AnalyseCont::charge_type_analyse');
+    $routes->post('charge_cabinet', 'analyse\AnalyseCont::charge_cabinet');
+    $routes->post('liste_analyse', 'analyse\AnalyseCont::liste_analyse');
+    $routes->post('ajout_analyse', 'analyse\AnalyseCont::ajout_analyse');
+    $routes->post('supprimer_analyse', 'analyse\AnalyseCont::supprimer_analyse');
 
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
     $routes->get('consultation', 'consultation\ConsultationCont::index');
     // $routes->get('/', 'consultation\ConsultationCont::index');
-    $routes->post('charge_patient', 'consultation\ConsultationCont::charge_patient');
-    $routes->post('charge_medecin', 'consultation\ConsultationCont::charge_medecin');
+    $routes->post('charge_titulaire', 'consultation\ConsultationCont::charge_titulaire');
+    $routes->post('getSpecialiteMedecin', 'consultation\ConsultationCont::getSpecialiteMedecin');
+    $routes->post('charge_analyse', 'consultation\ConsultationCont::charge_analyse');
     $routes->post('listes_consultation', 'consultation\ConsultationCont::liste_consultation');
     $routes->post('ajout_consultation', 'consultation\ConsultationCont::ajout_consultation');
     $routes->post('delete_consultation', 'consultation\ConsultationCont::delete_consultation');
+    $routes->post('affiche_parametre', 'consultation\ConsultationCont::affiche_parametre');
+    $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
+    $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
 
-    //route cabinet
-    $routes->post('ajout_cabinet', 'medecin\CabinetCont::ajout_cabinet');
-    $routes->post('liste_cabinet', 'medecin\CabinetCont::liste_cabinet');
-    $routes->post('supprimer_cabinet', 'medecin\CabinetCont::supprimer_cabinet');
-    //route specialite
-    $routes->post('ajout_specialite', 'medecin\SpecialiteCont::ajout_specialite');
-    $routes->post('liste_specialite', 'medecin\SpecialiteCont::liste_specialite');
-    $routes->post('supprimer_specialite', 'medecin\SpecialiteCont::supprimer_specialite');
+    //route type_analyse
+    $routes->post('ajout_type_analyse', 'analyse\Type_analyseCont::ajout_type_analyse');
+    $routes->post('liste_type_analyse', 'analyse\Type_analyseCont::liste_type_analyse');
+    $routes->post('supprimer_type_analyse', 'analyse\Type_analyseCont::supprimer_type_analyse');
 
 
     //route pour examen

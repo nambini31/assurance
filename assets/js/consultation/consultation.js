@@ -3,25 +3,31 @@ $(document).ready(function () {
     liste_consultation();
     charge_membre();
     charge_membre1();
-    charge_medecin()
+    charge_type();
 
 });
 
-
+var membre_select ;
+var titulaire_select ;
+var specialite_docteur ;
+var choix_docteur ;
 
 
 function charge_membre() {
     $.ajax({
-        url: base + 'charge_membre',
+        url: base + 'charge_membre1',
         type: "POST",
         success: function (data) {
             $("#membre_select").empty();
             $("#membre_select").append(data);
             $('select').selectpicker('refresh');
-  
+            if (membre_select != "") {
+                $('#membre_select').val(membre_select).selectpicker('refresh');
+            }
         }
     });
   }
+
 function charge_membre1() {
     $.ajax({
         url: base + 'charge_membre',
@@ -34,32 +40,88 @@ function charge_membre1() {
         }
     });
   }
-function charge_medecin() {
+function charge_analyse(id) {
     $.ajax({
-        url: base + 'charge_medecin',
+        url: base + 'charge_analyse',
         type: "POST",
         success: function (data) {
-            $("#medecin_select").empty();
-            $("#medecin_select").append(data);
+            $("#analyse_select").empty();
+            $("#analyse_select").append(data);
             $('select').selectpicker('refresh');
+            
+            $("#analyse_select").val($("#nat"+id).data('nature')).selectpicker('refresh');
   
+        }
+    });
+
+  }
+
+function attribuer_nature(id) {
+    $.ajax({
+        url: base + "affiche_parametre",
+        type: "POST",
+        dataType: "JSON",
+        data: { id: id },
+        success: function (res) {
+
+            $("#temperature2").val(res.temperature);
+            $("#poids2").val(res.poids);
+            $("#tension2").val(res.tension);
+            $("#taille2").val(res.taille);
+            $("#rc").val(res.rc);
+            $("#resultats").val(res.resultats);
+
+        },
+    });
+}
+
+function charge_type() {
+    $.ajax({
+        url: base + 'getSpecialiteMedecin',
+        type: "POST",
+        success: function (data) {
+            $("#specialite_docteur").empty();
+            $("#specialite_docteur").append(data);
+            $('select').selectpicker('refresh');
+            if (specialite_docteur != "") {
+                $('#specialite_docteur').val(specialite_docteur).selectpicker('refresh');
+            }
         }
     });
   }
 
-function charge_patient_coix() {
+function charge_titulaire_coix() {
     $.ajax({
-        url: base + 'charge_patient',
+        url: base + 'charge_titulaire',
         type: "POST",
         data:{
             id_membre : $("#membre_select").val()
         },
         success: function (data) {
-            $("#patient_select").empty();
-            $("#patient_select").append(data);
+            $("#titulaire_select").empty();
+            $("#titulaire_select").append(data);
             $('select').selectpicker('refresh');
-            if (num != "") {
-                $('#patient_select').val(num).selectpicker('refresh');
+            if (titulaire_select != "") {
+                $('#specialite_docteur').val(titulaire_select).selectpicker('refresh');
+            }
+  
+        }
+    });
+}
+
+function getDocteurSelonType() {
+    $.ajax({
+        url: base + 'getDocteurSelonType',
+        type: "POST",
+        data:{
+            id : $("#specialite_docteur").val()
+        },
+        success: function (data) {
+            $("#choix_docteur").empty();
+            $("#choix_docteur").append(data);
+            $('select').selectpicker('refresh');
+            if (choix_docteur != "") {
+                $('#choix_docteur').val(choix_docteur).selectpicker('refresh');
             }
   
         }
@@ -68,7 +130,10 @@ function charge_patient_coix() {
 
 
 $("#membre_select").on('change', function name(params) {
-    charge_patient_coix();
+    charge_titulaire_coix();
+})
+$("#specialite_docteur").on('change', function name(params) {
+    getDocteurSelonType();
 })
 
 
@@ -158,11 +223,11 @@ function liste_consultation() {
                         action: function () {
 
 
-                            $("#AddConsultation").modal(
+                            $("#AddVisites").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );
-                            annulerAjoutconsultation();
+                            
 
 
                         },
@@ -178,94 +243,71 @@ function liste_consultation() {
     });
 
 }
-function liste_patient(idconsultation , isFinished) {
+function parametre(id) {
 
+    $("#idDetailsCons").val(id);
+    $("#temperature").val("");
+            $("#poids").val("");
+            $("#tension").val("");
+            $("#taille").val("");
+    fill_paramettre(id);
+    $("#AddParametre").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+    formatPrixImput()
+    
+
+}
+
+function fill_paramettre(id) {
 
     $.ajax({
-        beforeSend: function () {
-
-            $("#AddConsultation").block({
-                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
-
-                overlayCSS: {
-                    backgroundColor: "black",
-                    opacity: 0.1,
-                    cursor: "wait",
-
-                },
-                css: {
-                    border: 0,
-                    padding: 0,
-                    backgroundColor: "transparent"
-                }
-            });
-
-        },
-        url: base + "listes_patient_malade",
+        url: base + "affiche_parametre",
         type: "POST",
-        data:{
-            idconsultation :  idconsultation ,
-            isFinished :  isFinished ,
-        },
+        dataType: "JSON",
+        data: { id : id },
         success: function (res) {
-            if ($.fn.DataTable.isDataTable("table_patient")) {
-                $("#table_patient").DataTable().destroy();
-            } else {
-            }
-            $('#table_patient').empty();
-            $("#table_patient").append(res);
 
+            $("#temperature").val(res.temperature);
+            $("#poids").val(res.poids);
+            $("#tension").val(res.tension);
+            $("#taille").val(res.taille);
+            $("#temperature1").text(res.temperature);
+            $("#poids1").text(res.poids);
+            $("#tension1").text(res.tension);
+            $("#taille1").text(res.taille);
 
-            $('#table_patient').DataTable({
-                destroy: true,
-                ordering: true,
-                order: [[0, "desc"]],
-                responsive: true,
-                info: false,
-                paging: true,
-                deferRender: true,
-                pageLength: 7,
-                "initComplete": function (settings, json) {
-                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
-                },
-                language: {
-                    "search": "",
-                    "zeroRecords": "Aucun enregistrement",
-                    paginate: {
-                        previous: "Précédent",
-                        next: "Suivant",
-                    },
-                }
-                ,
-
-
-
-                dom: "Bfrtip",
-                buttons: [
-                    {
-                        className: "btn btn-sm btn-warning btn-min-width ",
-                        text: '<i class="ft-plus"> Ajouter</i>',
-                        action: function () {
-
-
-                            $("#AddConsultation").modal(
-                                { backdrop: "static", keyboard: false },
-                                "show"
-                            );
-                            annulerAjoutconsultation();
-
-
-                        },
-                    },
-                    
-
-
-                ],
-            });
-            $("#AddConsultation").unblock();
 
         },
     });
+}
+
+function laboratoire(id) {
+    $("#idDetails").val(id);
+    $("#AddLaboratoire").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+    $("#temperature2").val("");
+            $("#poids2").val("");
+            $("#tension2").val("");
+            $("#taille2").val("");
+            $("#rc").val("");
+            $("#resultats").val("");
+    attribuer_nature(id)
+    charge_analyse(id);
+}
+
+var idConsul ;
+var isFinished ;
+
+function liste_patient(idconsultation , isFinished) {
+
+     idConsul = idconsultation;
+     isFinished = isFinished;
+
+    affichage_details(idconsultation, isFinished);
     $("#AddConsultation").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -346,6 +388,190 @@ $("#ajout_consultation").off("submit").on("submit", function (e) {
         },
     });
 });
+$("#add_parametre").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            
+        },
+        url: base + "add_parametre",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        success: function (res) {
+                    //fill_paramettre( $("#idDetailsCons").val());
+                    $("#AddParametre").modal("hide"
+                    );
+                    alertCustom("success", "ft-check", "Parametrage effectué avec succée");
+                    affichage_details(idConsul , isFinished);
+
+
+
+        },
+    });
+});
+
+$("#add_examen").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            
+        },
+        url: base + "add_Examen",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        success: function (res) {
+            $("#AddLaboratoire").modal("hide"
+            );
+                    alertCustom("success", "ft-check", "Demande d'examen envoyé");
+                    
+                    affichage_details(idConsul , isFinished);
+
+        },
+    });
+});
+
+$("#add_consultation").off("submit").on("submit", function (e) {
+
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            $("#AddVisites").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+        },
+        url: base + "ajout_consultation",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        success: function (res) {
+            $("#AddVisites").modal("hide");
+            $("#AddVisites").unblock();
+            liste_patient(res.consultationId , res.isFinished);
+            liste_consultation();
+
+        },
+    });
+});
+
+function affichage_details(idconsultation, isFinished) {
+    
+    $.ajax({
+        beforeSend: function () {
+
+            $("#AddConsultation").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "listes_patient_malade",
+        type: "POST",
+        data: {
+            idconsultation: idconsultation,
+            isFinished: isFinished,
+        },
+        success: function (res) {
+            var res = JSON.parse(res);
+            $(".entete_modal").html(res.num_carte);
+            $(".entete_docteur").html(res.docteur);
+
+            if ($.fn.DataTable.isDataTable("#table_patient")) {
+                $("#table_patient").DataTable().destroy();
+            } else {
+            }
+            $('#table_patient').empty();
+            $("#table_patient").append(res.table);
+
+
+            $('#table_patient').DataTable({
+                destroy: true,
+                ordering: true,
+                order: [[0, "desc"]],
+                responsive: true,
+                info: false,
+                paging: true,
+                deferRender: true,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "Bfrtip",
+                buttons: [
+                    {
+                        className: "btn btn-sm btn-warning btn-min-width ",
+                        text: '<i class="ft-plus"> Ajouter</i>',
+                        action: function () {
+
+
+                            $("#AddConsultation").modal(
+                                { backdrop: "static", keyboard: false },
+                                "show"
+                            );
+                            annulerAjoutconsultation();
+
+
+                        },
+                    },
+                ],
+            });
+            $("#AddConsultation").unblock();
+
+        },
+    });
+}
 
 function close_del_consultation() {
     $("#card_consultation").unblock();
@@ -474,7 +700,7 @@ function edit_consultation(id) {
     $('#membre_select').val(id_membre).selectpicker('refresh');
     $('#motif').val(motif);
 
-    charge_patient_coix();
+    charge_titulaire_coix();
 
     $('#id_consultation_men_modif').val(id);
 

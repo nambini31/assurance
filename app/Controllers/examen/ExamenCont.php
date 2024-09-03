@@ -216,7 +216,10 @@ class ExamenCont extends BaseController
     public function getDocteurExamen(){
         try {
 
-            $data =  $this->utilisateur->where("roleId", 3)->findAll();
+            $data =  $this->utilisateur
+            ->where("roleId", 3)
+            ->where("etat", 1)
+            ->findAll();
 
             $listeDocteur = '';
             foreach ($data as $value) {

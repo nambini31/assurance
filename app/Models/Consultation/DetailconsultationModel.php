@@ -15,7 +15,7 @@ class DetailconsultationModel extends Model
     protected $allowedFields    = [
         "motif"	, "typePersonneMalade" , "idPersonneMalade"	, "etat" ,	
         "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature"
-        	, "tension" ,	"poids" ,	"douleur" ,	"descriptionDouleur"
+        	, "tension" ,	"poids" , "taille" , "dateLaboratoire" , "natureExamen" , "rc"  , "resultats",	"douleur" ,	"descriptionDouleur"
     ];
 
     // Dates

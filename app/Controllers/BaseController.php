@@ -6,7 +6,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\login\LoginModel;
 use App\Controllers\login\LoginCont;
-
+use App\Models\Analyse\AnalyseModel;
 use App\Models\Cabinet\CabinetModel;
 
 use App\Models\Consultation\ConsultationModel;
@@ -15,16 +15,15 @@ use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\Medecin\MedecinModel;
 use App\Models\Membre\MembreModel;
 use App\Models\Patient\PatientModel;
-use App\Models\Specialiste\SpecialiteModel;
 use App\Models\Utilisateur\RoleModel;
 use App\Models\Utilisateur\TypeMedecinModel;
 use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
+use App\Models\type_analyse\Type_analyseModel;
 use Mpdf\Mpdf;
 
 
@@ -54,8 +53,8 @@ abstract class BaseController extends Controller
     protected $dompdf;
 
     protected $patient;
-    protected $medecin;
-    protected $specialite;
+    protected $analyse;
+    protected $type_analyse;
     protected $cabinet;
     protected $clientApi;
     protected $membre;
@@ -76,9 +75,9 @@ abstract class BaseController extends Controller
 
         $this->patient = new PatientModel();
         $this->titulaire = new TitulaireModel();
-        $this->specialite = new SpecialiteModel();
+        $this->type_analyse = new Type_analyseModel();
         $this->cabinet = new CabinetModel();
-        $this->medecin = new MedecinModel();
+        $this->analyse = new AnalyseModel();
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
 

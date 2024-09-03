@@ -60,28 +60,7 @@ class TitulaireCont extends BaseController
         } catch (\Throwable $th) {
             echo json_encode(["success" => false, "message" => $th->getMessage()]);
         }
-    }
-
-    public function charge_membre()
-    {
-        try {
-
-            $data =  $this->membre->where("etat" ,  1 )->findAll();
-
-            $membre = '<option value=""> </option> ';
-
-                foreach ($data as $value) {
-                    $membre .= '
-                        <option value="' . $value['id_membre'] . '"> '. $value['nom_membre'] . '</option> ';
-                }
-
-            echo $membre;
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-    
-    
+    }    
 
     public function delete_patient()
     {

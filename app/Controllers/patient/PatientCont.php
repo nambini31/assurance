@@ -39,9 +39,34 @@ class PatientCont extends BaseController
     {
         try {
 
-            $data =  $this->membre->where("etat" ,  1 )->findAll();
+            $data =  $this->membre
+            ->where("etat" ,  1 )
+            ->where("ispaye" ,  1 )
+            ->findAll();
 
             $membre = '<option value=""> </option> ';
+
+                foreach ($data as $value) {
+                    $membre .= '
+                        <option value="' . $value['id_membre'] . '"> '. $value['nom_membre'] . '</option> ';
+                }
+
+            echo $membre;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function charge_membre1()
+    {
+        try {
+
+            $data =  $this->membre
+            ->where("etat" ,  1 )
+            ->where("ispaye" ,  1 )
+            ->findAll();
+
+            $membre = '';
 
                 foreach ($data as $value) {
                     $membre .= '
