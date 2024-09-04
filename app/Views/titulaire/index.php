@@ -185,5 +185,85 @@
 </div>
 <!-- -------------------------------------------------------- -->
 
+<!-- Modal dedtail Titulaire -->
+<style>
+    p span{
+        border-bottom: 1px dashed #000; 
+        padding: 1px 3px; 
+        margin-right:20px;
+    }
+</style>
+<div class="modal fade" id="detailTitulaireModel" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="">
+            <div class="card-content collpase show">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">Detail Titilaire</h2>
+                    <table style="width:100%">
+
+                        <tr>
+                            <td style="">
+                                <p class="card-text" style="font-size: 14px !important;">
+                                    <strong>N° Fiche Medical :</strong> <span id="" style="border: 1px solid #000; padding: 1px 3px; margin-right:30px">NOV-124</span>
+                                    <strong>N° CNAPS :</strong> <span id="detailNumCnaps" style="border: 1px solid #000; padding: 1px 3px;"></span><br><br>
+                                    <strong>Nom :</strong> <span id="detailNom">Dupont</span>
+                                    <strong>Prénoms :</strong> <span id="detailPrenom">Jean</span><br><br>
+                                    <strong>Genre :</strong> <span id="detailGenre">Masculin</span>
+                                    <strong>Date de naissance :</strong> <span id="detailDateNaiss">01/01/1980</span><br><br>
+                                    <strong>Téléphone :</strong> <span id="detailTelephone">0123456789</span>
+                                    <strong>CIN :</strong> <span id="detailCin">AB123456</span><br><br>
+                                    <strong>Fonction :</strong> <span id="detailFonction"> Développeur Développeur  Développeur</span>
+                                    <strong>Adresse :</strong> <span id="detailAdresse">10 rue des Champs, 75000 P Développeuraris</span><br><br>
+                                    <strong>E-mail :</strong> <span id="detailEmail"></span><br><br>
+                                    <strong>Date d'embauche :</strong> <span id="detailDateEmbauche">01/01/2010</span>
+                                    <strong>Date de débauche :</strong> <span id="detailDateDebauche">01/01/2020</span><br><br>
+                                    <strong>Nom & Prénom Conjoint(e) :</strong> <span id="detailNomPrenomConjoint">Marie Dupont</span><br><br>
+                                    <strong>Date de naissance Conjoint(e) :</strong> <span id="detailDateNaissConjoint">02/02/1982</span><br><br>
+                                    <strong>Téléphone Conjoint(e):</strong> <span id="detailTelephoneConjoint">0987654321</span>
+                                    <strong>Genre Conjoint(e) :</strong> <span id="detailGenreConjoint">Féminin</span><br><br>
+                                    <strong>Motif Non Assuré :</strong> <span id="detailMotifNonAssure">Démission</span><br><br>
+                                </p>
+                            </td>
+
+                            <td style="width:60%; vertical-align: top;">
+                                <div class="card-content">
+                                    <div class="card">
+                                        <div class="card-body" id="card-enfant">
+                                            <center>
+                                                <h6 class="text-center" style="font-size: 14px;">Listes Enfants à Charge</h6>
+                                            </center>
+                                            <table id="table-enfant" class="table table-white-space table-bordered no-wrap  text-center" style="width: 100% !important ; overflow: auto !important; display: block !important;">
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-center" style="border: 1px solid #000; padding: 10px;">
+                            <p>Photo AFFILIE(E)</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center" style="border: 1px solid #000; padding: 10px;">
+                            <p>Photo CONJOINT(E)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- Fin Modal detail -->
+
 
 <script src="<?php echo base_url() ?>/assets/js/titulaire/titulaire.js"></script>

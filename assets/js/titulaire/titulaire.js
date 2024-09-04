@@ -72,16 +72,6 @@ function listeTitulaire() {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        extend: "excelHtml5",
-                        title: "Listes des Titulaire",
-                        className: "btn btn-sm btn-success",
-                        text: 'Excel',
-                        exportOptions: {
-                            columns: ':not(:last-child)'
-                        }
-
-                    },
-                    {
                         className: "btn btn-sm btn-secondary btn-min-width ",
                         text: '<i class="ft-refresh"> Actualiser</i>',
                         action: function () {
@@ -494,6 +484,109 @@ function unblockCard() {
     $("#card-titulaire").unblock();
 }
 //************************************** */
+
+/** Dedtail titulaire*/
+function detailTitulaire(id){
+    $.ajax({
+        url: base + "getTitulaireById", // L'URL du contrôleur qui renvoie les données du titulaire
+        type: 'POST',
+        dataType: 'JSON',
+        data: { titulaireId: id }, // Passer l'id du titulaire à l'URL
+        success: function(res) {
+            var titulaire = res.data[0];
+            // Mettez à jour le contenu du modal avec les données de `res`
+            $("#detailNumCnaps").text(titulaire.numCnaps);
+            $("#detailNom").text(titulaire.nom);
+            $("#detailPrenom").text(titulaire.prenom);
+            $("#detailGenre").text(titulaire.genre);
+            $("#detailDateNaiss").text(titulaire.dateNaiss);
+            $("#detailTelephone").text(titulaire.telephone);
+            $("#detailCin").text(titulaire.cin);
+            $("#detailFonction").text(titulaire.fonction);
+            $("#detailAdresse").text(titulaire.adresse);
+            $("#detailEmail").text(titulaire.email);
+            $("#detailDateEmbauche").text(titulaire.dateEmbauche);
+            $("#detailDateDebauche").text(titulaire.dateDebauche);
+            $("#detailNomPrenomConjoint").text(titulaire.nomPrenomConjoint);
+            $("#detailDateNaissConjoint").text(titulaire.dateNaissConjoint);
+            $("#detailTelephoneConjoint").text(titulaire.telephoneConjoint);
+            $("#detailGenreConjoint").text(titulaire.genreConjoint);
+            $("#detailMotifNonAssure").text(titulaire.motifNonAssure);
+
+            $("#detailTitulaireModel").modal(
+                { backdrop: "static", keyboard: false },
+                "show"
+            ); 
+
+            // afficher tableau enfant
+            listeEnfant(id);
+        }
+    })
+}
+/************************************************ */
+
+/** Listes des enfant */
+function listeEnfant(titulaireId){
+    $.ajax({
+        url: base + "listeEnfant", // L'URL du contrôleur qui renvoie les données du titulaire
+        type: 'POST',
+        data: { titulaireId: titulaireId }, // Passer l'id du titulaire à l'URL
+        success: function(res) {
+            
+            if ($.fn.DataTable.isDataTable("table-enfant")) {
+                $("#table-enfant").DataTable().destroy();
+            }
+            $('#table-enfant').empty();
+            $("#table-enfant").append(res);
+            $('#table-enfant').DataTable({
+                destroy: true,
+                ordering: true,
+                order: [[0, "asc"]],
+                responsive: true,
+                info: false,
+                paging: true,
+                deferRender: true,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+                dom: "Bfrtip",
+                buttons: [
+                    {
+                        className: "btn btn-sm btn-secondary btn-min-width ",
+                        text: '<i class="ft-refresh"> Actualiser</i>',
+                        action: function () {
+                            listeEnfant();
+                        },
+                    },
+                    {
+                        className: "btn btn-sm btn-warning btn-min-width ",
+                        text: '<i class="ft-plus"> Ajouter</i>',
+                        action: function () {
+                            $('.entete_modal').text("Nouveau Titulaire");
+                            $('#btn_add_titualire').text("Ajouter");
+                            $("#createTitulaireModel").modal(
+                                { backdrop: "static", keyboard: false },
+                                "show"
+                            );                           
+                            $('#createTitulaireForm')[0].reset();
+                            $("#id_titualire_men_modif").val("");
+                        },
+                    },
+                ],
+            });
+        }
+    })
+}
+/***************************************************** */
 
 
 ///******************filtre patientr ******* */

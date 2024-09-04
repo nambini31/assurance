@@ -22,6 +22,7 @@ use App\Models\Specialiste\SpecialiteModel;
 use App\Models\Utilisateur\RoleModel;
 use App\Models\Utilisateur\TypeMedecinModel;
 use App\Models\Titulaire\TitulaireModel;
+use App\Models\Enfant\EnfantModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
@@ -60,6 +61,7 @@ abstract class BaseController extends Controller
     protected $clientApi;
     protected $membre;
     protected $titulaire;
+    protected $enfant;
     protected $examen;
 
 
@@ -81,6 +83,7 @@ abstract class BaseController extends Controller
         $this->medecin = new MedecinModel();
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
+        $this->enfant = new EnfantModel();
 
         $this->pdf = new Mpdf();
 

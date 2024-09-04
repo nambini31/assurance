@@ -163,9 +163,9 @@ class TitulaireCont extends BaseController
 
                 $btn = '                
                     <td style="width:10%">
-                        <a class="primary edit mr-1" data-nom="'.$value_ar["nom"].'" 
-                        id="titulaire_'.$value_ar["titulaireId"].'" onclick="editTitulaire('.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
-                        <a class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
+                        <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
+                        <a title="Voir détail" class="info mr-1" onclick="detailTitulaire('.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
+                        <a title ="Supprimer" class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                     </td>
                 ';
                 $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssure('.$value_ar["titulaireId"].')"><i class="ft-check"></i> Assuré</span>';
@@ -192,6 +192,56 @@ class TitulaireCont extends BaseController
         }
     }
     //-----------------------------------------------
+
+    /** Listes des enfats d'un titulaire */
+    public function listeEnfant(){
+        $TitulaireId = $_POST['titulaireId'];
+        $datas = $this->enfant->where("etat" , 1)->where("titulaireId" , $TitulaireId)->orderBy("enfantId", 'desc')->findAll();
+        
+        $th = "
+            <thead>
+                <th>#</th>
+                <th>Nom et Prénom</th>
+                <th>Genre</th>
+                <th>dateNaiss</th>
+                <th>Lien</th>
+                <th>Status</th>
+                <th>action</th>
+            </thead>
+        ";
+        $th .= "<tbody> ";
+        
+        
+        $n=0;
+        foreach ($datas as $value_ar) {
+
+            $btn = '                
+                <td style="width:10%">
+                    <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["enfantId"].')"><i class="la la-pencil"></i></a>
+                    <a title="Voir détail" class="info mr-1" onclick="detailTitulaire('.$value_ar["enfantId"].')"><i class="la la-list"></i></a> 
+                    <a title ="Supprimer" class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["enfantId"].')" ><i class="la la-trash-o"></i></a>
+                </td>
+            ';
+            $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssure('.$value_ar["enfantId"].')"><i class="ft-check"></i> Assuré</span>';
+            if ($value_ar["isActif"] == "0") {
+                $textAssuree = '<span class="badge badge-danger" style="font-size:14px ; cursor: pointer;" onclick="assure('.$value_ar["enfantId"].')" ><i class="la la-ban"></i> Non Assuré</span>';
+            }
+            $n++;
+            $th .= "<tr>
+                <td style=''> ". $n ."</td>
+                <td style=''> ". $value_ar["nom"] ." ". $value_ar["prenom"] ."</td>
+                <td style=''> ". $value_ar["genre"]  ."</td>
+                <td style=''> ". $value_ar["dateNaiss"]  ."</td>
+                <td style=''> ". $value_ar["typeEnfant"]  ."</td>
+                <td style=''> ". $textAssuree  ."</td>
+                $btn
+            ";    
+            $th .= "</tr>";
+        }
+        $th .= "</tbody> ";
+        echo $th;
+    }
+    /******************************************************* */
 
     //***** get By Id *****/
     public function getTitulaireById(){

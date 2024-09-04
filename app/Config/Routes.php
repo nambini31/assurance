@@ -65,6 +65,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
      $routes->post('toNonAssure', 'titulaire\TitulaireCont::toNonAssure');
      $routes->post('toAssure', 'titulaire\TitulaireCont::toAssure');
+     $routes->post('listeEnfant', 'titulaire\TitulaireCont::listeEnfant');
 
      //route pour patient
 
