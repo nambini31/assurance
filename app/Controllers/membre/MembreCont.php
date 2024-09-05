@@ -138,7 +138,7 @@ class MembreCont extends BaseController
                              data-contact_membre ="'.$value_ar["contact_membre"].'" 
                              data-email_membre ="'.$value_ar["email_membre"].'" 
                              id="mem_'.$value_ar["id_membre"].'" 
-                             onclick="edit_membre('.$value_ar["id_membre"].')"><i class="la la-pencil"></i></a>
+                             onclick="edit_membre('.$value_ar["id_membre"].')"><i class="la la-pencil-square-o"></i></a>
                              
                              <a class="danger delete mr-1" onclick="delete_membre('.$value_ar["id_membre"].')" ><i class="la la-trash-o"></i></a>
 

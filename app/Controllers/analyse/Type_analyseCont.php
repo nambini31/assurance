@@ -47,7 +47,7 @@ class Type_analyseCont extends BaseController
                     '<tr>
                         <td style="width : 20%;">' . $value["id_type_analyse"] . ' </td>
                         <td style="width : 100%;">' . $value["nom_type_analyse"] . '</td> 
-                        <td> <a class="info mr-1 " id="cab_'.$value["id_type_analyse"] .'" data-nom_type_analyse="'.$value["nom_type_analyse"] .'" onclick="edittype_analyse(' . $value["id_type_analyse"] . ')"><i class=" la la-pencil"></i></a>
+                        <td> <a class="info mr-1 " id="cab_'.$value["id_type_analyse"] .'" data-nom_type_analyse="'.$value["nom_type_analyse"] .'" onclick="edittype_analyse(' . $value["id_type_analyse"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="supprimertype_analyse(' . $value["id_type_analyse"] . ')"><i class=" la la-trash-o"></i></a> </td> 
                        </tr>';
             }

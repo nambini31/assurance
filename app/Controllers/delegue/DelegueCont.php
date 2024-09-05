@@ -316,7 +316,7 @@ class DelegueCont extends BaseController
                 <td style="width:10%">
 
                              <a class="primary edit mr-1" data-nom="'.$nom.'" data-code_faritany="'.$value_ar["CODE_FARITANY"].'" data-code_region="'.$value_ar["CODE_REGION"].'" data-code_bv="'.$value_ar["CODE_BV"].'" data-code_district="'.$value_ar["CODE_DISTRICT"].'"
-                             data-contact="'.$value_ar["contact"].'" id="del_'.$value_ar["id_delegue"].'" onclick="edit_delegue('.$value_ar["id_delegue"].')"><i class="la la-pencil"></i></a>
+                             data-contact="'.$value_ar["contact"].'" id="del_'.$value_ar["id_delegue"].'" onclick="edit_delegue('.$value_ar["id_delegue"].')"><i class="la la-pencil-square-o"></i></a>
 
                              <a class="danger delete mr-1" onclick="delete_delegue('.$value_ar["id_delegue"].')" ><i class="la la-trash-o"></i></a>
 

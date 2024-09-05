@@ -11,6 +11,8 @@ use App\Models\Cabinet\CabinetModel;
 
 use App\Models\Consultation\ConsultationModel;
 use App\Models\Consultation\DetailconsultationModel;
+use App\Models\Cpn\CpnModel;
+use App\Models\Cpn\DetailConsultationCpnModel;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -60,6 +62,8 @@ abstract class BaseController extends Controller
     protected $membre;
     protected $titulaire;
     protected $examen;
+    protected $cpn;
+    protected $detailconsultationcpn;
 
 
     public function __construct()
@@ -71,6 +75,8 @@ abstract class BaseController extends Controller
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
         $this->detailconsultation = new DetailconsultationModel();
+        $this->detailconsultationcpn = new DetailConsultationCpnModel();
+        $this->cpn = new CpnModel();
         
 
         $this->patient = new PatientModel();

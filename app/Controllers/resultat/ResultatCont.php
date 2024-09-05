@@ -140,7 +140,7 @@ class ResultatCont extends BaseController
 
                     $th .= '<td style="width:10%">
 
-                            <a class="primary edit mr-1" data-voix = ' . json_encode($tab) . ' data-voix_nulle = "' . $value_ar["voix_nulle"] . '" data-code_bv = "' . $value_ar["CODE_BV"] . '" data-code_district = "' . $_POST['code_district'] . '"  data-voix_blanc="' . $value_ar["voix_blanc"] . '" id="res_' . $value_ar["id_resultat"] . '"  onclick="edit_resultat(' . $value_ar["id_resultat"] . ')"><i class="la la-pencil"></i></a>
+                            <a class="primary edit mr-1" data-voix = ' . json_encode($tab) . ' data-voix_nulle = "' . $value_ar["voix_nulle"] . '" data-code_bv = "' . $value_ar["CODE_BV"] . '" data-code_district = "' . $_POST['code_district'] . '"  data-voix_blanc="' . $value_ar["voix_blanc"] . '" id="res_' . $value_ar["id_resultat"] . '"  onclick="edit_resultat(' . $value_ar["id_resultat"] . ')"><i class="la la-pencil-square-o"></i></a>
                             <a class="danger delete mr-1" onclick="delete_resultat(' . $value_ar["id_resultat"] . ')" ><i class="la la-trash-o"></i></a>
 
                         </td>';
@@ -590,7 +590,7 @@ class ResultatCont extends BaseController
 
                              <a class="primary edit mr-1" data-designation="' . $value_ar["designation"] . '" data-id_ouvrage="' . $value_ar["id_ouvrage"] . '" data-pu="' . $this->formatPrixInput($value_ar["pu"] ?? 0) . '"
                              data-id_categorie="' . $value_ar["id_categorie"] . '" data-id_type_profil="' . $value_ar["id_type_profil"] . '" data-id_type_vitre="' . $value_ar["id_type_vitre"] . '"  
-                             id="art_' . $value_ar["id_article"] . '" onclick="edit_article(' . $value_ar["id_article"] . ')"><i class="la la-pencil"></i></a>
+                             id="art_' . $value_ar["id_article"] . '" onclick="edit_article(' . $value_ar["id_article"] . ')"><i class="la la-pencil-square-o"></i></a>
 
                              <a class="danger delete mr-1" onclick="delete_article(' . $value_ar["id_article"] . ')" ><i class="la la-trash-o"></i></a>
 

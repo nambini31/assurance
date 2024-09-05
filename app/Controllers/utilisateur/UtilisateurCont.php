@@ -122,7 +122,7 @@ class UtilisateurCont extends BaseController
 
                     
                         $th .= '
-                        <td> <a class="info mr-1 " onclick="editUsers(' . $value["id_user"] .')"><i class=" la la-pencil"></i></a>
+                        <td> <a class="info mr-1 " onclick="editUsers(' . $value["id_user"] .')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="supprimerUser('. $value["id_user"] .')"><i class=" la la-trash-o"></i></a> </td> 
                         ';
                 
@@ -368,7 +368,7 @@ class UtilisateurCont extends BaseController
             $prenom_user = $this->request->getPost('prenom');
             $mdp_user = $this->request->getPost('password');
             $role_user = $this->request->getPost('roleId');
-            $label_image = $this->request->getPost('label_image');
+            $label_image = $this->request->getPost('label_image');+
 
             // Check if the ID is valid
             $existingRecord = $this->utilisateur->find($id);

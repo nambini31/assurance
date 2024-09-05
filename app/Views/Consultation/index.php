@@ -71,46 +71,35 @@
     </div>
 
     <div class="heading-elements mt-0">
-        <div class="modal fade" id="AddpatientMalade" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal fade" id="AddpatientMalade" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" id="modal_content_patient">
+                <div class="modal-content" id="modal_content_patient" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h3 class="modal-header entete_modal">
-                                Ajout Consultation 
+                            <h3 class="modal-header entete_modal_pat">
+                                Ajout patient 
                             </h3>
 
                             <br>
-                            <form class="form" method="post" id="ajout_consultation">
+                            <form class="form" method="post" id="ajout_patient">
                                 <div class="form-body">
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input type="hidden" name="id_consultation" id="id_consultation_men_modif">
+                                            <input type="hidden" name="titulaireId" id="id_patient">
+                                            <input type="hidden" name="consultationId" id="id_concult">
+                                            <input type="hidden" name="detailConsultationId" id="id_detail_consultattion">
                                             <div class="form-group">
-                                                <label for="type_personne_select" class="">Type patient</label>
-                                                <select class="selectpicker  form-control btn-sm" name = 'id_membre'  required id="type_personne_select" data-live-search='true' data-size='5' title='type patient'>
-                                                    <option value="Titulaire">Titulaire</option>
-                                                    <option value="Conjoint">Conjoint</option>
-                                                    <option value="Enfant">Enfant</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                      
-                                    </div>
-                                    <div class="row">
-                                       
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="patient_select" class="">Patient</label>
-                                                <select class="selectpicker  form-control btn-sm" name = "numero_patient" required id="patient_select" data-live-search='true' data-size='5' title='Patient'>
+                                                <label for="type_personne_select" class="">Choix Personne Malade</label>
+                                                <select class="selectpicker  form-control btn-sm" name = 'personne'  required id="personne_select" data-live-search='true' data-size='5' title='Choix patient'>
 
                                                 </select>
                                             </div>
                                         </div>
+                                      
                                     </div>
 
                                    
@@ -119,7 +108,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="motif" class="">Motif</label>
-                                                <textarea name="motif" required id="motif" class="form-control input-sm" cols="2" rows="2"></textarea>
+                                                <textarea name="motif" required id="motif_persMalade" class="form-control input-sm" cols="2" rows="2"></textarea>
                                             </div>
                                         </div>
 
@@ -130,9 +119,6 @@
 
                                 <div class="form-actions right" >
                                     <button type="submit" id="btn_add_patient" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Ajouter</button>
-                                    <button type="button" data-dismiss="modal" onclick="annulerPatientMalade()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
-
-                                    
                                 </div>
                             </form>
 
@@ -149,10 +135,10 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h4 class="modal-header entete_modal">
+                            <h4 class="modal-header entete_modal1">
                                 Carte N° : OMI-205
                             </h4>
-
+                            <input type="hidden" id="titulaire_id">
                             <br>
                             <table id="table_patient" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
                                 
@@ -167,6 +153,68 @@
 
                                 </div>
                             </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deletepatient" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                            <div class="card-body" style="text-align: center;">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+   
+                            
+                            
+                                    <div class="card-header">
+                                            <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
+                                    </div>
+                           
+                                
+                                    <p>Voulez-vous supprimer ce patient  ?</p>
+                    
+                                        <button type="button" onclick="delete_detail()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                                        <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    
+                    
+                                
+                            
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteconsultation" style="z-index: 99999999 " tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                            <div class="card-body" style="text-align: center;">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+   
+                            
+                            
+                                    <div class="card-header">
+                                            <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
+                                    </div>
+                           
+                                
+                                    <p>Voulez-vous supprimer cette consultation  ?</p>
+                    
+                                        <button type="button" onclick="delete_consultation()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                                        <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    
+                    
+                                
+                            
+                          
 
                         </div>
                     </div>
@@ -239,56 +287,59 @@
                             <br>
                             
                             <form method="post" id="add_examen">
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <input type="hidden" name="idDetails" id="idDetails">
-                                    <th style="text-align:left; width:5%">Temperature</th>
-                                    <td><input disabled type="text" class="form-control input-sm"  id="temperature2"></td>
-                                    <td style="text-align:center"><strong>°C</strong></td>
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Tension</th>
-                                    <td><input disabled type="text" class="form-control input-sm"  id="tension2"> </td>
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Taille</th>
-                                    <td><input disabled type="text" class="form-control input-sm"  id="taille2"> </td>
-                                    <td style="text-align:center"><Strong>Mètre</Strong></td>
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Poids</th>
-                                    <td><input disabled type="text" class="form-control input-sm"  id="poids2"></td>
-                                    <td style="text-align:center; width:3%"><Strong>KG</Strong></td>
+                                <div class="flowscroll">
 
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Nature de l'examen</th>
-                                    <td colspan="2"><select class="selectpicker  form-control btn-sm" name = 'nature[]'  required id="analyse_select" multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format="count > 3"
-                                    data-count-selected-text="{0} Nature selected">
-                                                   
-                                                </select></td>
-
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Resultats</th>
-                                    <td colspan="2"><input type="text" class="form-control input-sm" name="resultats" id="resultats"></td>
-                                    
-
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">R.C</th>
-                                    <td colspan="2"><input type="text" class="form-control input-sm" name="rc"  id="rc"></td>
-                                    
-
-                                 </tr>
-                                 <tr>
-                                    <th style="text-align:left; width:5%">Destinataire</th>
-                                    <td colspan="2"><select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
-                                                    <option value="Titulaire" selected >Laboratoire</option>
-                                                </select></td>
-
-                                 </tr>
-                                </table>
+                                    <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                     <tr>
+                                        <input type="hidden" name="idDetails" id="idDetails">
+                                        <th style="text-align:left; width:5%">Temperature</th>
+                                        <td><input disabled type="text" class="form-control input-sm"  id="temperature2"></td>
+                                        <td style="text-align:center"><strong>°C</strong></td>
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Tension</th>
+                                        <td><input disabled type="text" class="form-control input-sm"  id="tension2"> </td>
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Taille</th>
+                                        <td><input disabled type="text" class="form-control input-sm"  id="taille2"> </td>
+                                        <td style="text-align:center"><Strong>Mètre</Strong></td>
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Poids</th>
+                                        <td><input disabled type="text" class="form-control input-sm"  id="poids2"></td>
+                                        <td style="text-align:center; width:3%"><Strong>KG</Strong></td>
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Nature de l'examen</th>
+                                        <td colspan="2"><select class="selectpicker  form-control btn-sm" name = 'nature[]'  required id="analyse_select" multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format="count > 3"
+                                        data-count-selected-text="{0} Nature selected">
+                                                       
+                                                    </select></td>
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Resultats</th>
+                                        <td colspan="2"><input type="text" class="form-control input-sm" name="resultats" id="resultats"></td>
+                                        
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">R.C</th>
+                                        <td colspan="2"><input type="text" class="form-control input-sm" name="rc"  id="rc"></td>
+                                        
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Destinataire</th>
+                                        <td colspan="2"><select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
+                                                        <option value="Titulaire" selected >Laboratoire</option>
+                                                    </select></td>
+    
+                                     </tr>
+                                    </table>
+                                </div>
                                 <div class="form-actions right" >
                                     <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
 
@@ -320,7 +371,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="hidden" name="consultationId" id="id_consultation_men_modif">
+                                        <input type="hidden" name="consultationId" id="id_consultation">
                                         <div class="form-group">
                                             <label for="type_personne_select" class="">Choix Membre</label>
                                             <select class="selectpicker  form-control btn-sm" name = 'membre_select'  required id="membre_select" data-live-search='true' data-size='5' title='Choix membre'>

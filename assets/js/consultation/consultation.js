@@ -4,6 +4,8 @@ $(document).ready(function () {
     charge_membre();
     charge_membre1();
     charge_type();
+    $("#AddpatientMalade").insertAfter("#AddConsultation");
+    $("#deletepatient").insertAfter("#AddConsultation");
 
 });
 
@@ -11,6 +13,7 @@ var membre_select ;
 var titulaire_select ;
 var specialite_docteur ;
 var choix_docteur ;
+var personne_select ;
 
 
 function charge_membre() {
@@ -23,6 +26,7 @@ function charge_membre() {
             $('select').selectpicker('refresh');
             if (membre_select != "") {
                 $('#membre_select').val(membre_select).selectpicker('refresh');
+                charge_titulaire_coix()
             }
         }
     });
@@ -40,6 +44,7 @@ function charge_membre1() {
         }
     });
   }
+
 function charge_analyse(id) {
     $.ajax({
         url: base + 'charge_analyse',
@@ -49,7 +54,14 @@ function charge_analyse(id) {
             $("#analyse_select").append(data);
             $('select').selectpicker('refresh');
             
-            $("#analyse_select").val($("#nat"+id).data('nature')).selectpicker('refresh');
+            var tab = $("#nat" + id).data('nature');
+
+            // Vérifier si le tableau n'est pas vide
+            if (tab && tab.length > 0) {
+                // Si le tableau n'est pas vide, définir la valeur du selectpicker
+                $("#analyse_select").val(tab).selectpicker('refresh');
+
+            }
   
         }
     });
@@ -85,6 +97,7 @@ function charge_type() {
             $('select').selectpicker('refresh');
             if (specialite_docteur != "") {
                 $('#specialite_docteur').val(specialite_docteur).selectpicker('refresh');
+                getDocteurSelonType();
             }
         }
     });
@@ -102,7 +115,7 @@ function charge_titulaire_coix() {
             $("#titulaire_select").append(data);
             $('select').selectpicker('refresh');
             if (titulaire_select != "") {
-                $('#specialite_docteur').val(titulaire_select).selectpicker('refresh');
+                $('#titulaire_select').val(titulaire_select).selectpicker('refresh');
             }
   
         }
@@ -122,6 +135,25 @@ function getDocteurSelonType() {
             $('select').selectpicker('refresh');
             if (choix_docteur != "") {
                 $('#choix_docteur').val(choix_docteur).selectpicker('refresh');
+            }
+  
+        }
+    });
+}
+
+function charge_personne_malade() {
+    $.ajax({
+        url: base + 'charge_personne_malade',
+        type: "POST",
+        data:{
+            id : $("#titulaire_id").val()
+        },
+        success: function (data) {
+            $("#personne_select").empty();
+            $("#personne_select").append(data);
+            $('select').selectpicker('refresh');
+            if (personne_select != "") {
+                $('#personne_select').val(personne_select).selectpicker('refresh');
             }
   
         }
@@ -283,6 +315,8 @@ function fill_paramettre(id) {
     });
 }
 
+
+
 function laboratoire(id) {
     $("#idDetails").val(id);
     $("#AddLaboratoire").modal(
@@ -290,11 +324,11 @@ function laboratoire(id) {
         "show"
     );
     $("#temperature2").val("");
-            $("#poids2").val("");
-            $("#tension2").val("");
-            $("#taille2").val("");
-            $("#rc").val("");
-            $("#resultats").val("");
+    $("#poids2").val("");
+    $("#tension2").val("");
+    $("#taille2").val("");
+    $("#rc").val("");
+    $("#resultats").val("");
     attribuer_nature(id)
     charge_analyse(id);
 }
@@ -317,30 +351,16 @@ function liste_patient(idconsultation , isFinished) {
 
 
 // **************************ajout consultation 
-$("#ajout_consultation").off("submit").on("submit", function (e) {
+$("#ajout_patient").off("submit").on("submit", function (e) {
     e.preventDefault();
 
     let data = new FormData(this);
 
     $.ajax({
         beforeSend: function () {
-            $("#modal_content_add_consultation").block({
-                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
-                overlayCSS: {
-                    backgroundColor: "black",
-                    opacity: 0.1,
-                    cursor: "wait",
-
-                },
-                css: {
-                    border: 0,
-                    padding: 0,
-                    backgroundColor: "transparent"
-                }
-            });
         },
-        url: base + "ajout_consultation",
+        url: base + "ajout_patient",
         type: "POST",
         processData: false,
         contentType: false,
@@ -349,16 +369,16 @@ $("#ajout_consultation").off("submit").on("submit", function (e) {
         data: data,
         success: function (res) {
 
-            if ($('#btn_add_consultation').text() === "Modifier") {
+            if ($('#btn_add_patient').text() === "Modifier") {
                 if (res.id == 1) {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
-                    liste_consultation();
-                    annulerAjoutconsultation();
-                    $("#AddContactModal").modal("hide");
 
-                } else if (res.id == 2) {
-                    alertCustom("danger", "ft-x", "Bureau de vote existe déjà");
-                } else {
+                    $("#AddpatientMalade").modal("hide");
+                    affichage_details(idConsul , isFinished);
+                    $('#motif_persMalade').val("");
+                    
+
+                }  else {
                     alertCustom("danger", "ft-x", "Ajout non effectué");
 
                 }
@@ -367,13 +387,12 @@ $("#ajout_consultation").off("submit").on("submit", function (e) {
 
                 if (res.id == 1) {
                    
-                    annulerAjoutconsultation();
                     alertCustom("success", "ft-check", "Ajout effectué avec succée");
-                    liste_consultation();
+                    affichage_details(idConsul , isFinished);
+                    $('#motif_persMalade').val("");
 
-                } else if (res.id == 2) {
-                    alertCustom("danger", "ft-x", "Bureau de vote existe déjà");
-                } else {
+
+                }else {
                     alertCustom("danger", "ft-x", "Ajout non effectué");
 
                 }
@@ -382,7 +401,6 @@ $("#ajout_consultation").off("submit").on("submit", function (e) {
 
             
 
-            $("#modal_content_add_consultation").unblock();
 
 
         },
@@ -484,6 +502,51 @@ $("#add_consultation").off("submit").on("submit", function (e) {
     });
 });
 
+
+var iddetail ;
+
+function delete_detailvisite(id) {
+
+    iddetail = id ;
+
+    $("#deletepatient").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+
+}
+function delete_detail() {
+
+    $.ajax({
+
+        url: base + "delete_detailconsul",
+        type: "POST",
+        dataType: "JSON",
+        data: { id : iddetail },
+        success: function (res) {
+
+            $("#deletepatient").modal(
+                "hide"
+            );
+
+            if (res.id > 0) {
+
+                alertCustom("success", 'ft-check', "Suppression effectué avec succée");
+
+            } else {
+
+                alertCustom("danger", 'ft-x', "Suppression non effectué");
+
+            }
+
+            affichage_details(idConsul , isFinished);
+            liste_consultation();
+
+        },
+    });
+
+}
+
 function affichage_details(idconsultation, isFinished) {
     
     $.ajax({
@@ -513,8 +576,11 @@ function affichage_details(idconsultation, isFinished) {
         },
         success: function (res) {
             var res = JSON.parse(res);
-            $(".entete_modal").html(res.num_carte);
+            $(".entete_modal1").html(res.num_carte);
             $(".entete_docteur").html(res.docteur);
+            $("#titulaire_id").val(res.titulaireId);
+            $("#id_patient").val(res.titulaireId);
+            $("#id_concult").val(idconsultation);
 
             if ($.fn.DataTable.isDataTable("#table_patient")) {
                 $("#table_patient").DataTable().destroy();
@@ -555,20 +621,23 @@ function affichage_details(idconsultation, isFinished) {
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
-
-                            $("#AddConsultation").modal(
+                            
+                            
+                            $("#AddpatientMalade").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
-                            );
-                            annulerAjoutconsultation();
-
+                                );
+                                
+                                $('.entete_modal_pat').text("Ajout patient");
+                                $('#btn_add_patient').text("Ajouter");
 
                         },
                     },
                 ],
             });
             $("#AddConsultation").unblock();
-
+            charge_personne_malade();
+            liste_consultation();
         },
     });
 }
@@ -580,82 +649,31 @@ function close_del_consultation() {
 // *************************dialogue suppression deleate
 function supprimerconsultation(id) {
 
-
-    $("#card_consultation").block({
-        message: `
-          
-          
-          <div class="card" style="max-width:400px ; ">
-          <div class="card-header" style="max-width:400px ;">
-                   <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
-          </div>
-          <div class="card-content">
-              <div class="card-body">
-                  <p>Voulez-vous supprimer ce consultation  ?</p>
-  
-                      <button type="button" onclick="delete_consultation_from_dialog(`+ id + `)" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
-                      <button type="button" onclick="close_del_consultation()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
-  
-  
-              </div>
-          </div>
-          </div>
-        
-  
-  
-          `,
-
-        overlayCSS: {
-            backgroundColor: 'black',
-            opacity: 0.1,
-            cursor: "wait",
-
-        },
-        css: {
-            border: 0,
-            padding: 0,
-            backgroundColor: "transparent"
-        }
-    });
+     idConsul = id ;
+    
+    $("#deleteconsultation").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
 
 
 }
 
 
 // **************************suppression apres boite dialogue de suppression
-function delete_consultation_from_dialog(id) {
-
-
-
-    $("#card_consultation").unblock();
+function delete_consultation() {
 
     $.ajax({
-        beforeSend: function () {
 
-            $("#card_consultation").block({
-                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
-
-                overlayCSS: {
-                    backgroundColor: "black",
-                    opacity: 0.1,
-                    cursor: "wait",
-
-                },
-                css: {
-                    border: 0,
-                    padding: 0,
-                    backgroundColor: "transparent"
-                }
-            });
-
-        },
         url: base + "delete_consultation",
         type: "POST",
         dataType: "JSON",
-        data: { id_consultation : id },
+        data: { id_consultation : idConsul },
         success: function (res) {
 
-            $("#card_consultation").unblock();
+            $("#deleteconsultation").modal(
+                "hide"
+            );
 
             if (res.id > 0) {
 
@@ -667,42 +685,46 @@ function delete_consultation_from_dialog(id) {
 
             }
 
+            affichage_details(idConsul , isFinished);
             liste_consultation();
 
         },
     });
 
+    
+
 }
 
 // *****************modification consultation
 
-var id_faritany = 0;
-var id_region = 0;
-var id_district = 0;
-var id_bv = 0;
+function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docteur1 , specialite_docteur1) {
+    membre_select = membre_select1;
+    titulaire_select =  titulaire_select1;
+    specialite_docteur = specialite_docteur1;
+    choix_docteur = choix_docteur1;
+    $('#id_consultation').val(id);
 
-function edit_consultation(id) {
-    
-
-    $('.entete_modal').text("Modification consultation");
-    $('#btn_add_consultation').text("Modifier");
-    $("#AddContactModal").modal(
+    $('.entete_modal').text("Modification visite");
+    $("#AddVisites").modal(
         { backdrop: "static", keyboard: false },
         "show"
     );
+    charge_membre();
+    charge_type();
 
-    var id_medecin = $('#cons_' + id).data('id_medecin');
-    var id_membre = $('#cons_' + id).data('id_membre');
-    var numero_patient = $('#cons_' + id).data('numero_patient');
-    var motif = $('#cons_' + id).data('motif');
-    num = numero_patient;
-    $('#medecin_select').val(id_medecin).selectpicker('refresh');
-    $('#membre_select').val(id_membre).selectpicker('refresh');
-    $('#motif').val(motif);
-
-    charge_titulaire_coix();
-
-    $('#id_consultation_men_modif').val(id);
+}
+function edit_patient(id) {
+    var motif = $("#nat" + id).data('motif');
+    personne_select = $("#nat" + id).data('personne');
+    $('#id_detail_consultattion').val(id);
+    $('#motif_persMalade').val(motif);
+    $('.entete_modal_pat').text("Modification patient");
+    $('#btn_add_patient').text("Modifier");
+    $("#AddpatientMalade").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+    charge_personne_malade();
 
 }
 

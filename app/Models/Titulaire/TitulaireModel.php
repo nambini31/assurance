@@ -11,6 +11,7 @@ class TitulaireModel extends Model
     protected $allowedFields = [
         'membreId', 
         'numCarte', 
+        'numCnaps',
         'nom', 
         'prenom', 
         'genre', 

@@ -2,11 +2,15 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class=" nav-item" title="Visualiser consultation"><a class="menu-item" data-id="consultation" href="<?php echo base_url("lienconsultation"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Visites
+            <li class=" nav-item" title="Visualiser consultation"><a class="menu-item" data-id="consultation" href="<?php echo base_url("lienconsultation"); ?>"><i class="las la-notes-medical"></i><span data-i18n="DataTables">Visites
                    </span></a>
             </li>
 
             <li class=" nav-item" title="Visualiser Titulaire"><a class="menu-item" data-id="titulaire" href="<?php echo base_url("lientitulaire"); ?>"><i class="ft-users"></i><span data-i18n="DataTables">Titulaire
+                   </span></a>
+            </li>
+
+            <li class=" nav-item" title="Visualiser Titulaire"><a class="menu-item" data-id="cpn" href="<?php echo base_url("liencpn"); ?>"><i class="la la-female"></i><span data-i18n="DataTables">CPN
                    </span></a>
             </li>
             

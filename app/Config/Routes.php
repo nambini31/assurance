@@ -59,13 +59,18 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
      $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
      $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
-     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');  
+     $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');
+     $routes->post('delete_titulaire', 'titulaire\TitulaireCont::delete_titulaire');
+     $routes->post('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
+     $routes->get('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
+     $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
 
      //route pour patient
 
      $routes->post('listes_patient_malade', 'Consultation\ConsultationCont::listes_patient_malade');
      $routes->post('getDocteurSelonType', 'Consultation\ConsultationCont::getDocteurSelonType');
-    //  $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
+     $routes->post('charge_personne_malade', 'Consultation\ConsultationCont::charge_personne_malade');    
+     $routes->post('ajout_patient', 'Consultation\ConsultationCont::ajout_patient');    
 
     //route medecin
     $routes->get('lienanalyse', 'analyse\AnalyseCont::lien');
@@ -79,7 +84,6 @@ use CodeIgniter\Router\RouteCollection;
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
     $routes->get('consultation', 'consultation\ConsultationCont::index');
-    // $routes->get('/', 'consultation\ConsultationCont::index');
     $routes->post('charge_titulaire', 'consultation\ConsultationCont::charge_titulaire');
     $routes->post('getSpecialiteMedecin', 'consultation\ConsultationCont::getSpecialiteMedecin');
     $routes->post('charge_analyse', 'consultation\ConsultationCont::charge_analyse');
@@ -89,6 +93,22 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('affiche_parametre', 'consultation\ConsultationCont::affiche_parametre');
     $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
     $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
+    $routes->post('delete_detailconsul', 'consultation\ConsultationCont::delete_detailconsul');
+
+
+    //route cpn
+    $routes->get('liencpn', 'cpn\CpnCont::lien');
+    $routes->get('cpn', 'cpn\CpnCont::index');
+    $routes->post('charge_titulaire', 'cpn\CpnCont::charge_titulaire');
+    $routes->post('listes_details_consult', 'cpn\CpnCont::listes_details_consult');
+    $routes->post('getSpecialiteMedecin', 'cpn\CpnCont::getSpecialiteMedecin');
+    $routes->post('charge_analyse', 'cpn\CpnCont::charge_analyse');
+    $routes->post('liste_cpn', 'cpn\CpnCont::liste_cpn');
+    $routes->post('ajout_cpn', 'cpn\CpnCont::ajout_cpn');
+    $routes->post('delete_cpn', 'cpn\CpnCont::delete_cpn');
+    $routes->post('delete_detailcpn', 'cpn\CpnCont::delete_detailcpn');
+    $routes->post('add_parametre', 'cpn\CpnCont::add_parametre');
+    $routes->post('add_Examen', 'cpn\CpnCont::add_Examen');
 
     //route type_analyse
     $routes->post('ajout_type_analyse', 'analyse\Type_analyseCont::ajout_type_analyse');

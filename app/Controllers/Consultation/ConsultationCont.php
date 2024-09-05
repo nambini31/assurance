@@ -22,11 +22,42 @@ class ConsultationCont extends BaseController
     public function ajout_consultation()
     {
         try {
-            $this->consultation->save($_POST);
-            $lastInsertId = $this->consultation->insertID();
 
-            $consul = $this->consultation->find( $lastInsertId);
+            
+
+            $this->consultation->save($_POST);
+            
+            // Vérification si l'ID est présent dans $_POST (mise à jour)
+            if (isset($_POST['consultationId']) && $_POST['consultationId'] != "" ) {
+                $consultationId = $_POST['consultationId']; // ID de la consultation mise à jour
+            } else {
+                // Sinon, c'est une nouvelle insertion, on récupère l'ID inséré
+                $consultationId = $this->consultation->insertID();
+
+            }
+
+            $consul = $this->consultation->find( $consultationId);
+
+
             echo json_encode($consul);
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function ajout_patient()
+    {
+        try {
+
+            
+            $data = explode("_",$_POST["personne"]);
+            $_POST["idPersonneMalade"] = $data[0];
+            $_POST["TypepersonneMalade"] = $data[1];
+
+            $this->detailconsultation->save($_POST);
+
+            echo json_encode(["id" => 1]);
 
         } catch (\Throwable $th) {
             echo $th;
@@ -38,6 +69,18 @@ class ConsultationCont extends BaseController
 
             $id = $_POST['id_consultation'];
             $this->consultation->update($id, ['etat' => 0]);
+
+            echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+            echo json_encode(['error' => $th->getMessage()]);
+        }
+    }
+    public function delete_detailconsul()
+    {
+        try {
+
+            $id = $_POST['id'];
+            $this->detailconsultation->update($id, ['etat' => 0]);
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
@@ -239,7 +282,7 @@ class ConsultationCont extends BaseController
                     
                     foreach ($datas as $values) {
                         $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
+                        <option value="' . $values['id_analyse'] . '"> '. $values['analyse'] . '</option> ';
                     }
                     
                     $patient .= `</optgroup>`;
@@ -249,6 +292,65 @@ class ConsultationCont extends BaseController
             
 
             
+        
+            echo $patient;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function charge_personne_malade()
+    {
+        try {
+            $patient = '';
+
+
+                $data =  $this->titulaire
+                ->select("CONCAT(titulaire.nom,' ' ,titulaire.prenom) as nom_titulaire , titulaire.titulaireId , nomPrenomConjoint , CONCAT(enfant.nom , ' ' ,enfant.prenom) as nom_enfant , enfant.typeEnfant , enfant.enfantId")
+                ->where("titulaire.titulaireId" , $_POST["id"]) 
+                ->join("enfant", "enfant.titulaireId = titulaire.titulaireId");
+                $data = $data->findAll();
+
+                // 0 : enfant , 1 : parent , 2 : titulaire , 3 : conjoint
+                foreach ($data as $value) {
+                    $patient .= "<optgroup label= 'Titulaire'>";
+
+                    $patient .= '<option value="' . $value['titulaireId'] . '_Titulaire">'. $value['nom_titulaire'] . '</option> ';
+                    $patient .= `</optgroup>`;
+
+                    $patient .= "<optgroup label= 'Conjoint'>";
+
+                    $patient .= '<option value="' . $value['titulaireId'] . '_Conjoint(e)">'. $value['nomPrenomConjoint'] . '</option> ';
+                    $patient .= `</optgroup>`;
+                    break ;
+                }
+
+                $patient .= "<optgroup label= 'Enfant'>";
+
+                foreach ($data as $value) {
+
+                    if ($value["typeEnfant"] == "0") {
+                        
+                        $patient .= '<option value="' . $value['enfantId'] . '_Enfant">'. $value['nom_enfant'] . '</option> ';
+                    }
+                    
+                }
+
+                $patient .= `</optgroup>`;
+
+                $patient .= "<optgroup label= 'Parent'>";
+
+                foreach ($data as $value) {
+
+                    if ($value["typeEnfant"] == "1") {
+                        
+                        $patient .= '<option value="' . $value['enfantId'] . '_Parent">'. $value['nom_enfant'] . '</option> ';
+                    }
+                    
+                }
+
+                $patient .= `</optgroup>`;
+
         
             echo $patient;
         } catch (\Throwable $th) {
@@ -266,7 +368,7 @@ class ConsultationCont extends BaseController
                 
                 $datas =  $datas
             ->where('consultation.etat', 1)
-            ->select(" CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code , titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
+            ->select(" membre.id_membre , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code , titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
             ->join("utilisateur" , "utilisateur.id_user = consultation.docteurId")
             ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
             ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
@@ -278,7 +380,7 @@ class ConsultationCont extends BaseController
 
                 $datas =  $datas
             ->where('consultation.etat', 1)
-            ->select(" CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code ,titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
+            ->select(" membre.id_membre , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code ,titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
             ->join("utilisateur" , "utilisateur.id_user = consultation.docteurId")
             ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
             ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
@@ -350,6 +452,8 @@ class ConsultationCont extends BaseController
 
                 $count = $this->detailconsultation
                 ->where('detailconsultation.consultationId', $value["consultationId"])
+                ->where('detailconsultation.titulaireId', $value["titulaireId"])
+                ->where("etat" , 1)
                 ->countAllResults();
 
                 $th .=
@@ -367,7 +471,7 @@ class ConsultationCont extends BaseController
                         if ($this->session->get("roleId") == "1" || $this->session->get("roleId") == "5") {
                             
                             $th .= '
-                            <a class="info mr-1"  onclick="edit_consultation(' . 1 . ')"><i class=" la la-pencil"></i></a>
+                            <a class="info mr-1"  onclick="edit_consultation(' . $value["consultationId"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["docteurId"] . ' , ' . $value["typeConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
     
                             <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
 
@@ -445,7 +549,10 @@ class ConsultationCont extends BaseController
             , detailconsultation.*")
             ->join("titulaire", "titulaire.titulaireId = detailconsultation.idPersonneMalade", "left")
             ->join("enfant", "enfant.enfantId = detailconsultation.idPersonneMalade", "left")
+            ->join("consultation" ,"detailconsultation.titulaireId = consultation.titulaireId")
             ->where('detailconsultation.consultationId', $_POST["idconsultation"] )
+            ->where('consultation.consultationId', $_POST["idconsultation"] )
+            ->where("detailconsultation.etat" , 1)
             ->findAll();
 
             $th = "
@@ -497,11 +604,10 @@ class ConsultationCont extends BaseController
                         <td style="width : 10%;">' . $etat . '</td> 
                         <td style="width : 10%;"> 
 
-                        <a class="info mr-1" onclick="edit_consultation(' . 1 . ')"><i class=" la la-pencil"></i></a>
+                        <a class="info mr-1" onclick="edit_patient(' . $value["detailConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="info mr-1"  onclick="parametre(' . $value["detailConsultationId"] . ')"><i class=" la la-cog"></i></a>
-                        <a class="info mr-1" id="nat'.$value["detailConsultationId"].'" data-nature='.json_encode(explode(',', $value["natureExamen"])).'  onclick="laboratoire(' . $value["detailConsultationId"] . ')"><i class=" la la-flask"></i></a>
-                        <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> 
-                        
+                        <a class="info mr-1" id="nat'.$value["detailConsultationId"].'" data-motif= "'.$value["motif"].'" data-personne='.json_encode(implode('_', [ $value["idPersonneMalade"] ,$value["TypepersonneMalade"] ])).' data-nature='.json_encode(explode(',', $value["natureExamen"])).'  onclick="laboratoire(' . $value["detailConsultationId"] . ')"><i class=" la la-microscope"></i></a>
+                        <a class="danger mr-1" onclick="delete_detailvisite(' . $value["detailConsultationId"] . ')"><i class=" la la-trash-o"></i></a> 
                         </td> 
                        </tr>';
             $i++;
@@ -524,7 +630,8 @@ class ConsultationCont extends BaseController
             $response = [
                 'table' => $th,
                 'docteur' => $data["doc_full_name"],
-                'num_carte' => $data["num_carte"]
+                'num_carte' => $data["num_carte"],
+                'titulaireId' => $data["titulaireId"]
             ];
             
             echo json_encode($response);

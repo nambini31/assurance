@@ -113,7 +113,7 @@ $(document).ready(function () {
       '<a class="email" href="' + email + '">' + email + '</a>',
       '<span class="phone">' + contact + '</span>',
       '<div class="favorite ' + favClass + '"></div>',
-      '<a data-toggle="modal" data-target="#EditContactModal" class="primary edit mr-1"><i class="la la-pencil"></i></a>' +
+      '<a data-toggle="modal" data-target="#EditContactModal" class="primary edit mr-1"><i class="la la-pencil-square-o"></i></a>' +
       '<a class="danger delete mr-1"><i class="la la-trash-o"></i></a>' +
       '<span class="dropdown">' +
       '<a id="btnSearchDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="dropdown-toggle dropdown-menu-right"><i class="la la-ellipsis-v"></i></a>' +
@@ -166,7 +166,7 @@ $(document).ready(function () {
       '<a class="email" href="' + email + '">' + email + '</a>',
       '<span class="phone">' + contact + '</span>',
       '<div class="favorite ' + favClass + '"></div>',
-      '<a data-toggle="modal" data-target="#EditContactModal" class="primary edit mr-1"><i class="la la-pencil"></i></a>' +
+      '<a data-toggle="modal" data-target="#EditContactModal" class="primary edit mr-1"><i class="la la-pencil-square-o"></i></a>' +
       '<a class="danger delete mr-1"><i class="la la-trash-o"></i></a>' +
       '<span class="dropdown">' +
       '<a id="btnSearchDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="dropdown-toggle dropdown-menu-right"><i class="la la-ellipsis-v"></i></a>' +

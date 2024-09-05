@@ -126,3 +126,45 @@ Stack trace:
 #9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
 #11 {main}
+ERROR - 2024-09-03 11:43:01 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 E:\Wamp64\www\Assurance\app\Controllers\login\LoginCont.php(56): CodeIgniter\BaseModel->first()
+#6 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\login\LoginCont->authentifier()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\login\LoginCont))
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-03 12:07:03 --> mysqli_sql_exception: Unknown column 'membre.membreId' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `membre`...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `membre`...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `membre`...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(312): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->liste_consultation()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}

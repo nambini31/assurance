@@ -125,7 +125,7 @@ class AnalyseCont extends BaseController
                         <td style="width : 50%;">' . $value["analyse"] . ' </td>
                         <td style="width : 40%;">' . $value["nom_type_analyse"] . '</td> 
                         <td style="width : 40%;">' . $role . '</td> 
-                        <td> <a class="info mr-1"   id="med_'.$value["id_analyse"] .'" data-role_user='. htmlspecialchars($roleAttr) .'  data-nom_analyse="'.$value["analyse"] .'" data-id_type_analyse="'.$value["id_type_analyse"] .'" onclick="editanalyse(' . $value["id_analyse"] . ')"><i class=" la la-pencil"></i></a>
+                        <td> <a class="info mr-1"   id="med_'.$value["id_analyse"] .'" data-role_user='. htmlspecialchars($roleAttr) .'  data-nom_analyse="'.$value["analyse"] .'" data-id_type_analyse="'.$value["id_type_analyse"] .'" onclick="editanalyse(' . $value["id_analyse"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="supprimeranalyse(' . $value["id_analyse"] . ')"><i class=" la la-trash-o"></i></a> </td> 
                        </tr>';
             }

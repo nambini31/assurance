@@ -6,6 +6,12 @@ p, li ,a{
   
 }
 
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-left: 0px !important;
+}
+
 .navbar-nav {
     display: flex;
     padding-left: 0;
@@ -51,7 +57,9 @@ div.dataTables_wrapper div.dataTables_filter{
     bottom: 0px;
     width: -webkit-fill-available;
 } */
-
+.la-2x{
+    font-size: 1.2rem !important ;
+}
 .bg-hexagons {
     background-color: #ffffff !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23f7f7f7' fill-opacity='1' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important; }
@@ -60,25 +68,51 @@ div.dataTables_wrapper div.dataTables_filter{
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%23ff6576' fill-opacity='1' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important; }
   
 
-.modal-lg {
-    max-width: 90%;
-}
-.modal-md {
-    max-width: 50%;
-}
-
 .card-body {
     flex: 1 1 auto;
     padding: 1.5rem;
     background: white;
     border-radius: 0.35rem !important;
 }
+.flowscroll {
+    overflow: auto;
+}
 
 .card-modal{
     border-radius: 0.35rem !important;
 }
 
+@media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+        max-width: 90% !important; 
+    }
+}
 
+
+@media (min-width: 300px) {
+    .modal-dialog , .modal-lg {
+        max-width: 90% !important;
+        margin: 1.75rem auto;
+    }
+}
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px !important;
+        margin: 1.75rem auto;
+    }
+}
+@media (min-width: 576px) {
+    .modal-lg {
+        max-width: 90% !important;
+        margin: 1.75rem auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-md {
+        max-width: 50% !important; 
+    }
+}
 
 .modal-content {
     position: relative;
