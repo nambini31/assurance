@@ -12,3 +12,45 @@ Stack trace:
 #9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
 #11 {main}
+ERROR - 2024-09-05 13:20:19 --> mysqli_sql_exception: Unknown column 'membre.id_membre' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `membre`...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `membre`...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `membre`...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(637): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->listes_details_consult()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-05 17:01:42 --> mysqli_sql_exception: Unknown column 'num' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `num`\nFR...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `num`\nFR...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `num`\nFR...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `num`\nFR...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(640): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->listes_details_consult()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-05 17:20:14 --> mysqli_sql_exception: Unknown column 'num' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `num`\nFR...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `num`\nFR...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `num`\nFR...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `num`\nFR...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(637): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->listes_details_consult()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}

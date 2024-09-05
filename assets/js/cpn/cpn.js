@@ -5,6 +5,7 @@ $(document).ready(function () {
     charge_membre1();
     charge_type();
     $("#deleteConsultation").insertAfter("#modal_consultationcpn");
+    $("#AddConsultCpn").insertAfter("#modal_consultationcpn");
 
 
 });
@@ -279,6 +280,7 @@ function liste_cpn() {
 
 function liste_descendant(id) {
     idCpn = id ;
+    $("#idcpn1").val(id);
 
     $("#descendant_modal").modal(
         { backdrop: "static", keyboard: false },
@@ -292,7 +294,7 @@ var idCpn ;
 
 function consult_cpn(id) {
     idCpn = id ;
-    $("#idDetailsCons").val(id);
+    $("#idcpnCons").val(id);
     fill_consult(id);
     $("#modal_consultationcpn").modal(
         { backdrop: "static", keyboard: false },
@@ -472,31 +474,76 @@ $("#add_parametre").off("submit").on("submit", function (e) {
     });
 });
 
-$("#add_examen").off("submit").on("submit", function (e) {
+$("#add_consultcpn").off("submit").on("submit", function (e) {
     e.preventDefault();
 
-    let data = new FormData(this);
+    if (nums.includes($("#numCons").val()) ) {
 
-    $.ajax({
-        beforeSend: function () {
+          if (iddetail == '' || iddetail != $("#numCons").val()) {
             
-        },
-        url: base + "add_Examen",
-        type: "POST",
-        processData: false,
-        contentType: false,
-        cache: false,
-        dataType: "JSON",
-        data: data,
-        success: function (res) {
-            $("#AddLaboratoire").modal("hide"
-            );
-                    alertCustom("success", "ft-check", "Demande d'examen envoyé");
-                    
-                    affichage_details(idConsul , isFinished);
+              alertCustom("warning", "ft-check", "N° de consultation existe deja");
 
-        },
-    });
+              return ;
+          }
+      
+    } 
+
+        let data = new FormData(this);
+
+        $.ajax({
+            beforeSend: function () {
+                
+            },
+            url: base + "add_detailcpn",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "JSON",
+            data: data,
+            success: function (res) {
+        
+                        
+
+
+                        if ($('#btn_add_detail_cpn').text() === "Modifier") {
+                            if (res.id == 1) {
+                                alertCustom("success", "ft-check", "Modification effectué avec succée");
+            
+                                $("#AddConsultCpn").modal("hide");
+                                fill_consult(idCpn);
+
+                                
+                                
+            
+                            }  else {
+                                alertCustom("danger", "ft-x", "Ajout non effectué");
+            
+                            }
+                            
+                        } else {
+            
+                            if (res.id == 1) {
+                               
+                                alertCustom("success", "ft-check", "Ajout effectué avec succée");
+                                fill_consult(idCpn);
+
+                                                        $("#AddConsultCpn").modal("hide");
+                                
+            
+            
+                            }else {
+                                alertCustom("danger", "ft-x", "Ajout non effectué");
+            
+                            }
+                        }
+
+
+            },
+        });
+    
+
+    
 });
 
 $("#add_consultation").off("submit").on("submit", function (e) {
@@ -539,7 +586,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
     });
 });
 
-
+var nums = new Array();
 
 function fill_consult(idcpn) {
     
@@ -569,7 +616,9 @@ function fill_consult(idcpn) {
         },
         success: function (res) {
             var res = JSON.parse(res);
-
+            $(".entete_modal2").text(res.num_cpn);
+            
+            nums = res.nums;
             if ($.fn.DataTable.isDataTable("#table_consultation")) {
                 $("#table_consultation").DataTable().destroy();
             } else {
@@ -608,15 +657,27 @@ function fill_consult(idcpn) {
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
+                            $("#idDetailsCons").val('');
+
+                            $("#btn_add_detail_cpn").text('Ajouter');
+
                             
-                            
-                            $("#AddpatientMalade").modal(
+
+                              $('#add_consultcpn').find(':input:not([type="hidden"])').each(function() {
+                                if ($(this).is('select.selectpicker')) {
+                                    $(this).selectpicker('val', []); // Réinitialiser le selectpicker
+                                } else {
+                                    $(this).val('');
+                                }
+                            });
+
+                            $("#AddConsultCpn").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                                 );
                                 
-                                $('.entete_modal_pat').text("Ajout patient");
-                                $('#btn_add_patient').text("Ajouter");
+                                $('.entete_modal_patpo').text("Ajout consultation");
+                                
 
                         },
                     },
@@ -639,6 +700,46 @@ function supprimercpn(id) {
     idCpn = id ;
     
     $("#deleteCpn").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+
+
+}
+function edit_detailcpn(id) {
+
+    var element = $("#detailcpn" + id);
+    
+    // Utiliser jQuery pour sélectionner les inputs par leur 'name' et assigner les valeurs des attributs 'data-*'
+    $('input[name="ta"]').val(element.data('ta'));
+    $('input[name="albOedemes"]').val(element.data('alboedemes'));
+    $('input[name="prisedepoids"]').val(element.data('prisedepoids'));
+    $('input[name="ictereConjonctive"]').val(element.data('ictereconjonctive'));
+    $('input[name="saignement"]').val(element.data('saignement'));
+    $('input[name="hauteurUterine"]').val(element.data('hauteuruterine'));
+    $('input[name="bdfc"]').val(element.data('bdfc'));
+    $('input[name="presentation"]').val(element.data('presentation'));
+    $('input[name="referenceAccouchement"]').val(element.data('referenceaccouchement'));
+    $('input[name="vat"]').val(element.data('vat'));
+    $('input[name="spi"]').val(element.data('spi'));
+    $('input[name="ferAcFolique"]').val(element.data('feracfolique'));
+    $('input[name="albendazole"]').val(element.data('albendazole'));
+    $('input[name="vih"]').val(element.data('vih'));
+    $('input[name="bw"]').val(element.data('bw'));
+    $('input[name="rechercheActive"]').val(element.data('rechercheactive'));
+    $('input[name="dateRendevous"]').val(element.data('daterendevous'));
+
+    $('#numCons').val(element.data('num')).selectpicker('refresh');
+    $("#idDetailsCons").val(id);
+
+    $("#btn_add_detail_cpn").text('Modifier');
+    $(".entete_modal_patpo").text('Modification consultation');
+
+
+
+    iddetail = id ;
+    
+    $("#AddConsultCpn").modal(
         { backdrop: "static", keyboard: false },
         "show"
     );
@@ -691,7 +792,7 @@ function delete_cpn() {
 
             }
 
-            liste_cpn();
+            consult_cpn(idCpn);
 
         },
     });
@@ -750,6 +851,6 @@ function annulerAjoutconsultation() {
 
 function filtrerVisite() {
 
-    liste_consultation()
+    liste_cpn();
 
 }

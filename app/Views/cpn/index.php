@@ -129,7 +129,7 @@
         </div>
         <div class="modal fade" id="descendant_modal" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" id="modal_Consultation">
+                <div class="modal-content" id="modal_Consultation" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -142,6 +142,7 @@
                             <br>
                             
                             <form method="POST" id="add_parametre" >
+                                <input type="hidden" name="idcpn" id="idcpn1">
                             <div class="flowscroll">
 
                                 <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
@@ -153,43 +154,43 @@
                                  <tr>
                                     <td style="text-align:left">AGE < 16 ans</th>
                                     <td><input type="radio" required name="tension" id="tension"> </td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">AGE > 35 ans</th>
                                     <td><input type="radio" required name="taille" id="taille"> </td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">Taille < 1..5 m</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">Parité > 5 enfants</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">Césarienne au dernier ACC</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">Mort-né au dernier ACC</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">Drépanocytose SS</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                    <td><input type="radio" required name="poids" ></td>
+                                    <td><input type="radio" required name="poids" ></td>
 
                                  </tr>
                                 </table>
@@ -202,27 +203,27 @@
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">VAT 1 </th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
+                                    <td><input type="date" class="form-control input-sm" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">VAT 2</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
+                                    <td><input type="date" class="form-control input-sm" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">VAT 3</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
+                                    <td><input type="date" class="form-control input-sm" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">vat 4</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
+                                    <td><input type="date" class="form-control input-sm" required name="poids" ></td>
 
                                  </tr>
                                  <tr>
                                     <td style="text-align:left">VAT 5</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
+                                    <td><input type="date" class="form-control input-sm" required name="poids" ></td>
 
                                  </tr>
                               
@@ -240,112 +241,159 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="AddConsultCpn" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog nodal-md" role="document">
-                <div class="modal-content" id="modal_ConsultCpn">
+        <div class="modal fade" id="AddConsultCpn" style="z-index: 99999999; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content" id="modal_ConsultCpn" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                                                                    <h3 class="modal-header entete_modal">
+                                                                    <h3 class="modal-header entete_modal_patpo">
                                 Ajout consultation
                             </h3>
 
                             <br>
                             
                             <form method="POST" id="add_consultcpn" >
-                                <input type="hidden" name="idDetailsCons" id="idDetailsCons">
-                            <div class="flowscroll">
+                                <input type="hidden" name="idconsultationcpn" id="idDetailsCons">
+                                <input type="hidden" name="idcpn" id="idcpnCons">
 
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th style="text-align:left">Facteur de risque</th>
-                                    <th style="text-align:center">Oui</td>
-                                    <th style="text-align:center">Non</td>
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">AGE < 16 ans</th>
-                                    <td><input type="radio" required name="tension" id="tension"> </td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                <div class="row">
+                                        <div class="col-xl-6">
 
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">AGE > 35 ans</th>
-                                    <td><input type="radio" required name="taille" id="taille"> </td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                            <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                             <tr>
+                                                <th style="text-align:left ; min-width: 130px;">Elements</th>
+                                                <th style="text-align:center">Valeur</td>
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">N° Consultation</th>
+                                                <td><select class="selectpicker  form-control btn-sm" name = 'num' id="numCons"  required data-live-search='true' data-size='5' title='N°'>
+                                                    <option value="1">1<sup>ère</sup></option>
+                                                    <option value="2">2<sup>ème</sup></option>
+                                                    <option value="3">3<sup>ème</sup></option>
+                                                    <option value="4">4<sup>ème</sup></option>
+                                                    <option value="5">5<sup>ème</sup></option>
+                                                    <option value="6">6<sup>ème</sup></option>
+                                                    <option value="7">7<sup>ème</sup></option>
+                                                    <option value="8">8<sup>ème</sup></option>
+                                                </select></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">T.A </th>
+                                                <td><input type="text" class="form-control input-sm" required name="ta"></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">ALB/ OEDEMES</th>
+                                                <td><input type="text" class="form-control input-sm" required name="albOedemes" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">Prise de poids</th>
+                                                <td><input type="text" class="form-control input-sm" required name="prisedepoids" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">ICTERE (Conjonctives)</th>
+                                                <td><input type="text" class="form-control input-sm" required name="ictereConjonctive" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">SAIGNEMENT</th>
+                                                <td><input type="text" class="form-control input-sm" required name="saignement" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">HAUTEUR UTERINE</th>
+                                                <td><input type="text" class="form-control input-sm" required name="hauteurUterine" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">B D C F</th>
+                                                <td><input type="text" class="form-control input-sm" required name="bdfc" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">PRESENTAIION</th>
+                                                <td><input type="text" class="form-control input-sm" required name="presentation" ></td>
+            
+                                             </tr>
+                                             
+                                          
+                                            </table>
 
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Taille < 1..5 m</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                        </div>
 
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Parité > 5 enfants</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                        
+                                        <div class="col-xl-6">
 
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Césarienne au dernier ACC</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
+                                            <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                                <tr>
+                                                    <th style="text-align:left ; min-width: 170px;">Elements</th>
+                                                    <th style="text-align:center">Valeur</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left ; text-wrap: wrap;">Référence pour Accouchement</th>
+                                                    <td><input type="text" class="form-control input-sm" required name="referenceAccouchement" ></td>
+                
+                                                 </tr> 
+                                             
+                                             <tr>
+                                                <td style="text-align:left">VAT</th>
+                                                <td><input type="text" class="form-control input-sm" required name="vat" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">SPI</th>
+                                                <td><input type="text" class="form-control input-sm" required name="spi" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">Fer Ac/folique</th>
+                                                <td><input type="text" class="form-control input-sm" required name="ferAcFolique" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">Albendazole</th>
+                                                <td><input type="text" class="form-control input-sm" required name="albendazole" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">VIH</th>
+                                                <td><input type="text" class="form-control input-sm" required name="vih" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">BW</th>
+                                                <td><input type="text" class="form-control input-sm" required name="bw" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">Recherche active</th>
+                                                <td><input type="text" class="form-control input-sm" required name="rechercheActive" ></td>
+            
+                                             </tr>
+                                             <tr>
+                                                <td style="text-align:left">Date de rendez-vous</th>
+                                                <td><input type="date" class="form-control input-sm" required name="dateRendevous" ></td>
+            
+                                             </tr>
+                                          
+                                            </table>
 
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Mort-né au dernier ACC</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Drépanocytose SS</th>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-                                    <td><input type="radio" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                </table>
-
-
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th style="text-align:left">VACCINATION</th>
-                                    <th style="text-align:center">Date</td>
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">VAT 1 </th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">VAT 2</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">VAT 3</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">vat 4</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">VAT 5</th>
-                                    <td><input type="date" class="form-control input-sm" required name="poids" id="poids"></td>
-
-                                 </tr>
-                              
-                                </table>
-                                </div>
-                                <div class="form-actions right" >
-                                    <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
-
+                                        </div>
                                     
+                                </div>
+
+
+
+
+                           
+                                <div class="form-actions right" >
+                                    <button type="submit" id="btn_add_detail_cpn" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Ajouter</button>
                                 </div>
                             </form>
 
@@ -355,17 +403,17 @@
             </div>
         </div>
         <div class="modal fade" id="modal_consultationcpn" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content" id="consultationcpn_modal">
+            <div class="modal-dialog modal-lg" style="width: 70%;" role="document">
+                <div class="modal-content" id="consultationcpn_modal" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h4 class="modal-header entete_modal1">
+                            <h4 class="modal-header entete_modal2">
                                 CPN N° : OMI-205
                             </h4>
-                            <input type="hidden" id="idDetailsCons">
+                            
                             <br>
                             <table id="table_consultation" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
                                 

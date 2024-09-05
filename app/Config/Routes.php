@@ -99,16 +99,13 @@ use CodeIgniter\Router\RouteCollection;
     //route cpn
     $routes->get('liencpn', 'cpn\CpnCont::lien');
     $routes->get('cpn', 'cpn\CpnCont::index');
-    $routes->post('charge_titulaire', 'cpn\CpnCont::charge_titulaire');
     $routes->post('listes_details_consult', 'cpn\CpnCont::listes_details_consult');
-    $routes->post('getSpecialiteMedecin', 'cpn\CpnCont::getSpecialiteMedecin');
     $routes->post('charge_analyse', 'cpn\CpnCont::charge_analyse');
     $routes->post('liste_cpn', 'cpn\CpnCont::liste_cpn');
     $routes->post('ajout_cpn', 'cpn\CpnCont::ajout_cpn');
     $routes->post('delete_cpn', 'cpn\CpnCont::delete_cpn');
     $routes->post('delete_detailcpn', 'cpn\CpnCont::delete_detailcpn');
-    $routes->post('add_parametre', 'cpn\CpnCont::add_parametre');
-    $routes->post('add_Examen', 'cpn\CpnCont::add_Examen');
+    $routes->post('add_detailcpn', 'cpn\CpnCont::add_detailcpn');
 
     //route type_analyse
     $routes->post('ajout_type_analyse', 'analyse\Type_analyseCont::ajout_type_analyse');

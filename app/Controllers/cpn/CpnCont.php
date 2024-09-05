@@ -46,16 +46,11 @@ class CpnCont extends BaseController
         }
     }
 
-    public function ajout_patient()
+    public function add_detailcpn()
     {
         try {
 
-            
-            $data = explode("_",$_POST["personne"]);
-            $_POST["idPersonneMalade"] = $data[0];
-            $_POST["TypepersonneMalade"] = $data[1];
-
-            $this->detailcpn->save($_POST);
+            $this->detailconsultationcpn->save($_POST);
 
             echo json_encode(["id" => 1]);
 
@@ -91,24 +86,6 @@ class CpnCont extends BaseController
         }
     }
 
-    public function charge_type_analyse()
-    {
-        try {
-
-            $data =  $this->type_analyse->where("etat" ,  1 )->findAll();
-
-            $specialite = '';
-
-                foreach ($data as $value) {
-                    $specialite .= '
-                        <option value="' . $value['id_specialite'] . '"> '. $value['nom_specialite'] . '</option> ';
-                }
-
-            echo $specialite;
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
     public function affiche_parametre()
     {
         try {
@@ -116,42 +93,6 @@ class CpnCont extends BaseController
             $data =  $this->detailcpn->find( $_POST["id"]);
 
             echo json_encode($data);
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-
-    public function getSpecialiteMedecin()
-    {
-        try {
-
-            $data =  $this->typeMedecin->findAll();
-
-            $type = '';
-                foreach ($data as $value) {
-                    $type .= '
-                        <option value="' . $value['idTypeMedecin'] . '"> '. $value['name'] . '</option> ';
-                }
-            echo $type;
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-
-    public function getDocteurSelonType(){
-        try {
-
-            $data =  $this->utilisateur
-            ->where("idTypeMedecin", $_POST["id"])
-            ->where("etat", 1)
-            ->findAll();
-
-            $listeDocteur = '';
-            foreach ($data as $value) {
-                $listeDocteur .= '
-                    <option value="' . $value['id_user'] .'"> '. $value['nom_user'] .' '. $value['prenom_user'] . '</option> ';
-            }
-            echo $listeDocteur;
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -170,137 +111,6 @@ class CpnCont extends BaseController
         }
     }
 
-    public function add_Examen()
-    {
-        try {
-            $_POST["natureExamen"] = implode(",",$_POST["nature"]);
-            $_POST["isFinished"] = 2;
-            $_POST["dateParametre"] = date("Y-m-d H:i:s");
-            $data =  $this->detailcpn->update( $_POST["idDetails"] , $_POST);
-
-            echo json_encode($data);
-
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-    public function charge_titulaire()
-    {
-        try {
-
-            $data =  $this->titulaire
-            ->select(" titulaire.titulaireId , CONCAT(titulaire.nom, ' ', titulaire.prenom) AS full_name, 
-                    CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code")
-            ->where("titulaire.etat", '1')
-            ->where("titulaire.isActif", '1')
-            ->where("titulaire.membreId", $_POST["id_membre"])
-            ->join("membre", "membre.id_membre = titulaire.membreId")
-            ->findAll();
-
-            $cabinet = '';
-                foreach ($data as $value) {
-                    $cabinet .= '
-                        <option value="' . $value['titulaireId'] . '"> '. $value['code'] ." ". $value['full_name'] . '</option> ';
-                }
-
-            echo $cabinet;
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-
-
-    public function charge_analyse()
-    {
-        try {
-            $patient = '';
-
-            if ($this->session->get("roleId") == "2") {
-                
-                $data =  $this->analyse
-                ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
-                ->where("analyse.etat" ,  '1' )->like("role_user" , "2")->groupBy("id_type_analyse")
-                ->join("type_analyse", "type_analyse.id_type_analyse = analyse.type_analyse");
-                $data = $data->findAll();
-
-                foreach ($data as $value) {
-                    $datas =  $this->analyse
-                    ->where("etat" ,  '1' )
-                    ->where("type_analyse" ,  $value["id_type_analyse"] )
-                    ->like("role_user" , "2")
-                    ->findAll();
-
-                    $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
-
-                    
-                    foreach ($datas as $values) {
-                        $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
-                    }
-                    
-                    $patient .= `</optgroup>`;
-                }
-
-            }elseif ($this->session->get("roleId") == "3") {
-                $data =  $this->analyse
-                ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
-                ->where("analyse.etat" ,  '1' )->like("role_user" , "3")
-                ->join("type_analyse", "type_analyse.id_type_analyse = analyse.type_analyse")
-                ->groupBy("id_type_analyse");
-                $data = $data->findAll();
-
-                
-                foreach ($data as $value) {
-                    $datas =  $this->analyse
-                    ->where("etat" ,  '1' )
-                    ->where("type_analyse" ,  $value["id_type_analyse"] )
-                    ->like("role_user" , "3")
-                    ->findAll();
-
-                    $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
-
-                    
-                    foreach ($datas as $values) {
-                        $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
-                    }
-                    
-                    $patient .= `</optgroup>`;
-                }
-            }
-            elseif ($this->session->get("roleId") == "5") {
-                $data =  $this->type_analyse
-                ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
-                ->where("etat" ,  '1' )->groupBy("id_type_analyse");
-                $data = $data->findAll();
-
-                foreach ($data as $value) {
-                    $datas =  $this->analyse
-                    ->where("etat" ,  '1' )
-                    ->where("type_analyse" ,  $value["id_type_analyse"] )
-                    ->findAll();
-
-                    $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
-
-                    
-                    foreach ($datas as $values) {
-                        $patient .= '
-                        <option value="' . $values['id_analyse'] . '"> '. $values['analyse'] . '</option> ';
-                    }
-                    
-                    $patient .= `</optgroup>`;
-                }
-
-            }
-            
-
-            
-        
-            echo $patient;
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
 
     public function charge_personne_malade()
     {
@@ -548,7 +358,27 @@ class CpnCont extends BaseController
                 if (isset($consultations[$i])) {
                     $row = $consultations[$i];
                     $th = '
-                        <a class="info mr-1" onclick="edit_cpn(' . $row["idconsultationcpn"] . ',' . $row["idcpn"] . ')"><i class="la la-pencil-square-o"></i></a>
+                    <a class="info mr-1"  id = "detailcpn' . $row["idconsultationcpn"] . '"
+                    onclick="edit_detailcpn(' . $row["idconsultationcpn"] . ')" 
+                    data-ta="' . $row["ta"] . '" 
+                    data-num="' . $row["num"] . '" 
+                    data-alboedemes="' . $row["albOedemes"] . '" 
+                    data-prisedepoids="' . $row["prisedepoids"] . '" 
+                    data-ictereconjonctive="' . $row["ictereConjonctive"] . '" 
+                    data-saignement="' . $row["saignement"] . '" 
+                    data-hauteuruterine="' . $row["hauteurUterine"] . '" 
+                    data-bdfc="' . $row["bdfc"] . '" 
+                    data-presentation="' . $row["presentation"] . '" 
+                    data-referenceaccouchement="' . $row["referenceAccouchement"] . '" 
+                    data-vat="' . $row["vat"] . '" 
+                    data-spi="' . $row["spi"] . '" 
+                    data-feracfolique="' . $row["ferAcFolique"] . '" 
+                    data-albendazole="' . $row["albendazole"] . '" 
+                    data-vih="' . $row["vih"] . '" 
+                    data-bw="' . $row["bw"] . '" 
+                    data-rechercheactive="' . $row["rechercheActive"] . '" data-daterendevous="' . $row["dateRendevous"] . '">
+                    <i class="la la-pencil-square-o"></i>
+                </a>
                         <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
                     
                     $rows['Action'] .= "<td>{$th}</td>";
@@ -632,9 +462,33 @@ class CpnCont extends BaseController
                     {$rows['rechercheActive']}
                     {$rows['dateRendevous']}
                 </tbody>";
+
+                $datas =  $this->cpn->select("CONCAT('CPN -', ' ', cpn.idcpn) as cpn ")
+                ->where('idcpn', $_POST["idcpn"] )->first() ;
+
+                $data =  $this->detailconsultationcpn->select("num")
+                ->where('idcpn', $_POST["idcpn"] )
+                ->where('etat' , 1)
+                ->findAll() ;
+
+                if (empty($data)) {
+                    // Si $datas est vide, créer un tableau vide
+                    $nums = [];
+                } else {
+                    // Si $datas n'est pas vide, extraire les valeurs de 'num' et les stocker dans un autre tableau
+                    $nums = array_column($data, 'num');
+                }
+
+
+            $response = [
+                'nums' => $nums ,
+                'table' => $th ,
+                'num_cpn' => $datas["cpn"]
+            ];
+
         
             // Envoi du tableau en JSON pour être traité par le DataTable
-            echo json_encode(['table' => $th]);
+            echo json_encode($response);
         
         } catch (\Throwable $th) {
             echo $th;

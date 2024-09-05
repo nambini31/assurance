@@ -14,9 +14,9 @@ class DetailConsultationCpnModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'idcpn', 'ta', 'albOedemes', 'ictereConjonctive', 'saignement', 
-        'hauteurUterine', 'bdfc', 'presentation', 'referenceAccouchement', 
-        'vat', 'spi', 'speculum', 'conseilAvise', 'referenceSpecialiste', 'autresExamens' , 'etat'
+        'idcpn', 'ta', 'albOedemes', 'ictereConjonctive', 'saignement', 'ferAcFolique' , 'albendazole',
+        'hauteurUterine', 'bdfc', 'presentation', 'referenceAccouchement', 'prisedepoids', 'vih' , 'bw' ,
+        'vat', 'spi' , 'etat' , 'rechercheActive' , 'dateRendevous' , 'num'
     ];
 
 

@@ -254,6 +254,15 @@ function liste_consultation() {
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
+                            $('#id_consultation').val('');
+
+                            $('#add_consultation').find(':input:not([type="hidden"])').each(function() {
+                                if ($(this).is('select.selectpicker')) {
+                                    $(this).selectpicker('val', []); // Réinitialiser le selectpicker
+                                } else {
+                                    $(this).val('');
+                                }
+                            });
 
                             $("#AddVisites").modal(
                                 { backdrop: "static", keyboard: false },
@@ -621,7 +630,15 @@ function affichage_details(idconsultation, isFinished) {
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
-                            
+                            $('#id_detail_consultattion').val('');
+
+                            $('#ajout_patient').find(':input:not([type="hidden"])').each(function() {
+                                if ($(this).is('select.selectpicker')) {
+                                    $(this).selectpicker('val', []); // Réinitialiser le selectpicker
+                                } else {
+                                    $(this).val('');
+                                }
+                            });
                             
                             $("#AddpatientMalade").modal(
                                 { backdrop: "static", keyboard: false },
