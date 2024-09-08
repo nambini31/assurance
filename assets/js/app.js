@@ -324,69 +324,38 @@ function editer_commande(id_devis, type) {
 let clave;
 
 function formatPrixImput() {
-
-  /*var inputPrix = $("#temperature , #tension , #poids , #taile");
-
-// Initialiser Cleave pour chaque champ de saisie
-  inputPrix.each(function () {
-      clave =  new Cleave(this, {
-          numeral: true,
-
-          delimiter: '',
-          numeralDecimalMark: '.',
-          numeralDecimalScale: 2,
-          numeralPositiveOnly: false,
-          numeralMinimumValue: '0',
-          // numeralMaximumValue: '1000000',
-      });
-  });*/
-
   // Appliquer la validation à chaque champ de saisie spécifié
-document.getElementById('temperature').oninput = function() {
-  validateNumber(this);
-};
-
-document.getElementById('tension').oninput = function() {
-  validateNumber(this);
-};
-
-document.getElementById('poids').oninput = function() {
-  validateNumber(this);
-};
-
-document.getElementById('taille').oninput = function() {
-  validateNumber(this);
-};
-
+  $('#temperature, #tension, #poids, #taille').on('input', function() {
+      validateNumber($(this));
+  });
 }
 
-
 function validateNumber(input) {
-  let value = input.value;
+  let value = input.val();
 
-    // Supprimer tous les caractères non numériques, non '-' et non '.'
-    value = value.replace(/[^0-9.-]/g, '');
+  // Supprimer tous les caractères non numériques, non '-' et non '.'
+  value = value.replace(/[^0-9.-]/g, '');
 
-    // Autoriser seulement un seul signe '-' au début
-    const minusCount = (value.match(/-/g) || []).length;
-    if (minusCount > 1) {
-        value = value.replace(/-/g, '');
-        value = '-' + value;
-    }
+  // Autoriser seulement un seul signe '-' au début
+  const minusCount = (value.match(/-/g) || []).length;
+  if (minusCount > 1) {
+      value = value.replace(/-/g, '');
+      value = '-' + value;
+  }
 
-    // Gérer les virgules (un seul point décimal)
-    const parts = value.split('.');
-    if (parts.length > 2) {
-        value = parts[0] + '.' + parts.slice(1).join('');
-    }
+  // Gérer les virgules (un seul point décimal)
+  const parts = value.split('.');
+  if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+  }
 
-    // Limiter à deux chiffres après la virgule
-    if (parts.length === 2) {
-        value = parts[0] + '.' + parts[1].slice(0, 2);
-    }
+  // Limiter à deux chiffres après la virgule
+  if (parts.length === 2) {
+      value = parts[0] + '.' + parts[1].slice(0, 2);
+  }
 
-    // Mettre à jour la valeur de l'input
-    input.value = value;
+  // Mettre à jour la valeur de l'input
+  input.val(value);
 }
 
 

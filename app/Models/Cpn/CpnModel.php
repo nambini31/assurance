@@ -16,11 +16,11 @@ class CpnModel extends Model
         'mariee', 'titulaireId', 'typePersonne', 'dateAccouchement', 'ageinf16', 
         'agesup35', 'taille', 'tension', 'parite', 'cesarienne', 
         'mortne', 'drepanocytose', 'vat1', 'vat2', 'vat3', 
-        'vat4', 'vat5' , 'etat' , 'isFinished'
+        'vat4', 'vat5' , 'etat' , 'isFinished' , "enfantId" , "id_user"
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'createdAt';
     protected $updatedField  = 'updatedAt';

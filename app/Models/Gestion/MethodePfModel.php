@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Consultation;
+namespace App\Models\Gestion;
 
 use CodeIgniter\Model;
 
-class ConsultationModel extends Model
+class MethodePfModel extends Model
 {
-    protected $table            = 'consultation';
-    protected $primaryKey       = 'consultationId';
+    protected $table            = 'methodePf';
+    protected $primaryKey       = 'idmethodePf';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user"];
+    protected $allowedFields    = ["methodePf", "etat"];
 
     // Dates
     protected $useTimestamps = true;

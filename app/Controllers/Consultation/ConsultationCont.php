@@ -24,6 +24,7 @@ class ConsultationCont extends BaseController
         try {
 
             
+            $_POST["id_user"] = $this->session->get("id_user");
 
             $this->consultation->save($_POST);
             
@@ -186,8 +187,7 @@ class ConsultationCont extends BaseController
         try {
 
             $data =  $this->titulaire
-            ->select(" titulaire.titulaireId , CONCAT(titulaire.nom, ' ', titulaire.prenom) AS full_name, 
-                    CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code")
+            ->select(" titulaire.titulaireId , CONCAT(titulaire.nom, ' ', titulaire.prenom) AS full_name, membre.nom_membre")
             ->where("titulaire.etat", '1')
             ->where("titulaire.isActif", '1')
             ->where("titulaire.membreId", $_POST["id_membre"])
@@ -197,7 +197,7 @@ class ConsultationCont extends BaseController
             $cabinet = '';
                 foreach ($data as $value) {
                     $cabinet .= '
-                        <option value="' . $value['titulaireId'] . '"> '. $value['code'] ." ". $value['full_name'] . '</option> ';
+                        <option value="' . $value['titulaireId'] . '"> '. $this->genererNumeroCarte($value["nom_membre"], $value["titulaireId"])  ." ". $value['full_name'] . '</option> ';
                 }
 
             echo $cabinet;
@@ -308,7 +308,7 @@ class ConsultationCont extends BaseController
                 $data =  $this->titulaire
                 ->select("CONCAT(titulaire.nom,' ' ,titulaire.prenom) as nom_titulaire , titulaire.titulaireId , nomPrenomConjoint , CONCAT(enfant.nom , ' ' ,enfant.prenom) as nom_enfant , enfant.typeEnfant , enfant.enfantId")
                 ->where("titulaire.titulaireId" , $_POST["id"]) 
-                ->join("enfant", "enfant.titulaireId = titulaire.titulaireId");
+                ->join("enfant", "enfant.titulaireId = titulaire.titulaireId" , "left");
                 $data = $data->findAll();
 
                 // 0 : enfant , 1 : parent , 2 : titulaire , 3 : conjoint
@@ -318,7 +318,7 @@ class ConsultationCont extends BaseController
                     $patient .= '<option value="' . $value['titulaireId'] . '_Titulaire">'. $value['nom_titulaire'] . '</option> ';
                     $patient .= `</optgroup>`;
 
-                    $patient .= "<optgroup label= 'Conjoint'>";
+                    $patient .= "<optgroup label= 'Conjoint(e)'>";
 
                     $patient .= '<option value="' . $value['titulaireId'] . '_Conjoint(e)">'. $value['nomPrenomConjoint'] . '</option> ';
                     $patient .= `</optgroup>`;
@@ -368,7 +368,7 @@ class ConsultationCont extends BaseController
                 
                 $datas =  $datas
             ->where('consultation.etat', 1)
-            ->select(" membre.id_membre , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code , titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
+            ->select(" membre.id_membre , membre.nom_membre , titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
             ->join("utilisateur" , "utilisateur.id_user = consultation.docteurId")
             ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
             ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
@@ -380,7 +380,7 @@ class ConsultationCont extends BaseController
 
                 $datas =  $datas
             ->where('consultation.etat', 1)
-            ->select(" membre.id_membre , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code ,titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
+            ->select(" membre.id_membre , membre.nom_membre , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS code ,titulaire.nom,titulaire.prenom,typeconsultation.designtypeconsultation,utilisateur.nom_user , utilisateur.prenom_user, consultation.*")
             ->join("utilisateur" , "utilisateur.id_user = consultation.docteurId")
             ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
             ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
@@ -416,6 +416,7 @@ class ConsultationCont extends BaseController
                             <th>Type</th>
                             <th>Nbr Patient</th>
                             <th>Date</th>
+                            <th>user</th>
                             <th>Etat</th> " ;
                        
                             $th .= "<th>Action</th>";
@@ -456,14 +457,22 @@ class ConsultationCont extends BaseController
                 ->where("etat" , 1)
                 ->countAllResults();
 
+                $datas =  $this->consultation
+            ->select("utilisateur.nom_user , utilisateur.prenom_user")
+            ->join("utilisateur" , "utilisateur.id_user = consultation.id_user" , "left")
+            ->where('consultationId', $value["consultationId"] )->first() ;
+
+
+
                 $th .=
                     '<tr>
-                        <td style="width : 10%;">' . $value["code"] . ' </td>
+                        <td style="width : 10%;">' . $this->genererNumeroCarte($value["nom_membre"], $value["titulaireId"]) . ' </td>
                         <td style="width : 20%;">' . $value["nom"] ." ". $value["prenom"] . ' </td>
                         <td style="width : 20%;">' . $value["nom_user"] ." ". $value["prenom_user"] . ' </td>
                         <td style="width : 15%;">' . $value["designtypeconsultation"] . ' </td>
                         <td style="width : 10%;">' . $count . '</td> 
                         <td style="width : 10%;">' . $value["createdAt"] . '</td> 
+                        <td style="width : 10%;">' . $datas["nom_user"] ." ". $datas["prenom_user"] . '</td>  
                         <td style="width : 10%;">' . $etat . '</td>  
                         <td style="width : 10%;"> 
                             <a class="info mr-1"  onclick="liste_patient( ' . $value["consultationId"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>' ;
@@ -604,9 +613,9 @@ class ConsultationCont extends BaseController
                         <td style="width : 10%;">' . $etat . '</td> 
                         <td style="width : 10%;"> 
 
-                        <a class="info mr-1" onclick="edit_patient(' . $value["detailConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="info mr-1"  onclick="parametre(' . $value["detailConsultationId"] . ')"><i class=" la la-cog"></i></a>
                         <a class="info mr-1" id="nat'.$value["detailConsultationId"].'" data-motif= "'.$value["motif"].'" data-personne='.json_encode(implode('_', [ $value["idPersonneMalade"] ,$value["TypepersonneMalade"] ])).' data-nature='.json_encode(explode(',', $value["natureExamen"])).'  onclick="laboratoire(' . $value["detailConsultationId"] . ')"><i class=" la la-microscope"></i></a>
+                        <a class="info mr-1" onclick="edit_patient(' . $value["detailConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="delete_detailvisite(' . $value["detailConsultationId"] . ')"><i class=" la la-trash-o"></i></a> 
                         </td> 
                        </tr>';
@@ -617,7 +626,7 @@ class ConsultationCont extends BaseController
 
 
             $data =  $this->consultation
-            ->select("consultation.* ,CONCAT('Carte N° : ',UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS num_carte , CONCAT('Docteur : ',utilisateur.nom_user , ' ', utilisateur.prenom_user , ' ( ' , typeMedecin.name , ' )') AS doc_full_name")
+            ->select("consultation.* , membre.nom_membre , CONCAT('Docteur : ',utilisateur.nom_user , ' ', utilisateur.prenom_user , ' ( ' , typeMedecin.name , ' )') AS doc_full_name")
             ->join("titulaire", "consultation.titulaireId = titulaire.titulaireId")
             ->join("membre", "membre.id_membre = titulaire.membreId")
             ->join("utilisateur", "consultation.docteurId = utilisateur.id_user")
@@ -630,7 +639,7 @@ class ConsultationCont extends BaseController
             $response = [
                 'table' => $th,
                 'docteur' => $data["doc_full_name"],
-                'num_carte' => $data["num_carte"],
+                'num_carte' => "Carte N° : " . $this->genererNumeroCarte( $data["nom_membre"] , $data["titulaireId"])  ,
                 'titulaireId' => $data["titulaireId"]
             ];
             

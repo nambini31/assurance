@@ -93,7 +93,7 @@
                                             <input type="hidden" name="consultationId" id="id_concult">
                                             <input type="hidden" name="detailConsultationId" id="id_detail_consultattion">
                                             <div class="form-group">
-                                                <label for="type_personne_select" class="">Choix Personne Malade</label>
+                                                <label for="type_personne_select" class="">Choix Patient Malade</label>
                                                 <select class="selectpicker  form-control btn-sm" name = 'personne'  required id="personne_select" data-live-search='true' data-size='5' title='Choix patient'>
 
                                                 </select>
@@ -360,7 +360,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h3 class="modal-header entete_modal">
+                            <h3 class="modal-header entete_modalVIS">
                                 Ajout visite
                             </h3>
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Consultation;
+namespace App\Models\Pf;
 
 use CodeIgniter\Model;
 
-class ConsultationModel extends Model
+class PfModel extends Model
 {
-    protected $table            = 'consultation';
-    protected $primaryKey       = 'consultationId';
+    protected $table            = 'pf';
+    protected $primaryKey       = 'idpf';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user"];
+    protected $allowedFields    = ["dateRendezVous", "enfantId", "etat", "idmethodePf", "idpf", "poids", "taille", "tension", "titulaireId" , "typePersonne" , "id_user"];
 
     // Dates
     protected $useTimestamps = true;

@@ -1,20 +1,32 @@
 $(document).ready(function () {
     $('select').selectpicker('refresh');
+    charge_membre1();
     liste_cpn();
     charge_membre();
-    charge_membre1();
-    charge_type();
     $("#deleteConsultation").insertAfter("#modal_consultationcpn");
     $("#AddConsultCpn").insertAfter("#modal_consultationcpn");
 
 
 });
 
+function charge_membre1() {
+    $.ajax({
+        url: base + 'charge_membre',
+        type: "POST",
+        success: function (data) {
+            $("#membre_choix").empty();
+            $("#membre_choix").append(data);
+            $('select').selectpicker('refresh');
+  
+        }
+    });
+  }
+
 var membre_select ;
 var titulaire_select ;
 var specialite_docteur ;
 var choix_docteur ;
-var personne_select ;
+var personne_selectcpn ;
 
 
 function charge_membre() {
@@ -33,78 +45,22 @@ function charge_membre() {
     });
   }
 
-function charge_membre1() {
-    $.ajax({
-        url: base + 'charge_membre',
-        type: "POST",
-        success: function (data) {
-            $("#membre_choix").empty();
-            $("#membre_choix").append(data);
-            $('select').selectpicker('refresh');
-  
-        }
-    });
-  }
+function charge_titulaire_coix() {
+    $("#AddVisites").block({
+        message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
-function charge_analyse(id) {
-    $.ajax({
-        url: base + 'charge_analyse',
-        type: "POST",
-        success: function (data) {
-            $("#analyse_select").empty();
-            $("#analyse_select").append(data);
-            $('select').selectpicker('refresh');
-            
-            var tab = $("#nat" + id).data('nature');
-
-            // Vérifier si le tableau n'est pas vide
-            if (tab && tab.length > 0) {
-                // Si le tableau n'est pas vide, définir la valeur du selectpicker
-                $("#analyse_select").val(tab).selectpicker('refresh');
-
-            }
-  
-        }
-    });
-
-  }
-
-function attribuer_nature(id) {
-    $.ajax({
-        url: base + "affiche_parametre",
-        type: "POST",
-        dataType: "JSON",
-        data: { id: id },
-        success: function (res) {
-
-            $("#temperature2").val(res.temperature);
-            $("#poids2").val(res.poids);
-            $("#tension2").val(res.tension);
-            $("#taille2").val(res.taille);
-            $("#rc").val(res.rc);
-            $("#resultats").val(res.resultats);
+        overlayCSS: {
+            backgroundColor: "black",
+            opacity: 0.1,
+            cursor: "wait",
 
         },
-    });
-}
-
-function charge_type() {
-    $.ajax({
-        url: base + 'getSpecialiteMedecin',
-        type: "POST",
-        success: function (data) {
-            $("#specialite_docteur").empty();
-            $("#specialite_docteur").append(data);
-            $('select').selectpicker('refresh');
-            if (specialite_docteur != "") {
-                $('#specialite_docteur').val(specialite_docteur).selectpicker('refresh');
-                getDocteurSelonType();
-            }
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
         }
     });
-  }
-
-function charge_titulaire_coix() {
     $.ajax({
         url: base + 'charge_titulaire',
         type: "POST",
@@ -117,26 +73,9 @@ function charge_titulaire_coix() {
             $('select').selectpicker('refresh');
             if (titulaire_select != "") {
                 $('#titulaire_select').val(titulaire_select).selectpicker('refresh');
+                charge_personne_malade();
             }
-  
-        }
-    });
-}
-
-function getDocteurSelonType() {
-    $.ajax({
-        url: base + 'getDocteurSelonType',
-        type: "POST",
-        data:{
-            id : $("#specialite_docteur").val()
-        },
-        success: function (data) {
-            $("#choix_docteur").empty();
-            $("#choix_docteur").append(data);
-            $('select').selectpicker('refresh');
-            if (choix_docteur != "") {
-                $('#choix_docteur').val(choix_docteur).selectpicker('refresh');
-            }
+            $("#AddVisites").unblock();
   
         }
     });
@@ -147,14 +86,14 @@ function charge_personne_malade() {
         url: base + 'charge_personne_malade',
         type: "POST",
         data:{
-            id : $("#titulaire_id").val()
+            id : $("#titulaire_select").val()
         },
         success: function (data) {
-            $("#personne_select").empty();
-            $("#personne_select").append(data);
+            $("#personne_selectcpn").empty();
+            $("#personne_selectcpn").append(data);
             $('select').selectpicker('refresh');
-            if (personne_select != "") {
-                $('#personne_select').val(personne_select).selectpicker('refresh');
+            if (personne_selectcpn != "") {
+                $('#personne_selectcpn').val(personne_selectcpn).selectpicker('refresh');
             }
   
         }
@@ -163,10 +102,12 @@ function charge_personne_malade() {
 
 
 $("#membre_select").on('change', function name(params) {
+    
     charge_titulaire_coix();
 })
-$("#specialite_docteur").on('change', function name(params) {
-    getDocteurSelonType();
+$("#titulaire_select").on('change', function name(params) {
+
+    charge_personne_malade();
 })
 
 
@@ -254,7 +195,22 @@ function liste_cpn() {
                         className: "btn btn-sm btn-warning btn-min-width ",
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
+                            $("#AddVisites").unblock();
 
+                            $('#id_cpnfirt').val('');
+
+                            $('#add_consultation').find(':input:not([type="hidden"]):not([type="radio"])').each(function() {
+                                if ($(this).is('select.selectpicker')) {
+                                    // Réinitialiser le selectpicker en vidant les sélections
+                                    $(this).selectpicker('val', []);
+                                } else {
+                                    // Réinitialiser les autres champs en vidant leur valeur
+                                    $(this).val('');
+                                }
+                            });
+
+                            $('.entete_modalVIS').text("Ajout CPN");
+                            $('#btn_add_cpn_first').text("Ajouter");
 
                             $("#AddVisites").modal(
                                 { backdrop: "static", keyboard: false },
@@ -287,6 +243,42 @@ function liste_descendant(id) {
         "show"
     );
 
+    var element = $('#cpnpere'+ id );
+
+    // Attribuer les valeurs des data-* aux champs correspondants dans le formulaire
+    $('input[name="idcpn"]').val(element.data('idcpn'));
+    $('input[name="dateAccouchement"]').val(element.data('dateaccouchement'));
+
+    // Fonction pour gérer les boutons radio (Oui/Non)
+    
+
+    // Attribuer les valeurs pour les radios (AGE < 16 ans, AGE > 35 ans, etc.)
+    setRadioValue('ageinf16', element.data('ageinf16'));
+    setRadioValue('agesup35', element.data('agesup35'));
+    setRadioValue('taille', element.data('taille'));
+    setRadioValue('tension', element.data('tension'));
+    setRadioValue('parite', element.data('parite'));
+    setRadioValue('cesarienne', element.data('cesarienne'));
+    setRadioValue('mortne', element.data('mortne'));
+    setRadioValue('drepanocytose', element.data('drepanocytose'));
+
+    // Attribuer les dates des vaccinations
+    $('input[name="vat1"]').val(element.data('vat1'));
+    $('input[name="vat2"]').val(element.data('vat2'));
+    $('input[name="vat3"]').val(element.data('vat3'));
+    $('input[name="vat4"]').val(element.data('vat4'));
+    $('input[name="vat5"]').val(element.data('vat5'));
+
+}
+
+function setRadioValue(name, value) {
+    if (value === 1) {
+        $('input[name="' + name + '"][value="1"]').prop('checked', true); // Oui
+    } else if (value === 0) {
+        $('input[name="' + name + '"][value="0"]').prop('checked', true); // Non
+    } else {
+        $('input[name="' + name + '"]').prop('checked', false); // Aucun checked
+    }
 }
 
 var idCpn ;
@@ -346,106 +338,7 @@ function delete_detail() {
 
 }
 
-function fill_paramettre(id) {
-
-    $.ajax({
-        url: base + "affiche_parametre",
-        type: "POST",
-        dataType: "JSON",
-        data: { id : id },
-        success: function (res) {
-
-            $("#temperature").val(res.temperature);
-            $("#poids").val(res.poids);
-            $("#tension").val(res.tension);
-            $("#taille").val(res.taille);
-            $("#temperature1").text(res.temperature);
-            $("#poids1").text(res.poids);
-            $("#tension1").text(res.tension);
-            $("#taille1").text(res.taille);
-
-
-        },
-    });
-}
-
-
-
-function laboratoire(id) {
-    $("#idDetails").val(id);
-    $("#AddLaboratoire").modal(
-        { backdrop: "static", keyboard: false },
-        "show"
-    );
-    $("#temperature2").val("");
-    $("#poids2").val("");
-    $("#tension2").val("");
-    $("#taille2").val("");
-    $("#rc").val("");
-    $("#resultats").val("");
-    attribuer_nature(id)
-    charge_analyse(id);
-}
-
-
-
-// **************************ajout consultation 
-$("#ajout_patient").off("submit").on("submit", function (e) {
-    e.preventDefault();
-
-    let data = new FormData(this);
-
-    $.ajax({
-        beforeSend: function () {
-
-        },
-        url: base + "ajout_patient",
-        type: "POST",
-        processData: false,
-        contentType: false,
-        cache: false,
-        dataType: "JSON",
-        data: data,
-        success: function (res) {
-
-            if ($('#btn_add_patient').text() === "Modifier") {
-                if (res.id == 1) {
-                    alertCustom("success", "ft-check", "Modification effectué avec succée");
-
-                    $("#AddpatientMalade").modal("hide");
-                    affichage_details(idConsul , isFinished);
-                    $('#motif_persMalade').val("");
-                    
-
-                }  else {
-                    alertCustom("danger", "ft-x", "Ajout non effectué");
-
-                }
-                
-            } else {
-
-                if (res.id == 1) {
-                   
-                    alertCustom("success", "ft-check", "Ajout effectué avec succée");
-                    affichage_details(idConsul , isFinished);
-                    $('#motif_persMalade').val("");
-
-
-                }else {
-                    alertCustom("danger", "ft-x", "Ajout non effectué");
-
-                }
-            }
-           
-
-            
-
-
-
-        },
-    });
-});
-$("#add_parametre").off("submit").on("submit", function (e) {
+$("#add_cpnParam").off("submit").on("submit", function (e) {
     e.preventDefault();
 
     let data = new FormData(this);
@@ -454,7 +347,7 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         beforeSend: function () {
             
         },
-        url: base + "add_parametre",
+        url: base + "add_cpnParam",
         type: "POST",
         processData: false,
         contentType: false,
@@ -463,10 +356,10 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         data: data,
         success: function (res) {
                     //fill_paramettre( $("#idDetailsCons").val());
-                    $("#AddParametre").modal("hide"
+                    $("#descendant_modal").modal("hide"
                     );
                     alertCustom("success", "ft-check", "Parametrage effectué avec succée");
-                    affichage_details(idConsul , isFinished);
+                    liste_cpn();
 
 
 
@@ -554,7 +447,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            $("#AddVisites").block({
+            $("#modal_visites").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
                 overlayCSS: {
@@ -569,7 +462,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
                 }
             });
         },
-        url: base + "ajout_consultation",
+        url: base + "ajout_cpn",
         type: "POST",
         processData: false,
         contentType: false,
@@ -577,10 +470,38 @@ $("#add_consultation").off("submit").on("submit", function (e) {
         dataType: "JSON",
         data: data,
         success: function (res) {
-            $("#AddVisites").modal("hide");
-            $("#AddVisites").unblock();
-            liste_patient(res.consultationId , res.isFinished);
-            liste_consultation();
+            $("#modal_visites").unblock();
+            if ($('#btn_add_cpn_first').text() === "Modifier") {
+                if (res.id == 1) {
+                    alertCustom("success", "ft-check", "Modification effectué avec succée");
+
+                    $("#AddVisites").modal("hide");
+                    liste_cpn();
+
+                    
+                    
+
+                }  else {
+                    alertCustom("danger", "ft-x", "Ajout non effectué");
+
+                }
+                
+            } else {
+
+                if (res.id == 1) {
+                   
+                    alertCustom("success", "ft-check", "Ajout effectué avec succée");
+                    liste_cpn();
+
+                    $("#AddVisites").modal("hide");
+                    
+
+
+                }else {
+                    alertCustom("danger", "ft-x", "Ajout non effectué");
+
+                }
+            }
 
         },
     });
@@ -792,7 +713,7 @@ function delete_cpn() {
 
             }
 
-            consult_cpn(idCpn);
+            liste_cpn(idCpn);
 
         },
     });
@@ -801,36 +722,23 @@ function delete_cpn() {
 
 // *****************modification consultation
 
-function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docteur1 , specialite_docteur1) {
+function edit_cpn(id , membre_select1 , titulaire_select1) {
     membre_select = membre_select1;
     titulaire_select =  titulaire_select1;
-    specialite_docteur = specialite_docteur1;
-    choix_docteur = choix_docteur1;
-    $('#id_consultation').val(id);
 
-    $('.entete_modal').text("Modification visite");
+    $('#id_cpnfirt').val(id);
+    personne_selectcpn = $("#cpnF" + id).data('personne');
+    $('.entete_modalVIS').text("Modification CPN");
+    $('#btn_add_cpn_first').text("Modifier");
+    setRadioValue('mariee', $("#cpnF" + id).data('mariee'));
     $("#AddVisites").modal(
         { backdrop: "static", keyboard: false },
         "show"
     );
     charge_membre();
-    charge_type();
 
 }
-function edit_patient(id) {
-    var motif = $("#nat" + id).data('motif');
-    personne_select = $("#nat" + id).data('personne');
-    $('#id_detail_consultattion').val(id);
-    $('#motif_persMalade').val(motif);
-    $('.entete_modal_pat').text("Modification patient");
-    $('#btn_add_patient').text("Modifier");
-    $("#AddpatientMalade").modal(
-        { backdrop: "static", keyboard: false },
-        "show"
-    );
-    charge_personne_malade();
 
-}
 
 var num = "";
 
@@ -844,7 +752,6 @@ function annulerAjoutconsultation() {
     // $("#motif").val("");
     // num = "";
 }
-
 
 
 // ******************************filtre en tete *****************************************/////***/*/*/*/*/*/************************

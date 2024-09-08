@@ -73,13 +73,13 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('ajout_patient', 'Consultation\ConsultationCont::ajout_patient');    
 
     //route medecin
-    $routes->get('lienanalyse', 'analyse\AnalyseCont::lien');
-    $routes->get('analyse', 'analyse\AnalyseCont::index');
-    $routes->post('charge_type_analyse', 'analyse\AnalyseCont::charge_type_analyse');
-    $routes->post('charge_cabinet', 'analyse\AnalyseCont::charge_cabinet');
-    $routes->post('liste_analyse', 'analyse\AnalyseCont::liste_analyse');
-    $routes->post('ajout_analyse', 'analyse\AnalyseCont::ajout_analyse');
-    $routes->post('supprimer_analyse', 'analyse\AnalyseCont::supprimer_analyse');
+    $routes->get('liengestion', 'gestion\AnalyseCont::lien');
+    $routes->get('gestion', 'gestion\AnalyseCont::index');
+    $routes->post('charge_type_analyse', 'gestion\AnalyseCont::charge_type_analyse');
+    $routes->post('charge_cabinet', 'gestion\AnalyseCont::charge_cabinet');
+    $routes->post('liste_analyse', 'gestion\AnalyseCont::liste_analyse');
+    $routes->post('ajout_analyse', 'gestion\AnalyseCont::ajout_analyse');
+    $routes->post('supprimer_analyse', 'gestion\AnalyseCont::supprimer_analyse');
 
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
@@ -100,17 +100,31 @@ use CodeIgniter\Router\RouteCollection;
     $routes->get('liencpn', 'cpn\CpnCont::lien');
     $routes->get('cpn', 'cpn\CpnCont::index');
     $routes->post('listes_details_consult', 'cpn\CpnCont::listes_details_consult');
-    $routes->post('charge_analyse', 'cpn\CpnCont::charge_analyse');
     $routes->post('liste_cpn', 'cpn\CpnCont::liste_cpn');
     $routes->post('ajout_cpn', 'cpn\CpnCont::ajout_cpn');
     $routes->post('delete_cpn', 'cpn\CpnCont::delete_cpn');
     $routes->post('delete_detailcpn', 'cpn\CpnCont::delete_detailcpn');
     $routes->post('add_detailcpn', 'cpn\CpnCont::add_detailcpn');
+    $routes->post('add_cpnParam', 'cpn\CpnCont::add_cpnParam');
+
+    //route cpn
+    $routes->get('lienpf', 'pf\PfCont::lien');
+    $routes->get('pf', 'pf\PfCont::index');
+    $routes->post('liste_pf', 'pf\PfCont::liste_pf');
+    $routes->post('ajout_pf', 'pf\PfCont::ajout_pf');
+    $routes->post('delete_pf', 'pf\PfCont::delete_pf');
+    $routes->post('charge_methode_contraceptive', 'pf\PfCont::charge_methode_contraceptive');
+
 
     //route type_analyse
-    $routes->post('ajout_type_analyse', 'analyse\Type_analyseCont::ajout_type_analyse');
-    $routes->post('liste_type_analyse', 'analyse\Type_analyseCont::liste_type_analyse');
-    $routes->post('supprimer_type_analyse', 'analyse\Type_analyseCont::supprimer_type_analyse');
+    $routes->post('ajout_type_analyse', 'gestion\Type_analyseCont::ajout_type_analyse');
+    $routes->post('liste_type_analyse', 'gestion\Type_analyseCont::liste_type_analyse');
+    $routes->post('supprimer_type_analyse', 'gestion\Type_analyseCont::supprimer_type_analyse');
+
+    //route methodePf
+    $routes->post('ajout_methodePf', 'gestion\MethodePfCont::ajout_methodePf');
+    $routes->post('liste_methodePf', 'gestion\MethodePfCont::liste_methodePf');
+    $routes->post('supprimer_methodePf', 'gestion\MethodePfCont::supprimer_methodePf');
 
 
     //route pour examen

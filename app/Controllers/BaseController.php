@@ -6,7 +6,6 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\login\LoginModel;
 use App\Controllers\login\LoginCont;
-use App\Models\Analyse\AnalyseModel;
 use App\Models\Cabinet\CabinetModel;
 
 use App\Models\Consultation\ConsultationModel;
@@ -25,7 +24,10 @@ use App\Models\Titulaire\TitulaireModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
-use App\Models\type_analyse\Type_analyseModel;
+use App\Models\Gestion\AnalyseModel;
+use App\Models\Gestion\MethodePfModel;
+use App\Models\Gestion\Type_analyseModel;
+use App\Models\Pf\PfModel;
 use Mpdf\Mpdf;
 
 
@@ -63,7 +65,9 @@ abstract class BaseController extends Controller
     protected $titulaire;
     protected $examen;
     protected $cpn;
+    protected $pf;
     protected $detailconsultationcpn;
+    protected $methodePf;
 
 
     public function __construct()
@@ -77,6 +81,7 @@ abstract class BaseController extends Controller
         $this->detailconsultation = new DetailconsultationModel();
         $this->detailconsultationcpn = new DetailConsultationCpnModel();
         $this->cpn = new CpnModel();
+        $this->methodePf = new MethodePfModel();
         
 
         $this->patient = new PatientModel();
@@ -86,7 +91,7 @@ abstract class BaseController extends Controller
         $this->analyse = new AnalyseModel();
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
-
+        $this->pf = new PfModel();
         $this->pdf = new Mpdf();
 
     }
@@ -132,6 +137,20 @@ abstract class BaseController extends Controller
         
     }
 
+    function genererNumeroCarte($nomMembre, $numeroCarte) {
+        // Garder les trois premières lettres du nom en majuscules
+    $prefixe = strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $nomMembre), 0, 3));
+    
+    // Si le numéro a moins de 3 chiffres, on ajoute des zéros à gauche
+    if ($numeroCarte < 100) {
+        $numeroCarte = str_pad($numeroCarte, 3, '0', STR_PAD_LEFT);
+    }
+    
+    // Générer le numéro de carte complet
+    $numCarte = $prefixe . '-' . $numeroCarte;
+    
+    return $numCarte;
+    }
 
     public function teste_session()
     {

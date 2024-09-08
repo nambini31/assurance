@@ -23,23 +23,17 @@ class CpnCont extends BaseController
     {
         try {
 
+            $_POST["id_user"] = $this->session->get("id_user");
             
+            $data = explode("_",$_POST["personne"]);
+            $_POST["enfantId"] = $data[0];
+
+            $_POST["typePersonne"] = $data[1];
 
             $this->cpn->save($_POST);
-            
-            // Vérification si l'ID est présent dans $_POST (mise à jour)
-            if (isset($_POST['cpnId']) && $_POST['cpnId'] != "" ) {
-                $cpnId = $_POST['cpnId']; // ID de la cpn mise à jour
-            } else {
-                // Sinon, c'est une nouvelle insertion, on récupère l'ID inséré
-                $cpnId = $this->cpn->insertID();
-
-            }
-
-            $consul = $this->cpn->find( $cpnId);
 
 
-            echo json_encode($consul);
+            echo json_encode(["id" => 1]);
 
         } catch (\Throwable $th) {
             echo $th;
@@ -86,86 +80,14 @@ class CpnCont extends BaseController
         }
     }
 
-    public function affiche_parametre()
+
+    public function add_cpnParam()
     {
         try {
-
-            $data =  $this->detailcpn->find( $_POST["id"]);
-
-            echo json_encode($data);
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-
-    public function add_parametre()
-    {
-        try {
-            $_POST["dateParametre"] = date("Y-m-d H:i:s");
-            $data =  $this->detailcpn->update( $_POST["idDetailsCons"] , $_POST);
+            $data =  $this->cpn->update( $_POST["idcpn"] , $_POST);
 
             echo json_encode($data);
 
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-
-
-    public function charge_personne_malade()
-    {
-        try {
-            $patient = '';
-
-
-                $data =  $this->titulaire
-                ->select("CONCAT(titulaire.nom,' ' ,titulaire.prenom) as nom_titulaire , titulaire.titulaireId , nomPrenomConjoint , CONCAT(enfant.nom , ' ' ,enfant.prenom) as nom_enfant , enfant.typeEnfant , enfant.enfantId")
-                ->where("titulaire.titulaireId" , $_POST["id"]) 
-                ->join("enfant", "enfant.titulaireId = titulaire.titulaireId");
-                $data = $data->findAll();
-
-                // 0 : enfant , 1 : parent , 2 : titulaire , 3 : conjoint
-                foreach ($data as $value) {
-                    $patient .= "<optgroup label= 'Titulaire'>";
-
-                    $patient .= '<option value="' . $value['titulaireId'] . '_Titulaire">'. $value['nom_titulaire'] . '</option> ';
-                    $patient .= `</optgroup>`;
-
-                    $patient .= "<optgroup label= 'Conjoint'>";
-
-                    $patient .= '<option value="' . $value['titulaireId'] . '_Conjoint(e)">'. $value['nomPrenomConjoint'] . '</option> ';
-                    $patient .= `</optgroup>`;
-                    break ;
-                }
-
-                $patient .= "<optgroup label= 'Enfant'>";
-
-                foreach ($data as $value) {
-
-                    if ($value["typeEnfant"] == "0") {
-                        
-                        $patient .= '<option value="' . $value['enfantId'] . '_Enfant">'. $value['nom_enfant'] . '</option> ';
-                    }
-                    
-                }
-
-                $patient .= `</optgroup>`;
-
-                $patient .= "<optgroup label= 'Parent'>";
-
-                foreach ($data as $value) {
-
-                    if ($value["typeEnfant"] == "1") {
-                        
-                        $patient .= '<option value="' . $value['enfantId'] . '_Parent">'. $value['nom_enfant'] . '</option> ';
-                    }
-                    
-                }
-
-                $patient .= `</optgroup>`;
-
-        
-            echo $patient;
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -179,42 +101,49 @@ class CpnCont extends BaseController
             
             if ($_POST["id_membre"] != "" ) {
                 
-                $datas =  $datas
-            ->where('cpn.etat', 1)
-            ->select("membre.id_membre , CONCAT('CPN -', ' ', cpn.idcpn) as cpn,
-            case 
-            when cpn.Typepersonne = 'Titulaire' then CONCAT(titulaire.nom, ' ', titulaire.prenom)
-            when cpn.Typepersonne = 'Conjoint(e)' then titulaire.nomprenomconjoint
-            ELSE CONCAT(enfant.nom, ' ', enfant.prenom)
-            END AS nom , CONCAT('UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS num ,
-
-            case 
-            when cpn.Typepersonne = 'Titulaire' then titulaire.fonction
-            when cpn.Typepersonne = 'Conjoint(e)' then titulaire.fonctionConjoint
-            ELSE titulaire.fonction END AS fonction , titulaire.adresse , cpn.* ")
-            ->join("titulaire" , "cpn.titulaireId = titulaire.titulaireId")
-            ->join("enfant", "enfant.enfantId = cpn.titulaire", "left")
-            ->join("membre" , "membre.id_membre = titulaire.membreId")
+                $datas = $datas
+    ->select("membre.id_membre , membre.nom_membre, 
+              CASE 
+                  WHEN cpn.Typepersonne = 'Titulaire' THEN CONCAT(titulaire.nom, ' ', titulaire.prenom)
+                  WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.nomprenomconjoint
+                  WHEN cpn.Typepersonne IN ('Enfant', 'Parent') THEN CONCAT(enfant.nom, ' ', enfant.prenom)
+                  ELSE 'Non spécifié'
+              END AS nom,
+              CASE 
+                  WHEN cpn.Typepersonne = 'Titulaire' THEN titulaire.fonction
+                  WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.fonctionConjoint
+                  ELSE titulaire.fonction 
+              END AS fonction, 
+              titulaire.adresse, 
+              cpn.*")
+    ->where('cpn.etat', 1)
+    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
+    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
+    ->join("membre", "membre.id_membre = titulaire.membreId", "left")
             ->where('membre.id_membre', $_POST["id_membre"] ) ;
 
             }else{
 
 
-                $datas =  $datas
-                ->select("membre.id_membre , CONCAT('CPN -', ' ', cpn.idcpn) as cpn , case 
-                when cpn.Typepersonne= 'Titulaire' then CONCAT(titulaire.nom, ' ', titulaire.prenom)
-                when cpn.Typepersonne= 'Conjoint(e)' then titulaire.nomprenomconjoint
-                ELSE CONCAT(enfant.nom, ' ', enfant.prenom)
-                END AS nom , CONCAT(UPPER(LEFT(membre.nom_membre, 3)), '-', titulaire.titulaireId) AS num,
-    
-                case 
-                when cpn.Typepersonne= 'Titulaire' then titulaire.fonction
-                when cpn.Typepersonne= 'Conjoint(e)' then titulaire.fonctionConjoint
-                ELSE titulaire.fonction END AS fonction , titulaire.adresse , cpn.* ")
-                ->where('cpn.etat', 1)
-                ->join("titulaire" , "cpn.titulaireId = titulaire.titulaireId")
-                ->join("enfant", "enfant.enfantId = cpn.titulaireId", "left")
-                ->join("membre" , "membre.id_membre = titulaire.membreId");
+                $datas = $datas
+    ->select("membre.id_membre , membre.nom_membre, 
+              CASE 
+                  WHEN cpn.Typepersonne = 'Titulaire' THEN CONCAT(titulaire.nom, ' ', titulaire.prenom)
+                  WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.nomprenomconjoint
+                  WHEN cpn.Typepersonne IN ('Enfant', 'Parent') THEN CONCAT(enfant.nom, ' ', enfant.prenom)
+                  ELSE 'Non spécifié'
+              END AS nom,
+              CASE 
+                  WHEN cpn.Typepersonne = 'Titulaire' THEN titulaire.fonction
+                  WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.fonctionConjoint
+                  ELSE titulaire.fonction 
+              END AS fonction, 
+              titulaire.adresse, 
+              cpn.*")
+    ->where('cpn.etat', 1)
+    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
+    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
+    ->join("membre", "membre.id_membre = titulaire.membreId", "left");
 
             }
 
@@ -243,6 +172,7 @@ class CpnCont extends BaseController
                             <th>CPN N°</th>
                             <th>Carte N°</th>
                             <th>Nom - Prenom</th>
+                            <th>Type</th>
                             <th>Fonction</th>
                             <th>Adresse</th>
                             <th>Marié(e)</th>
@@ -267,20 +197,21 @@ class CpnCont extends BaseController
     
                 }
                 if ( $value["mariee"]) {
-                    $marie = "Non";
+                    $marie = "Oui";
                 }
                 else {
                     
-                    $marie = "Oui";
+                    $marie = "Non";
     
                 }
 
 
                 $th .=
                     '<tr>
-                        <td style="width : 10%;">' . $value["cpn"] . ' </td>
-                        <td style="width : 10%;">' . $value["num"] . ' </td>
+                        <td style="width : 10%;">' .  $this->genererNumeroCarte("CPN", $value["idcpn"]) . ' </td>
+                        <td style="width : 10%;">' .  $this->genererNumeroCarte($value["nom_membre"], $value["titulaireId"]) . ' </td>
                         <td style="width : 20%;">' . $value["nom"] .' </td>
+                        <td style="width : 20%;">' . $value["typePersonne"] .' </td>
                         <td style="width : 20%;">' . $value["fonction"] .' </td>
                         <td style="width : 20%;">' . $value["adresse"] .' </td>
                         <td style="width : 10%;">' . $marie. ' </td>
@@ -288,13 +219,36 @@ class CpnCont extends BaseController
                         <td style="width : 10%;">' . $value["createdAt"] . '</td>  
                         <td style="width : 10%;">' . $etat . '</td>  
                         <td style="width : 10%;"> 
-                            <a class="info mr-1"  onclick="liste_descendant( ' . $value["idcpn"] . ')"><i class=" las la-clipboard-list la-2x"></i></a>' ;
+                        <a class="info mr-1" 
+                        onclick="liste_descendant(' . $value["idcpn"] . ')" 
+                        id="cpnpere' . $value["idcpn"] . '" 
+                        data-idcpn="' . $value["idcpn"] . '" 
+                        data-dateaccouchement="' . $value["dateAccouchement"] . '"
+                        data-ageinf16="' . $value["ageinf16"] . '" 
+                        data-agesup35="' . $value["agesup35"] . '"
+                        data-taille="' . $value["taille"] . '"
+                        data-tension="' . $value["tension"] . '"
+                        data-parite="' . $value["parite"] . '"
+                        data-cesarienne="' . $value["cesarienne"] . '"
+                        data-mortne="' . $value["mortne"] . '"
+                        data-drepanocytose="' . $value["drepanocytose"] . '"
+                        data-vat1="' . $value["vat1"] . '"
+                        data-vat2="' . $value["vat2"] . '"
+                        data-vat3="' . $value["vat3"] . '"
+                        data-vat4="' . $value["vat4"] . '"
+                        data-vat5="' . $value["vat5"] . '">
+                        <i class="las la-clipboard-list la-2x"></i>
+                     </a>' ;
 
                         if ($this->session->get("roleId") == "1" || $this->session->get("roleId") == "5") {
                             
                             $th .= '
                             <a class="info mr-1"  onclick="consult_cpn(' . $value["idcpn"] . ')"><i class=" las la-stethoscope la-2x"></i></a>
-                            <a class="info mr-1"  onclick="edit_cpn(' . $value["idcpn"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                            <a class="info mr-1" 
+                            id="cpnF'.$value["idcpn"].'"
+                            data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
+                            data-mariee="'. $value["mariee"].'"
+                            onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
     
                             <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
 
@@ -463,9 +417,7 @@ class CpnCont extends BaseController
                     {$rows['dateRendevous']}
                 </tbody>";
 
-                $datas =  $this->cpn->select("CONCAT('CPN -', ' ', cpn.idcpn) as cpn ")
-                ->where('idcpn', $_POST["idcpn"] )->first() ;
-
+                
                 $data =  $this->detailconsultationcpn->select("num")
                 ->where('idcpn', $_POST["idcpn"] )
                 ->where('etat' , 1)
@@ -483,7 +435,7 @@ class CpnCont extends BaseController
             $response = [
                 'nums' => $nums ,
                 'table' => $th ,
-                'num_cpn' => $datas["cpn"]
+                'num_cpn' =>  $this->genererNumeroCarte( "CPN", $_POST["idcpn"]) 
             ];
 
         

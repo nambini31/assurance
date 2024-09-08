@@ -104,6 +104,21 @@ function charge_type() {
   }
 
 function charge_titulaire_coix() {
+    $("#AddVisites").block({
+        message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+        overlayCSS: {
+            backgroundColor: "black",
+            opacity: 0.1,
+            cursor: "wait",
+
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
     $.ajax({
         url: base + 'charge_titulaire',
         type: "POST",
@@ -117,6 +132,8 @@ function charge_titulaire_coix() {
             if (titulaire_select != "") {
                 $('#titulaire_select').val(titulaire_select).selectpicker('refresh');
             }
+
+            $("#AddVisites").unblock();
   
         }
     });
@@ -162,6 +179,8 @@ function charge_personne_malade() {
 
 
 $("#membre_select").on('change', function name(params) {
+    
+    
     charge_titulaire_coix();
 })
 $("#specialite_docteur").on('change', function name(params) {
@@ -263,6 +282,8 @@ function liste_consultation() {
                                     $(this).val('');
                                 }
                             });
+
+                            $('.entete_modalVIS').text("Ajout visite");
 
                             $("#AddVisites").modal(
                                 { backdrop: "static", keyboard: false },
@@ -479,7 +500,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            $("#AddVisites").block({
+            $("#modal_visites").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
                 overlayCSS: {
@@ -503,7 +524,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
         data: data,
         success: function (res) {
             $("#AddVisites").modal("hide");
-            $("#AddVisites").unblock();
+            $("#modal_visites").unblock();
             liste_patient(res.consultationId , res.isFinished);
             liste_consultation();
 
@@ -721,7 +742,7 @@ function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docte
     choix_docteur = choix_docteur1;
     $('#id_consultation').val(id);
 
-    $('.entete_modal').text("Modification visite");
+    $('.entete_modalVIS').text("Modification visite");
     $("#AddVisites").modal(
         { backdrop: "static", keyboard: false },
         "show"

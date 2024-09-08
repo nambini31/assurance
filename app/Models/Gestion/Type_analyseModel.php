@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Models\Consultation;
+namespace App\Models\Gestion;
 
 use CodeIgniter\Model;
 
-class ConsultationModel extends Model
+class Type_analyseModel extends Model
 {
-    protected $table            = 'consultation';
-    protected $primaryKey       = 'consultationId';
+    protected $table            = 'type_analyse';
+    protected $primaryKey       = 'id_type_analyse';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user"];
+    protected $allowedFields    = ["nom_type_analyse", "etat"];
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'createdAt';
-    protected $updatedField  = 'updatedAt';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];
