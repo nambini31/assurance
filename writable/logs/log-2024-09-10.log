@@ -1,0 +1,81 @@
+ERROR - 2024-09-10 14:39:06 --> mysqli_sql_exception: Unknown column 'titulaire.id_membre' in 'where clause' in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `membre`...', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `membre`...')
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `membre`...')
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\app\Controllers\titulaire\TitulaireCont.php(197): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listesTitulaire()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-10 14:40:04 --> mysqli_sql_exception: Unknown column 'titulaire.id_membre' in 'where clause' in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `membre`...', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `membre`...')
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `membre`...')
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\app\Controllers\titulaire\TitulaireCont.php(197): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listesTitulaire()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2024-09-10 14:47:35 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 308.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(308): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 308)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-10 14:47:46 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 308.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(308): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 308)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-10 14:47:53 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 308.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(308): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 308)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-10 14:47:55 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 308.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(308): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 308)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-10 14:49:07 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 308.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(308): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 308)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2024-09-10 14:55:48 --> mysqli_sql_exception: Unknown column 'titulaire.id_membre' in 'where clause' in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT COALESCE...', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COALESCE...')
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COALESCE...')
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT COALESCE...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\app\Controllers\titulaire\TitulaireCont.php(197): CodeIgniter\Model->__call('get', Array)
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listesTitulaire()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2024-09-10 14:57:31 --> Attempt to read property "nom_membre" on null
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 312.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(312): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read property "nom_membre" on null', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 312)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

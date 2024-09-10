@@ -16,6 +16,7 @@ class EnfantModel extends Model
         'titulaireId',
         'nom',
         'prenom',
+        'fonction',
         'genre',
         'dateNaiss',
         'typeEnfant',

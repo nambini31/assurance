@@ -99,7 +99,7 @@ function listeTitulaire() {
         },
     });
 }
-//--------------------------------------------------------
+//----- Fin liste Titulaire -------------------------------
 
 
 // ------ ajout Titualaire ----------------------
@@ -182,13 +182,81 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
         }
     });
 });
-//--------------------------------------------------------------
+//-----FIn ajout Titulaire-----------------------------------------
 
+/** Ajiuter enfant */
+$("#createEnfantForm").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+    
+    var url = "ajout_enfant";
+    if ($('#btn_add_enfant').text() == "Modifier") {
+        url = "update_enfant";
+    }
+    
+    $.ajax({
+        beforeSend: function () {
+            $("#card-enfant").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+        },
+        url: base+url,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: formData,
+        success: function (res) {
+            var titulaireId = $('#titulaireIdEnfant').val();
+            if (res.success) {
+                if ($('#btn_add_enfant').text() === "Modifier") {
+                    alertCustom("success", "ft-check", "Modification effectué avec succée");
+                }
+                else {            
+                    alertCustom("success", "ft-check", "Ajout effectué avec succée");
+                }                
+            }
+            listeEnfant(titulaireId);
+            annulerAjoutTitulaire();
+            $("#createEnfantModel").modal("hide");
+            $("#card-enfant").unblock();
+            $("#detailTitulaireModel").unblock();
+            $("#listeEnfantModal").unblock()
+
+        },
+        error: function(xhr, status, error) {
+            alertCustom("danger", "ft-check", "Non Effectué, Contactez le responsable");
+            $("#createEnfantModel").modal("hide");
+            $("#card-enfant").unblock();
+            $("#detailTitulaireModel").unblock();
+            $("#listeEnfantModal").unblock()
+        }
+    });
+});
+/** Fin Ajout Enfant ***************************** */
+
+/** On Click sur annuler */
 function close_del_titulaire() {
     $("#card-titulaire").unblock();
+    $("#card-enfant").unblock();
+    $("#listeEnfantModal").unblock()
 }
+/** Fin On click ************************************** */
 
-// *************************dialogue suppression deleate
+// *** Affiche dialog suppression delete
 function deleteTitulaire(id) {
     $("#card-titulaire").block({
         message: `
@@ -217,9 +285,40 @@ function deleteTitulaire(id) {
         }
     });
 }
+/****************************************** */
 
+/** Affiche Modal Delete Enfant */
+function deleteEnfant(id, titulaireId) {
+    $("#card-enfant").block({
+        message: `
+            <div class="card" style="width:400px ; ">
+                <div class="card-header" style="width:400px ;">
+                    <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p>Voulez-vous supprimer ?</p>  
+                        <button type="button" onclick="delete_enfant_from_dialog(`+id+`,`+titulaireId+`)" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                        <button type="button" onclick="close_del_titulaire()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </div>
+                </div>
+            </div>
+        `,
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+}
+/********************************************************** */
 
-// **************************suppression apres boite dialogue de suppression
+/** suppression apres boite dialogue de suppression ****/
 function delete_titulaire_from_dialog(id) {
     // $("#card-titulaire").unblock();
     $.ajax({
@@ -253,8 +352,45 @@ function delete_titulaire_from_dialog(id) {
         },
     });
 }
+/*********************************************************************** */
 
-// ***** modification *******/
+/** Delete Enfant apres Dialogue */
+function delete_enfant_from_dialog(id, titulaireId) {
+    // $("#card-enfant").unblock();
+    $.ajax({
+        beforeSend: function () {
+            $("#card-enfant").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+        },
+        url: base + "delete_enfant",
+        type: "POST",
+        dataType: "JSON",
+        data: { enfantId: id },
+        success: function (res) {
+            $("#card-enfant").unblock();
+            if (res.id > 0) {
+                alertCustom("success", 'ft-check', "Suppression effectué avec succée");
+            } else {
+                alertCustom("danger", 'ft-x', "Suppression non effectué");
+            }
+            listeEnfant(titulaireId);
+        },
+    });
+}
+/*********************************************************************** */
+
+// ***** modification Titulaire *******/
 function editTitulaire(id) {
 
     $.ajax({
@@ -288,6 +424,7 @@ function editTitulaire(id) {
             $('#nomPrenomConjoint').val(titulaire.nomPrenomConjoint);
             $('#dateNaissConjoint').val(titulaire.dateNaissConjoint);
             $('#telephoneConjoint').val(titulaire.telephoneConjoint);
+            $('#fonctionConjoint').val(titulaire.fonctionConjoint);
             $('#genreConjoint').val(titulaire.genreConjoint);
             $('select').selectpicker('refresh');
 
@@ -306,10 +443,54 @@ function editTitulaire(id) {
         }
     });
 }
+/******************************************** */
+
+/** Modification Enfant */
+function editerEnfant(id, titulaireId) {
+
+    $.ajax({
+        url: base + "getEnfantById", // L'URL du contrôleur qui renvoie les données du titulaire
+        type: 'POST',
+        dataType: 'JSON',
+        data: { enfantId: id}, // Passer l'id du titulaire à l'URL
+        success: function(res) {
+            var enfant = res.data[0];
+            
+            // Remplir les champs du formulaire avec les données du titulaire
+            $('#titulaireIdEnfant').val(enfant.titulaireId);
+            $('#enfantId').val(enfant.enfantId);
+            $('#nomEnfant').val(enfant.nom);
+            $('#prenomEnfant').val(enfant.prenom);
+            $('#fonctionEnfant').val(enfant.fonction);
+            $('#genreEnfant').val(enfant.genre);
+            $('select').selectpicker('refresh');
+            $('#dateNaissEnfant').val(enfant.dateNaiss);
+            $('#typeEnfant').val(enfant.typeEnfant);          
+            $('select').selectpicker('refresh');
+
+            // Afficher le formulaire (par exemple, en ouvrant un modal)
+            $('.entete_modal').text("Modification");
+            $('#btn_add_enfant').text("Modifier");
+            $("#detailTitulaireModel").block();
+            $("#createEnfantModel").modal(
+                { backdrop: "static", keyboard: false },
+                "show"
+            );
+        },
+        error: function(xhr, status, error) {
+            // Gestion des erreurs
+            console.log("Erreur lors de la récupération des données :", error);
+        }
+    });
+}
+/******************************************** */
 
 //*******************ANNULATION BUTTTON */
 function annulerAjoutTitulaire() {
     $('#createTitulaireForm')[0].reset();
+    $('#createEnfantForm')[0].reset();
+    $("#detailTitulaireModel").unblock();
+    $("#listeEnfantModal").unblock()
     $("#titulaireId").val("");
     $("#labelImageTitulaire").html("");
     $("#membreId").val("");
@@ -317,26 +498,13 @@ function annulerAjoutTitulaire() {
 }
 //-------------------------------------------------
 
-
-// ******************************filtre en tete *****************************************/////***/*/*/*/*/*/************************
-
-
-
-
-// **************************evenement changemenet de filtre
-$("#district_choix").on('change', function name(params) {
-    chargeCommuneTous();
-    chargeQuartierVider();
-});
-//******************************************************** */
-
 //** Metrre Non Assuré */
 function nomAssure(id) {
     $("#card-titulaire").block({
         message: `
           <div class="card" style="max-width:400px ; ">
             <div class="card-header">
-                Veuillez entrer le motif
+                Veuillez entrer le motif Non Assuré
             </div>
             <div class="card-content">
                 <div class="card-body">                  
@@ -410,13 +578,13 @@ function assure(id) {
         message: `
           <div class="card" style="max-width:400px ; ">
             <div class="card-header">
-                Veuillez entrer le motif
+                Veuillez entrer le motif Asssuré
             </div>
             <div class="card-content">
                 <div class="card-body">                  
                     <form id="submitTitulaireToAssure">
                         <input type="hidden" id='idTitulaireToAssure' value="${id}" />
-                        <textarea name="motifAssure" required id="motifAssure"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de non Assuré"></textarea><br>
+                        <textarea name="motifAssure" required id="motifAssure"  class="form-control input-sm" cols="3" rows="3" placeholder="motif Assuré"></textarea><br>
                         <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
                         <button type="button" onclick="unblockCard()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
                     </form>  
@@ -495,6 +663,7 @@ function detailTitulaire(id){
         success: function(res) {
             var titulaire = res.data[0];
             // Mettez à jour le contenu du modal avec les données de `res`
+            $("#detailNumTitualireGenere").text(res.data.numCartGenere);
             $("#detailNumCnaps").text(titulaire.numCnaps);
             $("#detailNom").text(titulaire.nom);
             $("#detailPrenom").text(titulaire.prenom);
@@ -512,14 +681,12 @@ function detailTitulaire(id){
             $("#detailTelephoneConjoint").text(titulaire.telephoneConjoint);
             $("#detailGenreConjoint").text(titulaire.genreConjoint);
             $("#detailMotifNonAssure").text(titulaire.motifNonAssure);
+            $("#detailFonctionConjoint").text(titulaire.fonctionConjoint);
 
             $("#detailTitulaireModel").modal(
                 { backdrop: "static", keyboard: false },
                 "show"
             ); 
-
-            // afficher tableau enfant
-            listeEnfant(id);
         }
     })
 }
@@ -527,7 +694,28 @@ function detailTitulaire(id){
 
 /** Listes des enfant */
 function listeEnfant(titulaireId){
+
+    $("#listeEnfantModal").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    ); 
+
     $.ajax({
+        beforeSend: function () {
+            $("#card-enfant").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin-left:70% ; font-size : 13px !important"></div>',
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+        },
         url: base + "listeEnfant", // L'URL du contrôleur qui renvoie les données du titulaire
         type: 'POST',
         data: { titulaireId: titulaireId }, // Passer l'id du titulaire à l'URL
@@ -564,35 +752,30 @@ function listeEnfant(titulaireId){
                         className: "btn btn-sm btn-secondary btn-min-width ",
                         text: '<i class="ft-refresh"> Actualiser</i>',
                         action: function () {
-                            listeEnfant();
+                            listeEnfant(titulaireId);
                         },
                     },
                     {
                         className: "btn btn-sm btn-warning btn-min-width ",
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
-                            $('.entete_modal').text("Nouveau Titulaire");
-                            $('#btn_add_titualire').text("Ajouter");
-                            $("#createTitulaireModel").modal(
+                            $("#listeEnfantModal").block();
+                            
+                            $('.entete_modal').text("Nouveau Enfant");
+                            $('#btn_add_enfant').text("Ajouter");
+                            $("#createEnfantModel").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );                           
-                            $('#createTitulaireForm')[0].reset();
-                            $("#id_titualire_men_modif").val("");
+                            $('#createEnfantForm')[0].reset();
+                            $('#titulaireIdEnfant').val(titulaireId);
                         },
                     },
                 ],
             });
+
+            $("#card-enfant").unblock();
         }
     })
 }
 /***************************************************** */
-
-
-///******************filtre patientr ******* */
-
-function filtrerpatient() {
-
-    liste_patient()
-
-}

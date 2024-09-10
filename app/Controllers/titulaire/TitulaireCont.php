@@ -21,6 +21,7 @@ class TitulaireCont extends BaseController
         return view('titulaire/index');         
     }
 
+    /** Ajouter Titulaire */
     public function ajout_titulaire()
     {
         try {
@@ -48,6 +49,19 @@ class TitulaireCont extends BaseController
             echo json_encode(["success" => false, "message" => $th->getMessage()]);
         }
     }
+    /** Fin Ajout Titulaire ****************************** */
+
+    /** Ajouter Titulaire */
+    public function ajout_enfant()
+    {
+        try {  
+           $this->enfant->save($_POST);
+            echo json_encode(["success" => true ]);
+        } catch (\Throwable $th) {
+            echo json_encode(["success" => false, "message" => $th->getMessage()]);
+        }
+    }
+    /** Fin Ajout Titulaire ****************************** */
 
 
     /** update */
@@ -81,6 +95,19 @@ class TitulaireCont extends BaseController
         }
     }
     /*********************************** */
+
+    /** Update Enfant */
+    public function update_enfant(){
+        try {
+            $this->enfant->update($_POST['enfantId'], $_POST);
+            // $id = $this->titulaire->save($_POST);
+            echo json_encode(["success" => true ]);
+        } catch (\Throwable $th) {
+            echo json_encode(["success" => false, "message" => $th->getMessage()]);
+        }
+    }
+    /*********************************** */
+    
     public function charge_membre()
     {
         try {
@@ -99,8 +126,7 @@ class TitulaireCont extends BaseController
             echo $th;
         }
     }
-    
-    
+        
 
     public function delete_titulaire()
     {
@@ -112,6 +138,20 @@ class TitulaireCont extends BaseController
             echo $th;
         }
     }
+
+    /** Delete Enfant */
+    public function delete_enfant()
+    {
+        try {
+            
+            $this->enfant->update($_POST["enfantId"],["etat"=> 0]);
+            echo json_encode(["id" => 1]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /************************************************************** */
+
 
     //-- get All Titulaire -----
     public function listesTitulaire()
@@ -140,15 +180,14 @@ class TitulaireCont extends BaseController
                 //generation de numCarte
                 if ($value_ar["membreId"] != null) {
                     $membreId = $value_ar["membreId"];
-                    // $data = $this->membre->find($membreId);      
-                    // $nomMembre = $this->membre->where('id_membre', $membreId)->value('nom_membre');
-
-                    $nomMembre = $this->membre
-                    ->select('nom_membre')
-                    ->where('id_membre', $membreId)
-                    ->get()
-                    ->getRow()
-                    ->nom_membre;
+                    
+                    $nomMembre = $this->titulaire
+                        // ->select('COALESCE(membre.nom_membre, "Membre inconnu") AS nom_membre')
+                        ->join('membre', 'membre.id_membre = titulaire.membreId', 'left')
+                        ->where('titulaire.membreId', $membreId)
+                        ->get()
+                        ->getRow()
+                        ->nom_membre;
 
                     $numCart = $value_ar["titulaireId"];
                     $numCartGenere = $this->genererNumeroCarte($nomMembre, $numCart);
@@ -163,8 +202,9 @@ class TitulaireCont extends BaseController
 
                 $btn = '                
                     <td style="width:10%">
-                        <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
+                        <a title="Liste Famille" class="info mr-1" onclick="listeEnfant('.$value_ar["titulaireId"].')"><i class="la la-group"></i></a> 
                         <a title="Voir détail" class="info mr-1" onclick="detailTitulaire('.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
+                        <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
                         <a title ="Supprimer" class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                     </td>
                 ';
@@ -197,13 +237,14 @@ class TitulaireCont extends BaseController
     public function listeEnfant(){
         $TitulaireId = $_POST['titulaireId'];
         $datas = $this->enfant->where("etat" , 1)->where("titulaireId" , $TitulaireId)->orderBy("enfantId", 'desc')->findAll();
-        
+ 
         $th = "
             <thead>
                 <th>#</th>
                 <th>Nom et Prénom</th>
+                <th>Fonction</th>
                 <th>Genre</th>
-                <th>dateNaiss</th>
+                <th>Date Naiss</th>
                 <th>Lien</th>
                 <th>Status</th>
                 <th>action</th>
@@ -217,9 +258,9 @@ class TitulaireCont extends BaseController
 
             $btn = '                
                 <td style="width:10%">
-                    <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["enfantId"].')"><i class="la la-pencil"></i></a>
-                    <a title="Voir détail" class="info mr-1" onclick="detailTitulaire('.$value_ar["enfantId"].')"><i class="la la-list"></i></a> 
-                    <a title ="Supprimer" class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["enfantId"].')" ><i class="la la-trash-o"></i></a>
+                    <a title="Editer" class="primary edit mr-1" onclick="editerEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
+                    <a title="Voir détail" class="info mr-1" onclick="detailEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
+                    <a title ="Supprimer" class="danger delete mr-1" onclick="deleteEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                 </td>
             ';
             $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssure('.$value_ar["enfantId"].')"><i class="ft-check"></i> Assuré</span>';
@@ -230,6 +271,7 @@ class TitulaireCont extends BaseController
             $th .= "<tr>
                 <td style=''> ". $n ."</td>
                 <td style=''> ". $value_ar["nom"] ." ". $value_ar["prenom"] ."</td>
+                <td style=''> ". $value_ar["fonction"]  ."</td>
                 <td style=''> ". $value_ar["genre"]  ."</td>
                 <td style=''> ". $value_ar["dateNaiss"]  ."</td>
                 <td style=''> ". $value_ar["typeEnfant"]  ."</td>
@@ -246,8 +288,35 @@ class TitulaireCont extends BaseController
     //***** get By Id *****/
     public function getTitulaireById(){
         $TitulaireId = $_POST['titulaireId'];
-        // $TitulaireId = 13;
-        $selectedData = $this->titulaire->where("titulaireId" , $TitulaireId)->find();
+        // var_dump($selectedData[0]['membreId']); die;
+
+        //generation de numCarte
+        $selectedData = $this->titulaire->where("titulaireId" , $TitulaireId)->findAll();
+        if ($selectedData[0]["membreId"] != "") {
+            $membreId = $selectedData[0]["membreId"];
+            $nomMembre = $this->titulaire
+                        ->join('membre', 'membre.id_membre = titulaire.membreId', 'left')
+                        ->where('titulaire.membreId', $membreId)
+                        ->get()
+                        ->getRow()
+                        ->nom_membre;
+
+            $numCartGenere = $this->genererNumeroCarte($nomMembre, $TitulaireId);
+        }
+        $selectedData["numCartGenere"] = $numCartGenere;
+
+        echo json_encode(["data" => $selectedData]);
+    }
+    /** ********************************/ 
+
+    //** GEt Enfant By Id *****/
+    public function getEnfantById(){
+        $enfantId = $_POST['enfantId'];
+        // var_dump($selectedData[0]['membreId']); die;
+
+        //generation de numCarte
+        $selectedData = $this->enfant->where("enfantId" , $enfantId)->find();        
+
         echo json_encode(["data" => $selectedData]);
     }
     /** ********************************/
@@ -255,8 +324,9 @@ class TitulaireCont extends BaseController
     /****** Mettre non assuré */
     public function toNonAssure()
     {
-        try {            
-            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 0 , "motifNonAssure"=> $_POST["motifNonAssure"]]);
+        try { 
+            $motif = "Non assuré de raison : ".$_POST["motifNonAssure"];
+            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 0 , "motifNonAssure"=> $motif]);
             echo json_encode(["id" => 1]);
         } catch (\Throwable $th) {
             echo $th;
@@ -267,8 +337,9 @@ class TitulaireCont extends BaseController
     /****** Mettre non assuré */
     public function toAssure()
     {
-        try {            
-            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 1 , "motifNonAssure"=> $_POST["motifNonAssure"]]);
+        try {    
+            $motif = "Redivient assuré de raison : ".$_POST["motifNonAssure"];
+            $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 1 , "motifNonAssure"=> $motif]);
             echo json_encode(["id" => 1]);
         } catch (\Throwable $th) {
             echo $th;
