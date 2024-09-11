@@ -20,6 +20,7 @@ class EnfantModel extends Model
         'genre',
         'dateNaiss',
         'typeEnfant',
+        'motif',
         'isActif',
         'etat',
         'createdAt',

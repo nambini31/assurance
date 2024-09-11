@@ -572,6 +572,81 @@ function nomAssure(id) {
 }
 //************************************* */
 
+//** Metrre Non Assuré Enfant */
+function nomAssureEnfant(id, titulaireId) {
+    $("#card-enfant").block({
+        message: `
+          <div class="card" style="max-width:400px ; ">
+            <div class="card-header">
+                Veuillez entrer le motif Non Assuré
+            </div>
+            <div class="card-content">
+                <div class="card-body">                  
+                    <form id="submitEnfantToNonAssure">
+                        <input type="hidden" id='idEnfantToNonAssure' value="${id}" />
+                        <textarea name="motifNonAssureEnfant" required id="motifNonAssureEnfant"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de non Assuré"></textarea><br>
+                        <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
+                        <button type="button" onclick="unblockCard()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </form>  
+                </div>
+            </div>
+          </div>
+          `,
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+    $("#submitEnfantToNonAssure").off("submit").on("submit", function (e) {
+        e.preventDefault();    
+        let id = $("#idEnfantToNonAssure").val();
+        let motif = $("#motifNonAssureEnfant").val();    
+        $("#card-enfant").unblock();
+        $.ajax({
+            beforeSend: function () {    
+                $("#card-enfant").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",    
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });    
+            },
+            url: base + "toNonAssureEnfant",
+            type: "POST",
+            dataType: "JSON",
+            data: { enfantId: id , motifNonAssureEnfant : motif},
+            success: function (res) {    
+                $("#card-enfant").unblock();    
+                if (res.id > 0) {    
+                    alertCustom("success", 'ft-check', "Enfant devient non Assuré");    
+                } else {    
+                    alertCustom("danger", 'ft-x', "Non effectué, Veuillez Contecter l'administrateur");
+                }    
+                listeEnfant(titulaireId);    
+            },
+            error: function(message) {
+                alertCustom("danger", 'ft-x', "Non effectué, Veuillez Contecter l'administrateur");
+                $("#card-enfant").unblock();    
+            }
+        });
+    });
+}
+//************************************* */
+
 //** Metrre Assuré */
 function assure(id) {
     $("#card-titulaire").block({
@@ -646,10 +721,85 @@ function assure(id) {
 }
 //************************************* */
 
+//** Metrre Assuré Enfant */
+function assureEnfant(id, titulaireId) {
+    $("#card-enfant").block({
+        message: `
+          <div class="card" style="max-width:400px ; ">
+            <div class="card-header">
+                Veuillez entrer le motif Assuré
+            </div>
+            <div class="card-content">
+                <div class="card-body">                  
+                    <form id="submitEnfantToAssure">
+                        <input type="hidden" id='idEnfantToAssure' value="${id}" />
+                        <textarea name="motifAssureEnfant" required id="motifAssureEnfant"  class="form-control input-sm" cols="3" rows="3" placeholder="motif de Assuré"></textarea><br>
+                        <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Confirmer</button>
+                        <button type="button" onclick="unblockCard()" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    </form>  
+                </div>
+            </div>
+          </div>
+          `,
+        overlayCSS: {
+            backgroundColor: 'black',
+            opacity: 0.1,
+            cursor: "wait",
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: "transparent"
+        }
+    });
+
+    $("#submitEnfantToAssure").off("submit").on("submit", function (e) {
+        e.preventDefault();    
+        let id = $("#idEnfantToAssure").val();
+        let motif = $("#motifAssureEnfant").val();    
+        $("#card-enfant").unblock();
+        $.ajax({
+            beforeSend: function () {    
+                $("#card-enfant").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",    
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });    
+            },
+            url: base + "toAssureEnfant",
+            type: "POST",
+            dataType: "JSON",
+            data: { enfantId: id , motifAssureEnfant : motif},
+            success: function (res) {    
+                $("#card-enfant").unblock();    
+                if (res.id > 0) {    
+                    alertCustom("success", 'ft-check', "Enfant devient non Assuré");    
+                } else {    
+                    alertCustom("danger", 'ft-x', "Non effectué, Veuillez Contecter l'administrateur");
+                }    
+                listeEnfant(titulaireId);    
+            },
+            error: function(message) {
+                alertCustom("danger", 'ft-x', "Non effectué, Veuillez Contecter l'administrateur");
+                $("#card-enfant").unblock();    
+            }
+        });
+    });
+}
+//************************************* */
 
 //** Unblock card */
 function unblockCard() {
     $("#card-titulaire").unblock();
+    $("#card-enfant").unblock();
 }
 //************************************** */
 
@@ -682,6 +832,7 @@ function detailTitulaire(id){
             $("#detailGenreConjoint").text(titulaire.genreConjoint);
             $("#detailMotifNonAssure").text(titulaire.motifNonAssure);
             $("#detailFonctionConjoint").text(titulaire.fonctionConjoint);
+            $("#detailPhotoTitulaire").html(res.data.detailPhotoTitulaire);
 
             $("#detailTitulaireModel").modal(
                 { backdrop: "static", keyboard: false },

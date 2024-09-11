@@ -246,6 +246,7 @@ class TitulaireCont extends BaseController
                 <th>Genre</th>
                 <th>Date Naiss</th>
                 <th>Lien</th>
+                <th>Motif</th>
                 <th>Status</th>
                 <th>action</th>
             </thead>
@@ -259,13 +260,12 @@ class TitulaireCont extends BaseController
             $btn = '                
                 <td style="width:10%">
                     <a title="Editer" class="primary edit mr-1" onclick="editerEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
-                    <a title="Voir détail" class="info mr-1" onclick="detailEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
                     <a title ="Supprimer" class="danger delete mr-1" onclick="deleteEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                 </td>
             ';
-            $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssure('.$value_ar["enfantId"].')"><i class="ft-check"></i> Assuré</span>';
+            $textAssuree = '<span class="badge badge-success" style="font-size:13px ; cursor: pointer;" onclick="nomAssureEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')"><i class="ft-check"></i> Assuré</span>';
             if ($value_ar["isActif"] == "0") {
-                $textAssuree = '<span class="badge badge-danger" style="font-size:14px ; cursor: pointer;" onclick="assure('.$value_ar["enfantId"].')" ><i class="la la-ban"></i> Non Assuré</span>';
+                $textAssuree = '<span class="badge badge-danger" style="font-size:14px ; cursor: pointer;" onclick="assureEnfant('.$value_ar["enfantId"].','.$value_ar["titulaireId"].')" ><i class="la la-ban"></i> Non Assuré</span>';
             }
             $n++;
             $th .= "<tr>
@@ -275,6 +275,7 @@ class TitulaireCont extends BaseController
                 <td style=''> ". $value_ar["genre"]  ."</td>
                 <td style=''> ". $value_ar["dateNaiss"]  ."</td>
                 <td style=''> ". $value_ar["typeEnfant"]  ."</td>
+                <td style='width: 10px !important;'> ". $value_ar["motif"]  ."</td>
                 <td style=''> ". $textAssuree  ."</td>
                 $btn
             ";    
@@ -303,7 +304,12 @@ class TitulaireCont extends BaseController
 
             $numCartGenere = $this->genererNumeroCarte($nomMembre, $TitulaireId);
         }
-        $selectedData["numCartGenere"] = $numCartGenere;
+        
+        $photo = 'Pas de Photo';
+        if (!empty($selectedData[0]["photo"])) {
+            $photo = '<img src="' . base_url('assets/img/titulaire/' . $selectedData[0]["photo"]) . '" alt="User Image" style="width: 100%; height: auto; border-radius: 10px;">';
+        }
+        $selectedData["detailPhotoTitulaire"] = $photo;
 
         echo json_encode(["data" => $selectedData]);
     }
@@ -334,12 +340,38 @@ class TitulaireCont extends BaseController
     }
     /***************************************** */
 
+    /****** Mettre non assuré  Enfant */
+    public function toNonAssureEnfant()
+    {
+        try { 
+            $motif = "Non assuré de raison : ".$_POST["motifNonAssureEnfant"];
+            $this->enfant->update($_POST["enfantId"], ["isActif"=> 0 , "motif"=> $motif]);
+            echo json_encode(["id" => 1]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /***************************************** */
+
     /****** Mettre non assuré */
     public function toAssure()
     {
         try {    
             $motif = "Redivient assuré de raison : ".$_POST["motifNonAssure"];
             $this->titulaire->update($_POST["titulaireId"], ["isActif"=> 1 , "motifNonAssure"=> $motif]);
+            echo json_encode(["id" => 1]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    /***************************************** */
+
+    /****** Mettre non assuré Enfant */
+    public function toAssureEnfant()
+    {
+        try {                                                
+            $motif = "Redivient assuré de raison : ".$_POST["motifAssureEnfant"];
+            $this->enfant->update($_POST["enfantId"], ["isActif"=> 1 , "motif"=> $motif]);
             echo json_encode(["id" => 1]);
         } catch (\Throwable $th) {
             echo $th;

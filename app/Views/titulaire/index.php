@@ -91,7 +91,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="nom" class="col-form-label">Nom</label>
-                                        <input name="nom" id="nom" type="text" class="form-control input-sm">
+                                        <input name="nom" id="nom" type="text" class="form-control input-sm" required>
                                     </div>
 
                                     <div class="form-group col-md-3">
@@ -101,12 +101,12 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="cin" class="col-form-label">CIN</label>
-                                        <input name="cin" id="cin" type="number" class="form-control input-sm">
+                                        <input name="cin" id="cin" type="number" class="form-control input-sm" required>
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Adresse</label>
-                                        <input name="adresse" id="adresse" type="text" class="form-control input-sm">
+                                        <input name="adresse" id="adresse" type="text" class="form-control input-sm" required>
                                     </div>
                                 </div> 
                                 
@@ -118,10 +118,10 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="prenom" class="col-form-label">Fonction</label>
-                                        <input name="fonction" id="fonction" type="text" class="form-control input-sm">
+                                        <input name="fonction" id="fonction" type="text" class="form-control input-sm" required>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-3"> 
                                         <label class="col-form-label">Date Embauche</label>
                                         <input name="dateEmbauche" id="dateEmbauche" type="date" class="form-control input-sm">
                                     </div>
@@ -207,12 +207,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h2 class="card-title text-center">Detail Titilaire</h2>
+                    <button class="btn btn-info">Imprimer Carte</button>
                 </div>
                 <div class="card-body">
                     <p class="card-text" style="font-size: 14px !important;">
                         <strong>N° Fiche Medical :</strong> <span id="detailNumTitualireGenere" style="border: 1px solid #000; padding: 1px 3px; margin-right:30px">------</span>
                         <strong>N° CNAPS :</strong> <span id="detailNumCnaps" style="border: 1px solid #000; padding: 1px 3px;"></span><br><br>
-                        <strong>Nom :</strong> <span id="detailNom">Dupont</span>
+                        <strong>Nom :</strong> <span id="detailNom" style="min-width: 20px;">Dupont</span>
                         <strong>Prénoms :</strong> <span id="detailPrenom">Jean</span><br><br>
                         <strong>Genre :</strong> <span id="detailGenre">Masculin</span>
                         <strong>Date de naissance :</strong> <span id="detailDateNaiss">01/01/1980</span><br><br>
@@ -233,12 +234,12 @@
                     <div class="row">
                         <div class="col">
                             <div class="text-center" style="border: 1px solid #000; padding: 10px;">
-                            <p>Photo AFFILIE(E)</p>
+                                <span id="detailPhotoTitulaire">Photo AFFILIE(E)</span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="text-center" style="border: 1px solid #000; padding: 10px;">
-                            <p>Photo CONJOINT(E)</p>
+                            <span id="detailPhotoConjoint">Photo CONJOINT(E)</span>
                             </div>
                         </div>
                     </div>

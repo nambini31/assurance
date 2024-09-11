@@ -66,7 +66,9 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
      $routes->post('update_enfant', 'titulaire\TitulaireCont::update_enfant');
      $routes->post('toNonAssure', 'titulaire\TitulaireCont::toNonAssure');
+     $routes->post('toNonAssureEnfant', 'titulaire\TitulaireCont::toNonAssureEnfant');
      $routes->post('toAssure', 'titulaire\TitulaireCont::toAssure');
+     $routes->post('toAssureEnfant', 'titulaire\TitulaireCont::toAssureEnfant');
      $routes->post('listeEnfant', 'titulaire\TitulaireCont::listeEnfant');
      $routes->post('delete_enfant', 'titulaire\TitulaireCont::delete_enfant');
 
