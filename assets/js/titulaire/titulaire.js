@@ -968,3 +968,40 @@ function imprimerCarte1(){
     });
 }
 /********************************************************** */
+
+/** Imprimer carte 2 (Verso)) */
+function imprimerCarte2(){
+    var titulaireId = $("#detailTitulaireId").val();
+    $.ajax({
+        beforeSend: function () {
+            $("card-titulaire").block({
+            message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto"></div>',
+            overlayCSS: {
+                backgroundColor: "black",
+                opacity: 0.1,
+                cursor: "wait",
+            },
+            css: {
+                border: 0,
+                padding: 0,
+                backgroundColor: "transparent"
+            }
+            });
+        },
+        url: base + 'imprimerCarte2',
+        dataType: 'json',
+    
+        type: 'POST',
+        data: { titulaireId: titulaireId},
+        success: function (file) {
+            $("#card-titulaire").unblock();
+            window.open(file.file);
+            alertCustom("success", 'ft-check', "Bien imprimé");
+        },
+        error: function (data) {
+            $("#card-titulaire").unblock();
+            alertCustom("danger", 'ft-check', "Non imprimer");
+        }
+    });
+}
+/********************************************************** */

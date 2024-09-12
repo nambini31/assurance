@@ -208,6 +208,7 @@
                     </button>
                     <h2 class="card-title text-center">Detail Titilaire</h2>
                     <button class="btn btn-info" onclick='imprimerCarte1()'>Imprimer Carte</button>
+                    <button class="btn btn-info" onclick='imprimerCarte2()'>Imprimer Carte Verso</button>
                 </div>
                 <div class="card-body">
                     <p class="card-text" style="font-size: 14px !important;">

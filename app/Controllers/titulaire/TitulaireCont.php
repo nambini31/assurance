@@ -401,6 +401,7 @@ class TitulaireCont extends BaseController
             $this->pdf->SetMargins(0, 0, 8, 0);
         
             $titulaireId= $_POST['titulaireId'];
+            
             $selectedData = $this->titulaire->find($titulaireId);            
 
             // Génération du contenu HTML selectedExamen
@@ -420,7 +421,52 @@ class TitulaireCont extends BaseController
         
             // Définition du nom du fichier PDF
             $pdfFileName = 'Carte1_' . $selectedData['titulaireId'] .'_'.date("dmYhi"). '.pdf';
-            $pdfFilePath = 'public/uploads/carte/' . $pdfFileName;
+            $pdfFilePath = 'public/uploads/examen/' . $pdfFileName;
+        
+            // Vérification des permissions du dossier
+            if (!is_writable(dirname($pdfFilePath))) {
+                throw new \Exception('Le dossier n\'est pas accessible en écriture : ' . dirname($pdfFilePath));
+            }
+        
+            // Enregistrement du fichier PDF
+            $this->pdf->Output($pdfFilePath, "F");
+        
+            // Réponse JSON avec le chemin du fichier
+            echo json_encode(['file' => base_url() . $pdfFilePath]);
+        } catch (\Throwable $th) {
+            // Gestion des exceptions
+            echo 'Erreur: ' . $th->getMessage();
+            error_log($th->getMessage()); // Enregistrer l'erreur dans les logs
+        }        
+    }
+
+    /** Imprimer carte 2 */
+    public function imprimerCarte2(){
+        try {
+            // Initialisation de mPDF
+            $this->pdf->SetMargins(0, 0, 8, 0);
+        
+            $titulaireId= $_POST['titulaireId'];
+            $selectedData = $this->titulaire->find($titulaireId);            
+
+            // Génération du contenu HTML selectedExamen
+            // var_dump($selectedData); die;
+            $html = view('pdf/carteAffiliation/carteOmitVerso', ["selectedData" => $selectedData]);
+        
+            // Configuration d'erreur
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        
+            // Limite de mémoire
+            ini_set('memory_limit', '256M');
+        
+            // Ajout du contenu HTML à mPDF
+            $this->pdf->WriteHTML($html);
+        
+            // Définition du nom du fichier PDF
+            $pdfFileName = 'Carte2_' . $selectedData['titulaireId'] .'_'.date("dmYhi"). '.pdf';
+            $pdfFilePath = 'public/uploads/examen/' . $pdfFileName;
         
             // Vérification des permissions du dossier
             if (!is_writable(dirname($pdfFilePath))) {

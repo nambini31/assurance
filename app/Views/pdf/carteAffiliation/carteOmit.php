@@ -9,9 +9,9 @@
             font-family: Arial, sans-serif;
         }
         .carte-container {
-            width: 500px;
+            width: 400px;
             border: 2px solid #000;
-            padding: 20px;
+            padding: 0px 20px;
             margin: 0 auto;
         }
         .carte-header {
@@ -20,9 +20,10 @@
             font-size: 18px;
         }
         table {
-            width: 100%;
+            /* width: 100%; */
             border-collapse: collapse;
             margin-top: 10px;
+            font-size: 11px;
         }
         td {
             padding: 5px;
@@ -31,7 +32,7 @@
             font-size: 18px;
         }
         .carte-body td {
-            border-bottom: 1px solid #000;
+            /* border-bottom: 1px solid #000; */
         }
         .carte-body td:last-child {
             border-bottom: none;
@@ -47,11 +48,6 @@
             height: auto;
             border-radius: 50%;
         }
-        .footer-section {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -64,10 +60,11 @@
 
     <table>
         <tr>
-            <td>N° CNAPS :</td>
-            <td style="border-bottom: 1px solid #000;">[NumCnaps]</td>
-            <td>N° Fiche Médicale :</td>
-            <td style="border-bottom: 1px solid #000;">[NumFicheMedicale]</td>
+            <td style="padding-top: 5px;
+            padding-bottom: 5px;">N° CNAPS :</td>
+            <td style="border: 1px solid #000;" id="carteNumCnaps">[NumCnaps]</td>
+            <td style="padding-left: 20px;">N° Fiche Médicale :</td>
+            <td style="border: 1px solid #000;" id="carteCarte">[NumFicheMedicale]</td>
         </tr>
         <tr>
             <td colspan="4" class="carte-header">Affilié(e)</td>
@@ -76,41 +73,43 @@
 
     <table class="carte-body">
         <tr>
-            <td>Nom :</td>
-            <td>[Nom]</td>
+            <td>Nom : <span id="carteNom">[Nom]</span></td>            
         </tr>
         <tr>
-            <td>Prénoms :</td>
-            <td>[Prenoms]</td>
+            <td>Prénoms : <span id="cartePrenom">[Prenom]</span></td>
         </tr>
         <tr>
-            <td>Emploi :</td>
-            <td>[Emploi]</td>
+            <td>Emploi : <span id="carteEmploi">[Nom]</span></td>
         </tr>
         <tr>
-            <td>Employeur :</td>
-            <td>[Employeur]</td>
+            <td>Employeur : <span id="carteEmployeur">[Nom]</span></td>
         </tr>
         <tr>
-            <td>Adresse :</td>
-            <td>[Adresse]</td>
+            <td>Adresse : <span id="carteAdresse">[Nom]</span></td>
         </tr>
         <tr>
-            <td>Nom & Prénoms conjoint(e) :</td>
-            <td>[NomPrenomConjoint]</td>
+            <td>Nom & Prénoms conjoint(e) : <span id="carteNomConjoint">[Nom]</span></td>
         </tr>
     </table>
 
     <table>
         <tr>
-            <td class="photo-section">Photo AFFILIE(E)<br><img src="[PhotoAffilie]" alt="Photo Affilié(e)"></td>
-            <td class="photo-section">Photo CONJOINT(E)<br><img src="[PhotoConjoint]" alt="Photo Conjoint(e)"></td>
+            <td>Photo Affilié(e)</td>
+            <td></td>
+            <td>Photo Conjoint(e)</td>
+        </tr>
+        <tr>
+            <td class="photo-section">
+                Photo AFFILIE(E)<br>
+                <span id="cartePhotoAffile"><img src="[PhotoAffilie]" alt="Photo Affilié(e)"></span>
+            </td>
+            <td></td>
+            <td class="photo-section">
+                Photo CONJOINT(E)<br>
+                <span id="cartePhotoConjoint"><img src="[PhotoConjoint]" alt="Photo Conjoint(e)"></span>
+            </td>
         </tr>
     </table>
-
-    <div class="footer-section">
-        <p>[FooterText]</p>
-    </div>
 </div>
 
 </body>
