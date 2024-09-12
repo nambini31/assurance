@@ -71,6 +71,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->post('toAssureEnfant', 'titulaire\TitulaireCont::toAssureEnfant');
      $routes->post('listeEnfant', 'titulaire\TitulaireCont::listeEnfant');
      $routes->post('delete_enfant', 'titulaire\TitulaireCont::delete_enfant');
+     $routes->post('imprimerCarte1', 'titulaire\TitulaireCont::imprimerCarte1');
 
      //route pour patient
 

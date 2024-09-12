@@ -207,10 +207,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h2 class="card-title text-center">Detail Titilaire</h2>
-                    <button class="btn btn-info">Imprimer Carte</button>
+                    <button class="btn btn-info" onclick='imprimerCarte1()'>Imprimer Carte</button>
                 </div>
                 <div class="card-body">
                     <p class="card-text" style="font-size: 14px !important;">
+                        <input value="" type="hidden" id="detailTitulaireId" />
                         <strong>N° Fiche Medical :</strong> <span id="detailNumTitualireGenere" style="border: 1px solid #000; padding: 1px 3px; margin-right:30px">------</span>
                         <strong>N° CNAPS :</strong> <span id="detailNumCnaps" style="border: 1px solid #000; padding: 1px 3px;"></span><br><br>
                         <strong>Nom :</strong> <span id="detailNom" style="min-width: 20px;">Dupont</span>
