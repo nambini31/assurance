@@ -12,8 +12,9 @@
                                 <label for="">Role Utilisateur</label>
 
                                 <select class="selectpicker  form-control btn-sm" name="user_role_non_formate[]" id="role_user" required  multiple data-live-search='true' data-size='5' title='Role utilisateur'>
-                                        <option value="2">Parametre</option>
-                                        <option value="3">Docteur</option>
+                                        <option value="3">Parametre Admin</option>
+                                        <option value="4">Parametre Simple</option>
+                                        <option value="8">Docteur</option>
                                 </select>
 
                             </fieldset>

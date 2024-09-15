@@ -12,7 +12,9 @@ function charge_membre() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $('select').selectpicker('refresh');
@@ -57,7 +59,9 @@ function liste_patient() {
         data:{
             id_membre :  $('#membre_choix').val()
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table_patient")) {
                 $("#table_patient").DataTable().destroy();
             } else {
@@ -156,7 +160,9 @@ $("#ajout_patient").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             if ($('#btn_add_patient').text() === "Modifier") {
                 if (res.id == 1) {
@@ -277,7 +283,9 @@ function delete_patient_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { id_patient: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#card_patient").unblock();
 

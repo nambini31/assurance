@@ -160,17 +160,17 @@
                                     <th style="text-align:center">Date</td>
                                  </tr>
                                  <tr>
-                                    <td style="text-align:left">VAT 1 </th>
+                                    <td style="text-align:left">TD 1 </th>
                                     <td><input type="date" class="form-control input-sm"  name="vat1" ></td>
 
                                  </tr>
                                  <tr>
-                                    <td style="text-align:left">VAT 2</th>
+                                    <td style="text-align:left">TD 2</th>
                                     <td><input type="date" class="form-control input-sm"  name="vat2" ></td>
 
                                  </tr>
                                  <tr>
-                                    <td style="text-align:left">VAT 3</th>
+                                    <td style="text-align:left">TD 3</th>
                                     <td><input type="date" class="form-control input-sm"  name="vat3" ></td>
 
                                  </tr>
@@ -180,18 +180,28 @@
 
                                  </tr>
                                  <tr>
-                                    <td style="text-align:left">VAT 5</th>
+                                    <td style="text-align:left">TD 5</th>
                                     <td><input type="date" class="form-control input-sm"  name="vat5" ></td>
 
                                  </tr>
                               
                                 </table>
                                 </div>
-                                <div class="form-actions right" >
-                                    <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
 
-                                    
-                                </div>
+                                <?php 
+                                        //verifier si c'est superAdmin
+                                        if (!in_array($_SESSION['roleId'], ["6" , "3"])) {              
+                                        ?>
+                                        <div class="form-actions right" >
+                                            <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
+
+                                            
+                                        </div>
+                                        <?php 
+                                                }
+                                        ?>
+
+                                
                             </form>
 
                         </div>
@@ -200,7 +210,7 @@
             </div>
         </div>
         <div class="modal fade" id="AddConsultCpn" style="z-index: 99999999; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content" id="modal_ConsultCpn" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
@@ -240,42 +250,42 @@
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">T.A </th>
-                                                    <td><input type="text" class="form-control input-sm" required name="ta"></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="ta"></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">ALB/ OEDEMES</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="albOedemes" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="albOedemes" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">Prise de poids</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="prisedepoids" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="prisedepoids" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">ICTERE (Conjonctives)</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="ictereConjonctive" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="ictereConjonctive" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">SAIGNEMENT</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="saignement" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="saignement" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">HAUTEUR UTERINE</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="hauteurUterine" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="hauteurUterine" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">B D C F</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="bdfc" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="bdfc" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">PRESENTAIION</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="presentation" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="presentation" ></td>
                 
                                                  </tr>
                                                  
@@ -293,48 +303,48 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="text-align:left ; text-wrap: wrap;">Référence pour Accouchement</th>
-                                                        <td><input type="text" class="form-control input-sm" required name="referenceAccouchement" ></td>
+                                                        <td><input type="text" class="form-control input-sm"  name="referenceAccouchement" ></td>
                     
                                                      </tr> 
                                                  
                                                  <tr>
-                                                    <td style="text-align:left">VAT</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="vat" ></td>
+                                                    <td style="text-align:left">TD</th>
+                                                    <td><input type="text" class="form-control input-sm"  name="vat" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">SPI</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="spi" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="spi" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">Fer Ac/folique</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="ferAcFolique" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="ferAcFolique" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">Albendazole</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="albendazole" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="albendazole" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">VIH</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="vih" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="vih" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">BW</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="bw" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="bw" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">Recherche active</th>
-                                                    <td><input type="text" class="form-control input-sm" required name="rechercheActive" ></td>
+                                                    <td><input type="text" class="form-control input-sm"  name="rechercheActive" ></td>
                 
                                                  </tr>
                                                  <tr>
                                                     <td style="text-align:left">Date de rendez-vous</th>
-                                                    <td><input type="date" class="form-control input-sm" required name="dateRendevous" ></td>
+                                                    <td><input type="date" class="form-control input-sm"  name="dateRendevous" ></td>
                 
                                                  </tr>
                                               
@@ -353,6 +363,7 @@
                                 <div class="form-actions right" >
                                     <button type="submit" id="btn_add_detail_cpn" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Ajouter</button>
                                 </div>
+
                             </form>
 
                         </div>
@@ -361,7 +372,7 @@
             </div>
         </div>
         <div class="modal fade" id="modal_consultationcpn" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" style="width: 70%;" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content" id="consultationcpn_modal" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
@@ -385,6 +396,93 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="ListesLabo" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document" style="width: 80%;">
+                <div class="modal-content" id="ListesLabocontent"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
+                    <div class="card-content collpase show">
+                        <div class="card-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                            <h4 class="modal-header">
+                                Demande d'examen
+                            </h4>
+                            <br>
+                            <table id="table_demande" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                
+                            </table>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="AddLaboratoire" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content" id="modal_laboratoire" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                        <div class="card-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                            <h3 class="modal-header entete_modal">
+                                DEMANDE D'EXAMEN
+                            </h3>
+
+                            <br>
+                            
+                            <form method="post" id="add_examen">
+                                <div class="flowscroll">
+                                <input type="hidden" name="idDetails" id="idDetails">
+                                <input type="hidden" name="idConsPour" id="idConsPour">
+                                    <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                     
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Nature de l'examen</th>
+                                        <td colspan="2"><select class="selectpicker  form-control btn-sm" name = 'nature[]'  required id="analyse_select" multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format="count > 3"
+                                        data-count-selected-text="{0} Nature selected">
+                                                       
+                                                    </select></td>
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Resultats</th>
+                                        <td colspan="2"><input type="text" class="form-control input-sm" name="resultats" id="resultats"></td>
+                                        
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">R.C</th>
+                                        <td colspan="2"><input type="text" class="form-control input-sm" name="rc"  id="rc"></td>
+                                        
+    
+                                     </tr>
+                                     <tr>
+                                        <th style="text-align:left; width:5%">Destinataire</th>
+                                        <td colspan="2"><select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
+                                                        <option value="Titulaire" selected >Laboratoire</option>
+                                                    </select></td>
+    
+                                     </tr>
+                                    </table>
+                                </div>
+                                <div class="form-actions right" id="hideValidLabo">
+                                    <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
+                                </div>
+
+                                
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         
         <div class="modal fade" id="deleteConsultation" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -402,7 +500,7 @@
                                     </div>
                            
                                 
-                                    <p>Voulez-vous supprimer cette consultation  ?</p>
+                                    <p>Voulez-vous confirmer cette suppression</p>
                     
                                         <button type="button" onclick="delete_detail()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
                                         <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
@@ -417,6 +515,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="valideLabo" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                            <div class="card-body" style="text-align: center;">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+   
+                            
+                            
+                                    <div class="card-header">
+                                            <i class="la la-check-circle success" style='font-size:50px'></i>
+                                    </div>
+                           
+                                
+                                    <p>Voulez-vous confirmer cette analyse ?</p>
+                    
+                                        <button type="button" onclick="confirmer_analyse()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                                        <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    
+                    
+                                
+                            
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="deleteCpn" style="z-index: 99999999 ;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">

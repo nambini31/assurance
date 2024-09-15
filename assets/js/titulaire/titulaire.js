@@ -9,7 +9,9 @@ function charge_membre() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $("#membreId").append(data);
@@ -43,7 +45,9 @@ function listeTitulaire() {
         },
         url: base + "listesTitulaire",
         type: "POST",
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table-titulaire")) {
                 $("#table-titulaire").DataTable().destroy();
             }
@@ -170,7 +174,9 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: formData,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if (res.success) {
                 if ($('#btn_add_titualire').text() === "Modifier") {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
@@ -252,7 +258,9 @@ function delete_titulaire_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { titulaireId: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             $("#card-titulaire").unblock();
             if (res.id > 0) {
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
@@ -272,7 +280,9 @@ function editTitulaire(id) {
         type: 'POST',
         dataType: 'JSON',
         data: { titulaireId: id }, // Passer l'id du titulaire à l'URL
-        success: function(res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function(res) {
             var titulaire = res.data[0];
             
             // Remplir les champs du formulaire avec les données du titulaire

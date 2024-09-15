@@ -13,7 +13,9 @@ function charge_membre1() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $('select').selectpicker('refresh');
@@ -33,7 +35,9 @@ function charge_membre() {
     $.ajax({
         url: base + 'charge_membre1',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_select").empty();
             $("#membre_select").append(data);
             $('select').selectpicker('refresh');
@@ -67,7 +71,9 @@ function charge_titulaire_coix() {
         data:{
             id_membre : $("#membre_select").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#titulaire_select").empty();
             $("#titulaire_select").append(data);
             $('select').selectpicker('refresh');
@@ -88,7 +94,9 @@ function charge_personne_malade() {
         data:{
             id : $("#titulaire_select").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#personne_selectcpn").empty();
             $("#personne_selectcpn").append(data);
             $('select').selectpicker('refresh');
@@ -109,6 +117,75 @@ $("#titulaire_select").on('change', function name(params) {
 
     charge_personne_malade();
 })
+
+
+function laboratoire(id , isLaboDetail) {
+    $("#idDetails").val(id);
+    $("#idConsPour").val(idCpn);
+    $("#AddLaboratoire").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+    $("#rc").val("");
+    $("#resultats").val("");
+    charge_analyse(id);
+
+    if (["1"].includes(isLaboDetail) ) {
+        $("#hideValidLabo").hide();
+    }else{
+        $("#hideValidLabo").show();
+
+    }
+
+}
+
+
+$("#add_examen").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            
+        },
+        url: base + "add_Examen_cpn",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+            $("#AddLaboratoire").modal("hide"
+            );
+                    alertCustom("success", "ft-check", "Demande d'examen envoyé");
+                    
+                    fill_consult(idCpn);
+                    liste_cpn();
+
+        },
+    });
+});
+
+
+function charge_analyse(id) {
+    $.ajax({
+        url: base + 'charge_analyse',
+        type: "POST",
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
+            $("#analyse_select").empty();
+            $("#analyse_select").append(data);
+            $('select').selectpicker('refresh');
+  
+        }
+    });
+
+  }
 
 
 
@@ -144,13 +221,21 @@ function liste_cpn() {
             date_debut :  $('#date_debut').val() ,
             date_fin :  $('#date_fin').val()
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+            
+            var res = JSON.parse(res);
+
+            var hide = ["5" , "3" , "4"].includes(res.roleId) ? "" : 'hidden';
+
+
             if ($.fn.DataTable.isDataTable("table_cpn")) {
                 $("#table_cpn").DataTable().destroy();
             } else {
             }
             $('#table_cpn').empty();
-            $("#table_cpn").append(res);
+            $("#table_cpn").append(res.table);
 
 
             $('#table_cpn').DataTable({
@@ -192,7 +277,7 @@ function liste_cpn() {
 
                  
                     {
-                        className: "btn btn-sm btn-warning btn-min-width ",
+                        className: "btn btn-sm btn-warning btn-min-width "+hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
                             $("#AddVisites").unblock();
@@ -315,7 +400,9 @@ function delete_detail() {
         type: "POST",
         dataType: "JSON",
         data: { id : iddetail },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#deleteConsultation").modal(
                 "hide"
@@ -354,7 +441,9 @@ $("#add_cpnParam").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
                     //fill_paramettre( $("#idDetailsCons").val());
                     $("#descendant_modal").modal("hide"
                     );
@@ -372,12 +461,24 @@ $("#add_consultcpn").off("submit").on("submit", function (e) {
 
     if (nums.includes($("#numCons").val()) ) {
 
-          if (iddetail == '' || iddetail != $("#numCons").val()) {
+          if (iddetail == '') {
+            
+              alertCustom("warning", "ft-check", "N° de consultation existe deja");
+
+              return ;
+          } else{
+          
+           if ( numedit != $("#numCons").val()) {
             
               alertCustom("warning", "ft-check", "N° de consultation existe deja");
 
               return ;
           }
+          
+          }
+
+
+
       
     } 
 
@@ -394,7 +495,9 @@ $("#add_consultcpn").off("submit").on("submit", function (e) {
             cache: false,
             dataType: "JSON",
             data: data,
-            success: function (res) {
+            error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
         
                         
 
@@ -406,7 +509,7 @@ $("#add_consultcpn").off("submit").on("submit", function (e) {
                                 $("#AddConsultCpn").modal("hide");
                                 fill_consult(idCpn);
 
-                                
+                                liste_cpn();
                                 
             
                             }  else {
@@ -423,7 +526,7 @@ $("#add_consultcpn").off("submit").on("submit", function (e) {
 
                                                         $("#AddConsultCpn").modal("hide");
                                 
-            
+                                                        liste_cpn();
             
                             }else {
                                 alertCustom("danger", "ft-x", "Ajout non effectué");
@@ -469,7 +572,9 @@ $("#add_consultation").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             $("#modal_visites").unblock();
             if ($('#btn_add_cpn_first').text() === "Modifier") {
                 if (res.id == 1) {
@@ -535,9 +640,13 @@ function fill_consult(idcpn) {
         data: {
             idcpn: idcpn,
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             var res = JSON.parse(res);
             $(".entete_modal2").text(res.num_cpn);
+
+            var hide = [ "5" , "3" , "4"].includes(res.roleId) ? "" : 'hidden';
             
             nums = res.nums;
             if ($.fn.DataTable.isDataTable("#table_consultation")) {
@@ -574,7 +683,7 @@ function fill_consult(idcpn) {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        className: "btn btn-sm btn-warning btn-min-width ",
+                        className: "btn btn-sm btn-warning btn-min-width "+hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
@@ -627,6 +736,8 @@ function supprimercpn(id) {
 
 
 }
+
+var numedit ;
 function edit_detailcpn(id) {
 
     var element = $("#detailcpn" + id);
@@ -649,7 +760,7 @@ function edit_detailcpn(id) {
     $('input[name="bw"]').val(element.data('bw'));
     $('input[name="rechercheActive"]').val(element.data('rechercheactive'));
     $('input[name="dateRendevous"]').val(element.data('daterendevous'));
-
+    numedit = element.data('num') ;
     $('#numCons').val(element.data('num')).selectpicker('refresh');
     $("#idDetailsCons").val(id);
 
@@ -697,7 +808,9 @@ function delete_cpn() {
         type: "POST",
         dataType: "JSON",
         data: { id_cpn : idCpn },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#deleteCpn").modal(
                 "hide"
@@ -740,6 +853,158 @@ function edit_cpn(id , membre_select1 , titulaire_select1) {
 }
 
 
+function affichage_demande(id) {
+
+    $("#ListesLabo").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+        );
+    
+    $.ajax({
+        beforeSend: function () {
+
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "listes_envoie_labo",
+        type: "POST",
+        data: {
+            idType: id,
+            type: "cpn"
+        },
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+            var res = JSON.parse(res);
+
+            if ($.fn.DataTable.isDataTable("#table_demande")) {
+                $("#table_demande").DataTable().destroy();
+            } else {
+            }
+            $('#table_demande').empty();
+            $("#table_demande").append(res.table);
+
+
+            $('#table_demande').DataTable({
+                destroy: true,
+                ordering: true,
+                order: [[0, "desc"]],
+                responsive: true,
+                info: false,
+                paging: false,
+                deferRender: true,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "frtip",
+                buttons: [
+                    {
+                    },
+                ],
+            });
+            $("#ListesLabocontent").unblock();
+         
+        },
+    });
+}
+
+
+
+var idEnvoie ;
+var typeEnvoie
+var idType
+
+function confirmer_analyse() {
+
+    $("#valideLabo").modal(
+        "hide"
+    );
+
+    $.ajax({
+        beforeSend: function () {
+
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "valider_envoie_labo",
+        type: "POST",
+        data: {
+            idenvoie_labo: idEnvoie,
+            idType: idType,
+            type: typeEnvoie,
+            idCpn: idCpn
+        },
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+            var res = JSON.parse(res);
+            alertCustom("success", 'ft-check', "Confirmation effectué avec succée");
+            $("#ListesLabocontent").unblock();
+            affichage_demande(idType);
+            fill_consult(idCpn);
+            liste_cpn();
+         
+        },
+    });
+
+    
+}
+function valider_demande(id , idType1) {
+
+    var typeen = $("#labovalider" + id).data('typeenvoie');
+
+    idEnvoie = id ;
+    idType = idType1 ;
+    typeEnvoie = typeen
+
+    $("#valideLabo").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+    
+
+}
+
+
 var num = "";
 
 //*******************ANNULATION BUTTTON */
@@ -761,3 +1026,4 @@ function filtrerVisite() {
     liste_cpn();
 
 }
+

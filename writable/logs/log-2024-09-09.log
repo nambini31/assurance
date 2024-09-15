@@ -1,0 +1,187 @@
+ERROR - 2024-09-09 16:52:24 --> mysqli_sql_exception: Unknown column 'isPharmacie' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(52): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 16:53:54 --> mysqli_sql_exception: Unknown column 'isPharmacie' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(52): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 16:55:10 --> mysqli_sql_exception: Unknown column 'isFinished' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(52): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 16:56:23 --> mysqli_sql_exception: Not unique table/alias: 'detailconsultationcpn' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(53): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 16:57:29 --> mysqli_sql_exception: Column 'idcpn' in where clause is ambiguous in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(53): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 19:50:25 --> mysqli_sql_exception: Unknown column 'envoie_labo.id' in 'where clause' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `envoie_...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `envoie_...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `envoie_...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `envoie_...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 E:\Wamp64\www\Assurance\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(981): CodeIgniter\Model->update('10', Array)
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->valider_envoie_labo()
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#10 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-09-09 19:51:59 --> mysqli_sql_exception: Unknown column 'envoie_labo.id' in 'where clause' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `envoie_...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `envoie_...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `envoie_...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `envoie_...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 E:\Wamp64\www\Assurance\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(981): CodeIgniter\Model->update('10', Array)
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->valider_envoie_labo()
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#10 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-09-09 19:52:40 --> mysqli_sql_exception: Unknown column 'envoie_labo.id' in 'where clause' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `envoie_...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `envoie_...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `envoie_...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `envoie_...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 E:\Wamp64\www\Assurance\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(981): CodeIgniter\Model->update('10', Array)
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->valider_envoie_labo()
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#10 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-09-09 20:27:15 --> mysqli_sql_exception: Unknown column 'consultaionId' in 'where clause' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `consult...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `consult...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `consult...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `consult...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(987): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->valider_envoie_labo()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 21:40:18 --> mysqli_sql_exception: Column 'isLabo' in field list is ambiguous in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT SUM(num)...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SUM(num)...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(num)...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT SUM(num)...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\cpn\CpnCont.php(53): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\cpn\CpnCont->add_detailcpn()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\cpn\CpnCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2024-09-09 22:51:48 --> mysqli_sql_exception: Unknown column 'isPharmacie' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `consult...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `consult...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `consult...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `consult...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(1059): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(87): App\Controllers\consultation\ConsultationCont->verif_visite('22')
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->delete_detailconsul()
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#10 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-09-09 22:55:08 --> mysqli_sql_exception: Unknown column 'isPharmacie' in 'field list' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `consult...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `consult...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `consult...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `consult...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(1059): CodeIgniter\BaseModel->findAll()
+#7 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(87): App\Controllers\consultation\ConsultationCont->verif_visite('22')
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->delete_detailconsul()
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#10 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2024-09-09 23:31:52 --> mysqli_sql_exception: Unknown column 'detailconsultaionid' in 'where clause' in E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 E:\Wamp64\www\Assurance\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `consult...', 0)
+#1 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `consult...')
+#2 E:\Wamp64\www\Assurance\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `consult...')
+#3 E:\Wamp64\www\Assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `consult...', Array, false)
+#4 E:\Wamp64\www\Assurance\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 E:\Wamp64\www\Assurance\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 E:\Wamp64\www\Assurance\app\Controllers\Consultation\ConsultationCont.php(88): CodeIgniter\BaseModel->first()
+#7 E:\Wamp64\www\Assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->delete_detailconsul()
+#8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}

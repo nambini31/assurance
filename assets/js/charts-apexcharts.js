@@ -57,7 +57,9 @@ function affichage_dashboard() {
     type: "POST",
     dataType: "JSON",
     data: requestData,
-    success: function (res) { alert(res);
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) { alert(res);
       // document.querySelector("#area-spline-chart").html("");
       // pour les cards
       // alert((res.solde) ? (res.solde + " Ar") : (0 + " Ar"));
@@ -172,7 +174,9 @@ function chalenge(filtre) {
     url: base + "afficher_chalenge",
     type: "POST",
     data: filtre,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#challenge_user").empty();
       $("#challenge_user").append(res);
     },
@@ -188,7 +192,9 @@ function chart_challenge_user(filtre_user) {
     type: "POST",
     dataType: "JSON",
     data: filtre_user,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       // Vérifier si res est un objet et a une seule clé
       if (typeof res === "object" && Object.keys(res).length === 1) {
         // Récupérer la seule clé de l'objet
@@ -285,7 +291,9 @@ function afficher_liste_reste_paye_modal() {
     url: base + "afficher_liste_reste_paye",
     type: "POST",
     data: requestData,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#table_liste_reste_modal ").empty();
       $("#table_liste_reste_modal").append(res);
       $("#Modal_devis_reste_paye").modal(

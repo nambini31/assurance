@@ -41,7 +41,9 @@ function liste_dashboard() {
             code_fokontany: $("#fokontany_choix").val()
         },
         dataType: "json",
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             if (res.id === 1) {
 
@@ -172,7 +174,9 @@ function chargeDistrictTous() {
     $.ajax({
         url: base + 'charge_district_tous',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#district_choix").empty();
             $("#district_choix").append(data);
             $('select').selectpicker('refresh');
@@ -190,7 +194,9 @@ function chargeCommuneTous() {
         data: {
             code_district: $("#district_choix").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#commune_choix").empty();
             $("#commune_choix").append(data);
             $('select').selectpicker('refresh');
@@ -206,7 +212,9 @@ function chargeQuartierTous() {
         data: {
             code_commune: $("#commune_choix").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#fokontany_choix").empty();
             $("#fokontany_choix").append(data);
             $('select').selectpicker('refresh');
@@ -223,7 +231,9 @@ function chargeQuartierVider() {
         data: {
             code_commune: 0
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#fokontany_choix").empty();
             $("#fokontany_choix").append(data);
             $('select').selectpicker('refresh');

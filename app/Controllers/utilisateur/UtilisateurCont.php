@@ -14,6 +14,8 @@ class UtilisateurCont extends BaseController
         if ($_SESSION['roleId'] == "5") {
             
             return view('utilisateur/index');
+        }else {
+            return view("Access/Index");
         }
         
         
@@ -56,10 +58,13 @@ class UtilisateurCont extends BaseController
 
     public function page_utilisateur()
     {
-        if ($_SESSION['roleId'] == "5") {
+        if (in_array($_SESSION['roleId'], ["5"])){
 
             $content = view('utilisateur/index');
             return view('layout',['content' => $content]);
+        }else{
+            echo view('Access/index');
+                    exit();
         }
        
         

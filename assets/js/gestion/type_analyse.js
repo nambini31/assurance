@@ -30,7 +30,9 @@ function liste_type_analyse() {
     },
     url: base + "liste_type_analyse",
     type: "POST",
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       $("#table_type_analyse ").empty();
       $("#table_type_analyse").append(response);
      
@@ -108,7 +110,9 @@ $("#ajout_type_analyse").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: formData,
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       
 
         //appler le Toast pour afficher le message
@@ -191,7 +195,9 @@ function delete_type_analyse_from_dialog(id) {
     url: base + "supprimer_type_analyse",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       alertCustom("success", "ft-check", "Suppression effectué avec succée");
       liste_type_analyse();
     },

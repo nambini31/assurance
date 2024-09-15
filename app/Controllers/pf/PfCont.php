@@ -8,9 +8,16 @@ class PfCont extends BaseController
 {
     public function index()
     {
+        if (in_array($_SESSION['roleId'], ["5" , "3" , "4"])){
 
-        $content = view('pf/index');
-        return view('layout', ['content' => $content]);
+            $content = view('pf/index');
+            return view('layout', ['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+        
     }
     public function lien()
     {

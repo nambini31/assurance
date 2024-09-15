@@ -12,7 +12,7 @@ class ConsultationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user"];
+    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user" , "isLabo" ];
 
     // Dates
     protected $useTimestamps = true;

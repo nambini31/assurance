@@ -56,7 +56,9 @@ function chart_admin(requestData) {
     type: "POST",
     dataType: "JSON",
     data: requestData,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       console.log(res);
       $("#revenu_total").text(
         String(res.solde ? res.solde + " Ar" : 0 + " Ar")
@@ -218,7 +220,9 @@ function chart_challenge_user() {
     type: "POST",
     dataType: "JSON",
     data: requestData,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       console.log(res);
       var granularite = res.granularite;
       var scores = res.scores;
@@ -292,7 +296,9 @@ function chalenge() {
     url: base + "afficher_chalenge",
     type: "POST",
     data: requestData,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#challenge_user").empty();
       $("#challenge_user").append(res);
     },
@@ -315,7 +321,9 @@ function afficher_liste_reste_paye_modal() {
     url: base + "afficher_liste_reste_paye",
     type: "POST",
     data: requestData,
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#table_liste_reste_modal ").empty();
       $("#table_liste_reste_modal").append(res);
       $("#Modal_devis_reste_paye").modal(

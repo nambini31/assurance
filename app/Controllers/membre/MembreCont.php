@@ -10,9 +10,16 @@ class MembreCont extends BaseController
 {
     public function index()
     {
-       
+        if (in_array($_SESSION['roleId'], ["5" , "1"])){
+
             $content = view('membre/index');
             return view('layout',['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+           
    
       
     }

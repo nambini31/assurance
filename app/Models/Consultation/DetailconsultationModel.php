@@ -14,12 +14,12 @@ class DetailconsultationModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         "motif"	, "TypepersonneMalade" , "idPersonneMalade"	, "etat" ,	"consultationId",
-        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId"
-        	, "tension" ,	"poids" , "taille" , "dateLaboratoire" , "natureExamen" , "rc"  , "resultats",	"douleur" ,	"descriptionDouleur"
+        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId" , "isPharmacie"
+        	, "tension" ,	"poids" , "taille" , "isLabo" , 	"douleur" ,	"descriptionDouleur" // ispharmacie tsy misy satria mandiny validation doc vo pharmacie rozy iaby
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'createdAt';
     protected $updatedField  = 'updatedAt';

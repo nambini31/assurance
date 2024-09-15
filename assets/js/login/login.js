@@ -14,7 +14,9 @@ $(document).ready(function () {
       cache: false,
       dataType: "JSON",
       data: new FormData(this),
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
         if (res.id == 1) {
           window.location.href = currentPath;

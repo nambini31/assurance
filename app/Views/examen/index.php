@@ -229,7 +229,7 @@
 
                             <?php 
                                 // verifier si c'est Docteur
-                                if ($_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
+                                if ($_SESSION['roleId'] == "8" || $_SESSION['roleId'] == "5") {              
                                 ?>
                             <div class="row">
                                 <h3>ACUITE AUDITIVE : </h3>
@@ -613,7 +613,7 @@
 
                             <?php 
                                 // verifier si c'est Infirmier
-                                if ($_SESSION['roleId'] == "4" || $_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
+                                if ($_SESSION['roleId'] == "7" || $_SESSION['roleId'] == "8" || $_SESSION['roleId'] == "5") {              
                             ?>
                             <!-- affichage pour l'infirmer -->
                             <div class="row">
@@ -703,7 +703,7 @@
                             
                             <?php 
                                 // verifier si c'est Docteur
-                                if ($_SESSION['roleId'] == "3" || $_SESSION['roleId'] == "5") {              
+                                if ($_SESSION['roleId'] == "8" || $_SESSION['roleId'] == "5") {              
                             ?>
                             <div class="row">
                                 <h3>IX-SYSTEME NERVEUX</h3>

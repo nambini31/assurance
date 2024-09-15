@@ -8,13 +8,19 @@ class ConsultationCont extends BaseController
 {
     public function index()
     {
+        if (in_array($_SESSION['roleId'], ["5" , "3" , "4" , "1" , "2" , "6" , "8" , "9"])){
 
-        $content = view('consultation/index');
-        return view('layout', ['content' => $content]);
+            $content = view('consultation/index');
+            return view('layout', ['content' => $content]);
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+
+       
     }
     public function lien()
     {
-
         return view('consultation/index');
     }
 
@@ -76,6 +82,63 @@ class ConsultationCont extends BaseController
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
+    public function envoyer_docteur()
+    {
+        try {
+
+            $id = $_POST['id_consultation'];
+
+            if ($_POST["isFinished"] == 0) {
+                $this->consultation->update($id, ['isFinished' => 1]);
+                $this->detailconsultation->where("consultationId" , $id)->update(null, ['isFinished' => 1]);
+            }
+            else if ($_POST["isFinished"] == 1) {
+
+                $data = $this->detailconsultation->where("consultationId" , $id)->where('isFinished' , 2)->findAll();
+
+                if ($data) {
+                    
+                    $this->consultation->update($id, ['isFinished' => 2]);
+                    $this->detailconsultation->where("consultationId" , $id)->where("isPharmacie" , 1)->update(null, ['isFinished' => 2]);
+                    
+                }else{
+                    
+                    $this->consultation->update($id, ['isFinished' => 3]);
+                    $this->detailconsultation->where("consultationId" , $id)->where("isFinished" , 1)->update(null, ['isFinished' => 3]);
+                }
+
+
+            }
+            else if ($_POST["isFinished"] == 2) {
+                $this->consultation->update($id, ['isFinished' => 3]);
+                $this->detailconsultation->where("consultationId" , $id)->update(null, ['isFinished' => 3]);
+            }
+
+
+            echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+            echo json_encode(['error' => $th->getMessage()]);
+        }
+    }
+    public function delete_labo()
+    {
+        try {
+
+            $this->envoieLbo->update($_POST['id_labo'], ['etat' => 0]);
+            $this->detailconsultation->update( $_POST['iddetail'] , ["isLabo" => 0]);
+
+            
+            $id = $_POST['id'];
+
+            $this->verif_visite($id) ;
+            
+
+            echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+            var_dump($th);die;
+            echo json_encode(['error' => $th->getMessage()]);
+        }
+    }
     public function delete_detailconsul()
     {
         try {
@@ -83,8 +146,14 @@ class ConsultationCont extends BaseController
             $id = $_POST['id'];
             $this->detailconsultation->update($id, ['etat' => 0]);
 
+            $id1 = $_POST["idConsul"] ;
+
+            $this->verif_visite($id1) ;
+            
+
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
+            var_dump($th);die;
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
@@ -111,9 +180,43 @@ class ConsultationCont extends BaseController
     {
         try {
 
-            $data =  $this->detailconsultation->find( $_POST["id"]);
+            $value =  $this->detailconsultation->find( $_POST["id"]);
 
-            echo json_encode($data);
+            $th = "";
+
+                $th =
+                    '<thead> 
+                    <tr>
+                    <th>.</th>
+                    <td>.</td>
+                 </tr> <thead>
+                    
+                    <tbody> 
+                    <tr>
+                    <th>Temperature ( °C )</th>
+                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm" required name="temperature" id="temperature"></td>
+                 </tr>
+                 <tr>
+                    <th>Tension</th>
+                    <td><input type="text" value="'.$value["tension"].'" class="form-control input-sm" required name="tension" id="tension"> </td>
+                    
+                 </tr>
+                 <tr>
+                    <th>Taille ( Mètre ) </th>
+                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm" required name="taille" id="taille"> </td>
+                    
+                 </tr>
+                 <tr>
+                    <th>Poids ( KG )</th>
+                    <td><input type="text" value="'.$value["poids"].'" class="form-control input-sm" required name="poids" id="poids"></td>
+                    
+
+                 </tr> </tbody>
+                 ';
+
+
+            echo json_encode(["table"=> $th]);
+
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -171,10 +274,29 @@ class ConsultationCont extends BaseController
     public function add_Examen()
     {
         try {
+            $date = date("Y-m-d H:i:s") ;
             $_POST["natureExamen"] = implode(",",$_POST["nature"]);
-            $_POST["isFinished"] = 2;
-            $_POST["dateParametre"] = date("Y-m-d H:i:s");
+            $_POST["dateParametre"] = $date;
+            $_POST["isLabo"] = 1;
             $data =  $this->detailconsultation->update( $_POST["idDetails"] , $_POST);
+
+            $envoie = [
+
+                "Source" => $this->session->get("roleName"),
+                "dateEnvoie" => $date,
+                "typeEnvoie" => "visite",
+                "idType" => $_POST["idDetails"],
+                "id_user" => $this->session->get("id_user"),
+                "natureExamen" =>$_POST["natureExamen"],
+                "rc" =>$_POST["rc"],
+                "resultats" =>$_POST["resultats"],
+                "idenvoie_labo" =>$_POST["idenvoie_labo"]
+
+            ];
+
+            $this->envoieLbo->save($envoie);
+
+            $data =  $this->consultation->update($_POST["idConsPour"] , ["isLabo" => 1]);
 
             echo json_encode($data);
 
@@ -212,11 +334,11 @@ class ConsultationCont extends BaseController
         try {
             $patient = '';
 
-            if ($this->session->get("roleId") == "2") {
+            if ($this->session->get("roleId") == "3") {
                 
                 $data =  $this->analyse
                 ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
-                ->where("analyse.etat" ,  '1' )->like("role_user" , "2")->groupBy("id_type_analyse")
+                ->where("analyse.etat" ,  '1' )->like("role_user" , "3")->groupBy("id_type_analyse")
                 ->join("type_analyse", "type_analyse.id_type_analyse = analyse.type_analyse");
                 $data = $data->findAll();
 
@@ -224,7 +346,7 @@ class ConsultationCont extends BaseController
                     $datas =  $this->analyse
                     ->where("etat" ,  '1' )
                     ->where("type_analyse" ,  $value["id_type_analyse"] )
-                    ->like("role_user" , "2")
+                    ->like("role_user" , "3")
                     ->findAll();
 
                     $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
@@ -238,10 +360,10 @@ class ConsultationCont extends BaseController
                     $patient .= `</optgroup>`;
                 }
 
-            }elseif ($this->session->get("roleId") == "3") {
+            }elseif ($this->session->get("roleId") == "4") {
                 $data =  $this->analyse
                 ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
-                ->where("analyse.etat" ,  '1' )->like("role_user" , "3")
+                ->where("analyse.etat" ,  '1' )->like("role_user" , "4")
                 ->join("type_analyse", "type_analyse.id_type_analyse = analyse.type_analyse")
                 ->groupBy("id_type_analyse");
                 $data = $data->findAll();
@@ -251,7 +373,34 @@ class ConsultationCont extends BaseController
                     $datas =  $this->analyse
                     ->where("etat" ,  '1' )
                     ->where("type_analyse" ,  $value["id_type_analyse"] )
-                    ->like("role_user" , "3")
+                    ->like("role_user" , "4")
+                    ->findAll();
+
+                    $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
+
+                    
+                    foreach ($datas as $values) {
+                        $patient .= '
+                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
+                    }
+                    
+                    $patient .= `</optgroup>`;
+                }
+            
+            }elseif ($this->session->get("roleId") == "8") {
+                $data =  $this->analyse
+                ->select("type_analyse.nom_type_analyse , type_analyse.id_type_analyse")
+                ->where("analyse.etat" ,  '1' )->like("role_user" , "8")
+                ->join("type_analyse", "type_analyse.id_type_analyse = analyse.type_analyse")
+                ->groupBy("id_type_analyse");
+                $data = $data->findAll();
+
+                
+                foreach ($data as $value) {
+                    $datas =  $this->analyse
+                    ->where("etat" ,  '1' )
+                    ->where("type_analyse" ,  $value["id_type_analyse"] )
+                    ->like("role_user" , "8")
                     ->findAll();
 
                     $patient .= "<optgroup label= '{$value['nom_type_analyse']}'>";
@@ -427,25 +576,112 @@ class ConsultationCont extends BaseController
 
             foreach ($ctegorie as $value) {
 
-                if ( $value["isFinished"] == 0 ) {
-                    $etat = "En attente parametre";
-                }
-                else if(  $value["isFinished"] == 2){
+
+                if (in_array($_SESSION['roleId'], ["6"])) {
                     
-                    $etat = "En attente labo";
+                    if($value["isLabo"] != '1'){
+                    
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["3" , "4"])) {
+                    
+                    if($value["isFinished"] != '0'){
+                    
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["8"])) {
+                    
+                    if($value["isFinished"] != '1'){
+                    
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["9"])) {
+                    
+                    if($value["isFinished"] != '2'){
+                    
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+
+                $action = '' ;
+
+                if ( in_array($_SESSION['roleId'], ["1" , "5" , "2"])) {
+                
+                    $action .= '
+                    <a class="info mr-1"  onclick="edit_consultation(' . $value["consultationId"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["docteurId"] . ' , ' . $value["typeConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+
+                    <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+
+                    if (in_array($_SESSION['roleId'], ["1", "2"])) {
+                        
+                        if ($value["isFinished"] == 0 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" )) {
+                            $action = $action;
+                        }
+                        else{
+                            $action = "";
+                        }
     
+                    }
+                   
+                }
+
+                if ( $value["isFinished"] == 0 ) {
+
+                    $etat = "En attente parametre";
+
+                    if ($value["isLabo"] == 1) {
+
+                        $etat = "En attente d'analyse ( Param )";
+
+                    }
+                    
+
                 }
                 else if(  $value["isFinished"] == 1){
                     
                     $etat = "En attente docteur";
+
+                    if ($value["isLabo"] == 1) {
+
+                        $etat = "En attente d'analyse ( Doc )";
+
+                    }
+
     
                 }
-                else if(  $value["isFinished"] == 3){
+                else if(  $value["isFinished"] == 2){
                     
                     $etat = "En attente pharmacie";
+
+                    if ($value["isLabo"] == 1) {
+
+                        $etat = "En attente d'analyse ( pharm )";
+
+                    }
+
     
                 }
-                else if(  $value["isFinished"] == 4){
+                
+                else if(  $value["isFinished"] == 3){
                     
                     $etat = "Termine";
     
@@ -475,66 +711,26 @@ class ConsultationCont extends BaseController
                         <td style="width : 10%;">' . $datas["nom_user"] ." ". $datas["prenom_user"] . '</td>  
                         <td style="width : 10%;">' . $etat . '</td>  
                         <td style="width : 10%;"> 
-                            <a class="info mr-1"  onclick="liste_patient( ' . $value["consultationId"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>' ;
-
-                        if ($this->session->get("roleId") == "1" || $this->session->get("roleId") == "5") {
-                            
-                            $th .= '
-                            <a class="info mr-1"  onclick="edit_consultation(' . $value["consultationId"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["docteurId"] . ' , ' . $value["typeConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
-    
-                            <a class="danger mr-1" onclick="supprimerconsultation(' . $value["consultationId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
-
-                        }
-
+                            <a class="info mr-1"  onclick="liste_patient( ' . $value["consultationId"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a> '.$action ;
                         
                        $th .= '</td> </tr>';
             }
 
             $th .= "</tbody> ";
 
-            echo $th;
+            $response = [
+                'roleId' => $this->session->get("roleId"),
+                'table' => $th,
+
+            ];
+            
+            echo json_encode($response);
         } catch (\Throwable $th) {
             echo $th;
         }
     }
 
-    public function verifConsultation($idConsultation)
-    {
-        $datas = $this->detailconsultation
-            ->where('detailconsultation.consultationId', $idConsultation )
-            ->findAll();
-
-            $arr = [];
-
-            foreach ($datas as $value) {
-                
-                $arr = $value["isFinished"] ; 
-            }
-
-            if (array_key_exists( 0 , $arr)) {
-                $this->consultation->update($idConsultation, ['isFinished' => 0]);
-            }
-            else if( array_key_exists( 2 , $arr) ){
-                
-                $this->consultation->update($idConsultation, ['isFinished' => 2]);
-
-            }
-            else if( array_key_exists( 1 , $arr) ){
-                
-                $this->consultation->update($idConsultation, ['isFinished' => 1]);
-
-            }
-            else if( array_key_exists( 3 , $arr) ){
-                
-                $this->consultation->update($idConsultation, ['isFinished' => 3]);
-
-            }
-            else if( array_key_exists( 4 , $arr) ){
-                
-                $this->consultation->update($idConsultation, ['isFinished' => 4]);
-
-            }
-    }
+    
 
     public function listes_patient_malade()
     {
@@ -564,6 +760,20 @@ class ConsultationCont extends BaseController
             ->where("detailconsultation.etat" , 1)
             ->findAll();
 
+            $doc = "";
+            if (in_array($_SESSION['roleId'], ["5", "8" , "9"])){
+
+                $doc = "<th>Parametrage</th><th>Docteur</th>" ;
+
+            }
+
+          
+            if (in_array($_SESSION['roleId'], ["1","2", "3", "4"])){
+
+                $doc = "<th>Parametrage</th>" ;
+
+            }
+
             $th = "
                     <thead>
                       <tr>
@@ -573,8 +783,7 @@ class ConsultationCont extends BaseController
                             <th>Type</th>
                             <th>Motif</th>
                             <th>Creation</th>
-                            <th>Parametrage</th>
-                            <th>Labo</th>
+                            {$doc}
                             <th>Etat</th>
                             <th>Action</th>
                         </tr></thead> 
@@ -582,23 +791,172 @@ class ConsultationCont extends BaseController
             $i = 1 ;
             foreach ($datas as $value) {
 
+                if (in_array($_SESSION['roleId'], ["6"])) {
+                    
+                    if($value["isLabo"] != '1'){
+                    
+                        $i ++ ;
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["8"])) {
+                    
+                    if($value["isFinished"] != '1'){
+                    
+                        $i ++ ;
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["3" , "4"])) {
+                    
+                    if($value["isFinished"] != '0'){
+                    
+                        $i ++ ;
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+                if (in_array($_SESSION['roleId'], ["9"])) {
+                    
+                    if($value["isFinished"] != '2'){
+                    
+                        $i ++ ;
+                        continue ;
+                        
+                    
+                    }
+
+                }
+
+
                 if ($value["isFinished"] == '0') {
                     
                     $etat = 'En attente paramétre';
+                    
+                    if($value["isLabo"] == '1'){
+                        
+                        
+                        $etat = "En attente d'analyse";
+                        
+                    
+                    }
                     
                 }else if($value["isFinished"] == '1'){
                     
                    
                     $etat = 'En attente docteur';
+
+                    if ($value["isLabo"] == 1) {
+
+                        $etat = "En attente d'analyse";
+
+                    }
+                    if ($value["isPharmacie"] == 1) {
+
+                        $etat = "En attente pharmacie";
+
+                    }
                     
             
-                }else if($value["isFinished"] == '2'){
+                }
+                else if($value["isFinished"] == '2'){
                     
-                    $etat = 'En attente labo';
+                   
+                    $etat = 'En attente pharmacie';
+
+                    if ($value["isLabo"] == 1) {
+
+                        $etat = "En attente d'analyse";
+
+                    }
+                    
+            
+                }
+                else if($value["isFinished"] == '3'){
+                    
+                    $etat = "Termine";
                     
                 }else{
                     $etat = 'En attente pharmacie';
                 }
+                
+
+                $param = '';
+                $detail = '<a class="success mr-1"  onclick="affichage_demande(' . $value["detailConsultationId"] . ')"><i class=" la la-list"></i></a>';
+                $medic = '<a class="danger mr-1" onclick="medic_docteur(' . $value["detailConsultationId"] . ')" ><i class="las la-briefcase-medical la-2x"></i></a>';
+                $print = '<a class="danger mr-1"  "><i class="las la-print la-2x"></i></a>';
+                $labo = '<a class="info mr-1"   onclick="laboratoire(' . $value["detailConsultationId"] . ',' . $value["isFinished"] . ')"><i class=" la la-microscope"></i></a>';
+                $delEdit = '<a class="info mr-1" id="nat'.$value["detailConsultationId"].'" data-motif= "'.$value["motif"].'" data-personne='.json_encode(implode('_', [ $value["idPersonneMalade"] ,$value["TypepersonneMalade"] ])).' onclick="edit_patient(' . $value["detailConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                <a class="danger mr-1" onclick="delete_detailvisite(' . $value["detailConsultationId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+
+                
+                $action = '';
+               
+
+                if (in_array($_SESSION['roleId'], ["1" , "2"])) {
+                    
+                    if ($value["isFinished"] == 0) {
+
+                        if ($value["dateParametre"] == "" ) {
+                        
+                            $action .= $detail.$delEdit ;
+                            
+                        }
+                        
+                    }
+
+
+                }
+                else if (in_array($_SESSION['roleId'], ["3" , "4" , "8" , "6" , "9"])){
+                        
+                        $action .= $detail ;
+                    
+                }
+                
+                else{
+
+                    
+                    $action .= $detail.$delEdit ;
+
+                    if ($value["isFinished"] == 3) {
+
+                        $action .= "" ;
+                        
+                    }
+
+                }
+
+                $doc = "";
+                if (in_array($_SESSION['roleId'], ["5", "8" , "9"])){
+
+                    $doc = '
+                        <td style="width : 10%;">' . $value["dateParametre"] . '</td> 
+                        <td style="width : 10%;">' . $value["dateDocteur"] . '</td> 
+                    ' ;
+
+                }
+
+            
+                if (in_array($_SESSION['roleId'], ["1","2", "3", "4"])){
+
+                    $doc = '
+                        <td style="width : 10%;">' . $value["dateParametre"] . '</td> 
+                        
+                    ' ;
+
+                }
+
 
                 $th .=
                     '<tr>
@@ -608,18 +966,12 @@ class ConsultationCont extends BaseController
                         <td style="width : 15%;">' . $value["TypepersonneMalade"] . ' </td>
                         <td style="width : 20%;">' . $value["motif"] . ' </td>
                         <td style="width : 10%;">' . $value["createdAt"] . '</td> 
-                        <td style="width : 10%;">' . $value["dateParametre"] . '</td> 
-                        <td style="width : 10%;">' . $value["dateLaboratoire"] . '</td> 
+                        '.$doc .'
                         <td style="width : 10%;">' . $etat . '</td> 
-                        <td style="width : 10%;"> 
-
-                        <a class="info mr-1"  onclick="parametre(' . $value["detailConsultationId"] . ')"><i class=" la la-cog"></i></a>
-                        <a class="info mr-1" id="nat'.$value["detailConsultationId"].'" data-motif= "'.$value["motif"].'" data-personne='.json_encode(implode('_', [ $value["idPersonneMalade"] ,$value["TypepersonneMalade"] ])).' data-nature='.json_encode(explode(',', $value["natureExamen"])).'  onclick="laboratoire(' . $value["detailConsultationId"] . ')"><i class=" la la-microscope"></i></a>
-                        <a class="info mr-1" onclick="edit_patient(' . $value["detailConsultationId"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                        <a class="danger mr-1" onclick="delete_detailvisite(' . $value["detailConsultationId"] . ')"><i class=" la la-trash-o"></i></a> 
+                        <td style="width : 10%;"> '.$action.'
                         </td> 
                        </tr>';
-            $i++;
+                $i++;
             }
 
             $th .= "</tbody> ";
@@ -637,6 +989,10 @@ class ConsultationCont extends BaseController
 
 
             $response = [
+                'roleId' => $this->session->get("roleId"),
+                'isFinished' => $data["isFinished"],
+                'isPharmacie' => $data["isPharmacie"],
+                'isLabo' => $data["isLabo"],
                 'table' => $th,
                 'docteur' => $data["doc_full_name"],
                 'num_carte' => "Carte N° : " . $this->genererNumeroCarte( $data["nom_membre"] , $data["titulaireId"])  ,
@@ -647,5 +1003,328 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             echo $th;
         }
+    }
+    public function downloadFile()
+{
+    $fileName = $this->request->getPost('fileName');
+
+    $filePath = 'assets/img/labo/' . $fileName;
+
+    if (file_exists($filePath)) {
+        header('Content-Type: ' . mime_content_type($filePath));
+    header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+    header('Content-Length: ' . filesize($filePath));
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    readfile($filePath);
+
+        exit; // Terminer le script après avoir envoyé le fichier
+    } else {
+        return $this->response->setJSON(['error' => 'File not found']);
+    }
+}
+    public function listes_envoie_labo()
+    {
+        try {
+
+            
+            $datas = $this->envoieLbo
+            ->select("dateEnvoie , dateValidation , Source , resultats , rc , natureExamen , idenvoie_labo , typeEnvoie,idType , resultatTelechargeable")
+            ->where("etat" , 1)
+            ->where("idType" , $_POST["idType"]);
+
+            if ($_POST["type"] == "visite") {
+                
+                $datas =  $datas->where("typeEnvoie" , "visite");
+            }
+            else{
+                $datas = $datas->where("typeEnvoie" , "cpn");
+
+            }
+            
+            $datas = $datas->findAll();
+
+
+            $th = "
+                    <thead>
+                      <tr>
+                            <th>#</th>
+                            <th>Nature</th>
+                            <th>Resultats</th>
+                            <th>R.C</th>
+                            <th>Date envoie</th>
+                            <th>Date validation</th>
+                            <th>Source</th>
+                            <th>Analyse</th>
+                            <th>Action</th>
+                        </tr></thead> 
+                        <tbody>";
+            $i = 1 ;
+            foreach ($datas as $value) {
+
+                $natureExamen = $value["natureExamen"];
+                if (strpos($natureExamen, ',') !== false) {
+                    // Si plusieurs valeurs sont présentes, on les sépare avec explode
+                    $ids = explode(',', $natureExamen);
+                } else {
+                    // Si une seule valeur est présente, on la place dans un tableau
+                    $ids = [$natureExamen];
+                }
+
+              $analyses = $this->analyse
+               ->select('analyse')
+               ->whereIn('id_analyse', $ids)->findAll();
+               
+               $analysesArray = array_column($analyses, 'analyse');
+                $analysesString = implode(', ', $analysesArray);
+                $validerLabo = '';
+                $demande = '';
+                $delEdit = '';
+                
+
+                if ($value["dateValidation"] == "" ) {
+                        
+                    $demande = '<a class="danger mr-1" >En attente</a>' ;
+                    $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                    <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+
+                    if (in_array($_SESSION['roleId'], ["5", "6"])){
+
+                      
+                        $validerLabo = '<a class="success mr-1" data-typeenvoie = "'. $value["typeEnvoie"] .'" id="labovalider'. $value["idenvoie_labo"] .'" onclick="valider_demande(' . $value["idenvoie_labo"] . ',' . $value["idType"] . ') "><i class=" la la-check-circle"></i>Valider</a>';
+                       
+                    }
+                    
+                }else {
+
+                    $filePath = 'assets/img/labo/' . $value["resultatTelechargeable"];
+                    if ($value["resultatTelechargeable"] != "") {
+                        $demande = '<a class="success mr-1" data-file = "'.$value['resultatTelechargeable'].'" id="idlabed'.$value["idenvoie_labo"].'" onclick="downloadFile('.$value["idenvoie_labo"].')"><i class="la la-download"></i>Télécharger</a>';
+                    } else {
+                        $demande = '<a class="danger mr-1" >Fichier non disponible</a>';
+                    }
+
+                    $validerLabo = '';
+                    if (in_array($_SESSION['roleId'], ["5"])){
+
+                        $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                        <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+    
+        
+                    }
+
+                }
+
+                $th .=
+                    '<tr>
+                        <td style="width : 10%;">' . $i . ' </td>
+                        <td style="width : 10%;">' . $analysesString . ' </td>
+                        <td style="width : 10%;">' . $value["resultats"] . ' </td>
+                        <td style="width : 10%;">' . $value["rc"] . ' </td>
+                        <td style="width : 20%;">' . $value["dateEnvoie"]. ' </td>
+                        <td style="width : 10%;">' . $value["dateValidation"] . ' </td>
+                        <td style="width : 10%;">' . $value["Source"] . '</td> 
+                        <td style="width : 10%;">'. $demande .'</td> 
+                        <td style="width : 10%;">'. $validerLabo.$delEdit .'</td> 
+
+                        </td> 
+                       </tr>';
+                $i++;
+            }
+
+            $th .= "</tbody> ";
+
+            if (in_array($_SESSION['roleId'], ["5", "3" , "4" , "8"])){
+
+                      
+                $hide = '';
+                
+            }
+            else{
+                
+                $hide = ' hidden';
+            }
+
+            $response = [
+                "hide" => $hide ,
+                'table' => $th,
+
+            ];
+            
+            echo json_encode($response);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    public function listes_medic()
+    {
+        try {
+
+            
+            $datas = $this->liste_medic->where("etat" , 1);
+            
+            $datas = $datas->findAll();
+
+
+            $th = "
+                    <thead>
+                      <tr>
+                            <th>#</th>
+                            <th>Nature</th>
+                            <th>Resultats</th>
+                            <th>R.C</th>
+                            <th>Date envoie</th>
+                            <th>Date validation</th>
+                            <th>Source</th>
+                            <th>Etat</th>
+                            <th>Action</th>
+                        </tr></thead> 
+                        <tbody>";
+            $i = 1 ;
+            foreach ($datas as $value) {
+
+
+                $th .=
+                    '<tr>
+                        <td style="width : 10%;">' . $i . ' </td>
+                        <td style="width : 10%;">' . $analysesString . ' </td>
+                        <td style="width : 10%;">' . $value["resultats"] . ' </td>
+                        <td style="width : 10%;">' . $value["rc"] . ' </td>
+                        <td style="width : 20%;">' . $value["dateEnvoie"]. ' </td>
+                        <td style="width : 10%;">' . $value["dateValidation"] . ' </td>
+                        <td style="width : 10%;">' . $value["Source"] . '</td> 
+                        <td style="width : 10%;">'. $demande .'</td> 
+                        <td style="width : 10%;">'. $validerLabo .'</td> 
+
+                        </td> 
+                       </tr>';
+                $i++;
+            }
+
+            $th .= "</tbody> ";
+
+            $response = [
+
+                'table' => $th,
+
+            ];
+            
+            echo json_encode($response);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    public function valider_envoie_labo()
+{
+    try {
+        $date = date("Y-m-d H:i:s");
+
+        // Initialiser les données à mettre à jour
+        $envoie = [
+            "dateValidation" => $date,
+            "id_user_valid" => $this->session->get("id_user"),
+        ];
+
+        // Définir le chemin du répertoire de destination
+        $uploadDir = 'assets/img/labo/';
+
+        // Vérifier si le répertoire existe, sinon le créer
+        if (!is_dir($uploadDir)) {
+            if (!mkdir($uploadDir, 0755, true)) {
+                throw new \Exception("Erreur lors de la création du répertoire.");
+            }
+        }
+
+        // Vérifier si un fichier a été envoyé
+        if (isset($_FILES['fichierAnalyse']) && $_FILES['fichierAnalyse']['error'] == 0) {
+            // Récupérer l'extension du fichier
+            $fileExtension = pathinfo($_FILES['fichierAnalyse']['name'], PATHINFO_EXTENSION);
+
+            // Générer un nom de fichier avec le format labo + date + _ + idEnvoie
+            $newFileName = 'labo_' . date("Ymd_His") . '_' . $_POST["idenvoie_labo"] . '.' . $fileExtension;
+
+            // Déplacer le fichier vers le répertoire cible avec le nouveau nom
+            $filePath = $uploadDir . $newFileName;
+
+            if (move_uploaded_file($_FILES['fichierAnalyse']['tmp_name'], $filePath)) {
+                // Ajouter le chemin du fichier à l'array $envoie
+                $envoie['resultatTelechargeable'] = $newFileName; // Mettre le nom dans la colonne resultatTelechargeable
+            } else {
+                // Gérer l'erreur si le fichier ne peut pas être déplacé
+                throw new \Exception("Erreur lors du déplacement du fichier.");
+            }
+        }
+
+        // Mettre à jour la table envoie_labo avec les informations du fichier et autres données
+        $this->envoieLbo->update($_POST["idenvoie_labo"], $envoie);
+
+        // Traitement selon le type d'envoi
+        if ($_POST["type"] == "visite") {
+            $this->detailconsultation->update($_POST["idType"], ["isLabo" => 2]);
+            $data = $this->detailconsultation->select("consultationId,isLabo")
+                ->where("consultationId", $_POST["idConsult"])
+                ->findAll();
+
+            $this->verif_visite($_POST["idConsult"]);
+        } else {
+            $this->detailconsultationcpn->update($_POST["idType"], ["isLabo" => 2]);
+            $data = $this->detailconsultationcpn->select("idcpn,isLabo")
+                ->where("idcpn", $_POST["idCpn"])
+                ->findAll();
+
+            $isLaboPresent = false;
+            foreach ($data as $row) {
+                if ($row['isLabo'] == 1) {
+                    $isLaboPresent = true;
+                    break;
+                }
+            }
+
+            if (!$isLaboPresent) {
+                $this->cpn->update($_POST["idCpn"], ["isLabo" => 0]);
+            }
+        }
+
+        echo json_encode(["id" => 1]);
+    } catch (\Throwable $th) {
+        echo json_encode(["error" => $th->getMessage()]);
+    }
+}
+
+
+    public function verif_visite($idConsul)
+    {
+
+        $datas =  $this->envoieLbo
+        ->select("idType")
+        ->where("detailconsultation.consultationId" , $idConsul)
+        ->where("envoie_labo.typeEnvoie" , 'visite')
+        ->where('envoie_labo.etat' , 1)
+        ->where('envoie_labo.dateValidation IS NULL')
+        ->join("detailconsultation" , "envoie_labo.idType = detailconsultation.detailconsultationId")
+        ->groupBy("envoie_labo.idType")
+        ->findAll();
+        
+        $isLaboPresent = false;
+        
+        foreach ($datas as $row) {
+            
+            $isLaboPresent = true;
+            $this->detailconsultation->update( $row['idType'] , ["isLabo" => 1]);
+            
+        }
+
+        if ($isLaboPresent) {
+            
+            
+        }else{
+            
+            $this->consultation->update( $idConsul , ["isLabo" => 0]);
+
+        }
+
+
+      
     }
 }

@@ -8,9 +8,17 @@ class AnalyseCont extends BaseController
 {
     public function index()
     {
+        if (in_array($_SESSION['roleId'], ["5"])){
 
-        $content = view('gestion/index');
-        return view('layout', ['content' => $content]);
+            $content = view('gestion/index');
+            return view('layout', ['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+
+       
     }
 
     public function lien()
@@ -104,16 +112,21 @@ class AnalyseCont extends BaseController
 
                 $role = "" ;
 
-                if ($value["role_user"] == "2,3" || $value["role_user"] == "3,2" ) {
-                    $role = "Parametre et Docteur" ;
+                if ($value["role_user"] == "3,4,8" || $value["role_user"] == "3,8,4" || $value["role_user"] == "4,8,3" || $value["role_user"] == "4,3,8" || $value["role_user"] == "8,4,3" || $value["role_user"] == "8,3,4" ) {
+                    $role = "Parametre Simple , Parametre Admin et Docteur" ;
                     $roleAttr = json_encode(explode(',', $value["role_user"]))  ;
                 }
-                elseif ($value["role_user"] == "2") {
+                elseif ($value["role_user"] == "3") {
                     # code...
                     $roleAttr = json_encode([$value["role_user"]])  ;
-                    $role = "Parametre" ;
+                    $role = "Parametre Simple" ;
                 }
-                elseif ($value["role_user"] == "3") {
+                elseif ($value["role_user"] == "4") {
+                    # code...
+                    $roleAttr = json_encode([$value["role_user"]])  ;
+                    $role = "Parametre Admin" ;
+                }
+                elseif ($value["role_user"] == "8") {
                     # code...
                     $roleAttr = json_encode([$value["role_user"]])  ;
                     $role = "Docteur" ;

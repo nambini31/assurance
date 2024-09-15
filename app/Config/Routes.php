@@ -94,6 +94,38 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
     $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
     $routes->post('delete_detailconsul', 'consultation\ConsultationCont::delete_detailconsul');
+    $routes->post('listes_envoie_labo', 'Consultation\ConsultationCont::listes_envoie_labo');    
+    $routes->post('valider_envoie_labo', 'Consultation\ConsultationCont::valider_envoie_labo');    
+    $routes->post('downloadFile', 'Consultation\ConsultationCont::downloadFile');    
+    $routes->post('envoyer_docteur', 'Consultation\ConsultationCont::envoyer_docteur');    
+    $routes->post('listes_medic', 'Consultation\ConsultationCont::listes_medic');    
+    $routes->post('delete_labo', 'Consultation\ConsultationCont::delete_labo');    
+    
+
+    //article
+    $routes->get('lienarticle', 'article\ArticleCont::lien');
+    $routes->get('article', 'article\ArticleCont::index');
+    $routes->post('listeArticleMenuiserie', 'article\ArticleCont::listeArticle');
+    $routes->post('generation_categorie_dynamique', 'article\ArticleCont::generation_categorie_dynamique');
+    $routes->post('generation_dropdown_article', 'article\ArticleCont::generation_dropdown_article');
+    $routes->post('generation_article_dynamique', 'article\ArticleCont::generation_article_dynamique');
+
+    $routes->post('ajout_article', 'article\ArticleCont::ajout_article');
+    $routes->post('listes_article', 'article\ArticleCont::listes_article');
+    $routes->post('delete_article', 'article\ArticleCont::delete_article');
+    $routes->post('generation_liste_par_groupe', 'article\ArticleCont::generation_liste_par_groupe');
+    $routes->post('get_info_article', 'article\ArticleCont::get_info_article');
+
+
+    //fournisseur
+    $routes->get('lienfournisseur', 'fournisseur\FournisseurCont::lien');
+    $routes->get('fournisseur', 'fournisseur\FournisseurCont::index');
+    $routes->post('afficher_fournisseur', 'fournisseur\FournisseurCont::listes_fournisseur');
+    $routes->post('ajout_fournisseur', 'fournisseur\FournisseurCont::ajout_fournisseur');
+    $routes->post('modifier_fournisseur', 'fournisseur\FournisseurCont::modifier_fournisseur');
+    $routes->post('delete_fournisseur', 'fournisseur\FournisseurCont::delete_fournisseur');
+    $routes->post('get_fournisseur', 'fournisseur\FournisseurCont::get_fournisseur');
+    $routes->post('generation_dropdown_fournisseur', 'fournisseur\FournisseurCont::generation_dropdown_fournisseur');
 
 
     //route cpn
@@ -106,7 +138,8 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('delete_detailcpn', 'cpn\CpnCont::delete_detailcpn');
     $routes->post('add_detailcpn', 'cpn\CpnCont::add_detailcpn');
     $routes->post('add_cpnParam', 'cpn\CpnCont::add_cpnParam');
-
+    $routes->post('add_Examen_cpn', 'cpn\CpnCont::add_Examen_cpn');
+    
     //route cpn
     $routes->get('lienpf', 'pf\PfCont::lien');
     $routes->get('pf', 'pf\PfCont::index');

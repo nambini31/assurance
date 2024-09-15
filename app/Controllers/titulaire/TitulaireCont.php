@@ -12,8 +12,18 @@ class TitulaireCont extends BaseController
 {
     public function index()
     {
-        $content = view('titulaire/index');
-        return view('layout',['content' => $content]);
+        if (in_array($_SESSION['roleId'], ["5" , "1"])){
+
+            $content = view('titulaire/index');
+            return view('layout',['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+       
+
+        
     }
 
     public function lien()

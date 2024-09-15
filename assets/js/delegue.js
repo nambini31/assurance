@@ -40,7 +40,9 @@ $(document).ready(function () {
                     data: { query: query, code_faritany: $("#select_province").val(), code_region: $("#select_region").val() },
                     dataType: "json",
 
-                    success: function (data) {
+                    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
 
                         if (data.CINELECT) {
                             $('#select_district').selectpicker('val', data.CODE_DISTRICT);
@@ -78,7 +80,9 @@ function chargeProvince() {
     $.ajax({
         url: base + 'charge_province',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#select_province").empty();
             $("#select_province").append(data);
             $('select').selectpicker('refresh');
@@ -97,7 +101,9 @@ function chargeRegion() {
         data: {
             code_faritany: $("#select_province").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#select_region").empty();
             $("#select_region").append(data);
 
@@ -121,7 +127,9 @@ function chargeDistrict() {
         data: {
             code_region: $("#select_region").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#select_district").empty();
             $("#select_district").append(data);
 
@@ -145,7 +153,9 @@ function chargeBV() {
         data: {
             code_district: $("#select_district").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#select_bv").empty();
             $("#select_bv").append(data);
             $('select').selectpicker('refresh');
@@ -209,7 +219,9 @@ function liste_delegue() {
             code_commune: $("#commune_choix").val(),
             code_fokontany: $("#fokontany_choix").val()
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table_delegue")) {
                 $("#table_delegue").DataTable().destroy();
             } else {
@@ -320,7 +332,9 @@ $("#ajout_delegue").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             if ($('#btn_add_delegue').text() === "Modifier") {
                 if (res.id == 1) {
@@ -441,7 +455,9 @@ function delete_delegue_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { id_delegue: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#card_delegue").unblock();
 
@@ -531,7 +547,9 @@ function chargeDistrictTous() {
     $.ajax({
         url: base + 'charge_district_tous',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#district_choix").empty();
             $("#district_choix").append(data);
             $('select').selectpicker('refresh');
@@ -548,7 +566,9 @@ function chargeCommuneTous() {
         data: {
             code_district: $("#district_choix").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#commune_choix").empty();
             $("#commune_choix").append(data);
             $('select').selectpicker('refresh');
@@ -564,7 +584,9 @@ function chargeQuartierTous() {
         data: {
             code_commune: $("#commune_choix").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#fokontany_choix").empty();
             $("#fokontany_choix").append(data);
             $('select').selectpicker('refresh');
@@ -582,7 +604,9 @@ function chargeQuartierVider() {
         data: {
             code_commune: 0
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#fokontany_choix").empty();
             $("#fokontany_choix").append(data);
             $('select').selectpicker('refresh');

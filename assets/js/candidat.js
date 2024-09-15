@@ -10,7 +10,9 @@ function chargeDistrictTous() {
   $.ajax({
       url: base + 'charge_district_tout',
       type: "POST",
-      success: function (data) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
           $("#code_district").empty();
           $("#code_district").append(data);
           $('select').selectpicker('refresh');
@@ -23,7 +25,9 @@ function chargeDistrictTouts() {
   $.ajax({
       url: base + 'charge_district_touts',
       type: "POST",
-      success: function (data) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
           $("#id_categorie").empty();
           $("#id_categorie").append(data);
           $('select').selectpicker('refresh');
@@ -86,7 +90,9 @@ function refresh_candidat() {
     data : {
       code_district: $("#id_categorie").val(),
     },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
 
       
      $("#card_candidat").unblock();
@@ -146,7 +152,9 @@ function editCandidats(id) {
     url: base + "get_candidat",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       // Convertissez la chaîne JSON en objet JavaScript
       var candidat = JSON.parse(response);
       console.log(candidat);
@@ -227,7 +235,9 @@ $("#ajout_candidat").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: formData,
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
         refresh_candidat();
 
         
@@ -257,7 +267,9 @@ $("#ajout_candidat").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: new FormData(this),
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
         
 
         if (res.status == "failed") {
@@ -332,7 +344,9 @@ function delete_dialog_candidat(id) {
     url: base + "supprimer_candidat",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       alertCustom("success", "ft-check", "Suppression effectué avec succès");
       refresh_candidat();
     },

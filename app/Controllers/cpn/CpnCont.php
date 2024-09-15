@@ -9,8 +9,17 @@ class CpnCont extends BaseController
     public function index()
     {
 
-        $content = view('cpn/index');
-        return view('layout', ['content' => $content]);
+        if (in_array($_SESSION['roleId'], ["5" , "3" , "4" , "6" , "9"])){
+
+            $content = view('cpn/index');
+            return view('layout', ['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+
+       
     }
     public function lien()
     {
@@ -46,11 +55,49 @@ class CpnCont extends BaseController
 
             $this->detailconsultationcpn->save($_POST);
 
+            $this->verif_CPN($_POST["idcpn"]);
+
             echo json_encode(["id" => 1]);
 
         } catch (\Throwable $th) {
             echo $th;
         }
+    }
+
+    public function verif_CPN($idCpn)
+    {
+   
+
+           $sumNum = $this->detailconsultationcpn
+                   ->select('SUM(num) as total_num , isFinished , cpn.isLabo , cpn.isPharmacie')
+                   ->join('cpn', "detailconsultationcpn.idcpn = cpn.idcpn")
+                   ->where('detailconsultationcpn.idcpn', $idCpn)
+                   ->where('detailconsultationcpn.etat', 1)
+                   ->first();  
+
+                   
+                   // Vérifier si la somme est égale à 36
+                   if ($sumNum['isLabo'] != 1) {
+                       
+                       
+                       if ($sumNum['isPharmacie'] != 1) {
+                           
+                           if ($sumNum['isFinished'] == 0) {
+                               
+                               if ($sumNum['total_num'] == 36) {
+                                   $this->cpn->update($idCpn, ['isFinished' => 3]);
+                                }
+                                
+                            }else { // si 3 toy
+                                
+                                if ($sumNum['total_num'] != 36) {
+                                    $this->cpn->update($idCpn, ['isFinished' => 0]);
+                        }
+                    }
+                }
+            }
+
+      
     }
     public function delete_cpn()
     {
@@ -73,6 +120,10 @@ class CpnCont extends BaseController
             
             $this->detailconsultationcpn->update($id, ['etat' => 0]);
 
+            $data = $this->detailconsultationcpn->select("idcpn")->find($id);
+
+            $this->verif_CPN($data["idcpn"]) ;
+
             echo json_encode(['id' => 1]);
 
         } catch (\Throwable $th) {
@@ -85,6 +136,39 @@ class CpnCont extends BaseController
     {
         try {
             $data =  $this->cpn->update( $_POST["idcpn"] , $_POST);
+
+            echo json_encode($data);
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function add_Examen_cpn()
+    {
+        try {
+            $date = date("Y-m-d H:i:s") ;
+            $_POST["natureExamen"] = implode(",",$_POST["nature"]);
+            $_POST["dateLaboratoire"] = $date;
+            $_POST["isLabo"] = 1;
+            $data =  $this->detailconsultationcpn->update( $_POST["idDetails"] , $_POST);
+
+            $envoie = [
+
+                "Source" => $this->session->get("roleName"),
+                "dateEnvoie" => $date,
+                "typeEnvoie" => "cpn",
+                "idType" => $_POST["idDetails"],
+                "id_user" => $this->session->get("id_user"),
+                "natureExamen" =>$_POST["natureExamen"],
+                "rc" =>$_POST["rc"],
+                "resultats" =>$_POST["resultats"]
+
+            ];
+
+            $this->envoieLbo->save($envoie);
+
+            $data =  $this->cpn->update($_POST["idConsPour"] , ["isLabo" => 1]);
 
             echo json_encode($data);
 
@@ -188,14 +272,62 @@ class CpnCont extends BaseController
 
             foreach ($ctegorie as $value) {
 
-                if ( $value["isFinished"] == 0 ) {
-                    $etat = "En cours";
+
+                if (in_array($_SESSION['roleId'], ["6"])) {
+                    
+                    if($value["isLabo"] != '1'){
+                    
+                        continue ;
+                        
+                    }
+
                 }
-                else {
+
+                if (in_array($_SESSION['roleId'], ["9"])) {
+                    
+                    if($value["isPharmacie"] != '1'){
+                    
+                        continue ;
+                        
+                    }
+
+                }
+
+
+                if ( $value["isFinished"] == 0 ) {
+
+                    $etat = "En cours";
+
+                    if($value["isLabo"] == '1'){
+                    
+                        $etat = "En attente d'analyse";
+                        
+                    }
+
+                    if($value["isPharmacie"] == '1'){
+                    
+                        $etat = "En attente pharmacie";
+                        
+                    }
+                }
+                else { // pour 3 termine
                     
                     $etat = "Terminé";
+
+                    if($value["isLabo"] == '1'){
+                    
+                        $etat = "En attente d'analyse";
+                        
+                    }
+
+                    if($value["isPharmacie"] == '1'){
+                    
+                        $etat = "En attente pharmacie";
+                        
+                    }
     
                 }
+
                 if ( $value["mariee"]) {
                     $marie = "Oui";
                 }
@@ -238,19 +370,40 @@ class CpnCont extends BaseController
                         data-vat4="' . $value["vat4"] . '"
                         data-vat5="' . $value["vat5"] . '">
                         <i class="las la-clipboard-list la-2x"></i>
-                     </a>' ;
+                     </a><a class="info mr-1"  onclick="consult_cpn(' . $value["idcpn"] . ')"><i class=" las la-stethoscope la-2x"></i></a>' ;
 
-                        if ($this->session->get("roleId") == "1" || $this->session->get("roleId") == "5") {
-                            
-                            $th .= '
-                            <a class="info mr-1"  onclick="consult_cpn(' . $value["idcpn"] . ')"><i class=" las la-stethoscope la-2x"></i></a>
-                            <a class="info mr-1" 
-                            id="cpnF'.$value["idcpn"].'"
-                            data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
-                            data-mariee="'. $value["mariee"].'"
-                            onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
-    
-                            <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+                        if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4" || $this->session->get("roleId") == "5") {
+
+
+                            if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4") {
+                                $sumNum = $this->detailconsultationcpn
+                                ->select('SUM(num) as total_num')
+                                ->where('idcpn', $value["idcpn"])
+                                ->first();  // Utilisation de .first() pour récupérer la première ligne
+
+                                // Vérifier si la somme est égale à 36
+                                if ($sumNum['total_num'] > 0) {
+                                    
+                                }else {
+                                    $th .= '
+                                    <a class="info mr-1" 
+                                    id="cpnF'.$value["idcpn"].'"
+                                    data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
+                                    data-mariee="'. $value["mariee"].'"
+                                    onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+            
+                                    <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+                                }
+                            }else {
+                                $th .= '
+                                <a class="info mr-1" 
+                                id="cpnF'.$value["idcpn"].'"
+                                data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
+                                data-mariee="'. $value["mariee"].'"
+                                onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+        
+                                <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+                            }
 
                         }
 
@@ -260,7 +413,14 @@ class CpnCont extends BaseController
 
             $th .= "</tbody> ";
 
-            echo $th;
+            $response = [
+                'roleId' => $this->session->get("roleId"),
+                'table' => $th,
+
+            ];
+            
+            echo json_encode($response);
+
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -280,6 +440,7 @@ class CpnCont extends BaseController
             // Initialisation de chaque ligne du tableau avec la première colonne (les libellés des éléments de surveillance)
             $rows = [
                 'Action' => "<tr><th style='text-align : left ; width : 10%'>Action</th>",
+                'Demande' => "<tr><th style='text-align : left ; width : 10%'>Demande d'analyse</th>",
                 'ta' => "<tr><th style='text-align : left ; width : 10%'>T.A</th>",
                 'albOedemes' => "<tr><th style='text-align : left ; width : 10%'>ALB/Oedèmes</th>",
                 'prisedepoids' => "<tr><th style='text-align : left ; width : 10%'>Prise de poids</th>",
@@ -289,7 +450,7 @@ class CpnCont extends BaseController
                 'bdfc' => "<tr><th style='text-align : left ; width : 10%'>BDFC</th>",
                 'presentation' => "<tr><th style='text-align : left ; width : 10%'>Présentation</th>",
                 'referenceAccouchement' => "<tr><th style='text-align : left ; width : 10%'>Référence pour accouchement</th>",
-                'vat' => "<tr><th style='text-align : left ; width : 10%'>VAT</th>",
+                'vat' => "<tr><th style='text-align : left ; width : 10%'>TD</th>",
                 'spi' => "<tr><th style='text-align : left ; width : 10%'>SPI</th>",
                 'ferAcFolique' => "<tr><th style='text-align : left ; width : 10%'>Fer/Acide folique</th>",
                 'albendazole' => "<tr><th style='text-align : left ; width : 10%'>Albendazole</th>",
@@ -311,7 +472,7 @@ class CpnCont extends BaseController
             for ($i = 1; $i <= 8; $i++) {
                 if (isset($consultations[$i])) {
                     $row = $consultations[$i];
-                    $th = '
+                    $th = '<a class="info mr-1"   onclick="laboratoire(' . $row["idconsultationcpn"] . ',' . $row["isLabo"] . ')"><i class=" la la-microscope"></i></a>
                     <a class="info mr-1"  id = "detailcpn' . $row["idconsultationcpn"] . '"
                     onclick="edit_detailcpn(' . $row["idconsultationcpn"] . ')" 
                     data-ta="' . $row["ta"] . '" 
@@ -332,10 +493,28 @@ class CpnCont extends BaseController
                     data-bw="' . $row["bw"] . '" 
                     data-rechercheactive="' . $row["rechercheActive"] . '" data-daterendevous="' . $row["dateRendevous"] . '">
                     <i class="la la-pencil-square-o"></i>
-                </a>
+                    </a>
                         <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
+                        
+                    
+                    if ($row["isLabo"] == "1") {
+                        
+                        $th = "En attente d'analyse";
+                        $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
+                        
+                    }else{
+                        if ($row["isLabo"] == "2") {
+
+                            $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
+                            
+                        }else{
+
+                            $td = '<a class="danger mr-1"">Aucune</a>';
+                        }
+                    }
                     
                     $rows['Action'] .= "<td>{$th}</td>";
+                    $rows['Demande'] .= "<td>{$td}</td>";
                     $rows['ta'] .= "<td>{$row['ta']}</td>";
                     $rows['albOedemes'] .= "<td>{$row['albOedemes']}</td>";
                     $rows['prisedepoids'] .= "<td>{$row['prisedepoids']}</td>";
@@ -356,6 +535,7 @@ class CpnCont extends BaseController
                 } else {
                     // Si la consultation pour ce numéro n'existe pas, ajouter une cellule vide
                     $rows['Action'] .= "<td></td>";
+                    $rows['Demande'] .= "<td></td>";
                     $rows['ta'] .= "<td></td>";
                     $rows['albOedemes'] .= "<td></td>";
                     $rows['prisedepoids'] .= "<td></td>";
@@ -380,6 +560,14 @@ class CpnCont extends BaseController
             foreach ($rows as &$row) {
                 $row .= "</tr>";
             }
+
+            if (in_array($_SESSION['roleId'], ["6" , "9"])) {
+                
+                $action = "";
+                
+            }else{
+                $action = $rows['Action'];
+            }
         
             // Construction finale du tableau
             $th = "
@@ -397,7 +585,8 @@ class CpnCont extends BaseController
                     </tr>
                 </thead>
                 <tbody>
-                    {$rows['Action']}
+                    {$action}
+                    {$rows['Demande']}
                     {$rows['ta']}
                     {$rows['albOedemes']}
                     {$rows['prisedepoids']}
@@ -433,6 +622,7 @@ class CpnCont extends BaseController
 
 
             $response = [
+                'roleId' => $this->session->get("roleId"),
                 'nums' => $nums ,
                 'table' => $th ,
                 'num_cpn' =>  $this->genererNumeroCarte( "CPN", $_POST["idcpn"]) 

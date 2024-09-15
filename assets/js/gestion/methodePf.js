@@ -30,7 +30,9 @@ function liste_methodePf() {
     },
     url: base + "liste_methodePf",
     type: "POST",
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       $("#table_methodePf ").empty();
       $("#table_methodePf").append(response);
      
@@ -108,7 +110,9 @@ $("#ajout_methodePf").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: formData,
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       
 
         //appler le Toast pour afficher le message
@@ -191,7 +195,9 @@ function delete_methodePf_from_dialog(id) {
     url: base + "supprimer_methodePf",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       alertCustom("success", "ft-check", "Suppression effectué avec succée");
       liste_methodePf();
     },

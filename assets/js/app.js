@@ -103,7 +103,9 @@ function deconnecter() {
     url: base + "deconnecter",
     type: "POST",
     dataType: "JSON",
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       window.location.href = currentPath;
       // or location.reload();
     },
@@ -325,7 +327,7 @@ let clave;
 
 function formatPrixImput() {
   // Appliquer la validation à chaque champ de saisie spécifié
-  $('#temperature, #tension, #poids, #taille').on('input', function() {
+  $('#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire').on('input', function() {
       validateNumber($(this));
   });
 }
@@ -1018,7 +1020,9 @@ function notification_header() {
   $.ajax({
     url: base + "afficher_notification",
     type: "POST",
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#liste_notification").empty();
       $("#liste_notification").append(res);
     },
@@ -1053,7 +1057,9 @@ function exportDatabase() {
     url: base + "exportDatabase",
     type: "POST",
     dataType:'json',
-    success: function (file) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (file) {
       $("body").unblock();
       window.open(file.file);
       alertCustom("success", 'ft-check', "Database exporter avec succès");

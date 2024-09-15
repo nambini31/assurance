@@ -13,7 +13,9 @@ function charge_membre1() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $('select').selectpicker('refresh');
@@ -33,7 +35,9 @@ function charge_membre() {
     $.ajax({
         url: base + 'charge_membre1',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_select").empty();
             $("#membre_select").append(data);
             $('select').selectpicker('refresh');
@@ -67,7 +71,9 @@ function charge_titulaire_coix() {
         data:{
             id_membre : $("#membre_select").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#titulaire_select").empty();
             $("#titulaire_select").append(data);
             $('select').selectpicker('refresh');
@@ -89,7 +95,9 @@ function charge_personne_malade() {
         data:{
             id : $("#titulaire_select").val()
         },
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#personne_selectpf").empty();
             $("#personne_selectpf").append(data);
             $('select').selectpicker('refresh');
@@ -105,7 +113,9 @@ function charge_methode_contraceptive() {
     $.ajax({
         url: base + 'charge_methode_contraceptive',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#idmethodepf").empty();
             $("#idmethodepf").append(data);
             $('select').selectpicker('refresh');
@@ -160,7 +170,9 @@ function liste_pf() {
             date_debut :  $('#date_debut').val() ,
             date_fin :  $('#date_fin').val()
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table_pf")) {
                 $("#table_pf").DataTable().destroy();
             } else {
@@ -282,7 +294,9 @@ $("#add_pf").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             $("#modal_visites").unblock();
             if ($('#btn_add_cpn_first').text() === "Modifier") {
                 if (res.id == 1) {
@@ -369,7 +383,9 @@ function delete_pf() {
         type: "POST",
         dataType: "JSON",
         data: { id_pf : idPf },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#deletePf").modal(
                 "hide"

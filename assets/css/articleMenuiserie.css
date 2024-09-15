@@ -113,7 +113,10 @@ div.dataTables_wrapper div.dataTables_filter{
 
 @media (min-width: 992px) {
     .modal-md {
-        max-width: 50% !important; 
+        max-width: 70% !important; 
+    }
+    .modal-sm {
+        max-width: 40% !important; 
     }
 }
 

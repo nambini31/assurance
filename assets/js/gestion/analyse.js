@@ -10,7 +10,9 @@ function charge_type_analyse() {
   $.ajax({
       url: base + 'charge_type_analyse',
       type: "POST",
-      success: function (data) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
           $("#id_type_analyse_id").empty();
           $("#id_type_analyse_id").append(data);
           $('select').selectpicker('refresh');
@@ -46,7 +48,9 @@ function liste_analyse() {
     },
     url: base + "liste_analyse",
     type: "POST",
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       $("#table_analyse ").empty();
       $("#table_analyse").append(response);
      
@@ -125,7 +129,9 @@ $("#ajout_analyse").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: formData,
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       
 
         //appler le Toast pour afficher le message
@@ -208,7 +214,9 @@ function delete_analyse_from_dialog(id) {
     url: base + "supprimer_analyse",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       alertCustom("success", "ft-check", "Suppression effectué avec succée");
       liste_analyse();
     },
