@@ -72,144 +72,8 @@
 
     <div class="heading-elements mt-0">
         
-        <div class="modal fade" id="descendant_modal" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" id="modal_Consultation" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
-                    <div class="card-content collpase show">
-                        <div class="card-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                    <h3 class="modal-header entete_modal">
-                                ANTECEDENTS ( D.D.R )
-                            </h3>
-
-                            <br>
-                            
-                            <form method="POST" id="add_cpnParam" >
-                                <input type="hidden" name="idcpn" id="idcpn1">
-                            <div class="flowscroll">
-
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th style="text-align:left">Date présumée d'accouchement</th>
-                                    <th style="text-align:center"><input type="date" name="dateAccouchement" class="form-control input-sm"></td>
-                                 </tr>
-                                 
-                                </table>
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th style="text-align:left">Facteur de risque</th>
-                                    <th style="text-align:center">Oui</td>
-                                    <th style="text-align:center">Non</td>
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">AGE < 16 ans</th>
-                                    <td><input type="radio"  value="1" name="ageinf16" > </td>
-                                    <td><input type="radio"  value="0" name="ageinf16" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">AGE > 35 ans</th>
-                                    <td><input type="radio"  value="1" name="agesup35"> </td>
-                                    <td><input type="radio"  value="0" name="agesup35" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Taille < 1..5 m</th>
-                                    <td><input type="radio"  value="1" name="taille" ></td>
-                                    <td><input type="radio"  value="0" name="taille" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">TA > 140/80 mmHg</th>
-                                    <td><input type="radio"  value="1" name="tension" ></td>
-                                    <td><input type="radio"  value="0" name="tension" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Parité > 5 enfants</th>
-                                    <td><input type="radio"  value="1" name="parite" ></td>
-                                    <td><input type="radio"  value="0" name="parite" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Césarienne au dernier ACC</th>
-                                    <td><input type="radio"  value="1" name="cesarienne" ></td>
-                                    <td><input type="radio"  value="0" name="cesarienne" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Mort-né au dernier ACC</th>
-                                    <td><input type="radio"  value="1" name="mortne" ></td>
-                                    <td><input type="radio"  value="0" name="mortne" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">Drépanocytose SS</th>
-                                    <td><input type="radio"  value="1" name="drepanocytose" ></td>
-                                    <td><input type="radio"  value="0" name="drepanocytose" ></td>
-
-                                 </tr>
-                                </table>
-
-
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th style="text-align:left">VACCINATION</th>
-                                    <th style="text-align:center">Date</td>
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">TD 1 </th>
-                                    <td><input type="date" class="form-control input-sm"  name="vat1" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">TD 2</th>
-                                    <td><input type="date" class="form-control input-sm"  name="vat2" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">TD 3</th>
-                                    <td><input type="date" class="form-control input-sm"  name="vat3" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">vat 4</th>
-                                    <td><input type="date" class="form-control input-sm"  name="vat4" ></td>
-
-                                 </tr>
-                                 <tr>
-                                    <td style="text-align:left">TD 5</th>
-                                    <td><input type="date" class="form-control input-sm"  name="vat5" ></td>
-
-                                 </tr>
-                              
-                                </table>
-                                </div>
-
-                                <?php 
-                                        //verifier si c'est superAdmin
-                                        if (!in_array($_SESSION['roleId'], ["6" , "3"])) {              
-                                        ?>
-                                        <div class="form-actions right" >
-                                            <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
-
-                                            
-                                        </div>
-                                        <?php 
-                                                }
-                                        ?>
-
-                                
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="AddConsultCpn" style="z-index: 99999999; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        
+        <div class="modal fade" id="AddConsultCpn" style="z-index: 99999999; margin-top: 2% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content" id="modal_ConsultCpn" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
@@ -371,47 +235,52 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modal_consultationcpn" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content" id="consultationcpn_modal" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
-                    <div class="card-content collpase show">
-                        <div class="card-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                            <h4 class="modal-header entete_modal2">
-                                CPN N° : OMI-205
-                            </h4>
-                            
-                            <br>
-                            <table id="table_consultation" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                
-                            </table>
-                            <form action="">
-                        
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal fade" id="ListesLabo" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document" style="width: 80%;">
+            <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
                 <div class="modal-content" id="ListesLabocontent"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
                     <div class="card-content collpase show">
                         <div class="card-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h4 class="modal-header">
-                                Demande d'examen
+                                                                    <h4 class="modal-header entete_modal2" style="position: absolute;top: 15px; border: none; z-index: 10;">
+                                CPN N° : OMI-205
                             </h4>
-                            <br>
-                            <table id="table_demande" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                    <div class="card" style="box-shadow: none;">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs nav-underline">
+                                    
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="false"><i class="ft-layers"></i> ANTECEDENTS ( D.D.R )</a>
+                                    </li>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> CONSULTATIONS</a>
+                                    </li>
+                                        
+                                   
+                                    
                                 
-                            </table>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="tab-content">
+
+                            
+
+                            <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
+                                <?= view("cpn/parametre.php") ?>
+                            </div>
+                            <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
+                                <?= view("cpn/consultcpn.php") ?>
+                            </div>
+                            
+                        </div>
+                    </div>
+               
                             
 
                         </div>
@@ -437,8 +306,9 @@
                             
                             <form method="post" id="add_examen">
                                 <div class="flowscroll">
-                                <input type="hidden" name="idDetails" id="idDetails">
                                 <input type="hidden" name="idConsPour" id="idConsPour">
+                                <input type="hidden" name="idenvoie_labo" id="idenvoielabo">
+                                <input type="hidden" name="idDetails" id="idDetails">
                                     <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
                                      
                                      <tr>
@@ -471,7 +341,7 @@
                                     </table>
                                 </div>
                                 <div class="form-actions right" id="hideValidLabo">
-                                    <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
+                                    <button type="submit"  class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
                                 </div>
 
                                 

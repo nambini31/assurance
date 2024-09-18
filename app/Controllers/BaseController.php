@@ -27,6 +27,7 @@ use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
 use App\Models\fournisseur\FournisseurModel;
+use App\Models\Gestion\AdminMedicamentModel;
 use App\Models\Gestion\AnalyseModel;
 use App\Models\Gestion\MethodePfModel;
 use App\Models\Gestion\Type_analyseModel;
@@ -78,6 +79,7 @@ abstract class BaseController extends Controller
     protected $article;
     protected $categorie;
     protected $fournisseur;
+    protected $adminMedicament;
 
 
     public function __construct()
@@ -108,6 +110,7 @@ abstract class BaseController extends Controller
         $this->pf = new PfModel();
         $this->pdf = new Mpdf();
         $this->envoieLbo = new EnvoieLaboModel();
+        $this->adminMedicament = new AdminMedicamentModel();
 
     }
 

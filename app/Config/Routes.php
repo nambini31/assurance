@@ -91,7 +91,9 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('ajout_consultation', 'consultation\ConsultationCont::ajout_consultation');
     $routes->post('delete_consultation', 'consultation\ConsultationCont::delete_consultation');
     $routes->post('affiche_parametre', 'consultation\ConsultationCont::affiche_parametre');
+    $routes->post('affiche_clinique', 'consultation\ConsultationCont::affiche_clinique');
     $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
+    $routes->post('add_clinique', 'consultation\ConsultationCont::add_clinique');
     $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
     $routes->post('delete_detailconsul', 'consultation\ConsultationCont::delete_detailconsul');
     $routes->post('listes_envoie_labo', 'Consultation\ConsultationCont::listes_envoie_labo');    
@@ -158,6 +160,11 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('ajout_methodePf', 'gestion\MethodePfCont::ajout_methodePf');
     $routes->post('liste_methodePf', 'gestion\MethodePfCont::liste_methodePf');
     $routes->post('supprimer_methodePf', 'gestion\MethodePfCont::supprimer_methodePf');
+
+    //route AdminMedicament
+    $routes->post('ajout_adminMedicament', 'gestion\AdminMedicamentCont::ajout_adminMedicament');
+    $routes->post('liste_adminMedicament', 'gestion\AdminMedicamentCont::liste_adminMedicament');
+    $routes->post('supprimer_adminMedicament', 'gestion\AdminMedicamentCont::supprimer_adminMedicament');
 
 
     //route pour examen

@@ -160,29 +160,75 @@
             </div>
         </div>
         <div class="modal fade" id="ListesLabo" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document" style="width: 80%;">
+            <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
                 <div class="modal-content" id="ListesLabocontent"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
                     <div class="card-content collpase show">
                         <div class="card-body">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                      
-                            <!---->
                             
                     <div class="card" style="box-shadow: none;">
                         <div class="card-content">
                             <div class="card-body">
                                 <ul class="nav nav-tabs nav-underline">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="true"><i class="la la-tag"></i> Types d'analyse</a>
+                                    
+                                    <?php 
+                                    if (in_array($_SESSION['roleId'], ["3" , "4" , "8" , "5"])) {              
+                                        ?>
+                                        <li class="nav-item">
+                                        <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="true"><i class="la la-tag"></i>Paramètres</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> Analyse</a>
+                                        <?php 
+                                                }
+                                        ?>
+                                        <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" aria-expanded="false"><i class="ft-layers"></i> Examen clinique</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" aria-expanded="false"><i class="la la-tag"></i>Methodes contraceptives</a>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon24" aria-expanded="false"><i class="ft-layers"></i> Autres actes</a>
                                     </li>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> Examens paracliniques</a>
+                                    </li>
+                                        <?php 
+                                                }
+                                        ?>
+                                        <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "9" , "5"])) {              
+                                        ?>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab25" data-toggle="tab" aria-controls="tabIcon25" href="#tabIcon25" aria-expanded="false"><i class="ft-layers"></i> Prescriptions</a>
+                                    </li>
+                                         
+                                        <?php 
+                                                }
+                                        ?>
+                                        <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab26" data-toggle="tab" aria-controls="tabIcon26" href="#tabIcon26" aria-expanded="false"><i class="ft-layers"></i> Conclusions</a>
+                                    </li>
+                                         
+                                        <?php 
+                                                }
+                                        ?>
+                                        <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                         <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab27" data-toggle="tab" aria-controls="tabIcon27" href="#tabIcon27" aria-expanded="false"><i class="ft-layers"></i> Antecedents</a>
+                                    </li>
+                                         
+                                        <?php 
+                                                }
+                                        ?>
+                                   
+                                    
                                 
                                 </ul>
                             </div>
@@ -190,6 +236,9 @@
                     </div>
                     <div class="panel">
                         <div class="tab-content">
+
+                            
+
                             <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
                                 <?= view("Consultation/parametre.php") ?>
                             </div>
@@ -197,7 +246,7 @@
                                 <?= view("Consultation/demande.php") ?>
                             </div>
                             <div class="tab-pane"  id="tabIcon23" aria-expanded="true" aria-labelledby="baseIcon-tab23">
-                                <?= view("gestion/methodePf.php") ?>
+                                <?= view("Consultation/clinique.php") ?>
                             </div>
                             
                         </div>

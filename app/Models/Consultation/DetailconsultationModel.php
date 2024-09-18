@@ -13,8 +13,8 @@ class DetailconsultationModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "motif"	, "TypepersonneMalade" , "idPersonneMalade"	, "etat" ,	"consultationId",
-        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId" , "isPharmacie"
+        "motif"	, "TypepersonneMalade" , "idPersonneMalade" , "bilanHydrique"	, "etat" ,	"consultationId", "frequenceRespiratoire", "frequenceCardiaque", "etatConscience", "sf", "pupille", "peekFlow", "glicemie", "conjonctives", "perimetreBras", "perimetreCrane", "gcs", "evs", "diurese" ,
+        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId" , "isPharmacie" , "histoMaladie", "examClinique", "chirurgie", "alergie"
         	, "tension" ,	"poids" , "taille" , "isLabo" , 	"douleur" ,	"descriptionDouleur" // ispharmacie tsy misy satria mandiny validation doc vo pharmacie rozy iaby
     ];
 

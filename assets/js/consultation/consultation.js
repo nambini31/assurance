@@ -317,15 +317,46 @@ function fill_paramettre(id) {
     } ,success: function (res) {
         var res = JSON.parse(res);
 
-        if ($.fn.DataTable.isDataTable("#table_parametre_vrai")) {
-            $("#table_parametre_vrai").DataTable().destroy();
+        if ($.fn.DataTable.isDataTable("#table_parametre_vrai1")) {
+            $("#table_parametre_vrai1").DataTable().destroy();
+        } else {
+        }
+        if ($.fn.DataTable.isDataTable("#table_parametre_vrai2")) {
+            $("#table_parametre_vrai2").DataTable().destroy();
         } else {
         }
 
 
             $("#table_parametre_vrai").empty();
             $("#table_parametre_vrai").append(res.table);
-            $('#table_parametre_vrai').DataTable({
+            $('#table_parametre_vrai1').DataTable({
+                destroy: true,
+                ordering: false,
+                responsive: true,
+                info: false,
+                paging: false,
+                deferRender: true,
+                searching : false ,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "frtip",
+               
+            });
+            $('#table_parametre_vrai2').DataTable({
                 destroy: true,
                 ordering: false,
                 responsive: true,
@@ -358,6 +389,59 @@ function fill_paramettre(id) {
             }else{
                 $("#hideValidParam").show();
             }
+            formatPrixImput();
+        },
+    });
+}
+function fill_clinique(id) {
+
+    $.ajax({
+        url: base + "affiche_clinique",
+        type: "POST",
+
+        data: { id : id },
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+        var res = JSON.parse(res);
+
+        if ($.fn.DataTable.isDataTable("#table_clinique_vrai")) {
+            $("#table_clinique_vrai").DataTable().destroy();
+        } else {
+        }
+
+
+            $("#table_clinique_vrai").empty();
+            $("#table_clinique_vrai").append(res.table);
+            $('#table_clinique_vrai').DataTable({
+                destroy: true,
+                ordering: false,
+                responsive: true,
+                info: false,
+                paging: false,
+                deferRender: true,
+                searching : false ,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "frtip",
+               
+            });
+            
+
             formatPrixImput();
         },
     });
@@ -506,10 +590,36 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         error: function(xhr, status, error) {
        alertCustom("danger", 'ft-x', "Une erreur s'est produite");
     } ,success: function (res) {
-                    //fill_paramettre( $("#idDetailsCons").val());
-                    $("#AddParametre").modal("hide"
-                    );
+                    
                     alertCustom("success", "ft-check", "Parametrage effectué avec succée");
+                    affichage_details(idConsul , isFinished);
+
+
+
+        },
+    });
+});
+$("#add_clinique").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            
+        },
+        url: base + "add_clinique",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+
+                    alertCustom("success", "ft-check", "Examen clinique enregistré avec succée");
                     affichage_details(idConsul , isFinished);
 
 
@@ -870,7 +980,7 @@ function affichage_demande(id) {
     formatPrixImput();
     charge_analyse(id);
 
-    $("#idDetailsCons").val(id);
+    $(".idDetailsCons").val(id);
 
     $("#ListesLabo").modal(
         { backdrop: "static", keyboard: false },
@@ -880,6 +990,7 @@ function affichage_demande(id) {
         iddetail = id ;
 
     fill_paramettre(id);
+    fill_clinique(id);
     fill_labo(id);
 }
 
@@ -1125,6 +1236,8 @@ function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docte
     charge_type();
 
 }
+
+
 
 var idEnvoie ;
 var typeEnvoie

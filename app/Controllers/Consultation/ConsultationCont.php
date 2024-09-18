@@ -185,33 +185,187 @@ class ConsultationCont extends BaseController
             $th = "";
 
                 $th =
-                    '<thead> 
-                    <tr>
-                    <th>.</th>
-                    <td>.</td>
-                 </tr> <thead>
-                    
-                    <tbody> 
-                    <tr>
-                    <th>Temperature ( °C )</th>
-                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm" required name="temperature" id="temperature"></td>
-                 </tr>
-                 <tr>
-                    <th>Tension</th>
-                    <td><input type="text" value="'.$value["tension"].'" class="form-control input-sm" required name="tension" id="tension"> </td>
-                    
-                 </tr>
-                 <tr>
-                    <th>Taille ( Mètre ) </th>
-                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm" required name="taille" id="taille"> </td>
-                    
-                 </tr>
-                 <tr>
-                    <th>Poids ( KG )</th>
-                    <td><input type="text" value="'.$value["poids"].'" class="form-control input-sm" required name="poids" id="poids"></td>
-                    
+                    '
+                    <div class="row">
+                        <div class="col-md-6">
+                                    <table id="table_parametre_vrai1" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto; margin:auto">
+                                    <thead> 
+                                    <tr>
+                                    <th>.</th>
+                                    <td>.</td>
+                                </tr> <thead>
+                                    
+                                    <tbody> 
+                                    <tr>
+                                    <th style="min-width: 100px !important; width: 100%">Temperature ( °C )</th>
+                                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm"  name="temperature" id="temperature"></td>
+                                </tr>
+                                <tr>
+                                    <th>Tension</th>
+                                    <td><input type="text" value="'.$value["tension"].'" class="form-control input-sm"  name="tension" id="tension"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Taille ( Mètre ) </th>
+                                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm"  name="taille" id="taille"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Frequence Respiratoire</th>
+                                    <td><input type="text" value="'.$value["frequenceRespiratoire"].'" class="form-control input-sm"  name="frequenceRespiratoire" id="frequenceRespiratoire"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Frequence Cardiaque</th>
+                                    <td><input type="text" value="'.$value["frequenceCardiaque"].'" class="form-control input-sm"  name="frequenceCardiaque" id="frequenceCardiaque"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Etat Conscience</th>
+                                    <td><input type="text" value="'.$value["etatConscience"].'" class="form-control input-sm"  name="etatConscience" id="etatConscience"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>SF</th>
+                                    <td><input type="text" value="'.$value["sf"].'" class="form-control input-sm"  name="sf" id="sf"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Bilan Hydrique</th>
+                                    <td><input type="text" value="'.$value["bilanHydrique"].'" class="form-control input-sm"  name="bilanHydrique" id="bilanHydrique"> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Pupille</th>
+                                    <td><input type="text" value="'.$value["pupille"].'" class="form-control input-sm"  name="pupille" id="pupille"> </td>
+                                    
+                                </tr>
+                                </tbody>
 
-                 </tr> </tbody>
+
+                                
+
+                                    </table></div>
+
+                                    <div class="col-md-6">
+                    
+                                <table id="table_parametre_vrai2" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto; margin:auto">
+                                <thead> 
+                                <tr>
+                                <th>.</th>
+                                <td>.</td>
+                            </tr> <thead>
+                                
+                                <tbody> 
+                                <tr>
+                                <th style="min-width: 100px !important; width: 100%">Peek Flow</th>
+                                <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["peekFlow"].'" class="form-control input-sm"  name="peekFlow" id="peekFlow"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Glicemie</th>
+                                <td ><input type="text" value="'.$value["glicemie"].'" class="form-control input-sm"  name="glicemie" id="glicemie"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Conjonctives</th>
+                                <td><input type="text" value="'.$value["conjonctives"].'" class="form-control input-sm"  name="conjonctives" id="conjonctives"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Perimetre Bras</th>
+                                <td><input type="text" value="'.$value["perimetreBras"].'" class="form-control input-sm"  name="perimetreBras" id="perimetreBras"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Perimetre Crane</th>
+                                <td><input type="text" value="'.$value["perimetreCrane"].'" class="form-control input-sm"  name="perimetreCrane" id="perimetreCrane"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>GCS</th>
+                                <td><input type="text" value="'.$value["gcs"].'" class="form-control input-sm"  name="gcs" id="gcs"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>EVS</th>
+                                <td><input type="text" value="'.$value["evs"].'" class="form-control input-sm"  name="evs" id="evs"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Diurese</th>
+                                <td><input type="text" value="'.$value["diurese"].'" class="form-control input-sm"  name="diurese" id="diurese"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Douleur</th>
+                                <td><input type="text" value="'.$value["douleur"].'" class="form-control input-sm"  name="douleur" id="douleur"> </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>Poids ( KG )</th>
+                                <td><input type="text" value="'.$value["poids"].'" class="form-control input-sm"  name="poids" id="poids"></td>
+                                
+
+                                </tr>
+                            </tbody>
+                                </table>
+                    
+                    </div>
+                                
+                    </div>
+                 ';
+
+
+            echo json_encode(["table"=> $th]);
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function affiche_clinique()
+    {
+        try {
+
+            $value =  $this->detailconsultation->find( $_POST["id"]);
+
+            $th = "";
+
+                $th =
+                    '  <thead> 
+                                            <tr>
+                                                <th style="width: 100em !important; min-width: 300px !important;">Histoire de la maladie</th>
+                                                <th style="width: 100em !important; min-width: 300px !important;">Chirurgies</th>
+                                            </tr> 
+                                                
+                                        <thead>
+                                    
+                                        <tbody> 
+                                   
+                                <tr>
+                                    <td><textarea name="histoMaladie"  class="form-control input-sm" cols="5" rows="5" placeholder="Histoire de la maladie">'.$value["histoMaladie"].'</textarea>
+                                    </td>
+                                    <td><textarea name="chirurgie"  class="form-control input-sm" cols="5" rows="5" placeholder="Chirurgies">'.$value["chirurgie"].'</textarea>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                <th >Examen cliniques</th>
+                                <th >Alergies</th>
+                                
+                                </tr>
+                                <tr>
+                                    <td ><textarea name="examClinique"  class="form-control input-sm" cols="5" rows="5" placeholder="Examen cliniques">'.$value["examClinique"].'</textarea>
+                                    </td>
+                                    <td><textarea name="alergie"  class="form-control input-sm" cols="5" rows="5" placeholder="Alergies">'.$value["alergie"].'</textarea>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                </tbody>
+                   
                  ';
 
 
@@ -262,6 +416,18 @@ class ConsultationCont extends BaseController
     {
         try {
             $_POST["dateParametre"] = date("Y-m-d H:i:s");
+            $data =  $this->detailconsultation->update( $_POST["idDetailsCons"] , $_POST);
+
+            echo json_encode($data);
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    public function add_clinique()
+    {
+        try {
+            $_POST["dateDocteur"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update( $_POST["idDetailsCons"] , $_POST);
 
             echo json_encode($data);

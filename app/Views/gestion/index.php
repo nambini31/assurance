@@ -22,6 +22,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" aria-expanded="false"><i class="la la-tag"></i>Methodes contraceptives</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon24" href="#tabIcon24" aria-expanded="false"><i class="la la-tag"></i>Administration Medicament</a>
+                                    </li>
                                 
                                 </ul>
                             </div>
@@ -38,6 +41,9 @@
                             <div class="tab-pane"  id="tabIcon23" aria-expanded="true" aria-labelledby="baseIcon-tab23">
                                 <?= view("gestion/methodePf.php") ?>
                             </div>
+                            <div class="tab-pane"  id="tabIcon24" aria-expanded="true" aria-labelledby="baseIcon-tab23">
+                                <?= view("gestion/adminMedicament.php") ?>
+                            </div>
                             
                         </div>
                     </div>
@@ -53,3 +59,4 @@
 <script src="<?php echo base_url() ?>/assets/js/gestion/analyse.js"></script>
 <script src="<?php echo base_url() ?>/assets/js/gestion/type_analyse.js"></script>
 <script src="<?php echo base_url() ?>/assets/js/gestion/methodePf.js"></script>
+<script src="<?php echo base_url() ?>/assets/js/gestion/adminMedicament.js"></script>

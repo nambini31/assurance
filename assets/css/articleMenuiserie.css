@@ -5,6 +5,12 @@ p, li ,a{
     font-size: 12px !important;
   
 }
+.center-input {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    height: 100%; /* S'assurer que le contenu occupe toute la hauteur de la cellule */
+}
 
 .modal-open .modal {
     overflow-x: hidden;

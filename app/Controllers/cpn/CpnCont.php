@@ -351,8 +351,8 @@ class CpnCont extends BaseController
                         <td style="width : 10%;">' . $value["createdAt"] . '</td>  
                         <td style="width : 10%;">' . $etat . '</td>  
                         <td style="width : 10%;"> 
+
                         <a class="info mr-1" 
-                        onclick="liste_descendant(' . $value["idcpn"] . ')" 
                         id="cpnpere' . $value["idcpn"] . '" 
                         data-idcpn="' . $value["idcpn"] . '" 
                         data-dateaccouchement="' . $value["dateAccouchement"] . '"
@@ -368,9 +368,8 @@ class CpnCont extends BaseController
                         data-vat2="' . $value["vat2"] . '"
                         data-vat3="' . $value["vat3"] . '"
                         data-vat4="' . $value["vat4"] . '"
-                        data-vat5="' . $value["vat5"] . '">
-                        <i class="las la-clipboard-list la-2x"></i>
-                     </a><a class="info mr-1"  onclick="consult_cpn(' . $value["idcpn"] . ')"><i class=" las la-stethoscope la-2x"></i></a>' ;
+                        data-vat5="' . $value["vat5"] . '"
+                        onclick="details_cpn( ' . $value["idcpn"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>' ;
 
                         if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4" || $this->session->get("roleId") == "5") {
 
