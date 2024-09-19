@@ -193,8 +193,7 @@ class PfCont extends BaseController
                         <td style="width : 10%;"> 
                         ' ;
 
-                        if ($this->session->get("roleId") == "1" || $this->session->get("roleId") == "5") {
-                            
+                         
                             $th .= '
                             <a class="info mr-1" 
                             id="pfF'.$value["idpf"].'"
@@ -205,8 +204,10 @@ class PfCont extends BaseController
                             data-dateRendezvous="'. $value["dateRendezVous"].'"
                             
                             onclick="edit_cpn(' . $value["idpf"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["idmethodePf"] . ')"><i class=" la la-pencil-square-o"></i></a>
-    
-                            <a class="danger mr-1" onclick="supprimercpn(' . $value["idpf"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+                             ' ;
+                             if ($this->session->get("roleId") == "5") {
+                           
+                             $th .= '<a class="danger mr-1" onclick="supprimercpn(' . $value["idpf"] . ')"><i class=" la la-trash-o"></i></a>';
 
                         }
 
