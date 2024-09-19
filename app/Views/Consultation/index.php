@@ -191,12 +191,21 @@
                                          <li class="nav-item">
                                         <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon24" aria-expanded="false"><i class="ft-layers"></i> Autres actes</a>
                                     </li>
+                                        
+                                        <?php 
+                                                }
+                                        ?>
+
+                                    <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5" , "6"])) {              
+                                        ?>
                                          <li class="nav-item">
                                         <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> Examens paracliniques</a>
                                     </li>
                                         <?php 
                                                 }
                                         ?>
+
                                         <?php 
                                     if (in_array($_SESSION['roleId'], ["8" , "9" , "5"])) {              
                                         ?>
@@ -238,16 +247,46 @@
                         <div class="tab-content">
 
                             
-
-                            <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
-                                <?= view("Consultation/parametre.php") ?>
-                            </div>
-                            <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
-                                <?= view("Consultation/demande.php") ?>
-                            </div>
-                            <div class="tab-pane"  id="tabIcon23" aria-expanded="true" aria-labelledby="baseIcon-tab23">
+                        <?php 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                        <div class="tab-pane"  id="tabIcon23" aria-expanded="true" aria-labelledby="baseIcon-tab23">
                                 <?= view("Consultation/clinique.php") ?>
                             </div>
+                                         
+                                        <?php 
+                                                }
+                                    
+                                                if (in_array($_SESSION['roleId'], ["8" , "5" , "6"])) {   
+
+                                                    ?>
+  
+                                    <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
+                                        <?= view("Consultation/demande.php") ?>
+                                    </div>
+                                         
+                                        <?php  
+                                                    
+                                                }
+                                                ?>
+
+                                                 <?php 
+                    
+                                    
+                                                if (in_array($_SESSION['roleId'], ["8" , "5" , "3" , "4"])) {   
+
+                                                    ?>
+                                        <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
+                                            <?= view("Consultation/parametre.php") ?>
+                                        </div>
+                                         
+                                        <?php  
+                                                    
+                                                }
+                                                ?>
+
+
+
                             
                         </div>
                     </div>
