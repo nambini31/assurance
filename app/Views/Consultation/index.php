@@ -246,6 +246,21 @@
                     <div class="panel">
                         <div class="tab-content">
 
+                        <?php 
+                    
+                                    
+                    if (in_array($_SESSION['roleId'], ["8" , "5" , "3" , "4"])) {   
+
+                        ?>
+            <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
+                <?= view("Consultation/parametre.php") ?>
+            </div>
+             
+            <?php  
+                        
+                    }
+                    ?>
+
                             
                         <?php 
                                     if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
@@ -270,20 +285,7 @@
                                                 }
                                                 ?>
 
-                                                 <?php 
-                    
-                                    
-                                                if (in_array($_SESSION['roleId'], ["8" , "5" , "3" , "4"])) {   
-
-                                                    ?>
-                                        <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
-                                            <?= view("Consultation/parametre.php") ?>
-                                        </div>
-                                         
-                                        <?php  
-                                                    
-                                                }
-                                                ?>
+                                                
 
 
 
