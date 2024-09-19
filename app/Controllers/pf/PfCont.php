@@ -167,15 +167,31 @@ class PfCont extends BaseController
                             <th>Tension</th>
                             <th>Methode PF</th>
                             <th>Date Rendez-vous</th>
-                            <th>Date</th>" ;
-                       
-                            $th .= "<th>Action</th>";
+                            <th>Date</th>
+                            <th>Action</th>";
 
                     
                        $th .= "</tr></thead> 
                         <tbody>";
 
             foreach ($ctegorie as $value) {
+
+                $val = '
+                <a class="info mr-1" 
+                id="pfF'.$value["idpf"].'"
+                data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
+                data-taille="'. $value["taille"].'"
+                data-poids="'. $value["poids"].'"
+                data-tension="'. $value["tension"].'"
+                data-dateRendezvous="'. $value["dateRendezVous"].'"
+                
+                onclick="edit_cpn(' . $value["idpf"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["idmethodePf"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                 ' ;
+                 if ($this->session->get("roleId") == "5") {
+               
+                 $val .= '<a class="danger mr-1" onclick="supprimercpn(' . $value["idpf"] . ')"><i class=" la la-trash-o"></i></a>';
+
+                 }
 
 
                 $th .=
@@ -190,29 +206,11 @@ class PfCont extends BaseController
                         <td style="width : 10%;">' . $value["methodePf"] . '</td> 
                         <td style="width : 10%;">' . $value["dateRendezVous"] . '</td> 
                         <td style="width : 10%;">' . $value["createdAt"] . '</td>  
-                        <td style="width : 10%;"> 
-                        ' ;
+                        <td style="width : 10%;">' . $val .'</td> </tr>' ;
 
                          
-                            $th .= '
-                            <a class="info mr-1" 
-                            id="pfF'.$value["idpf"].'"
-                            data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
-                            data-taille="'. $value["taille"].'"
-                            data-poids="'. $value["poids"].'"
-                            data-tension="'. $value["tension"].'"
-                            data-dateRendezvous="'. $value["dateRendezVous"].'"
-                            
-                            onclick="edit_cpn(' . $value["idpf"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ' , ' . $value["idmethodePf"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                             ' ;
-                             if ($this->session->get("roleId") == "5") {
                            
-                             $th .= '<a class="danger mr-1" onclick="supprimercpn(' . $value["idpf"] . ')"><i class=" la la-trash-o"></i></a>';
 
-                        }
-
-                        
-                       $th .= '</td> </tr>';
             }
 
             $th .= "</tbody> ";
