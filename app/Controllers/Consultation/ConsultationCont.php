@@ -1091,7 +1091,7 @@ class ConsultationCont extends BaseController
 
                         if ($value["dateParametre"] == "" ) {
                         
-                            $action .= $detail.$delEdit ;
+                            $action .= $delEdit ;
                             
                         }
                         
