@@ -288,10 +288,35 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="ListesDemande" style="z-index: 99999999 ; margin-top: 2% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document" style="width: 80%;">
+                <div class="modal-content" id="ListesLabocontent1"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
+                    <div class="card-content collpase show">
+                        <div class="card-body" id="card_analyse">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    
+                                                                    <h3 class="modal-header entete_modal">
+                                EXAMEN PARACLINIQUES
+                            </h3>
+               
+                            <table id="table_demande" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                
+                                </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
         <div class="modal fade" id="AddLaboratoire" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content" id="modal_laboratoire" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
                     <div class="card-content collpase show">
                         <div class="card-body">
@@ -305,41 +330,54 @@
                             <br>
                             
                             <form method="post" id="add_examen">
-                                <div class="flowscroll">
+                                
                                 <input type="hidden" name="idConsPour" id="idConsPour">
                                 <input type="hidden" name="idenvoie_labo" id="idenvoielabo">
                                 <input type="hidden" name="idDetails" id="idDetails">
-                                    <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                     
-                                     <tr>
-                                        <th style="text-align:left; width:5%">Nature de l'examen</th>
-                                        <td colspan="2"><select class="selectpicker  form-control btn-sm" name = 'nature[]'  required id="analyse_select" multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format="count > 3"
-                                        data-count-selected-text="{0} Nature selected">
-                                                       
-                                                    </select></td>
-    
-                                     </tr>
-                                     <tr>
-                                        <th style="text-align:left; width:5%">Resultats</th>
-                                        <td colspan="2"><input type="text" class="form-control input-sm" name="resultats" id="resultats"></td>
-                                        
-    
-                                     </tr>
-                                     <tr>
-                                        <th style="text-align:left; width:5%">R.C</th>
-                                        <td colspan="2"><input type="text" class="form-control input-sm" name="rc"  id="rc"></td>
-                                        
-    
-                                     </tr>
-                                     <tr>
-                                        <th style="text-align:left; width:5%">Destinataire</th>
-                                        <td colspan="2"><select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
-                                                        <option value="Titulaire" selected >Laboratoire</option>
-                                                    </select></td>
-    
-                                     </tr>
-                                    </table>
+
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyse_select" class="">Nature de l'examen</label>
+                                            <select class="selectpicker  form-control btn-sm" name = 'nature[]'  required id="analyse_select" multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format="count > 3"
+                                            data-count-selected-text="{0} Nature selected">
+                                                           
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="resultats" class="">Resultats</label>
+                                            <input type="text" class="form-control input-sm" name="resultats" id="resultats">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="rc" class="">R.C</label>
+                                            <input type="text" class="form-control input-sm" name="rc"  id="rc">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="type_personne_select" class="">Destinataire</label>
+                                            <select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
+                                                            <option value="Titulaire" selected >Laboratoire</option>
+                                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
                                 <div class="form-actions right" id="hideValidLabo">
                                     <button type="submit"  class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
                                 </div>
@@ -352,6 +390,7 @@
                 </div>
             </div>
         </div>
+        
 
         
         <div class="modal fade" id="deleteConsultation" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -386,31 +425,39 @@
             </div>
         </div>
 
-        <div class="modal fade" id="valideLabo" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal fade" id="valideLabo" style="z-index: 99999999; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
-                    <div class="card-content collpase show">
-                            <div class="card-body" style="text-align: center;">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-   
-                            
-                            
-                                    <div class="card-header">
-                                            <i class="la la-check-circle success" style='font-size:50px'></i>
-                                    </div>
-                           
-                                
-                                    <p>Voulez-vous confirmer cette analyse ?</p>
-                    
-                                        <button type="button" onclick="confirmer_analyse()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
-                                        <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
-                    
-                    
-                                
-                            
-                          
+                <div class="modal-content" style="box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collapse show">
+                        <div class="card-body" style="text-align: center;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+
+                            <div class="card-header">
+                                <i class="la la-check-circle success" style='font-size:50px'></i>
+                            </div>
+
+                            <p>Veuillez sélectionner le resultat d'analyse pour confirmer cette demande ?</p>
+
+                            <!-- Ajout de l'input file avec un label -->
+                            <form id="form_analyse">
+                                <div class="form-group">
+                                    <!-- Label pour l'input file -->
+                                    <table id="" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                    <tr>
+                                        <td style="text-align:center"><input type="file" id="fichierAnalyse" name="fichierAnalyse" class="form-control-file" required></td>
+                                    </tr></table>
+                                </div>
+                                <!-- Bouton de confirmation -->
+                                <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width">
+                                    <i class="ft-check"></i> Oui
+                                </button>
+                                <!-- Bouton d'annulation -->
+                                <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width">
+                                    <i class="ft-x"></i> Annuler
+                                </button>
+                            </form>
 
                         </div>
                     </div>

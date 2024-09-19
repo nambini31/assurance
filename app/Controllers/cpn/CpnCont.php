@@ -64,41 +64,7 @@ class CpnCont extends BaseController
         }
     }
 
-    public function verif_CPN($idCpn)
-    {
-   
-
-           $sumNum = $this->detailconsultationcpn
-                   ->select('SUM(num) as total_num , isFinished , cpn.isLabo , cpn.isPharmacie')
-                   ->join('cpn', "detailconsultationcpn.idcpn = cpn.idcpn")
-                   ->where('detailconsultationcpn.idcpn', $idCpn)
-                   ->where('detailconsultationcpn.etat', 1)
-                   ->first();  
-
-                   
-                   // Vérifier si la somme est égale à 36
-                   if ($sumNum['isLabo'] != 1) {
-                       
-                       
-                       if ($sumNum['isPharmacie'] != 1) {
-                           
-                           if ($sumNum['isFinished'] == 0) {
-                               
-                               if ($sumNum['total_num'] == 36) {
-                                   $this->cpn->update($idCpn, ['isFinished' => 3]);
-                                }
-                                
-                            }else { // si 3 toy
-                                
-                                if ($sumNum['total_num'] != 36) {
-                                    $this->cpn->update($idCpn, ['isFinished' => 0]);
-                        }
-                    }
-                }
-            }
-
-      
-    }
+    
     public function delete_cpn()
     {
         try {
@@ -471,8 +437,7 @@ class CpnCont extends BaseController
             for ($i = 1; $i <= 8; $i++) {
                 if (isset($consultations[$i])) {
                     $row = $consultations[$i];
-                    $th = '<a class="info mr-1"   onclick="laboratoire(' . $row["idconsultationcpn"] . ',' . $row["isLabo"] . ')"><i class=" la la-microscope"></i></a>
-                    <a class="info mr-1"  id = "detailcpn' . $row["idconsultationcpn"] . '"
+                    $th = '<a class="info mr-1"  id = "detailcpn' . $row["idconsultationcpn"] . '"
                     onclick="edit_detailcpn(' . $row["idconsultationcpn"] . ')" 
                     data-ta="' . $row["ta"] . '" 
                     data-num="' . $row["num"] . '" 
@@ -502,14 +467,8 @@ class CpnCont extends BaseController
                         $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
                         
                     }else{
-                        if ($row["isLabo"] == "2") {
-
                             $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
                             
-                        }else{
-
-                            $td = '<a class="danger mr-1"">Aucune</a>';
-                        }
                     }
                     
                     $rows['Action'] .= "<td>{$th}</td>";

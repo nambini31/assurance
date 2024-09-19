@@ -6,6 +6,7 @@ $(document).ready(function () {
     charge_type();
     $("#AddpatientMalade").insertAfter("#AddConsultation");
     $("#deletepatient").insertAfter("#AddConsultation");
+    
 
 });
 
@@ -50,7 +51,7 @@ function charge_membre1() {
     });
   }
 
-function charge_analyse(id) {
+function charge_analyse() {
     $.ajax({
         url: base + 'charge_analyse',
         type: "POST",
@@ -460,7 +461,7 @@ function edit_laboratoire(id) {
 
     analyse_select = nature ;
     
-    charge_analyse(id);
+    charge_analyse();
     $("#idDetails").val(iddetail);
     $("#idenvoielabo").val(id);
     $("#idConsPour").val(idConsul);
@@ -768,7 +769,7 @@ function delete_laboExam() {
         url: base + "delete_labo",
         type: "POST",
         dataType: "JSON",
-        data: { id_labo : id_labo , id : idConsul , iddetail : iddetail},
+        data: { id_labo : id_labo , id : idConsul , iddetail : iddetail , type : "visite"},
         error: function(xhr, status, error) {
        alertCustom("danger", 'ft-x', "Une erreur s'est produite");
     } ,success: function (res) {
@@ -978,7 +979,7 @@ function affichage_demande(id) {
         $("#hideValidParam").show();
     }
     formatPrixImput();
-    charge_analyse(id);
+    charge_analyse();
 
     $(".idDetailsCons").val(id);
 
@@ -1283,6 +1284,7 @@ $("#form_analyse").off("submit").on("submit", function (e) {
     data.append('idType', idType);
     data.append('type', typeEnvoie);
     data.append('idConsult', idConsul);
+    data.append('type', "visite");
 
     $("#valideLabo").modal(
         "hide"

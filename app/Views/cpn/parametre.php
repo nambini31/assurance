@@ -11,22 +11,27 @@
                             <form method="POST" id="add_cpnParam" >
                                 <input type="hidden" name="idcpn" id="idcpn1">
                             <div class="row">
-                        
-                               
-                               <table class="table table-white-space table_parametre table-bordered table-sm no-wrap  text-center" style="width: 30% !important; overflow: auto; margin:auto">
 
+                            
+                            <div class="col-md-4">
+                               <table class="table table-white-space table_parametre table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto; margin:auto">
                                         <thead>
-                                        <tr>
-                                            <th style="text-align:center ; width: 300em !important;">Date présumée d'accouchement</th>
+                                           <tr>
+                                              <th style="text-align:center ; width: 300em !important;">Date présumée d'accouchement</th>
                                         </tr>
-                                        </thead>
+                                       </thead>
                                         <tbody>
                                         <tr>
                                             <th style="text-align:center"><input type="date" name="dateAccouchement" class="form-control input-sm center-input"></td>
-                                        </tr>
-                                        </tbody>
+                                          </tr>
+                                       </tbody>
                                     </table>
-                           
+
+                               </div>
+                               
+                               
+                                    
+                                    <div class="col-md-8"></div>
 
                             </div>
                             <br>

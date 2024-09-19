@@ -3,7 +3,7 @@
         'name' => 'codeigniter4/framework',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ca26a126b5ecbf93e1c4361cfbb9194a99486e34',
+        'reference' => 'd32feea9239c7a97db77edfbe7133132e9ee991d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'codeigniter4/framework' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ca26a126b5ecbf93e1c4361cfbb9194a99486e34',
+            'reference' => 'd32feea9239c7a97db77edfbe7133132e9ee991d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -117,6 +117,15 @@
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'filp/whoops' => array(
+            'pretty_version' => '2.15.4',
+            'version' => '2.15.4.0',
+            'reference' => 'a139776fa3f5985a50b509f2a02ff0f709d2a546',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../filp/whoops',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'friendsofphp/php-cs-fixer' => array(
             'pretty_version' => 'v3.13.0',

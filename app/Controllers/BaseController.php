@@ -182,6 +182,68 @@ abstract class BaseController extends Controller
     return $numCarte;
     }
 
+    public function verif_CPN($idCpn)
+    {
+   
+        $datas =  $this->envoieLbo
+        ->select("idType")
+        ->where("detailconsultationcpn.idcpn" , $idCpn)
+        ->where("envoie_labo.typeEnvoie" , 'cpn')
+        ->where('envoie_labo.etat' , 1)
+        ->where('envoie_labo.dateValidation IS NULL')
+        ->join("detailconsultationcpn" , "envoie_labo.idType = detailconsultationcpn.idconsultationcpn")
+        ->groupBy("envoie_labo.idType")
+        ->findAll();
+        
+        $isLaboPresent = false;
+        
+        foreach ($datas as $row) {
+            
+            $isLaboPresent = true;
+            $this->detailconsultationcpn->update( $row['idType'] , ["isLabo" => 1]);
+            
+        }
+
+        if ($isLaboPresent) {  
+            
+        }else{
+            
+            $this->cpn->update( $idCpn , ["isLabo" => 0]);
+
+        }
+
+
+                $sumNum = $this->detailconsultationcpn
+                   ->select('SUM(num) as total_num , isFinished , cpn.isLabo')
+                   ->join('cpn', "detailconsultationcpn.idcpn = cpn.idcpn")
+                   ->where('detailconsultationcpn.idcpn', $idCpn)
+                   ->where('detailconsultationcpn.etat', 1)
+                   ->first();  
+
+                   
+                   // Vérifier si la somme est égale à 36
+                   if ($sumNum['isLabo'] != 1) {
+                           
+                           if ($sumNum['isFinished'] == 0) {
+                               
+                               if ($sumNum['total_num'] == 36) {
+                                   $this->cpn->update($idCpn, ['isFinished' => 3]);
+                                }
+                                
+                            }else { // si 3 ou 2 valide toy
+                                
+                                if ($sumNum['total_num'] != 36) {
+                                    $this->cpn->update($idCpn, ['isFinished' => 0]);
+                                  }
+                
+                            }
+                   }
+
+           
+
+      
+    }
+
     public function teste_session()
     {
 

@@ -125,17 +125,32 @@ class ConsultationCont extends BaseController
         try {
 
             $this->envoieLbo->update($_POST['id_labo'], ['etat' => 0]);
-            $this->detailconsultation->update( $_POST['iddetail'] , ["isLabo" => 0]);
+
+            if ($_POST["type"] == "cpn") {
+
+                
+                $this->detailconsultationcpn->update( $_POST["iddetail"] , ["isLabo" => 0]);
+
+                $id = $_POST['id'];
+    
+                $this->verif_CPN($id) ;
+
+            } else {
+            
+                $this->detailconsultation->update( $_POST['iddetail'] , ["isLabo" => 0]);
+
+                $id = $_POST['id'];
+    
+                $this->verif_visite($id) ;
+            }
+            
+
 
             
-            $id = $_POST['id'];
-
-            $this->verif_visite($id) ;
             
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            var_dump($th);die;
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
@@ -1252,9 +1267,7 @@ class ConsultationCont extends BaseController
                 if ($value["dateValidation"] == "" ) {
                         
                     $demande = '<a class="danger mr-1" >En attente</a>' ;
-                    $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                    <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
-
+                   
                     if (in_array($_SESSION['roleId'], ["5", "6"])){
 
                       
@@ -1274,7 +1287,7 @@ class ConsultationCont extends BaseController
                     $validerLabo = '';
                     if (in_array($_SESSION['roleId'], ["5"])){
 
-                        $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                        $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
     
         
@@ -1436,20 +1449,11 @@ class ConsultationCont extends BaseController
         } else {
             $this->detailconsultationcpn->update($_POST["idType"], ["isLabo" => 2]);
             $data = $this->detailconsultationcpn->select("idcpn,isLabo")
-                ->where("idcpn", $_POST["idCpn"])
+                ->where("idcpn", $_POST["idConsult"])
                 ->findAll();
+                $this->verif_CPN($_POST["idConsult"]);
 
-            $isLaboPresent = false;
-            foreach ($data as $row) {
-                if ($row['isLabo'] == 1) {
-                    $isLaboPresent = true;
-                    break;
-                }
-            }
-
-            if (!$isLaboPresent) {
-                $this->cpn->update($_POST["idCpn"], ["isLabo" => 0]);
-            }
+            
         }
 
         echo json_encode(["id" => 1]);

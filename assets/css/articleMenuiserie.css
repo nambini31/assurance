@@ -5,6 +5,8 @@ p, li ,a{
     font-size: 12px !important;
   
 }
+
+
 .center-input {
     display: flex;
     justify-content: center; /* Centre horizontalement */
