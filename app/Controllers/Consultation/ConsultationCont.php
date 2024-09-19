@@ -1267,13 +1267,27 @@ class ConsultationCont extends BaseController
                 if ($value["dateValidation"] == "" ) {
                         
                     $demande = '<a class="danger mr-1" >En attente</a>' ;
-                   
-                    if (in_array($_SESSION['roleId'], ["5", "6"])){
 
-                      
+                    $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                    <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+
+                   
+                    if (in_array($_SESSION['roleId'], ["6"])){
+
+                        if (in_array($_SESSION['roleId'], ["5"])){
+                            
+                            $delEdit = '<a class="info mr-1" id="labedit'.$value["idenvoie_labo"].'" data-nature= '.json_encode(explode(',', $value["natureExamen"])).' data-resultats= "'.$value["resultats"].'" data-rc= "'.$value["rc"].'" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                            <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+        
+                            
+                        }else{
+                            
+                            $delEdit = "";
+                        }
                         $validerLabo = '<a class="success mr-1" data-typeenvoie = "'. $value["typeEnvoie"] .'" id="labovalider'. $value["idenvoie_labo"] .'" onclick="valider_demande(' . $value["idenvoie_labo"] . ',' . $value["idType"] . ') "><i class=" la la-check-circle"></i>Valider</a>';
                        
                     }
+
                     
                 }else {
 
