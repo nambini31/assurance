@@ -725,6 +725,7 @@ function fill_consult(idcpn) {
 
                             $("#btn_add_detail_cpn").text('Ajouter');
 
+                            iddetail = '';
                             
 
                               $('#add_consultcpn').find(':input:not([type="hidden"])').each(function() {
