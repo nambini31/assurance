@@ -29,6 +29,7 @@ use App\Models\Examen\ExamenModel;
 use App\Models\fournisseur\FournisseurModel;
 use App\Models\Gestion\AdminMedicamentModel;
 use App\Models\Gestion\AnalyseModel;
+use App\Models\Gestion\AutreActeModel;
 use App\Models\Gestion\MethodePfModel;
 use App\Models\Gestion\Type_analyseModel;
 use App\Models\Labo\EnvoieLaboModel;
@@ -80,6 +81,8 @@ abstract class BaseController extends Controller
     protected $categorie;
     protected $fournisseur;
     protected $adminMedicament;
+    protected $detailMedicament;
+    protected $autreActe;
 
 
     public function __construct()
@@ -94,9 +97,10 @@ abstract class BaseController extends Controller
         $this->detailconsultationcpn = new DetailConsultationCpnModel();
         $this->cpn = new CpnModel();
         $this->methodePf = new MethodePfModel();
-        $this->liste_medic = new DetailMedicamentModel();
+        $this->detailMedicament = new DetailMedicamentModel();
         $this->article = new ArticleModel();
         $this->fournisseur = new FournisseurModel();
+        $this->autreActe = new AutreActeModel();
         
         $this->categorie = new CategorieModel();
 

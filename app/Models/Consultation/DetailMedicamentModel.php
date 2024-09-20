@@ -12,7 +12,7 @@ class DetailMedicamentModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["medicamentId" , "description" , "nombre" , "etat"];
+    protected $allowedFields    = ["detailconsultationId", "detailMedicamentId", "durreJours", "etat", "idAdministration", "medicamentId", "modePrise", "qte"];
 
     // Dates
     protected $useTimestamps = true;

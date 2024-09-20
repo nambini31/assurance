@@ -211,50 +211,40 @@ class ConsultationCont extends BaseController
                                 </tr> <thead>
                                     
                                     <tbody> 
-                                    <tr>
-                                    <th style="min-width: 100px !important; width: 100%">Temperature ( °C )</th>
-                                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm"  name="temperature" id="temperature"></td>
+                                    
+                                <tr>
+                                    <th>TEMPERATURE</th>
+                                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm"  name="tension" id="temperature"> </td>
+                                    
                                 </tr>
                                 <tr>
-                                    <th>Tension</th>
+                                    <th>TENSION ARTERIELLE</th>
                                     <td><input type="text" value="'.$value["tension"].'" class="form-control input-sm"  name="tension" id="tension"> </td>
                                     
                                 </tr>
+                                
                                 <tr>
-                                    <th>Taille ( Mètre ) </th>
-                                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm"  name="taille" id="taille"> </td>
+                                    <th>SPO2</th>
+                                    <td><input type="text" value="'.$value["spo2"].'" class="form-control input-sm"  name="spo2" id="spo2"> </td>
                                     
                                 </tr>
                                 <tr>
-                                    <th>Frequence Respiratoire</th>
+                                    <th>FREQUENCE RESPIRATOIRE</th>
                                     <td><input type="text" value="'.$value["frequenceRespiratoire"].'" class="form-control input-sm"  name="frequenceRespiratoire" id="frequenceRespiratoire"> </td>
                                     
                                 </tr>
                                 <tr>
-                                    <th>Frequence Cardiaque</th>
+                                    <th>FREQUENCE CARDIAQUE</th>
                                     <td><input type="text" value="'.$value["frequenceCardiaque"].'" class="form-control input-sm"  name="frequenceCardiaque" id="frequenceCardiaque"> </td>
                                     
                                 </tr>
                                 <tr>
-                                    <th>Etat Conscience</th>
+                                    <th>ETAT CONSCIENCE</th>
                                     <td><input type="text" value="'.$value["etatConscience"].'" class="form-control input-sm"  name="etatConscience" id="etatConscience"> </td>
                                     
                                 </tr>
-                                <tr>
-                                    <th>SF</th>
-                                    <td><input type="text" value="'.$value["sf"].'" class="form-control input-sm"  name="sf" id="sf"> </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th>Bilan Hydrique</th>
-                                    <td><input type="text" value="'.$value["bilanHydrique"].'" class="form-control input-sm"  name="bilanHydrique" id="bilanHydrique"> </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th>Pupille</th>
-                                    <td><input type="text" value="'.$value["pupille"].'" class="form-control input-sm"  name="pupille" id="pupille"> </td>
-                                    
-                                </tr>
+                                
+                               
                                 </tbody>
 
 
@@ -273,53 +263,37 @@ class ConsultationCont extends BaseController
                                 
                                 <tbody> 
                                 <tr>
-                                <th style="min-width: 100px !important; width: 100%">Peek Flow</th>
-                                <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["peekFlow"].'" class="form-control input-sm"  name="peekFlow" id="peekFlow"> </td>
+                                <th >SF</th>
+                                <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["sf"].'" class="form-control input-sm"  name="sf" id="sf"> </td>
                                 
                             </tr>
                             <tr>
-                                <th>Glicemie</th>
-                                <td ><input type="text" value="'.$value["glicemie"].'" class="form-control input-sm"  name="glicemie" id="glicemie"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>Conjonctives</th>
-                                <td><input type="text" value="'.$value["conjonctives"].'" class="form-control input-sm"  name="conjonctives" id="conjonctives"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>Perimetre Bras</th>
+                                <th>PERIMETRE BRAS</th>
                                 <td><input type="text" value="'.$value["perimetreBras"].'" class="form-control input-sm"  name="perimetreBras" id="perimetreBras"> </td>
                                 
                             </tr>
                             <tr>
-                                <th>Perimetre Crane</th>
+                                <th>PERIMETRE CRANE</th>
                                 <td><input type="text" value="'.$value["perimetreCrane"].'" class="form-control input-sm"  name="perimetreCrane" id="perimetreCrane"> </td>
                                 
                             </tr>
+                            
                             <tr>
-                                <th>GCS</th>
-                                <td><input type="text" value="'.$value["gcs"].'" class="form-control input-sm"  name="gcs" id="gcs"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>EVS</th>
-                                <td><input type="text" value="'.$value["evs"].'" class="form-control input-sm"  name="evs" id="evs"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>Diurese</th>
-                                <td><input type="text" value="'.$value["diurese"].'" class="form-control input-sm"  name="diurese" id="diurese"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>Douleur</th>
-                                <td><input type="text" value="'.$value["douleur"].'" class="form-control input-sm"  name="douleur" id="douleur"> </td>
-                                
-                            </tr>
-                            <tr>
-                                <th>Poids ( KG )</th>
+                                <th>POIDS ( KG )</th>
                                 <td><input type="text" value="'.$value["poids"].'" class="form-control input-sm"  name="poids" id="poids"></td>
+                                
+
+                                </tr>
+
+                                <tr>
+                                    <th>TAILLE ( Cm ) </th>
+                                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm"  name="taille" id="taille"> </td>
+                                    
+                                </tr>
+
+                            <tr>
+                                <th>POIDS / TAILLE</th>
+                                <td><input type="text" value="'.$value["poidstaille"].'" class="form-control input-sm"  name="poidstaille" id="poidstaille"></td>
                                 
 
                                 </tr>
@@ -332,7 +306,7 @@ class ConsultationCont extends BaseController
                  ';
 
 
-            echo json_encode(["table"=> $th]);
+            echo json_encode(["table"=> $th , "roleId" =>  $this->session->get("roleId")]);
 
         } catch (\Throwable $th) {
             echo $th;
@@ -535,7 +509,7 @@ class ConsultationCont extends BaseController
                     
                     foreach ($datas as $values) {
                         $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
+                        <option value="' . $values['id_analyse'] . '"> '. $values['analyse'] . '</option> ';
                     }
                     
                     $patient .= `</optgroup>`;
@@ -562,7 +536,7 @@ class ConsultationCont extends BaseController
                     
                     foreach ($datas as $values) {
                         $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
+                        <option value="' . $values['id_analyse'] . '"> '. $values['analyse'] . '</option> ';
                     }
                     
                     $patient .= `</optgroup>`;
@@ -589,7 +563,7 @@ class ConsultationCont extends BaseController
                     
                     foreach ($datas as $values) {
                         $patient .= '
-                        <option value="' . $values['type_analyse'] . '"> '. $values['analyse'] . '</option> ';
+                        <option value="' . $values['id_analyse'] . '"> '. $values['analyse'] . '</option> ';
                     }
                     
                     $patient .= `</optgroup>`;
@@ -623,6 +597,70 @@ class ConsultationCont extends BaseController
 
             
         
+            echo $patient;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+    
+    public function charge_medicament()
+    {
+        try {
+            $patient = '';
+
+                
+
+                foreach ([["val" => "Tube"] , ["val" => "Flacon"] , ["val" => "BT"]] as $value) {
+                    $data =  $this->article
+                    ->where("isActif" , 1)
+                    ->where("etat" , 1)
+                    ->where("unite" , $value['val'])
+                    ->findAll();
+
+                    $patient .= "<optgroup label= '{$value['val']}'>";
+
+                    
+                    
+                    foreach ($data as $values) {
+                        $color = ($values['quantite'] <= 10) ? 'red' : 'black';
+                        $patient .= '
+                        <option style="color:' . $color . ' !important;" value="' . $values['id_article'] . ' data-qte-max="' . $values['quantite'] . ' ">
+                            ' . $this->genererNumeroCarte("MED", $values["id_article"]) . " - " . $values['designation'] . 
+                            '  ( ' . $values['quantite'] . ' )
+                        </option>';
+                    }
+
+                    
+                    
+                    $patient .= `</optgroup>`;
+                }
+        
+            echo $patient;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function charge_administration()
+    {
+        try {
+            $patient = '';
+
+                    $data =  $this->adminMedicament
+                    ->where("etat" , 1)
+                    ->findAll();
+                    
+                    foreach ($data as $values) {
+                        $patient .= '
+                        <option value="' . $values['idadminMedicament'] . '">
+                            '. $values['adminMedicament'] .'
+                        </option>';
+                    }
+
+                    
+                    
+                    $patient .= `</optgroup>`;
+
             echo $patient;
         } catch (\Throwable $th) {
             echo $th;
@@ -1089,11 +1127,11 @@ class ConsultationCont extends BaseController
                     
                     if ($value["isFinished"] == 0) {
 
-                        if ($value["dateParametre"] == "" ) {
+                       
                         
                             $action .= $delEdit ;
                             
-                        }
+                    
                         
                     }
 
@@ -1187,7 +1225,7 @@ class ConsultationCont extends BaseController
     }
     public function downloadFile()
 {
-    $fileName = $this->request->getPost('fileName');
+    $fileName = $_POST["fileName"];
 
     $filePath = 'assets/img/labo/' . $fileName;
 
@@ -1253,9 +1291,13 @@ class ConsultationCont extends BaseController
                     $ids = [$natureExamen];
                 }
 
+
+                //var_dump($ids) ; die;
+
               $analyses = $this->analyse
                ->select('analyse')
                ->whereIn('id_analyse', $ids)->findAll();
+
                
                $analysesArray = array_column($analyses, 'analyse');
                 $analysesString = implode(', ', $analysesArray);
@@ -1350,12 +1392,17 @@ class ConsultationCont extends BaseController
             echo $th;
         }
     }
-    public function listes_medic()
+    public function listes_medicament()
     {
         try {
 
             
-            $datas = $this->liste_medic->where("etat" , 1);
+            $datas = $this->detailMedicament
+            ->select("detailMedicament.* , article.designation ,  article.id_article , article.dateperemption , adminmedicament.adminMedicament")
+            ->join("article" , "article.id_article = detailMedicament.medicamentId" , "left") 
+            ->join("adminmedicament" , "adminmedicament.idAdminMedicament = detailMedicament.idAdministration" , "left") 
+            ->where("detailMedicament.etat" , 1)
+            ->where("detailconsultationId" , $_POST["id"]);
             
             $datas = $datas->findAll();
 
@@ -1364,42 +1411,55 @@ class ConsultationCont extends BaseController
                     <thead>
                       <tr>
                             <th>#</th>
-                            <th>Nature</th>
-                            <th>Resultats</th>
-                            <th>R.C</th>
-                            <th>Date envoie</th>
-                            <th>Date validation</th>
-                            <th>Source</th>
-                            <th>Etat</th>
+                            <th>Designation</th>
+                            <th>Administration</th>
+                            <th>Qte</th>
+                            <th>Date peremption</th>
+                            <th>Mode de prise</th>
                             <th>Action</th>
                         </tr></thead> 
                         <tbody>";
-            $i = 1 ;
-            foreach ($datas as $value) {
+            
+            $medicsuperieurzero = 0 ;
 
+            foreach ($datas as $value) {
+                $medicsuperieurzero = 1 ;
+
+                    $delEdit = '' ;
+
+                   
+                    if (in_array($_SESSION['roleId'], ["8" , "5"])){
+
+                        $delEdit = '<a class="info mr-1" id="medicedit'.$value["detailMedicamentId"].'" data-modePrise= '. $value["modePrise"] .' data-idAdministration= "'.$value["idAdministration"].'" data-durrejours= "'.$value["durreJours"].'" data-qte= "'.$value["qte"].'" data-medicamentId= "'.$value["medicamentId"].'" onclick="edit_medic(' . $value["detailMedicamentId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                        <a class="danger mr-1" onclick="delete_medic(' . $value["detailMedicamentId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
+    
+                        
+                    }
+          
 
                 $th .=
                     '<tr>
-                        <td style="width : 10%;">' . $i . ' </td>
-                        <td style="width : 10%;">' . $analysesString . ' </td>
-                        <td style="width : 10%;">' . $value["resultats"] . ' </td>
-                        <td style="width : 10%;">' . $value["rc"] . ' </td>
-                        <td style="width : 20%;">' . $value["dateEnvoie"]. ' </td>
-                        <td style="width : 10%;">' . $value["dateValidation"] . ' </td>
-                        <td style="width : 10%;">' . $value["Source"] . '</td> 
-                        <td style="width : 10%;">'. $demande .'</td> 
-                        <td style="width : 10%;">'. $validerLabo .'</td> 
+                        <td style="width : 10%;">' .  $this->genererNumeroCarte("MED", $value["id_article"]) . ' </td>
+                        <td style="width : 10%;">' . $value["designation"]  . ' </td>
+                        <td style="width : 10%;">' . $value["adminMedicament"]  . ' </td>
+                        <td style="width : 10%;">' . $value["qte"] . ' </td>
+                        <td style="width : 10%;">' . $value["dateperemption"] . ' </td>
+                        <td style="width : 20%;">' . $value["modePrise"]. ' </td>
+                        <td style="width : 10%;">'. $delEdit .'</td> 
 
                         </td> 
                        </tr>';
-                $i++;
+               
             }
 
             $th .= "</tbody> ";
 
-            $response = [
+          
 
+            $response = [
+                "roleId" => $_SESSION['roleId'] ,
                 'table' => $th,
+                'ishide' => $medicsuperieurzero,
 
             ];
             

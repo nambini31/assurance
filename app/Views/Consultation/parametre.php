@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-content collapse show">
-                            <div class="card-body card-dashboard" id="card_type_analyse">
+                            <div class="card-body card-dashboard" id="card_parametre">
 
                             <form method="POST" id="add_parametre" >
                             <input type="hidden" name="idDetailsCons" class="idDetailsCons">
@@ -18,7 +18,7 @@
 
                                 <?php 
                                         //verifier si c'est superAdmin
-                                        if (!in_array($_SESSION['roleId'], ["6" , "3"])) {              
+                                        if (!in_array($_SESSION['roleId'], ["6"])) {              
                                         ?>
                                         <div class="form-actions right" id="hideValidParam" >
 

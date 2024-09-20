@@ -174,7 +174,7 @@
                                 <ul class="nav nav-tabs nav-underline">
                                     
                                     <?php 
-                                    if (in_array($_SESSION['roleId'], ["3" , "4" , "8" , "5"])) {              
+                                    if (in_array($_SESSION['roleId'], ["3" , "4" , "8" , "5" , "6"])) {              
                                         ?>
                                         <li class="nav-item">
                                         <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="true"><i class="la la-tag"></i>Paramètres</a>
@@ -249,7 +249,7 @@
                         <?php 
                     
                                     
-                    if (in_array($_SESSION['roleId'], ["8" , "5" , "3" , "4"])) {   
+                    if (in_array($_SESSION['roleId'], ["8" , "5" , "3" , "4" , "6"])) {   
 
                         ?>
             <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
@@ -278,6 +278,20 @@
   
                                     <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
                                         <?= view("Consultation/demande.php") ?>
+                                    </div>
+                                         
+                                        <?php  
+                                                    
+                                                }
+                                                ?>
+                                        <?php 
+                                    
+                                                if (in_array($_SESSION['roleId'], ["8" , "5" , "9"])) {   
+
+                                                    ?>
+  
+                                    <div role="tab-panel" class="tab-pane"  id="tabIcon25" aria-expanded="true" aria-labelledby="baseIcon-tab22">
+                                        <?= view("Consultation/prescription.php") ?>
                                     </div>
                                          
                                         <?php  
@@ -463,171 +477,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="AddParametre" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" id="modal_parametre" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
-                    <div class="card-content collpase show">
-                        <div class="card-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                            <h3 class="modal-header entete_modal">
-                                Parametrage
-                            </h3>
-
-                            <br>
-                            
-                            <form method="POST" id="add_parametre" >
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                 <tr>
-                                    <th>Temperature</th>
-                                    <input type="hidden" name="idDetailsCons" id="idDetailsCons">
-                                    <td><input type="text" class="form-control input-sm" required name="temperature" id="temperature"></td>
-                                    <td style="text-align:center"><strong><span id="temperature1"> </span> °C</strong></td>
-                                 </tr>
-                                 <tr>
-                                    <th>Tension</th>
-                                    <td><input type="text" class="form-control input-sm" required name="tension" id="tension"> </td>
-                                    <td><span id="tension1"> </span></td>
-                                 </tr>
-                                 <tr>
-                                    <th>Taille</th>
-                                    <td><input type="text" class="form-control input-sm" required name="taille" id="taille"> </td>
-                                    <td style="text-align:center"><Strong><span id="taille1"> </span> Mètre</Strong></td>
-                                 </tr>
-                                 <tr>
-                                    <th>Poids</th>
-                                    <td><input type="text" class="form-control input-sm" required name="poids" id="poids"></td>
-                                    <td style="text-align:center"><Strong><span id="poids1"> </span> KG</Strong></td>
-
-                                 </tr>
-                                </table>
-
-                                <?php 
-                                        //verifier si c'est superAdmin
-                                        if (!in_array($_SESSION['roleId'], ["6" , "3"])) {              
-                                        ?>
-                                        <div class="form-actions right" id="hideValidParam" >
-
-                                                        
-                                            <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
-
-
-                                            </div>
-                                        <?php 
-                                                }
-                                        ?>
-                               
-                                    
-                              
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="AddDocteur" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content" id="modal_docteur" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
-                    <div class="card-content collpase show">
-                        <div class="card-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                            <h3 class="modal-header entete_modal">
-                                Parametrage
-                            </h3>
-
-                            <br>
-                            
-                            <form method="POST" >
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                    <tr>
-                                        <th>Description Douleur</th>
-                                    </tr>
-                                    <tr>
-                                        <th><textarea name="" id="" class="form-control input-sm" cols="30" rows="3"></textarea></th>
-                                    </tr>
-                                    
-                                </table>       
-                                
-                                
-                                <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                    <tr>
-                                        <th>Liste medicaments</th>
-                                    </tr>
-                                    <tr>
-                                    <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
-                                     <thead>
-
-                                         <tr>
-                                            <th style="text-align:left; width:5%">Id</th>
-                                            <th style="text-align:left; width:50%">Medicament</th>
-                                            <th style="text-align:left; width:5%">Qte</th>
-                                            <th style="text-align:left; width:30%">Utilisation</th>
-                                            
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Medicament</td>
-                                            <td>5</td>
-                                            <td>Mihina Maray midy</td>
-                                        </tr>
-                                     </tbody>
-                                     
-                                    </table>  
-                                    </tr>
-                                        
-                              
-                                </table>   
-
-                             
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        
         <div class="modal fade" id="AddLaboratoire" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" id="modal_laboratoire" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
@@ -686,6 +537,90 @@
                                             <select class="selectpicker  form-control btn-sm"  required id="type_personne_select" data-live-search='true' data-size='5' title='type destinataire'>
                                                             <option value="Titulaire" selected >Laboratoire</option>
                                                         </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="form-actions right" id="hideValidLabo">
+                                    <button type="submit"  class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
+                                </div>
+
+                                
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="AddMedicament" style="z-index: 99999999 ; margin-top: 3% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="modal_medicament" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                        <div class="card-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                            <h3 class="modal-header entete_modal">
+                                AJOUT MEDICAMENT
+                            </h3>
+
+                            <br>
+                            
+                            <form method="post" id="add_medicament">
+                                
+                                <input type="hidden" name="idConsPour" id="idConsPour">
+                                <input type="hidden" name="detailMedicamentId" id="iddetailmedicament">
+                                <input type="hidden" name="idDetails" id="idDetails">
+
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="analyse_select" class="">Choix medicament</label>
+                                            <select class="selectpicker  form-control btn-sm" name = 'medicamentId'  required id="medicament_select" data-live-search='true' data-size='7' title='Choix medicament' required>
+                                                           
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="qte" class="">Quantite</label>
+                                            <input type="text" class="form-control input-sm" min="1" name="qte" id="qte" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="durreJours" class="">Durée ( Jours )</label>
+                                            <input type="text" class="form-control input-sm" name="durreJours" min="1"  id="durreJours" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="idAdministration">Administration</label>
+                                            <select class="selectpicker  form-control btn-sm"  required id="idAdministration" data-live-search='true' data-size='5' title='Administration'>
+                           
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="modePrise">Mode de prise</label>
+                                            <textarea name="modePrise" class="form-control" id="" cols="30" rows="3" placeholder="Mode de prise" required></textarea>
                                         </div>
                                     </div>
                                 </div>

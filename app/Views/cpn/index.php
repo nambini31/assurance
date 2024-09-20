@@ -292,7 +292,7 @@
             <div class="modal-dialog modal-md" role="document" style="width: 80%;">
                 <div class="modal-content" id="ListesLabocontent1"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
                     <div class="card-content collpase show">
-                        <div class="card-body" id="card_analyse">
+                        <div class="card-body" id="">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>

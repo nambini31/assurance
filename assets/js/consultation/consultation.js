@@ -4,6 +4,7 @@ $(document).ready(function () {
     charge_membre();
     charge_membre1();
     charge_type();
+    charge_administration();
     $("#AddpatientMalade").insertAfter("#AddConsultation");
     $("#deletepatient").insertAfter("#AddConsultation");
     
@@ -15,7 +16,9 @@ var titulaire_select ;
 var specialite_docteur ;
 var choix_docteur ;
 var analyse_select ;
+var medicament_select ;
 var personne_select ;
+var idAdministration ;
 
 
 function charge_membre() {
@@ -31,6 +34,23 @@ function charge_membre() {
             if (membre_select != "") {
                 $('#membre_select').val(membre_select).selectpicker('refresh');
                 charge_titulaire_coix()
+            }
+        }
+    });
+  }
+
+function charge_administration() {
+    $.ajax({
+        url: base + 'charge_administration',
+        type: "POST",
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
+            $("#idAdministration").empty();
+            $("#idAdministration").append(data);
+            $('select').selectpicker('refresh');
+            if (idAdministration != "") {
+                $('#idAdministration').val(idAdministration).selectpicker('refresh');
             }
         }
     });
@@ -69,6 +89,68 @@ function charge_analyse() {
     });
 
   }
+
+function charge_medicament() {
+    $.ajax({
+        
+        beforeSend: function () {
+
+            $("#modal_medicament").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + 'charge_medicament',
+        type: "POST",
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
+            $("#medicament_select").empty();
+            $("#medicament_select").append(data);
+            $('select').selectpicker('refresh');
+            if (medicament_select != "") {
+                $('#medicament_select').val(medicament_select).selectpicker('refresh');
+            }
+
+            $("#modal_medicament").unblock();
+  
+        }
+    });
+
+}
+
+$('#qte').on('input', function() {
+    var enteredQuantity = $(this).val();  // Obtenir la valeur actuelle
+    var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
+
+    // Si le champ est vide, ne rien faire
+    if (enteredQuantity === '') {
+        return;
+    }
+
+    alert(maxQuantity) ;
+    // Convertir en entier pour la vérification
+    enteredQuantity = parseInt(enteredQuantity, 10);
+
+    // Empêcher la saisie de valeurs inférieures à 1 ou supérieures à la quantité maximale
+    if (enteredQuantity > maxQuantity) {
+        $(this).val(maxQuantity);  // Fixer la valeur au maximum si elle dépasse
+    } else if (enteredQuantity < 1) {
+        $(this).val(1);  // Fixer la valeur à 1 si elle est inférieure
+    }
+});
 
 function charge_type() {
     $.ajax({
@@ -309,6 +391,24 @@ function liste_consultation() {
 function fill_paramettre(id) {
 
     $.ajax({
+        beforeSend: function () {
+
+            $("#card_parametre").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
         url: base + "affiche_parametre",
         type: "POST",
 
@@ -318,6 +418,7 @@ function fill_paramettre(id) {
     } ,success: function (res) {
         var res = JSON.parse(res);
 
+        
         if ($.fn.DataTable.isDataTable("#table_parametre_vrai1")) {
             $("#table_parametre_vrai1").DataTable().destroy();
         } else {
@@ -390,10 +491,47 @@ function fill_paramettre(id) {
             }else{
                 $("#hideValidParam").show();
             }
+
+            if (["6"].includes(res.roleId)) {
+                $('#add_parametre').find(':input').each(function() {
+                    $(this).prop('disabled', true);
+                });
+                
+            }else{
+                $('#add_parametre').find(':input').each(function() {
+                    $(this).prop('disabled', false); 
+                });
+               $('#poidstaille').prop('disabled', true);
+            }
+
+            
+        
+            // Appel de la fonction quand le poids ou la taille change
+            $('#poids, #taille').on('input', function() {
+                calculerPoidsTaille();
+            });
+    
             formatPrixImput();
         },
     });
+
+    $("#card_parametre").unblock();
 }
+
+function calculerPoidsTaille() {
+    var poids = parseFloat($('#poids').val()) || 0;
+    var taille = parseFloat($('#taille').val()) || 0;
+
+    if (poids > 0 && taille > 0) {
+        var poidsTaille = poids / taille;
+        $('#poidstaille').val(poidsTaille.toFixed(2));  // Met à jour la valeur visible
+        $('#poidstaille').attr('value', poidsTaille.toFixed(2));  // Met à jour l'attribut 'value'
+    } else {
+        $('#poidstaille').val('');  // Vide la valeur visible
+        $('#poidstaille').attr('value', '');  // Vide l'attribut 'value'
+    }
+}
+
 function fill_clinique(id) {
 
     $.ajax({
@@ -993,13 +1131,15 @@ function affichage_demande(id) {
     fill_paramettre(id);
     fill_clinique(id);
     fill_labo(id);
+    fill_prescription(id);
 }
+
 
 function fill_labo(id) {
     $.ajax({
         beforeSend: function () {
 
-            $("#ListesLabocontent").block({
+            $("#card_demande").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
                 overlayCSS: {
@@ -1078,7 +1218,115 @@ function fill_labo(id) {
                     },
                 ],
             });
-            $("#ListesLabocontent").unblock();
+            $("#card_demande").unblock();
+
+        },
+    });
+}
+
+function fill_prescription(id) {
+    $.ajax({
+        beforeSend: function () {
+
+            $("#card_prescription").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "listes_medicament",
+        type: "POST",
+        data: {
+            id: id,
+        },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
+
+            var hide = ["5" , "8"].includes(res.roleId) ? "" : 'hidden';
+
+            if (["0"].includes(res.ishide) ) {
+                $("#hideImprimeMedic").hide();
+            }else{
+                $("#hideImprimeMedic").show();
+            }
+
+
+            if ($.fn.DataTable.isDataTable("#table_prescription")) {
+                $("#table_prescription").DataTable().destroy();
+            } else {
+            }
+            $('#table_prescription').empty();
+            $("#table_prescription").append(res.table);
+
+
+            $('#table_prescription').DataTable({
+                destroy: true,
+                ordering: true,
+                order: [[0, "desc"]],
+                responsive: true,
+                info: false,
+                paging: true,
+                deferRender: true,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "Bfrtip",
+                buttons: [
+                    {
+                        className: "btn btn-sm btn-warning btn-min-width "+ hide ,
+                        text: '<i class="ft-plus"> Ajouter</i>',
+                        action: function () {
+
+                            $("#AddMedicament").modal(
+                                { backdrop: "static", keyboard: false },
+                                "show"
+                            );
+                        
+                            $("#idDetails").val(iddetail);
+                            $("#idConsPour").val(idConsul);
+                        
+                            $('#add_medicament').find(':input:not([type="hidden"])').each(function() {
+                                if ($(this).is('select.selectpicker')) {
+                                    $(this).selectpicker('val', []); // Réinitialiser le selectpicker
+                                } else {
+                                    $(this).val('');
+                                }
+                            });
+                            
+                            charge_medicament();
+                            formatPrixImput();
+                            $("#detailMedicamentId").val("");
+
+                        },
+                    },
+                ],
+            });
+            $("#card_prescription").unblock();
 
         },
     });

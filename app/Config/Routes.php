@@ -87,6 +87,8 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('charge_titulaire', 'consultation\ConsultationCont::charge_titulaire');
     $routes->post('getSpecialiteMedecin', 'consultation\ConsultationCont::getSpecialiteMedecin');
     $routes->post('charge_analyse', 'consultation\ConsultationCont::charge_analyse');
+    $routes->post('charge_medicament', 'consultation\ConsultationCont::charge_medicament');
+    $routes->post('charge_administration', 'consultation\ConsultationCont::charge_administration');
     $routes->post('listes_consultation', 'consultation\ConsultationCont::liste_consultation');
     $routes->post('ajout_consultation', 'consultation\ConsultationCont::ajout_consultation');
     $routes->post('delete_consultation', 'consultation\ConsultationCont::delete_consultation');
@@ -102,6 +104,7 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('envoyer_docteur', 'Consultation\ConsultationCont::envoyer_docteur');    
     $routes->post('listes_medic', 'Consultation\ConsultationCont::listes_medic');    
     $routes->post('delete_labo', 'Consultation\ConsultationCont::delete_labo');    
+    $routes->post('listes_medicament', 'Consultation\ConsultationCont::listes_medicament');    
     
 
     //article
@@ -165,6 +168,11 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('ajout_adminMedicament', 'gestion\AdminMedicamentCont::ajout_adminMedicament');
     $routes->post('liste_adminMedicament', 'gestion\AdminMedicamentCont::liste_adminMedicament');
     $routes->post('supprimer_adminMedicament', 'gestion\AdminMedicamentCont::supprimer_adminMedicament');
+
+    //route AutreActe
+    $routes->post('ajout_autreActe', 'gestion\AutreActeCont::ajout_autreActe');
+    $routes->post('liste_autreActe', 'gestion\AutreActeCont::liste_autreActe');
+    $routes->post('supprimer_autreActe', 'gestion\AutreActeCont::supprimer_autreActe');
 
 
     //route pour examen

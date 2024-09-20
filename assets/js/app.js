@@ -325,9 +325,10 @@ function editer_commande(id_devis, type) {
 
 let clave;
 
+
 function formatPrixImput() {
   // Appliquer la validation à chaque champ de saisie spécifié
-  $('#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire').on('input', function() {
+  $(' #qte , #durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille').on('input', function() {
       validateNumber($(this));
   });
 }
@@ -338,17 +339,22 @@ function validateNumber(input) {
   // Supprimer tous les caractères non numériques, non '-' et non '.'
   value = value.replace(/[^0-9.-]/g, '');
 
+  // Ne pas permettre que le point soit le premier caractère
+  if (value.startsWith('.')) {
+      value = value.substring(1); // Retirer le premier caractère si c'est un point
+  }
+
   // Autoriser seulement un seul signe '-' au début
   const minusCount = (value.match(/-/g) || []).length;
   if (minusCount > 1) {
-      value = value.replace(/-/g, '');
-      value = '-' + value;
+      value = value.replace(/-/g, ''); // Supprimer tous les '-' en trop
+      value = '-' + value; // Ajouter un seul '-' au début
   }
 
   // Gérer les virgules (un seul point décimal)
   const parts = value.split('.');
   if (parts.length > 2) {
-      value = parts[0] + '.' + parts.slice(1).join('');
+      value = parts[0] + '.' + parts.slice(1).join(''); // Supprimer les points supplémentaires
   }
 
   // Limiter à deux chiffres après la virgule
