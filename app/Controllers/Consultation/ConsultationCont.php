@@ -94,7 +94,7 @@ class ConsultationCont extends BaseController
             }
             else if ($_POST["isFinished"] == 1) {
 
-                $data = $this->detailconsultation->where("consultationId" , $id)->where('isFinished' , 2)->findAll();
+                $data = $this->detailconsultation->where("consultationId" , $id)->where('isPharmacie' , 1)->findAll();
 
                 if ($data) {
                     
@@ -459,6 +459,59 @@ class ConsultationCont extends BaseController
             echo $th;
         }
     }
+    public function add_medicament()
+    {
+        try {
+
+            $data =  $this->article
+            ->where("id_article" , $_POST['medicamentId'])
+            ->first();
+
+            $id = 0 ;
+
+            $mess=[];
+
+            if ($data["etat"] == 1) {
+                
+                if ($data["isActif"] == 1) {
+                    
+                    if ($_POST["detailMedicamentId"] != "") {
+                        $qte = $_POST["qte"] + $_POST["ancienQte"];
+                    }else {
+                        # code...
+                        $qte = $_POST["qte"];
+                    }
+
+                    if ( $qte > $data["quantite"] ) {
+
+                        $id = "Stock epuisé" ;
+                        $data = ["message" => $id , "id" => 0  ] ;
+                        
+                    } else {
+                        $this->detailMedicament->save($_POST);
+                        $this->detailconsultation->update($_POST["detailconsultationId"] , ["isPharmacie" => 1]);
+                        $data = ["message" => "ok" , "id" => 1  ] ;
+                    }
+                    
+
+                } else {
+                    $id = "Medicament perimé" ;
+                    $data = ["message" => $id , "id" => 2  ] ;
+                }
+                
+
+            }else {
+                $id = "Medicament dejà supprimé" ;
+                $data = ["message" => $id , "id" => 3  ] ;
+            }
+            
+                        
+            echo json_encode($data);
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
     public function charge_titulaire()
     {
         try {
@@ -622,11 +675,20 @@ class ConsultationCont extends BaseController
                     
                     
                     foreach ($data as $values) {
+
+                        $qte = $values['quantite'] ;
+                        
+                        if ($_POST["medicament_select"] != "") {
+                           
+                            $qte = $values['quantite'] + $_POST["qte"] ;
+
+                        }
+
                         $color = ($values['quantite'] <= 10) ? 'red' : 'black';
                         $patient .= '
-                        <option style="color:' . $color . ' !important;" value="' . $values['id_article'] . ' data-qte-max="' . $values['quantite'] . ' ">
+                        <option style="color:' . $color . ' !important;" value="' . $values['id_article'] . '" data-qte-max="' . $qte . '">
                             ' . $this->genererNumeroCarte("MED", $values["id_article"]) . " - " . $values['designation'] . 
-                            '  ( ' . $values['quantite'] . ' )
+                            '  ( ' . $qte . ' )
                         </option>';
                     }
 
@@ -834,7 +896,6 @@ class ConsultationCont extends BaseController
                     if($value["isFinished"] != '2'){
                     
                         continue ;
-                        
                     
                     }
 
@@ -1430,7 +1491,7 @@ class ConsultationCont extends BaseController
                    
                     if (in_array($_SESSION['roleId'], ["8" , "5"])){
 
-                        $delEdit = '<a class="info mr-1" id="medicedit'.$value["detailMedicamentId"].'" data-modePrise= '. $value["modePrise"] .' data-idAdministration= "'.$value["idAdministration"].'" data-durrejours= "'.$value["durreJours"].'" data-qte= "'.$value["qte"].'" data-medicamentId= "'.$value["medicamentId"].'" onclick="edit_medic(' . $value["detailMedicamentId"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                        $delEdit = '<a class="info mr-1" id="medicedit'.$value["detailMedicamentId"].'" data-modePrise= '. $value["modePrise"] .' data-idadministration= "'.$value["idAdministration"].'" data-durrejours= "'.$value["durreJours"].'" data-qte= "'.$value["qte"].'" data-medicamentId= "'.$value["medicamentId"].'" onclick="edit_medic(' . $value["detailMedicamentId"] . ')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="delete_medic(' . $value["detailMedicamentId"] . ')"><i class=" la la-trash-o"></i></a> ' ;
     
                         

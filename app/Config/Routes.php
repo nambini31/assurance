@@ -97,6 +97,7 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
     $routes->post('add_clinique', 'consultation\ConsultationCont::add_clinique');
     $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
+    $routes->post('add_medicament', 'consultation\ConsultationCont::add_medicament');
     $routes->post('delete_detailconsul', 'consultation\ConsultationCont::delete_detailconsul');
     $routes->post('listes_envoie_labo', 'Consultation\ConsultationCont::listes_envoie_labo');    
     $routes->post('valider_envoie_labo', 'Consultation\ConsultationCont::valider_envoie_labo');    

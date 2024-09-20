@@ -114,6 +114,10 @@ function charge_medicament() {
         },
         url: base + 'charge_medicament',
         type: "POST",
+        data:{
+            qte : ancienQte ,
+            medicament_select : medicament_select
+        },
         error: function(xhr, status, error) {
        alertCustom("danger", 'ft-x', "Une erreur s'est produite");
     } ,success: function (data) {
@@ -131,6 +135,58 @@ function charge_medicament() {
 
 }
 
+$('#medicament_select').on('change', function() {
+    
+    $('#qte').val("");  // Stocker la quantité max dans le champ qte
+    var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
+    // Si maxQuantity est 0, vider le champ et sortir
+    if (maxQuantity === 0) {
+        alertCustom("warning", 'ft-x', "Stock epuisé");
+    }
+
+    
+});
+
+$('#qte').on('keydown', function(e) {
+
+    var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
+
+    if (maxQuantity === 0) {
+        $(this).val(''); 
+        alertCustom("warning", 'ft-x', "Stock epuisé");
+        return;
+    }
+
+    if ($(this).val() == "") {
+        return;
+    }
+
+    
+    let value = parseInt($(this).val());
+  
+    if (e.key === 'ArrowUp') {
+        e.preventDefault(); // Empêcher le comportement par défaut
+
+        if (value == maxQuantity) {
+            $(this).val(maxQuantity);
+        }
+        else{
+
+            $(this).val(value + 1); // Incrémenter la valeur
+        }
+        
+    } else if (e.key === 'ArrowDown') {
+        e.preventDefault(); // Empêcher le comportement par défaut
+        if (value == 1) {
+            $(this).val(1);
+        }
+        else{
+            $(this).val(value - 1); // Décrémenter la valeur
+        }
+    }
+  });
+
+
 $('#qte').on('input', function() {
     var enteredQuantity = $(this).val();  // Obtenir la valeur actuelle
     var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
@@ -140,9 +196,15 @@ $('#qte').on('input', function() {
         return;
     }
 
-    alert(maxQuantity) ;
-    // Convertir en entier pour la vérification
-    enteredQuantity = parseInt(enteredQuantity, 10);
+    // Si maxQuantity est 0, vider le champ et sortir
+    if (maxQuantity === 0) {
+        $(this).val(''); 
+        alertCustom("warning", 'ft-x', "Stock epuisé");
+        return;
+    }
+
+    // Convertir en nombre à virgule flottante pour la vérification
+    enteredQuantity = parseFloat(enteredQuantity);
 
     // Empêcher la saisie de valeurs inférieures à 1 ou supérieures à la quantité maximale
     if (enteredQuantity > maxQuantity) {
@@ -611,6 +673,43 @@ function edit_laboratoire(id) {
     $('#resultats').val(resultats);
 
 }
+
+var ancienQte ;
+
+function edit_medic(id) {
+   
+    $("#AddMedicament").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+
+    var idAdmin = $("#medicedit" + id).data('idadministration');
+    var idMedic = $("#medicedit" + id).data('medicamentid');
+
+    idAdministration = idAdmin ;
+    medicament_select = idMedic ;
+    var qte = $("#medicedit" + id).data('qte');
+    
+    ancienQte = qte ;
+    
+    charge_medicament();
+    charge_administration();
+    
+    $("#idDetails1").val(iddetail);
+    $("#iddetailmedicament").val(id);
+    $("#idConsPour1").val(idConsul);
+
+    var durrejours = $("#medicedit" + id).data('durrejours');
+    var modeprise = $("#medicedit" + id).data('modeprise');
+
+    $('#qte').val(qte);
+    $('#durrejours').val(durrejours);
+    $('#modeprise').val(modeprise);
+
+    $('#btn_add_med').val("Modifier");
+    $('#entete_modal_med').val("MODIFICATION");
+
+}
 function laboratoire() {
    
     $("#AddLaboratoire").modal(
@@ -798,6 +897,62 @@ $("#add_examen").off("submit").on("submit", function (e) {
     });
 });
 
+$("#add_medicament").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    data.append('ancienqte', ancienQte);
+
+    $.ajax({
+        beforeSend: function () {
+            $("#modal_medicament").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+        },
+        url: base + "add_medicament",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+
+                    $("#modal_medicament").unblock();
+
+                    if(res.id == 1){
+
+                        fill_prescription(iddetail);
+                        alertCustom("success", "ft-check", "Ajout effectué avec succée");
+                        affichage_details(idConsul , isFinished);
+                        liste_consultation();
+
+                    }
+                    else {
+
+                        alertCustom("warning", "ft-check", res.message);
+                        
+                    }
+                    
+
+        },
+    });
+});
+
 $("#add_consultation").off("submit").on("submit", function (e) {
 
     e.preventDefault();
@@ -820,6 +975,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
                     backgroundColor: "transparent"
                 }
             });
+           
         },
         url: base + "ajout_consultation",
         type: "POST",
@@ -1307,8 +1463,8 @@ function fill_prescription(id) {
                                 "show"
                             );
                         
-                            $("#idDetails").val(iddetail);
-                            $("#idConsPour").val(idConsul);
+                            $("#idDetails1").val(iddetail);
+                            $("#idConsPour1").val(idConsul);
                         
                             $('#add_medicament').find(':input:not([type="hidden"])').each(function() {
                                 if ($(this).is('select.selectpicker')) {
@@ -1317,6 +1473,11 @@ function fill_prescription(id) {
                                     $(this).val('');
                                 }
                             });
+
+                            $('#btn_add_med').val("Ajouter");
+                            $('#entete_modal_med').val("AJOUT");
+                            medicament_select = "";
+                            ancienQte = "" ;
                             
                             charge_medicament();
                             formatPrixImput();

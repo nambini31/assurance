@@ -562,7 +562,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
-                            <h3 class="modal-header entete_modal">
+                            <h3 class="modal-header entete_modal_med">
                                 AJOUT MEDICAMENT
                             </h3>
 
@@ -570,9 +570,9 @@
                             
                             <form method="post" id="add_medicament">
                                 
-                                <input type="hidden" name="idConsPour" id="idConsPour">
+                                <input type="hidden" name="idConsPour" id="idConsPour1">
                                 <input type="hidden" name="detailMedicamentId" id="iddetailmedicament">
-                                <input type="hidden" name="idDetails" id="idDetails">
+                                <input type="hidden" name="detailconsultationId" id="idDetails1">
 
                                 <div class="row">
                                 
@@ -599,7 +599,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="durreJours" class="">Durée ( Jours )</label>
-                                            <input type="text" class="form-control input-sm" name="durreJours" min="1"  id="durreJours" required>
+                                            <input type="text" class="form-control input-sm" name="durreJours"  id="durrejours" required>
                                         </div>
                                     </div>
                                 </div>
@@ -608,7 +608,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="idAdministration">Administration</label>
-                                            <select class="selectpicker  form-control btn-sm"  required id="idAdministration" data-live-search='true' data-size='5' title='Administration'>
+                                            <select class="selectpicker  form-control btn-sm" name="idAdministration" required id="idAdministration" data-live-search='true' data-size='5' title='Administration'>
                            
                                             </select>
                                         </div>
@@ -620,14 +620,14 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="modePrise">Mode de prise</label>
-                                            <textarea name="modePrise" class="form-control" id="" cols="30" rows="3" placeholder="Mode de prise" required></textarea>
+                                            <textarea name="modePrise" class="form-control" id="modeprise" cols="30" rows="3" placeholder="Mode de prise" required></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                                 
                                 <div class="form-actions right" id="hideValidLabo">
-                                    <button type="submit"  class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Envoyé au laboratoire</button>
+                                    <button type="submit" id="btn_add_med" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Ajouter</button>
                                 </div>
 
                                 

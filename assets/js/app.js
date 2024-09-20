@@ -333,6 +333,21 @@ function formatPrixImput() {
   });
 }
 
+$('#durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille').on('keydown', function(e) {
+    
+  let value = parseFloat($(this).val());
+
+  if (e.key === 'ArrowUp') {
+      e.preventDefault(); // Empêcher le comportement par défaut
+      $(this).val(value + 1); // Incrémenter la valeur
+      validateNumber($(this)); // Valider la nouvelle valeur
+  } else if (e.key === 'ArrowDown') {
+      e.preventDefault(); // Empêcher le comportement par défaut
+      $(this).val(value - 1); // Décrémenter la valeur
+      validateNumber($(this)); // Valider la nouvelle valeur
+  }
+});
+
 function validateNumber(input) {
   let value = input.val();
 
