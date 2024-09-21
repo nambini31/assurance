@@ -458,7 +458,7 @@ class CpnCont extends BaseController
                     data-rechercheactive="' . $row["rechercheActive"] . '" data-daterendevous="' . $row["dateRendevous"] . '">
                     <i class="la la-pencil-square-o"></i>
                     </a>
-                        <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
+                     <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
                         
                     
                     if ($row["isLabo"] == "1") {
@@ -467,6 +467,11 @@ class CpnCont extends BaseController
                         $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
                         
                     }else{
+                        if (in_array($_SESSION['roleId'], ["6"])) {
+                
+                            $th = "";
+                            
+                        }
                             $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
                             
                     }
@@ -519,13 +524,9 @@ class CpnCont extends BaseController
                 $row .= "</tr>";
             }
 
-            if (in_array($_SESSION['roleId'], ["6" , "9"])) {
-                
-                $action = "";
-                
-            }else{
+            
                 $action = $rows['Action'];
-            }
+            
         
             // Construction finale du tableau
             $th = "

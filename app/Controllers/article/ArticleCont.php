@@ -80,9 +80,8 @@ class ArticleCont extends BaseController
 
             
             $data_article = $this->article
-            ->select("article.* , fournisseur.designation as design")
+            ->select("article.*")
             ->where('article.etat',1)
-            ->join("fournisseur" , "fournisseur.id_fournisseur = article.id_fournisseur" , "left")
             ->findAll();
             
 
@@ -90,7 +89,6 @@ class ArticleCont extends BaseController
                 <thead>
                   <tr >
                     <th style='text-align: center;'>id</th>
-                    <th style='text-align: center;'>Fournisseur</th>
                     <th style='text-align: center;'>Désignation</th>
                     <th style='text-align: center;'>Unité</th>
                     <th style='text-align: center;'>Presentation</th>
@@ -127,7 +125,6 @@ class ArticleCont extends BaseController
 
                 $th .= "
                     <td style='width:10%'> ". $this->genererNumeroCarte("REF",$value_ar["id_article"]) ."</td>
-                    <td style='width:10%'> ".$value_ar["design"] ."</td>
                     <td style='width:20%'> ".$value_ar["designation"] ."</td>
                     <td style='width:10%'> <strong>". $unite ."</strong></td>
                     <td style='width:10%'>  <strong>".$value_ar["presentation"] ." </strong></td>
@@ -145,7 +142,7 @@ class ArticleCont extends BaseController
                     $th .= '<td style="width:10%">
 
                              <a class="primary edit mr-1" data-designation="'.$value_ar["designation"].'" data-prix_unitaire="'. $value_ar["prix_unitaire"] .'" data-quantite="'.$value_ar["quantite"].'" 
-                             data-id_fournisseur="'.$value_ar["id_fournisseur"].'" data-presentation="'.$value_ar["presentation"].'"  data-unite="'.$value_ar["unite"].'" data-dateperemption="'.$value_ar["dateperemption"].'"   
+                             data-presentation="'.$value_ar["presentation"].'"  data-unite="'.$value_ar["unite"].'" data-dateperemption="'.$value_ar["dateperemption"].'"   
                              id="art_'.$value_ar["id_article"].'" onclick="edit_article('.$value_ar["id_article"].')"><i class="la la-pencil"></i></a>
 
                              <a class="danger delete mr-1" onclick="delete_article('.$value_ar["id_article"].')" ><i class="la la-trash-o"></i></a>

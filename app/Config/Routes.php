@@ -106,6 +106,7 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('listes_medic', 'Consultation\ConsultationCont::listes_medic');    
     $routes->post('delete_labo', 'Consultation\ConsultationCont::delete_labo');    
     $routes->post('listes_medicament', 'Consultation\ConsultationCont::listes_medicament');    
+    $routes->post('delete_detail_medicament', 'Consultation\ConsultationCont::delete_detail_medicament');    
     
 
     //article

@@ -147,12 +147,21 @@
                             </div>
 
                             
-                                        
+                            <?php 
+                                        //verifier si c'est superAdmin
+                                        if (!in_array($_SESSION['roleId'], ["6"])) {              
+                                        ?>
                                         <div class="form-actions right" >
-                                            <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Valider</button>
+                                            <button type="submit" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i>Enregistrer</button>
 
                                             
                                         </div>
+                                        <?php 
+                                                }
+                                        ?>
+                               
+                                        
+                                        
                                      
 
                                 

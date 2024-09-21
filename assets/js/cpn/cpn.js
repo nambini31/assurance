@@ -362,6 +362,8 @@ function liste_descendant(id) {
         "show"
     );
 
+    
+
     var element = $('#cpnpere'+ id );
 
     // Attribuer les valeurs des data-* aux champs correspondants dans le formulaire
@@ -387,6 +389,9 @@ function liste_descendant(id) {
     $('input[name="vat3"]').val(element.data('vat3'));
     $('input[name="vat4"]').val(element.data('vat4'));
     $('input[name="vat5"]').val(element.data('vat5'));
+
+    
+
 
 }
 
@@ -681,6 +686,18 @@ function fill_consult(idcpn) {
             $(".entete_modal2").text(res.num_cpn);
 
             var hide = [ "5" , "3" , "4"].includes(res.roleId) ? "" : 'hidden';
+
+            if (["6"].includes(res.roleId)) {
+                $('#add_cpnParam').find(':input').each(function() {
+                    $(this).prop('disabled', true);
+                });
+                
+            }else{
+                $('#add_cpnParam').find(':input').each(function() {
+                    $(this).prop('disabled', false); 
+                });
+               $('#poidstaille').prop('disabled', true);
+            }
             
             nums = res.nums;
             if ($.fn.DataTable.isDataTable("#table_consultation")) {
@@ -905,6 +922,8 @@ function details_cpn(id) {
 
     fill_consult(id);
     liste_descendant(id);
+
+    
 
     $('.table_parametre').each(function() {
         $(this).DataTable({

@@ -32,16 +32,52 @@ class ConsultationCont extends BaseController
             
             $_POST["id_user"] = $this->session->get("id_user");
 
-            $this->consultation->save($_POST);
+            //si dentiste
             
-            // Vérification si l'ID est présent dans $_POST (mise à jour)
+
+            
             if (isset($_POST['consultationId']) && $_POST['consultationId'] != "" ) {
-                $consultationId = $_POST['consultationId']; // ID de la consultation mise à jour
+
+                $consultationId = $_POST['consultationId']; 
+
+                
+                $consul = $this->consultation->find( $consultationId);
+                
+                if ($_POST["typeConsultationId"] == 2) {
+                    
+                    if ($consul["isFinished"] == 0) {
+                        
+                        $_POST["isFinished"] = 1;
+                        $this->consultation->save($_POST);
+                        $this->detailconsultation->where("consultationId", $consultationId)->update(null , ["isFinished" => 1]);
+                    }else{
+                        $this->consultation->save($_POST);
+                    }
+                    
+                }else{
+                    
+                    
+                        $this->consultation->save($_POST);
+                
+
+
+                }
+                
             } else {
-                // Sinon, c'est une nouvelle insertion, on récupère l'ID inséré
+
+                if ($_POST["typeConsultationId"] == 2) {
+
+                    $_POST["isFinished"] = 1;
+                    
+                }
+                $this->consultation->save($_POST);
+
                 $consultationId = $this->consultation->insertID();
 
+
+
             }
+
 
             $consul = $this->consultation->find( $consultationId);
 
@@ -61,6 +97,24 @@ class ConsultationCont extends BaseController
             $data = explode("_",$_POST["personne"]);
             $_POST["idPersonneMalade"] = $data[0];
             $_POST["TypepersonneMalade"] = $data[1];
+
+            $consul = $this->consultation->find( $_POST["consultationId"]);
+
+            if ($consul["typeConsultationId"] == 2) {
+
+                if ($consul["isFinished"] == 1) {
+                    $_POST["isFinished"] = 1 ;
+                }
+            }
+
+            if ($_POST["detailConsultationId"] == "") {
+                
+                if ($consul["isFinished"] == 1) {
+                    $_POST["isFinished"] = 1 ;
+                }
+
+
+            }
 
             $this->detailconsultation->save($_POST);
 
@@ -100,11 +154,12 @@ class ConsultationCont extends BaseController
                     
                     $this->consultation->update($id, ['isFinished' => 2]);
                     $this->detailconsultation->where("consultationId" , $id)->where("isPharmacie" , 1)->update(null, ['isFinished' => 2]);
+                    $this->detailconsultation->where("consultationId" , $id)->where("isPharmacie" , 0)->update(null, ['isFinished' => 3]);
                     
                 }else{
                     
                     $this->consultation->update($id, ['isFinished' => 3]);
-                    $this->detailconsultation->where("consultationId" , $id)->where("isFinished" , 1)->update(null, ['isFinished' => 3]);
+                    $this->detailconsultation->where("consultationId" , $id)->update(null, ['isFinished' => 3]);
                 }
 
 
@@ -150,6 +205,33 @@ class ConsultationCont extends BaseController
             
 
             echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+            echo json_encode(['error' => $th->getMessage()]);
+        }
+    }
+    public function delete_detail_medicament()
+    {
+        try {
+
+            $this->detailMedicament->update($_POST['id'], ['etat' => 0]);
+
+            $data = $this->detailMedicament->where("detailconsultationId" , $_POST["iddetail"])
+            ->where('etat' , 1)
+            ->findAll();
+
+
+            if ($data) {
+
+                $this->detailconsultation->update($_POST["iddetail"], ['isPharmacie' => 1]);
+                
+            }else{
+                
+                $this->detailconsultation->update($_POST["iddetail"], ['isPharmacie' => 0]);
+            }
+            
+
+            echo json_encode(['id' => 1]);
+
         } catch (\Throwable $th) {
             echo json_encode(['error' => $th->getMessage()]);
         }
@@ -214,7 +296,7 @@ class ConsultationCont extends BaseController
                                     
                                 <tr>
                                     <th>TEMPERATURE</th>
-                                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm"  name="tension" id="temperature"> </td>
+                                    <td style="min-width: 100px !important; width: 100%"><input type="text" value="'.$value["temperature"].'" class="form-control input-sm"  name="temperature" id="temperature"> </td>
                                     
                                 </tr>
                                 <tr>
@@ -250,9 +332,10 @@ class ConsultationCont extends BaseController
 
                                 
 
-                                    </table></div>
+                                    </table>
+                            </div>
 
-                                    <div class="col-md-6">
+                        <div class="col-md-6">
                     
                                 <table id="table_parametre_vrai2" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto; margin:auto">
                                 <thead> 
@@ -287,13 +370,13 @@ class ConsultationCont extends BaseController
 
                                 <tr>
                                     <th>TAILLE ( Cm ) </th>
-                                    <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm"  name="taille" id="taille"> </td>
+                                <td><input type="text" value="'.$value["taille"].'" class="form-control input-sm"  name="taille" id="taille"> </td>
                                     
                                 </tr>
 
-                            <tr>
+                                <tr>
                                 <th>POIDS / TAILLE</th>
-                                <td><input type="text" value="'.$value["poidstaille"].'" class="form-control input-sm"  name="poidstaille" id="poidstaille"></td>
+                                <td><input type="text" value="'.$value["poidstaille"].'" class="form-control input-sm"  name="poidstaille" id="poidstaille"> </td>
                                 
 
                                 </tr>
@@ -476,13 +559,13 @@ class ConsultationCont extends BaseController
                 if ($data["isActif"] == 1) {
                     
                     if ($_POST["detailMedicamentId"] != "") {
-                        $qte = $_POST["qte"] + $_POST["ancienQte"];
+                        $qte = $data["quantite"] + $_POST["ancienQte"];
                     }else {
                         # code...
-                        $qte = $_POST["qte"];
+                        $qte = $data["quantite"];
                     }
 
-                    if ( $qte > $data["quantite"] ) {
+                    if ( $_POST["qte"] > $qte ) {
 
                         $id = "Stock epuisé" ;
                         $data = ["message" => $id , "id" => 0  ] ;
@@ -805,6 +888,13 @@ class ConsultationCont extends BaseController
             ->join("membre" , "membre.id_membre = titulaire.membreId")
             ->where('membre.id_membre', $_POST["id_membre"] ) ;
 
+                if (in_array($_SESSION['roleId'], ["8"])) {
+                        
+                    $datas = $datas
+                    ->where("docteurId", $_SESSION['id_user'] );
+
+                }
+
             }else{
 
 
@@ -815,6 +905,13 @@ class ConsultationCont extends BaseController
             ->join("titulaire" , "consultation.titulaireId = titulaire.titulaireId")
             ->join("typeconsultation" , "consultation.typeConsultationId = typeconsultation.idtypeconsultation")
             ->join("membre" , "membre.id_membre = titulaire.membreId") ;
+
+                if (in_array($_SESSION['roleId'], ["8"])) {
+                            
+                    $datas = $datas
+                    ->where("docteurId", $_SESSION['id_user'] );
+
+                }
 
             }
 
@@ -840,6 +937,7 @@ class ConsultationCont extends BaseController
             $th = "
                     <thead>
                       <tr>
+                            <th>#</th>
                             <th>Carte N°</th>
                             <th>Titulaire</th>
                             <th>Docteur</th>
@@ -913,12 +1011,25 @@ class ConsultationCont extends BaseController
 
                     if (in_array($_SESSION['roleId'], ["1", "2"])) {
                         
-                        if ($value["isFinished"] == 0 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" )) {
-                            $action = $action;
+                        if ($value["typeConsultationId"] == 2) {
+
+                            if ($value["isFinished"] == 1 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" )) {
+                                $action = $action;
+                            }
+                            else{
+                                $action = "";
+                            }
                         }
                         else{
-                            $action = "";
+                            if ($value["isFinished"] == 0 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" )) {
+                                $action = $action;
+                            }
+                            else{
+                                $action = "";
+                            }
                         }
+
+                        
     
                     }
                    
@@ -942,7 +1053,7 @@ class ConsultationCont extends BaseController
 
                     if ($value["isLabo"] == 1) {
 
-                        $etat = "En attente d'analyse ( Doc )";
+                        $etat = "En attente d'analyse";
 
                     }
 
@@ -951,12 +1062,6 @@ class ConsultationCont extends BaseController
                 else if(  $value["isFinished"] == 2){
                     
                     $etat = "En attente pharmacie";
-
-                    if ($value["isLabo"] == 1) {
-
-                        $etat = "En attente d'analyse ( pharm )";
-
-                    }
 
     
                 }
@@ -982,6 +1087,7 @@ class ConsultationCont extends BaseController
 
                 $th .=
                     '<tr>
+                        <td style="width : 10%;">' . $value["consultationId"] . '</td> 
                         <td style="width : 10%;">' . $this->genererNumeroCarte($value["nom_membre"], $value["titulaireId"]) . ' </td>
                         <td style="width : 20%;">' . $value["nom"] ." ". $value["prenom"] . ' </td>
                         <td style="width : 20%;">' . $value["nom_user"] ." ". $value["prenom_user"] . ' </td>
@@ -1031,7 +1137,7 @@ class ConsultationCont extends BaseController
             ELSE enfant.genre
             END AS genre 
             
-            , detailconsultation.*")
+            , detailconsultation.* , consultation.typeConsultationId ")
             ->join("titulaire", "titulaire.titulaireId = detailconsultation.idPersonneMalade", "left")
             ->join("enfant", "enfant.enfantId = detailconsultation.idPersonneMalade", "left")
             ->join("consultation" ,"detailconsultation.titulaireId = consultation.titulaireId")
@@ -1142,11 +1248,6 @@ class ConsultationCont extends BaseController
                         $etat = "En attente d'analyse";
 
                     }
-                    if ($value["isPharmacie"] == 1) {
-
-                        $etat = "En attente pharmacie";
-
-                    }
                     
             
                 }
@@ -1154,12 +1255,6 @@ class ConsultationCont extends BaseController
                     
                    
                     $etat = 'En attente pharmacie';
-
-                    if ($value["isLabo"] == 1) {
-
-                        $etat = "En attente d'analyse";
-
-                    }
                     
             
                 }
@@ -1167,8 +1262,6 @@ class ConsultationCont extends BaseController
                     
                     $etat = "Termine";
                     
-                }else{
-                    $etat = 'En attente pharmacie';
                 }
                 
 
@@ -1186,15 +1279,24 @@ class ConsultationCont extends BaseController
 
                 if (in_array($_SESSION['roleId'], ["1" , "2"])) {
                     
-                    if ($value["isFinished"] == 0) {
 
-                       
-                        
-                            $action .= $delEdit ;
-                            
-                    
-                        
-                    }
+                        if ($value["typeConsultationId"] == 2) {
+
+                            if ($value["isFinished"] == 1 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" ) && ( $value["isPharmacie"] == 0 || $value["isPharmacie"] == "" )) {
+                                $action .= $delEdit ;
+                            }
+                            else{
+                                $action = "";
+                            }
+                        }
+                        else{
+                            if ($value["isFinished"] == 0 && ( $value["isLabo"] == 0 || $value["isLabo"] == "" ) && ( $value["isPharmacie"] == 0 || $value["isPharmacie"] == "" ) ) {
+                                $action .= $delEdit ;
+                            }
+                            else{
+                                $action = "";
+                            }
+                        }
 
 
                 }
@@ -1271,6 +1373,7 @@ class ConsultationCont extends BaseController
             $response = [
                 'roleId' => $this->session->get("roleId"),
                 'isFinished' => $data["isFinished"],
+                'typeConsultationId' => $data["typeConsultationId"],
                 'isPharmacie' => $data["isPharmacie"],
                 'isLabo' => $data["isLabo"],
                 'table' => $th,

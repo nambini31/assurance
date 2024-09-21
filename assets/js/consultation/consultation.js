@@ -563,7 +563,6 @@ function fill_paramettre(id) {
                 $('#add_parametre').find(':input').each(function() {
                     $(this).prop('disabled', false); 
                 });
-               $('#poidstaille').prop('disabled', true);
             }
 
             
@@ -676,6 +675,20 @@ function edit_laboratoire(id) {
 
 var ancienQte ;
 
+var iddetailmedicament ;
+
+function delete_medic(id) {
+
+    iddetailmedicament = id ;
+   
+   $("#deletemedicament").modal(
+       { backdrop: "static", keyboard: false },
+       "show"
+   );
+
+
+}
+
 function edit_medic(id) {
    
     $("#AddMedicament").modal(
@@ -706,8 +719,8 @@ function edit_medic(id) {
     $('#durrejours').val(durrejours);
     $('#modeprise').val(modeprise);
 
-    $('#btn_add_med').val("Modifier");
-    $('#entete_modal_med').val("MODIFICATION");
+    $('#btn_add_med').text("Modifier");
+    $('.entete_modal_med').text("MODIFICATION");
 
 }
 function laboratoire() {
@@ -902,7 +915,7 @@ $("#add_medicament").off("submit").on("submit", function (e) {
 
     let data = new FormData(this);
 
-    data.append('ancienqte', ancienQte);
+    data.append('ancienQte', ancienQte);
 
     $.ajax({
         beforeSend: function () {
@@ -934,13 +947,24 @@ $("#add_medicament").off("submit").on("submit", function (e) {
 
                     $("#modal_medicament").unblock();
 
-                    if(res.id == 1){
+                    if(res.id == 1 && $("#iddetailmedicament").val() == ""){
 
                         fill_prescription(iddetail);
                         alertCustom("success", "ft-check", "Ajout effectué avec succée");
+
+                        addMedicModal();
+
                         affichage_details(idConsul , isFinished);
                         liste_consultation();
 
+                    }
+                    else if (res.id == 1 && $("#iddetailmedicament").val() != "") {
+                        alertCustom("success", "ft-check", "Modification effectué avec succée");
+                        $("#AddMedicament").modal("hide");
+                        fill_prescription(iddetail);
+
+                        affichage_details(idConsul , isFinished);
+                        liste_consultation();
                     }
                     else {
 
@@ -1042,6 +1066,8 @@ function delete_detail() {
             if (res.id > 0) {
 
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
+                affichage_details(idConsul , isFinished);
+            liste_consultation();
 
             } else {
 
@@ -1049,13 +1075,48 @@ function delete_detail() {
 
             }
 
-            affichage_details(idConsul , isFinished);
-            liste_consultation();
+            
 
         },
     });
 
 }
+function delete_medicament() {
+
+    $.ajax({
+
+        url: base + "delete_detail_medicament",
+        type: "POST",
+        dataType: "JSON",
+        data: { id : iddetailmedicament , iddetail : iddetail},
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+
+
+            $("#deletemedicament").modal(
+                "hide"
+            );
+
+            if (res.id > 0) {
+
+                alertCustom("success", 'ft-check', "Suppression effectué avec succée");
+                fill_prescription(iddetail);
+                affichage_details(idConsul , isFinished);
+                liste_consultation();
+
+            } else {
+
+                alertCustom("danger", 'ft-x', "Suppression non effectué");
+
+            }
+
+
+        },
+    });
+
+}
+
 function delete_laboExam() {
 
     $.ajax({
@@ -1076,6 +1137,9 @@ function delete_laboExam() {
             if (res.id > 0) {
 
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
+                affichage_details(idConsul , isFinished);
+            fill_labo(iddetail);
+            liste_consultation();
 
             } else {
 
@@ -1083,9 +1147,7 @@ function delete_laboExam() {
 
             }
 
-            affichage_details(idConsul , isFinished);
-            fill_labo(iddetail);
-            liste_consultation();
+            
 
         },
     });
@@ -1126,6 +1188,25 @@ function affichage_details(idconsultation, isFinished) {
             isFinished = res.isFinished ;
             var hide = ["5" , "1" , "2"].includes(res.roleId) ? "" : 'hidden';
 
+            if (["1" , "2"].includes(res.roleId)) {
+
+                if (res.isFinished != "0" && res.typeConsultationId == "1") {
+                    hide = "hidden"
+                }
+                if (res.isFinished != "1" && res.typeConsultationId == "2") {
+                    hide = "hidden"
+                }
+
+            }
+
+            if (res.isFinished == "0") {
+                
+                $("#textParamDoc").text("Souhaitez-vous valider le paramétrage et envoyer le(s) patient(s) au docteur ?");
+            }
+            else {
+                $("#textParamDoc").text("Souhaitez-vous valider et envoyer le(s) patient(s) au pahrmacie si nécessaire ?");
+            }
+
 
             if (res.isLabo == "1" ) {
                 $("#hideValidParamDoc").hide();
@@ -1160,14 +1241,10 @@ function affichage_details(idconsultation, isFinished) {
                                 }
                                 if (["8","5"].includes(res.roleId) && res.isFinished == "1") {
 
-                                    if (res.isPharmacie == "1") {
-
-                                        $("#btn_add_patie").text("Envoyer au pharmacie");
+     
+                                        $("#btn_add_patie").text("Valider ou Envoyer au pharmacie");
                                         
-                                    } else {
-                                        $("#btn_add_patie").text("Terminer");
-                                        
-                                    }
+                            
 
                                 }
                                 if (["9","5"].includes(res.roleId) && res.isFinished == "2") {
@@ -1412,7 +1489,7 @@ function fill_prescription(id) {
 
             var hide = ["5" , "8"].includes(res.roleId) ? "" : 'hidden';
 
-            if (["0"].includes(res.ishide) ) {
+            if ([0].includes(res.ishide) ) {
                 $("#hideImprimeMedic").hide();
             }else{
                 $("#hideImprimeMedic").show();
@@ -1458,30 +1535,7 @@ function fill_prescription(id) {
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
-                            $("#AddMedicament").modal(
-                                { backdrop: "static", keyboard: false },
-                                "show"
-                            );
-                        
-                            $("#idDetails1").val(iddetail);
-                            $("#idConsPour1").val(idConsul);
-                        
-                            $('#add_medicament').find(':input:not([type="hidden"])').each(function() {
-                                if ($(this).is('select.selectpicker')) {
-                                    $(this).selectpicker('val', []); // Réinitialiser le selectpicker
-                                } else {
-                                    $(this).val('');
-                                }
-                            });
-
-                            $('#btn_add_med').val("Ajouter");
-                            $('#entete_modal_med').val("AJOUT");
-                            medicament_select = "";
-                            ancienQte = "" ;
-                            
-                            charge_medicament();
-                            formatPrixImput();
-                            $("#detailMedicamentId").val("");
+                            addMedicModal();
 
                         },
                     },
@@ -1491,6 +1545,34 @@ function fill_prescription(id) {
 
         },
     });
+}
+
+function addMedicModal() {
+    $("#AddMedicament").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+
+    $("#iddetailmedicament").val("");
+
+    $("#idDetails1").val(iddetail);
+    $("#idConsPour1").val(idConsul);
+
+    $('#add_medicament').find(':input:not([type="hidden"])').each(function () {
+        if ($(this).is('select.selectpicker')) {
+            $(this).selectpicker('val', []); // Réinitialiser le selectpicker
+        } else {
+            $(this).val('');
+        }
+    });
+
+    $('#btn_add_med').text("Ajouter");
+    $('.entete_modal_med').text("AJOUT");
+    medicament_select = "";
+    ancienQte = "";
+
+    charge_medicament();
+    formatPrixImput();
 }
 
 function close_del_consultation() {
@@ -1523,7 +1605,6 @@ function medic_docteur(id) {
 
 function envoyer_doc() {
 
-    alert(isFinished);
 
     $("#valideParametre").modal(
         { backdrop: "static", keyboard: false },
@@ -1730,7 +1811,7 @@ $("#form_analyse").off("submit").on("submit", function (e) {
     } ,success: function (res) {
             alertCustom("success", 'ft-check', "Confirmation effectué avec succée");
             $("#ListesLabocontent").unblock();
-            affichage_demande(idType);
+            fill_labo(idType);
             affichage_details(idConsul, isFinished);
             liste_consultation();
         },
@@ -1779,6 +1860,7 @@ function valider_demande(id , idType1) {
     idEnvoie = id ;
     idType = idType1 ;
     typeEnvoie = typeen
+    $('#fichierAnalyse').val("");
 
     $("#valideLabo").modal(
         { backdrop: "static", keyboard: false },

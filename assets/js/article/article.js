@@ -304,7 +304,6 @@ function edit_article(id) {
   );
 
   var designation = $('#art_' + id).data('designation');
-  var id_fournisseur = $('#art_' + id).data('id_fournisseur');
   var presentation = $('#art_' + id).data('presentation');
   var unite = $('#art_' + id).data('unite');
   var prix_unitaire = $('#art_' + id).data('prix_unitaire');
@@ -319,8 +318,7 @@ function edit_article(id) {
   $('input[name="quantite"]').val(quantite);
   $('input[name="presentation"]').val(presentation);
   $('#unite').val(unite).selectpicker('refresh');
-  $('#datePeremption').val(datePeremption);
-  $('#id_fournisseur').val(id_fournisseur).selectpicker('refresh');
+  $('#dateperemption').val(datePeremption);
   
   $('input[name="id_article"]').val(id);
 

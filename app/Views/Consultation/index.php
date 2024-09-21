@@ -431,7 +431,7 @@
                                     </div>
                            
                                 
-                                    <p>Souhaitez-vous valider le paramétrage et envoyer le patient au docteur ?</p>
+                                    <p id="textParamDoc"></p>
                     
                                         <button type="button" onclick="confirmer_anvoie_doc()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
                                         <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
@@ -465,6 +465,37 @@
                                     <p>Voulez-vous confirmer cette suppression  ?</p>
                     
                                         <button type="button" onclick="delete_consultation()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
+                                        <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
+                    
+                    
+                                
+                            
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deletemedicament" style="z-index: 99999999 " tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )">
+                    <div class="card-content collpase show">
+                            <div class="card-body" style="text-align: center;">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+   
+                            
+                            
+                                    <div class="card-header">
+                                            <i class="ft-trash-2" style='color:rgb(233, 46, 46);font-size:50px'></i>
+                                    </div>
+                           
+                                
+                                    <p>Voulez-vous confirmer cette suppression  ?</p>
+                    
+                                        <button type="button" onclick="delete_medicament()" class="mr-1 mb-1 btn btn-sm btn-warning btn-min-width"><i class="ft-check"></i> Oui</button>
                                         <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Annuler</button>
                     
                     
@@ -671,7 +702,7 @@
                                 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="patient_select" class="">Choix Titulaire ( N° Carte )</label>
+                                            <label for="patient_select" class="">Choix Carte ( N° Carte )</label>
                                             <select class="selectpicker  form-control btn-sm" name = "titulaireId" required id="titulaire_select" data-live-search='true' data-size='5' title='Choix titulaire'>
 
                                             </select>

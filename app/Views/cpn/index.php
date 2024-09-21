@@ -247,43 +247,48 @@
                                                                     <h4 class="modal-header entete_modal2" style="position: absolute;top: 15px; border: none; z-index: 10;">
                                 CPN N° : OMI-205
                             </h4>
-                    <div class="card" style="box-shadow: none;">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs nav-underline">
-                                    
-                                         <li class="nav-item">
-                                        <a class="nav-link" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="false"><i class="ft-layers"></i> ANTECEDENTS ( D.D.R )</a>
-                                    </li>
-                                         <li class="nav-item">
-                                        <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> CONSULTATIONS</a>
-                                    </li>
+                            <div class="card" style="box-shadow: none;">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs nav-underline">
+                                            
+                                                <li class="nav-item">
+                                                <a class="nav-link" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="false"><i class="ft-layers"></i> ANTECEDENTS ( D.D.R )</a>
+                                            </li>
+                                                <li class="nav-item">
+                                                <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> CONSULTATIONS</a>
+                                            </li>
+                                                
                                         
-                                   
+                                            
+                                        
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="tab-content">
+
                                     
-                                
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel">
-                        <div class="tab-content">
 
-                            
-
-                            <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
-                                <?= view("cpn/parametre.php") ?>
+                                    <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
+                                        <?= view("cpn/parametre.php") ?>
+                                    </div>
+                                    <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
+                                        <?= view("cpn/consultcpn.php") ?>
+                                    </div>
+                                    
+                                </div>
                             </div>
-                            <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
-                                <?= view("cpn/consultcpn.php") ?>
-                            </div>
-                            
-                        </div>
-                    </div>
                
                             
 
                         </div>
+                        <div style="text-align: right;">
+                                    <button type="button" data-dismiss="modal" class="mr-1 mb-1 btn btn-sm btn-outline-light btn-min-width"><i class="ft-x"></i> Fermer</button>
+
+                                    
+                                </div>
                     </div>
                 </div>
             </div>
@@ -529,7 +534,7 @@
                                 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="patient_select" class="">Choix Titulaire ( N° Carte )</label>
+                                            <label for="patient_select" class="">Choix Carte ( N° Carte )</label>
                                             <select class="selectpicker  form-control btn-sm" name = "titulaireId" required id="titulaire_select" data-live-search='true' data-size='5' title='Choix titulaire'>
 
                                             </select>

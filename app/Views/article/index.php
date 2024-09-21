@@ -42,18 +42,6 @@
                             <form class="form" method="post" action="ajout_article" id="ajout_article">
                                 <div class="form-body">
 
-                                <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="hidden" id="id_article" name="id_article">
-                                                <label for="userinput1" class="">Fournisseur</label>
-                                                <select class="selectpicker  form-control btn-sm" name="id_fournisseur" required id="id_fournisseur" data-live-search='true' data-size='5' title='Fournisseur'>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -98,7 +86,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="userinput1" class="">Date peremption</label>
-                                                <input class="form-control input-sm" name="dateperemption" required type="datetime-local" placeholder="Date peremptiom" id="dateperemption">
+                                                <input class="form-control input-sm" name="dateperemption" required type="date" placeholder="Date peremptiom" id="dateperemption">
                                             </div>
                                         </div>
 
