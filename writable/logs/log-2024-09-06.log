@@ -1,0 +1,133 @@
+CRITICAL - 2024-09-06 06:47:19 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 06:47:21 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 06:47:22 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 06:47:23 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 06:47:23 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:28:09 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 253.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(253): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 253)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:29:49 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 254.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(254): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 254)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:30:43 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 254.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(254): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 254)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:31:37 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 252.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(252): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 252)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:32:58 --> Undefined array key "membreId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 252.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(252): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "membreId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 252)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:37:12 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 248.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(248): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 248)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:43 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:44 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:45 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:45 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:45 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:45 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 07:55:46 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 198.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-09-06 12:51:15 --> Undefined array key "titulaireId"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 226.
+ 1 APPPATH\Controllers\titulaire\TitulaireCont.php(226): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "titulaireId"', 'C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php', 226)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listeEnfant()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

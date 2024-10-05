@@ -60,10 +60,20 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('lientitulaire', 'titulaire\TitulaireCont::lien');
      $routes->post('listesTitulaire', 'titulaire\TitulaireCont::listesTitulaire');
      $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');
+     $routes->post('ajout_enfant', 'titulaire\TitulaireCont::ajout_enfant');
      $routes->post('delete_titulaire', 'titulaire\TitulaireCont::delete_titulaire');
      $routes->post('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
-     $routes->get('getTitulaireById', 'titulaire\TitulaireCont::getTitulaireById');
+     $routes->post('getEnfantById', 'titulaire\TitulaireCont::getEnfantById');
      $routes->post('update_titulaire', 'titulaire\TitulaireCont::update_titulaire');
+     $routes->post('update_enfant', 'titulaire\TitulaireCont::update_enfant');
+     $routes->post('toNonAssure', 'titulaire\TitulaireCont::toNonAssure');
+     $routes->post('toNonAssureEnfant', 'titulaire\TitulaireCont::toNonAssureEnfant');
+     $routes->post('toAssure', 'titulaire\TitulaireCont::toAssure');
+     $routes->post('toAssureEnfant', 'titulaire\TitulaireCont::toAssureEnfant');
+     $routes->post('listeEnfant', 'titulaire\TitulaireCont::listeEnfant');
+     $routes->post('delete_enfant', 'titulaire\TitulaireCont::delete_enfant');
+     $routes->post('imprimerCarte1', 'titulaire\TitulaireCont::imprimerCarte1');
+     $routes->post('imprimerCarte2', 'titulaire\TitulaireCont::imprimerCarte2');
 
      //route pour patient
 

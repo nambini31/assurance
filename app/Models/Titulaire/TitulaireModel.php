@@ -30,6 +30,8 @@ class TitulaireModel extends Model
         'dateNaissConjoint', 
         'telephoneConjoint', 
         'genreConjoint', 
+        'fonctionConjoint',
+        'motifNonAssure'
     ];
     protected $useTimestamps = true;
     protected $createdField = 'createdAt';
