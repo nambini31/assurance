@@ -190,96 +190,11 @@
 </div>
 <!-- -------------------------------------------------------- -->
 
-<!-- Modal dedtail Titulaire -->
-<style>
-    p span{
-        border-bottom: 1px dashed #000; 
-        padding: 1px 3px; 
-        margin-right:20px;
-    }
-</style>
-<div class="modal fade" id="detailTitulaireModel" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content" id="">
-            <div class="card-content collpase show">
-                <div class="card-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h2 class="card-title text-center">Detail Titilaire</h2>
-                    <button class="btn btn-info" onclick='imprimerCarte1()'>Imprimer Carte</button>
-                    <button class="btn btn-info" onclick='imprimerCarte2()'>Imprimer Carte Verso</button>
-                </div>
-                <div class="card-body">
-                    <p class="card-text" style="font-size: 14px !important;">
-                        <input value="" type="hidden" id="detailTitulaireId" />
-                        <strong>N° Fiche Medical :</strong> <span id="detailNumTitualireGenere" style="border: 1px solid #000; padding: 1px 3px; margin-right:30px">------</span>
-                        <strong>N° CNAPS :</strong> <span id="detailNumCnaps" style="border: 1px solid #000; padding: 1px 3px;"></span><br><br>
-                        <strong>Nom :</strong> <span id="detailNom" style="min-width: 20px;">Dupont</span>
-                        <strong>Prénoms :</strong> <span id="detailPrenom">Jean</span><br><br>
-                        <strong>Genre :</strong> <span id="detailGenre">Masculin</span>
-                        <strong>Date de naissance :</strong> <span id="detailDateNaiss">01/01/1980</span><br><br>
-                        <strong>Téléphone :</strong> <span id="detailTelephone">0123456789</span>
-                        <strong>CIN :</strong> <span id="detailCin">AB123456</span><br><br>
-                        <strong>Fonction :</strong> <span id="detailFonction"> Développeur Développeur  Développeur</span>
-                        <strong>Adresse :</strong> <span id="detailAdresse">10 rue des Champs, 75000 P Développeuraris</span><br><br>
-                        <strong>E-mail :</strong> <span id="detailEmail"></span><br><br>
-                        <strong>Date d'embauche :</strong> <span id="detailDateEmbauche">01/01/2010</span>
-                        <strong>Date de débauche :</strong> <span id="detailDateDebauche">01/01/2020</span><br><br>
-                        <strong>Nom & Prénom Conjoint(e) :</strong> <span id="detailNomPrenomConjoint">Marie Dupont</span><br><br>
-                        <strong>Date de naissance Conjoint(e) :</strong> <span id="detailDateNaissConjoint">02/02/1982</span><br><br>
-                        <strong>Téléphone Conjoint(e):</strong> <span id="detailTelephoneConjoint">0987654321</span>
-                        <strong>Fonction Conjoit(e):</strong> <span id="detailFonctionConjoint"></span>
-                        <strong>Genre Conjoint(e) :</strong> <span id="detailGenreConjoint">Féminin</span><br><br>
-                        <strong>Motif :</strong> <span id="detailMotifNonAssure">Démission</span><br><br>
-                    </p>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-center" style="border: 1px solid #000; padding: 10px;">
-                                <span id="detailPhotoTitulaire">Photo AFFILIE(E)</span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="text-center" style="border: 1px solid #000; padding: 10px;">
-                            <span id="detailPhotoConjoint">Photo CONJOINT(E)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin Modal detail -->
-
-<!-- Modal Listes Enfants -->
-<div class="modal fade" id="listeEnfantModal">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" id="">
-            <div class="card-content">
-                <div class="card">
-                    <div class="card-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h1 class="card-title text-center">Listes Enfants à Charge</h1>
-                    </div>
-                    <div class="card-body" id="card-enfant">
-                        <table id="table-enfant" class="table table-white-space table-bordered no-wrap  text-center" >
-                            
-                        </table>
-                    </div>
-                </div>
-            </div>        
-        </div>
-    </div>
-</div>
-<!-- ::: Fin Modal Liste Enfant ::::::::: -->
 
 <!-- Modal Enfant -->
 <div class="heading-elements mt-0">
     <div class="modal fade" id="createEnfantModel" style="z-index: 99999999" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content" id="modal_content_add_enfant">
                 <div class="card-content collpase show">
                     <div class="card-body">
@@ -346,6 +261,46 @@
     </div>
 </div>
 <!-- ::::::::::::::::::::::::::::::::::::::::: -->
+
+<!-- Affiche detail global -->
+<div class="modal fade" id="detailGlobal" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
+        <div class="modal-content" id="ListesLabocontent"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
+            <div class="card-content collpase show">
+                <div class="card-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="card" style="box-shadow: none;">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs nav-underline">                            
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" aria-expanded="false"><i class="ft-layers"></i> Detail Titulaire</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" aria-expanded="false"><i class="ft-layers"></i> Gérer Enfants à charge</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="tab-content">     
+                            <div class="tab-pane active" id="tabIcon21" aria-expanded="true" aria-labelledby="baseIcon-tab21">
+                                <?= view("titulaire/detailTitulaire.php") ?>
+                            </div>
+                            <div role="tab-panel" class="tab-pane"  id="tabIcon22" aria-expanded="true" aria-labelledby="baseIcon-tab22">
+                                <?= view("titulaire/enfantTitulaire.php") ?>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- ::::::::::::::::::::::::::::::::::::::::::: -->
 
 
 <script src="<?php echo base_url() ?>/assets/js/titulaire/titulaire.js"></script>

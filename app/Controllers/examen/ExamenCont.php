@@ -8,9 +8,17 @@ use App\Controllers\BaseController;
 class ExamenCont extends BaseController
 {
     public function index()
-    {       
-        $content = view('examen/index');
-        return view('layout',['content' => $content]);
+    {    
+        if (in_array($_SESSION['roleId'], ["5" , "8"])){
+
+            $content = view('examen/index');
+            return view('layout',['content' => $content]);
+
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+        
     }
     
     public function lien()
@@ -24,7 +32,7 @@ class ExamenCont extends BaseController
             $this->examen->save($_POST);             
             $id = $this->examen->insertID();
 
-            if ($_SESSION['roleId'] == 3) {
+            if ($_SESSION['roleId'] == 8) {
                 $this->examen->update($id, ["etatExamen" => 1]);
             }
             echo json_encode(["status" => "success", "message" => "Ajout Réussit"]);
@@ -38,7 +46,7 @@ class ExamenCont extends BaseController
         try {
             $id = $_POST['examenId'];
             $etatExamen = 0;
-            if ($_SESSION['roleId'] == 3) {
+            if ($_SESSION['roleId'] == 8 ) {
                 $etatExamen = 1;
             }
             $this->examen->update($id, array_merge($_POST, ['etatExamen' => $etatExamen]));
@@ -85,7 +93,7 @@ class ExamenCont extends BaseController
         try {
             $datas =$this->examen->where("etatExamen" , 0)->where("isDeleted" , 1)->findAll();
             $thValidation = "";
-            if ($_SESSION['roleId'] == 3 || $_SESSION['roleId'] == 5) {
+            if ($_SESSION['roleId'] == 8 || $_SESSION['roleId'] == 5) {
                 // $datas = $this->examen->findAll();
                 $datas = $this->examen
                     ->where("isDeleted" , 1)
@@ -119,7 +127,7 @@ class ExamenCont extends BaseController
                     $validationDocteur = "<span class='badge badge-success'> Terminé</span>";
                 }
                 $tdValidation= "";
-                if ($_SESSION['roleId'] == 3  || $_SESSION['roleId'] == 5) {
+                if ($_SESSION['roleId'] == 8  || $_SESSION['roleId'] == 5) {
                     $tdValidation = '           
                         <td style="width:20%" >'. $validationDocteur  .'</td>
                 ';
@@ -216,7 +224,10 @@ class ExamenCont extends BaseController
     public function getDocteurExamen(){
         try {
 
-            $data =  $this->utilisateur->where("roleId", 3)->findAll();
+            $data =  $this->utilisateur
+            ->where("roleId", 8)
+            ->where("etat", 1)
+            ->findAll();
 
             $listeDocteur = '';
             foreach ($data as $value) {

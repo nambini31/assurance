@@ -97,7 +97,7 @@ class CandidatCont extends BaseController
 
                     if ($this->session->has('is_connected') && $this->session->get("role_user") == "admin") {
                         $th .= '
-                        <td> <a class="info mr-1 " onclick="editCandidats(' . $value["id_candidat"] .')"><i class=" la la-pencil"></i></a>
+                        <td> <a class="info mr-1 " onclick="editCandidats(' . $value["id_candidat"] .')"><i class=" la la-pencil-square-o"></i></a>
                         <a class="danger mr-1" onclick="supprimerCandidat('. $value["id_candidat"] .')"><i class=" la la-trash-o"></i></a> </td> 
                         ';
                     } 

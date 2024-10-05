@@ -1,0 +1,224 @@
+ERROR - 2024-09-18 10:24:44 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\titulaire\TitulaireCont.php(171): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listesTitulaire()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\titulaire\TitulaireCont.php(171): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->listesTitulaire()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:24:44 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(45): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(45): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:24:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(383): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->getSpecialiteMedecin()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(383): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->getSpecialiteMedecin()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:24:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(45): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(45): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:24:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(67): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre1()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\patient\PatientCont.php(67): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\patient\PatientCont->charge_membre1()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\patient\PatientCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:24:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(719): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->liste_consultation()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `membre`...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(719): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->liste_consultation()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:25:00 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(402): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->getDocteurSelonType()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(402): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->getDocteurSelonType()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+ERROR - 2024-09-18 10:25:01 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'assurance', 3306, '', 0)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `titulai...', Array, false)
+#4 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(483): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->charge_titulaire()
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#9 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\xampp\htdocs\assurance\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\assurance\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\assurance\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `titulai...', Array, false)
+#3 C:\xampp\htdocs\assurance\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\assurance\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\assurance\app\Controllers\Consultation\ConsultationCont.php(483): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\assurance\system\CodeIgniter.php(942): App\Controllers\consultation\ConsultationCont->charge_titulaire()
+#7 C:\xampp\htdocs\assurance\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\consultation\ConsultationCont))
+#8 C:\xampp\htdocs\assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\assurance\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}

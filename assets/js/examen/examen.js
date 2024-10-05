@@ -31,7 +31,9 @@ function listeExamen() {
         },
         url: base + "listes_examen",
         type: "POST",
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             let hide_btn_art = "";
             if (sessionData && sessionData.roleId != "3") {
@@ -188,7 +190,9 @@ $("#createExamenForm").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: formData,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if (res.status) {
                 if ($('#btn_add_examen').text() === "Modifier") {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
@@ -285,7 +289,9 @@ function delete_examen_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { examenId: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             $("#card-examen").unblock();
             if (res.id > 0) {
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
@@ -305,7 +311,9 @@ function edit_examen(id, verifRole) {
         type: "POST",
         dataType: "JSON",
         data: { ExamenId : id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if (res) {
                 // $('.entete_modal').text("Modification examen");
                 if (verifRole == 3) {
@@ -473,7 +481,9 @@ function imprimerExamen(idExamen) {
     
         type: 'POST',
         data: { idExamen: idExamen},
-        success: function (file) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (file) {
             $("#card-examen").unblock();
             window.open(file.file);
             alertCustom("success", 'ft-check', "Bien imprimé");
@@ -491,7 +501,9 @@ function imprimerExamen(idExamen) {
         url: base + 'getDocteurExamen',
         type: "POST",
         
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#docteurExamen").empty();
             $("#docteurExamen").append(data);
             $('select').selectpicker('refresh');

@@ -13,17 +13,17 @@ class DetailconsultationModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "motif"	, "typePersonneMalade" , "idPersonneMalade"	, "etat" ,	
-        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature"
-        	, "tension" ,	"poids" ,	"douleur" ,	"descriptionDouleur"
+        "motif"	, "TypepersonneMalade" , "idPersonneMalade" , "bilanHydrique"	, "etat" ,	"consultationId", "frequenceRespiratoire", "frequenceCardiaque", "etatConscience", "sf", "pupille", "peekFlow", "glicemie", "conjonctives", "perimetreBras", "perimetreCrane", "gcs", "evs", "diurese" ,
+        "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId" , "isPharmacie" , "histoMaladie", "examClinique", "chirurgie", "alergie"
+        	, "tension" ,	"poids" , "taille" , "isLabo" , 	"douleur" ,	"descriptionDouleur" // ispharmacie tsy misy satria mandiny validation doc vo pharmacie rozy iaby
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $createdField  = 'createdAt';
+    protected $updatedField  = 'updatedAt';
+    protected $deletedField  = 'deletedAt';
 
     // Validation
     protected $validationRules      = [];

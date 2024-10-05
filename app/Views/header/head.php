@@ -44,6 +44,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/palette-gradient.css">
 
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/invoice.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/line-awesome.min.css">
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.css" rel="stylesheet"> -->
 

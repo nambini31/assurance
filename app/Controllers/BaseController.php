@@ -6,19 +6,20 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\login\LoginModel;
 use App\Controllers\login\LoginCont;
-
+use App\Models\article\ArticleModel;
 use App\Models\Cabinet\CabinetModel;
-
+use App\Models\categorie\CategorieModel;
 use App\Models\Consultation\ConsultationModel;
 use App\Models\Consultation\DetailconsultationModel;
+use App\Models\Consultation\DetailMedicamentModel;
+use App\Models\Cpn\CpnModel;
+use App\Models\Cpn\DetailConsultationCpnModel;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\Medecin\MedecinModel;
 use App\Models\Membre\MembreModel;
 use App\Models\Patient\PatientModel;
-use App\Models\Specialiste\SpecialiteModel;
 use App\Models\Utilisateur\RoleModel;
 use App\Models\Utilisateur\TypeMedecinModel;
 use App\Models\Titulaire\TitulaireModel;
@@ -26,6 +27,13 @@ use App\Models\Enfant\EnfantModel;
 use Psr\Log\LoggerInterface;
 use App\Models\utilisateur\UtilisateurModel;
 use App\Models\Examen\ExamenModel;
+use App\Models\fournisseur\FournisseurModel;
+use App\Models\Gestion\AdminMedicamentModel;
+use App\Models\Gestion\AnalyseModel;
+use App\Models\Gestion\MethodePfModel;
+use App\Models\Gestion\Type_analyseModel;
+use App\Models\Labo\EnvoieLaboModel;
+use App\Models\Pf\PfModel;
 use Mpdf\Mpdf;
 
 
@@ -55,14 +63,25 @@ abstract class BaseController extends Controller
     protected $dompdf;
 
     protected $patient;
-    protected $medecin;
-    protected $specialite;
+    protected $analyse;
+    protected $type_analyse;
     protected $cabinet;
     protected $clientApi;
     protected $membre;
     protected $titulaire;
     protected $enfant;
     protected $examen;
+    protected $cpn;
+    protected $pf;
+    protected $detailconsultationcpn;
+    protected $methodePf;
+    protected $envoieLbo;
+    protected $liste_medic;
+
+    protected $article;
+    protected $categorie;
+    protected $fournisseur;
+    protected $adminMedicament;
 
 
     public function __construct()
@@ -74,18 +93,28 @@ abstract class BaseController extends Controller
         $this->connexion = new LoginModel();
         $this->consultation = new ConsultationModel();
         $this->detailconsultation = new DetailconsultationModel();
+        $this->detailconsultationcpn = new DetailConsultationCpnModel();
+        $this->cpn = new CpnModel();
+        $this->methodePf = new MethodePfModel();
+        $this->liste_medic = new DetailMedicamentModel();
+        $this->article = new ArticleModel();
+        $this->fournisseur = new FournisseurModel();
         
+        $this->categorie = new CategorieModel();
 
         $this->patient = new PatientModel();
         $this->titulaire = new TitulaireModel();
-        $this->specialite = new SpecialiteModel();
+        $this->type_analyse = new Type_analyseModel();
         $this->cabinet = new CabinetModel();
-        $this->medecin = new MedecinModel();
+        $this->analyse = new AnalyseModel();
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
         $this->enfant = new EnfantModel();
 
+        $this->pf = new PfModel();
         $this->pdf = new Mpdf();
+        $this->envoieLbo = new EnvoieLaboModel();
+        $this->adminMedicament = new AdminMedicamentModel();
 
     }
 
@@ -130,6 +159,32 @@ abstract class BaseController extends Controller
         
     }
 
+    function formatPrixInput($data)
+    {
+        // Supprime toutes les virgules existantes et tous les caractères non numériques, sauf les points décimaux
+        $nombre = preg_replace('/[^0-9\.]/', '', ceil($data));
+
+        // Formatte le nombre avec deux chiffres après la virgule
+        $formattedValue = number_format($nombre, ($nombre == floor($nombre) ? 0 : 2), ',', '.');
+
+        // Ajoute le symbole de la devise, par exemple
+        return $formattedValue;
+    }
+
+    function genererNumeroCarte($nomMembre, $numeroCarte) {
+        // Garder les trois premières lettres du nom en majuscules
+    $prefixe = strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $nomMembre), 0, 3));
+    
+    // Si le numéro a moins de 3 chiffres, on ajoute des zéros à gauche
+    if ($numeroCarte < 100) {
+        $numeroCarte = str_pad($numeroCarte, 3, '0', STR_PAD_LEFT);
+    }
+    
+    // Générer le numéro de carte complet
+    $numCarte = $prefixe . '-' . $numeroCarte;
+    
+    return $numCarte;
+    }
 
     public function teste_session()
     {

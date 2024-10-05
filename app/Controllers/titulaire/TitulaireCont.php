@@ -12,8 +12,18 @@ class TitulaireCont extends BaseController
 {
     public function index()
     {
-        $content = view('titulaire/index');
-        return view('layout',['content' => $content]);
+        if (in_array($_SESSION['roleId'], ["5" , "1"])){
+
+            $content = view('titulaire/index');
+            return view('layout',['content' => $content]);
+            
+        }else{
+            echo view('Access/index');
+                    exit();
+        }
+       
+
+        
     }
 
     public function lien()
@@ -202,8 +212,7 @@ class TitulaireCont extends BaseController
 
                 $btn = '                
                     <td style="width:10%">
-                        <a title="Liste Famille" class="info mr-1" onclick="listeEnfant('.$value_ar["titulaireId"].')"><i class="la la-group"></i></a> 
-                        <a title="Voir détail" class="info mr-1" onclick="detailTitulaire('.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
+                        <a title="Voir détail" class="info mr-1" onclick="detailTitulaireGlobal('.$value_ar["titulaireId"].')"><i class="la la-list"></i></a> 
                         <a title="Editer" class="primary edit mr-1" onclick="editTitulaire('.$value_ar["titulaireId"].')"><i class="la la-pencil"></i></a>
                         <a title ="Supprimer" class="danger delete mr-1" onclick="deleteTitulaire('.$value_ar["titulaireId"].')" ><i class="la la-trash-o"></i></a>
                     </td>
@@ -307,9 +316,10 @@ class TitulaireCont extends BaseController
         
         $photo = 'Pas de Photo';
         if (!empty($selectedData[0]["photo"])) {
-            $photo = '<img src="' . base_url('assets/img/titulaire/' . $selectedData[0]["photo"]) . '" alt="User Image" style="width: 100%; height: auto; border-radius: 10px;">';
+            $photo = '<img src="' . base_url('assets/img/titulaire/' . $selectedData[0]["photo"]) . '" alt="User Image" style="width: 50%; height: auto; border-radius: 10px;">';
         }
         $selectedData["detailPhotoTitulaire"] = $photo;
+        $selectedData["numCartGenere"] = $numCartGenere;
 
         echo json_encode(["data" => $selectedData]);
     }

@@ -23,7 +23,9 @@ function charge_role() {
       url: base + 'getRole',
       type: "POST",
       
-      success: function (data) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
           $("#select_role").empty();
           $("#select_role").append(data);
           $('select').selectpicker('refresh');
@@ -31,7 +33,7 @@ function charge_role() {
           $("#select_role").on('change', function name(params) {
             var data = $(this).val();
 
-            if (data == 3) {
+            if (data == 8) {
               
               charge_type(data);
               
@@ -50,7 +52,9 @@ function charge_type(data , id) {
       data:{
         id: data
       },
-      success: function (data) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
           $("#typeMedecin").empty();
           $("#typeMedecin").append(data);
           $('select').selectpicker('refresh');
@@ -97,7 +101,9 @@ function refresh_user() {
     },
     url: base + "/afficher_utilisateur",
     type: "POST",
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       
      $("#card_utilisateur").unblock();
      $("#table_user").empty();
@@ -153,7 +159,9 @@ function editUsers(id) {
     url: base + "get_utilisateur",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       // Convertissez la chaîne JSON en objet JavaScript
       var user = JSON.parse(response);
       console.log(user);
@@ -166,8 +174,8 @@ function editUsers(id) {
         $("#label_image").val(user.image);
         $("#select_role").val(user.roleId);
         $('select').selectpicker('refresh');
-        if (user.roleId == "3") {
-          charge_type(3,user.idTypeMedecin);
+        if (user.roleId == "8") {
+          charge_type(8,user.idTypeMedecin);
         } else {
           $("#typeMedecin").empty();
         }
@@ -222,7 +230,9 @@ $("#ajout_utilisateur").off("submit").on("submit",function (e) {
       cache: false,
       dataType: "JSON",
       data: new FormData(this),
-      success: function (res) {
+      error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
         
 
         if ($("#ajouterButton").text() ==  "Modifier") {
@@ -315,7 +325,9 @@ function delete_dialog_user(id) {
     url: base + "supprimer_utilisateur",
     type: "POST",
     data: { id: id },
-    success: function (response) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (response) {
       alertCustom("success", "ft-check", "Suppression effectué avec succès");
       refresh_user();
       // liste_caracteristique();

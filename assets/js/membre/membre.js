@@ -40,7 +40,9 @@ function liste_membre() {
         },
         url: base + "listes_membre",
         type: "POST",
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table_membre")) {
                 $("#table_membre").DataTable().destroy();
             } else {
@@ -168,7 +170,9 @@ $("#ajout_membre").off("submit").on("submit", function (e) {
             alertCustom("danger", 'ft-x', "Suppression non effectué");
 
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             if ($('#btn_add_membre').text() === "Modifier") {
                 if (res.id == 1) {
@@ -338,7 +342,9 @@ function bloque_membre(id) {
             type: "POST",
             dataType: "JSON",
             data: { id_membre: id , motif_membre : motif},
-            success: function (res) {
+            error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
     
                 $("#card_membre").unblock();
     
@@ -423,7 +429,9 @@ function infos_membre(id) {
             alertCustom("danger", 'ft-x', "Error");
 
         },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#card_membre").block({
                 message: `
@@ -502,7 +510,9 @@ function delete_membre_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { id_membre: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#card_membre").unblock();
 
@@ -558,7 +568,9 @@ function debloque_membre_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { id_membre: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
 
             $("#card_membre").unblock();
 

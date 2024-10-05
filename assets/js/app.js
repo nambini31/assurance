@@ -59,7 +59,7 @@ $(document).ready(function () {
     });
 
   });
-  formatPrixImput();
+
   $('.menu-item').on('click', function (e) {
     e.preventDefault(); // Empêcher le lien de changer de page
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
       
       //notification_header();
     });
-    formatPrixImput();
+  
 
     var clickedMenuItem = $(this);
     $('.menu-item').parent().removeClass('menu-collapsed-open');
@@ -103,7 +103,9 @@ function deconnecter() {
     url: base + "deconnecter",
     type: "POST",
     dataType: "JSON",
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       window.location.href = currentPath;
       // or location.reload();
     },
@@ -324,24 +326,40 @@ function editer_commande(id_devis, type) {
 let clave;
 
 function formatPrixImput() {
-
-  var inputPrix = $("#userinput5, .autre_fraix, #prix_remise , #somme_paye , #longueur , #hauteur , #sur_plus_vitre , #sur_plus_profil , #pu_m , #reductionPromo , #remise_champs_client, #remise_champs_client_m");
-
-// Initialiser Cleave pour chaque champ de saisie
-inputPrix.each(function () {
-    clave =  new Cleave(this, {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand',
-        delimiter: '.',
-        numeralDecimalMark: ',',
-        numeralDecimalScale: 2,
-        numeralPositiveOnly: false,
-        numeralMinimumValue: '0',
-        // numeralMaximumValue: '1000000',
-    });
-});
-
+  // Appliquer la validation à chaque champ de saisie spécifié
+  $('#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire').on('input', function() {
+      validateNumber($(this));
+  });
 }
+
+function validateNumber(input) {
+  let value = input.val();
+
+  // Supprimer tous les caractères non numériques, non '-' et non '.'
+  value = value.replace(/[^0-9.-]/g, '');
+
+  // Autoriser seulement un seul signe '-' au début
+  const minusCount = (value.match(/-/g) || []).length;
+  if (minusCount > 1) {
+      value = value.replace(/-/g, '');
+      value = '-' + value;
+  }
+
+  // Gérer les virgules (un seul point décimal)
+  const parts = value.split('.');
+  if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+  }
+
+  // Limiter à deux chiffres après la virgule
+  if (parts.length === 2) {
+      value = parts[0] + '.' + parts[1].slice(0, 2);
+  }
+
+  // Mettre à jour la valeur de l'input
+  input.val(value);
+}
+
 
 
 // function formatPrixImputpo() {
@@ -1002,7 +1020,9 @@ function notification_header() {
   $.ajax({
     url: base + "afficher_notification",
     type: "POST",
-    success: function (res) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
       $("#liste_notification").empty();
       $("#liste_notification").append(res);
     },
@@ -1037,7 +1057,9 @@ function exportDatabase() {
     url: base + "exportDatabase",
     type: "POST",
     dataType:'json',
-    success: function (file) {
+    error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (file) {
       $("body").unblock();
       window.open(file.file);
       alertCustom("success", 'ft-check', "Database exporter avec succès");

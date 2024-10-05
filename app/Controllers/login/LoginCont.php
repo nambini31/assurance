@@ -50,7 +50,9 @@ class LoginCont extends BaseController
 
                 if ($_POST) {
                     $result = $this->connexion
+                        ->select("role.name , utilisateur.*")
                         ->where('LOWER(prenom_user)', strtolower($_POST['prenom_user']))
+                        ->join("role" , "role.roleId = utilisateur.roleId")
                         ->where('mdp_user', $_POST['mdp_user'])
                         ->where('etat', 1)
                         ->first();
@@ -64,6 +66,7 @@ class LoginCont extends BaseController
                         $_SESSION['image_user'] = $result['image'];
                         $_SESSION['id_user'] = $result['id_user'];
                         $_SESSION['roleId'] = $result['roleId'];
+                        $_SESSION['roleName'] = $result['name'];
 
                         if ($_SESSION['id_user']) {
                             $designation = "Connecté";

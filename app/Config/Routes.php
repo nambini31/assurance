@@ -53,6 +53,7 @@ use CodeIgniter\Router\RouteCollection;
      $routes->get('lienpatient', 'patient\PatientCont::lien');
      $routes->post('listes_patient', 'patient\PatientCont::listes_patient');
      $routes->post('charge_membre', 'patient\PatientCont::charge_membre');
+     $routes->post('charge_membre1', 'patient\PatientCont::charge_membre1');
      
      //route pour titulaire
      $routes->get('titulaire', 'titulaire\TitulaireCont::index');
@@ -76,36 +77,104 @@ use CodeIgniter\Router\RouteCollection;
 
      //route pour patient
 
-     $routes->post('listes_patient_malade', 'titulaire\ConsultationCont::listes_patient_malade');
-    //  $routes->post('ajout_titulaire', 'titulaire\TitulaireCont::ajout_titulaire');    
+     $routes->post('listes_patient_malade', 'Consultation\ConsultationCont::listes_patient_malade');
+     $routes->post('getDocteurSelonType', 'Consultation\ConsultationCont::getDocteurSelonType');
+     $routes->post('charge_personne_malade', 'Consultation\ConsultationCont::charge_personne_malade');    
+     $routes->post('ajout_patient', 'Consultation\ConsultationCont::ajout_patient');    
 
     //route medecin
-    $routes->get('lienmedecin', 'medecin\MedecinCont::lien');
-    $routes->get('medecin', 'medecin\MedecinCont::index');
-    $routes->post('charge_specialite', 'medecin\MedecinCont::charge_specialite');
-    $routes->post('charge_cabinet', 'medecin\MedecinCont::charge_cabinet');
-    $routes->post('liste_medecin', 'medecin\MedecinCont::liste_medecin');
-    $routes->post('ajout_medecin', 'medecin\MedecinCont::ajout_medecin');
-    $routes->post('supprimer_medecin', 'medecin\MedecinCont::supprimer_medecin');
+    $routes->get('liengestion', 'gestion\AnalyseCont::lien');
+    $routes->get('gestion', 'gestion\AnalyseCont::index');
+    $routes->post('charge_type_analyse', 'gestion\AnalyseCont::charge_type_analyse');
+    $routes->post('charge_cabinet', 'gestion\AnalyseCont::charge_cabinet');
+    $routes->post('liste_analyse', 'gestion\AnalyseCont::liste_analyse');
+    $routes->post('ajout_analyse', 'gestion\AnalyseCont::ajout_analyse');
+    $routes->post('supprimer_analyse', 'gestion\AnalyseCont::supprimer_analyse');
 
     //route consultation
     $routes->get('lienconsultation', 'consultation\ConsultationCont::lien');
     $routes->get('consultation', 'consultation\ConsultationCont::index');
-    // $routes->get('/', 'consultation\ConsultationCont::index');
-    $routes->post('charge_patient', 'consultation\ConsultationCont::charge_patient');
-    $routes->post('charge_medecin', 'consultation\ConsultationCont::charge_medecin');
+    $routes->post('charge_titulaire', 'consultation\ConsultationCont::charge_titulaire');
+    $routes->post('getSpecialiteMedecin', 'consultation\ConsultationCont::getSpecialiteMedecin');
+    $routes->post('charge_analyse', 'consultation\ConsultationCont::charge_analyse');
     $routes->post('listes_consultation', 'consultation\ConsultationCont::liste_consultation');
     $routes->post('ajout_consultation', 'consultation\ConsultationCont::ajout_consultation');
     $routes->post('delete_consultation', 'consultation\ConsultationCont::delete_consultation');
+    $routes->post('affiche_parametre', 'consultation\ConsultationCont::affiche_parametre');
+    $routes->post('affiche_clinique', 'consultation\ConsultationCont::affiche_clinique');
+    $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
+    $routes->post('add_clinique', 'consultation\ConsultationCont::add_clinique');
+    $routes->post('add_Examen', 'consultation\ConsultationCont::add_Examen');
+    $routes->post('delete_detailconsul', 'consultation\ConsultationCont::delete_detailconsul');
+    $routes->post('listes_envoie_labo', 'Consultation\ConsultationCont::listes_envoie_labo');    
+    $routes->post('valider_envoie_labo', 'Consultation\ConsultationCont::valider_envoie_labo');    
+    $routes->post('downloadFile', 'Consultation\ConsultationCont::downloadFile');    
+    $routes->post('envoyer_docteur', 'Consultation\ConsultationCont::envoyer_docteur');    
+    $routes->post('listes_medic', 'Consultation\ConsultationCont::listes_medic');    
+    $routes->post('delete_labo', 'Consultation\ConsultationCont::delete_labo');    
+    
 
-    //route cabinet
-    $routes->post('ajout_cabinet', 'medecin\CabinetCont::ajout_cabinet');
-    $routes->post('liste_cabinet', 'medecin\CabinetCont::liste_cabinet');
-    $routes->post('supprimer_cabinet', 'medecin\CabinetCont::supprimer_cabinet');
-    //route specialite
-    $routes->post('ajout_specialite', 'medecin\SpecialiteCont::ajout_specialite');
-    $routes->post('liste_specialite', 'medecin\SpecialiteCont::liste_specialite');
-    $routes->post('supprimer_specialite', 'medecin\SpecialiteCont::supprimer_specialite');
+    //article
+    $routes->get('lienarticle', 'article\ArticleCont::lien');
+    $routes->get('article', 'article\ArticleCont::index');
+    $routes->post('listeArticleMenuiserie', 'article\ArticleCont::listeArticle');
+    $routes->post('generation_categorie_dynamique', 'article\ArticleCont::generation_categorie_dynamique');
+    $routes->post('generation_dropdown_article', 'article\ArticleCont::generation_dropdown_article');
+    $routes->post('generation_article_dynamique', 'article\ArticleCont::generation_article_dynamique');
+
+    $routes->post('ajout_article', 'article\ArticleCont::ajout_article');
+    $routes->post('listes_article', 'article\ArticleCont::listes_article');
+    $routes->post('delete_article', 'article\ArticleCont::delete_article');
+    $routes->post('generation_liste_par_groupe', 'article\ArticleCont::generation_liste_par_groupe');
+    $routes->post('get_info_article', 'article\ArticleCont::get_info_article');
+
+
+    //fournisseur
+    $routes->get('lienfournisseur', 'fournisseur\FournisseurCont::lien');
+    $routes->get('fournisseur', 'fournisseur\FournisseurCont::index');
+    $routes->post('afficher_fournisseur', 'fournisseur\FournisseurCont::listes_fournisseur');
+    $routes->post('ajout_fournisseur', 'fournisseur\FournisseurCont::ajout_fournisseur');
+    $routes->post('modifier_fournisseur', 'fournisseur\FournisseurCont::modifier_fournisseur');
+    $routes->post('delete_fournisseur', 'fournisseur\FournisseurCont::delete_fournisseur');
+    $routes->post('get_fournisseur', 'fournisseur\FournisseurCont::get_fournisseur');
+    $routes->post('generation_dropdown_fournisseur', 'fournisseur\FournisseurCont::generation_dropdown_fournisseur');
+
+
+    //route cpn
+    $routes->get('liencpn', 'cpn\CpnCont::lien');
+    $routes->get('cpn', 'cpn\CpnCont::index');
+    $routes->post('listes_details_consult', 'cpn\CpnCont::listes_details_consult');
+    $routes->post('liste_cpn', 'cpn\CpnCont::liste_cpn');
+    $routes->post('ajout_cpn', 'cpn\CpnCont::ajout_cpn');
+    $routes->post('delete_cpn', 'cpn\CpnCont::delete_cpn');
+    $routes->post('delete_detailcpn', 'cpn\CpnCont::delete_detailcpn');
+    $routes->post('add_detailcpn', 'cpn\CpnCont::add_detailcpn');
+    $routes->post('add_cpnParam', 'cpn\CpnCont::add_cpnParam');
+    $routes->post('add_Examen_cpn', 'cpn\CpnCont::add_Examen_cpn');
+    
+    //route cpn
+    $routes->get('lienpf', 'pf\PfCont::lien');
+    $routes->get('pf', 'pf\PfCont::index');
+    $routes->post('liste_pf', 'pf\PfCont::liste_pf');
+    $routes->post('ajout_pf', 'pf\PfCont::ajout_pf');
+    $routes->post('delete_pf', 'pf\PfCont::delete_pf');
+    $routes->post('charge_methode_contraceptive', 'pf\PfCont::charge_methode_contraceptive');
+
+
+    //route type_analyse
+    $routes->post('ajout_type_analyse', 'gestion\Type_analyseCont::ajout_type_analyse');
+    $routes->post('liste_type_analyse', 'gestion\Type_analyseCont::liste_type_analyse');
+    $routes->post('supprimer_type_analyse', 'gestion\Type_analyseCont::supprimer_type_analyse');
+
+    //route methodePf
+    $routes->post('ajout_methodePf', 'gestion\MethodePfCont::ajout_methodePf');
+    $routes->post('liste_methodePf', 'gestion\MethodePfCont::liste_methodePf');
+    $routes->post('supprimer_methodePf', 'gestion\MethodePfCont::supprimer_methodePf');
+
+    //route AdminMedicament
+    $routes->post('ajout_adminMedicament', 'gestion\AdminMedicamentCont::ajout_adminMedicament');
+    $routes->post('liste_adminMedicament', 'gestion\AdminMedicamentCont::liste_adminMedicament');
+    $routes->post('supprimer_adminMedicament', 'gestion\AdminMedicamentCont::supprimer_adminMedicament');
 
 
     //route pour examen

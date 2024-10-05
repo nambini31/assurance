@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('select').selectpicker('refresh');
     listeTitulaire();
     charge_membre();
+    $("#detailGlobal").insertAfter("#createTitulaireModel");
 
 });
 
@@ -9,7 +10,9 @@ function charge_membre() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        success: function (data) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $("#membreId").append(data);
@@ -43,7 +46,9 @@ function listeTitulaire() {
         },
         url: base + "listesTitulaire",
         type: "POST",
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if ($.fn.DataTable.isDataTable("table-titulaire")) {
                 $("#table-titulaire").DataTable().destroy();
             }
@@ -160,7 +165,9 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: formData,
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             if (res.success) {
                 if ($('#btn_add_titualire').text() === "Modifier") {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
@@ -341,7 +348,9 @@ function delete_titulaire_from_dialog(id) {
         type: "POST",
         dataType: "JSON",
         data: { titulaireId: id },
-        success: function (res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
             $("#card-titulaire").unblock();
             if (res.id > 0) {
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
@@ -398,7 +407,9 @@ function editTitulaire(id) {
         type: 'POST',
         dataType: 'JSON',
         data: { titulaireId: id }, // Passer l'id du titulaire à l'URL
-        success: function(res) {
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function(res) {
             var titulaire = res.data[0];
             
             // Remplir les champs du formulaire avec les données du titulaire
@@ -471,7 +482,7 @@ function editerEnfant(id, titulaireId) {
             // Afficher le formulaire (par exemple, en ouvrant un modal)
             $('.entete_modal').text("Modification");
             $('#btn_add_enfant').text("Modifier");
-            $("#detailTitulaireModel").block();
+            $("#listeEnfantModal").block();
             $("#createEnfantModel").modal(
                 { backdrop: "static", keyboard: false },
                 "show"
@@ -806,6 +817,23 @@ function unblockCard() {
 /** Dedtail titulaire*/
 function detailTitulaire(id){
     $.ajax({
+        beforeSend: function () {
+            $("#detailGlobal").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
         url: base + "getTitulaireById", // L'URL du contrôleur qui renvoie les données du titulaire
         type: 'POST',
         dataType: 'JSON',
@@ -835,22 +863,38 @@ function detailTitulaire(id){
             $("#detailFonctionConjoint").text(titulaire.fonctionConjoint);
             $("#detailPhotoTitulaire").html(res.data.detailPhotoTitulaire);
 
-            $("#detailTitulaireModel").modal(
-                { backdrop: "static", keyboard: false },
-                "show"
-            ); 
+            $("#detailGlobal").unblock();
         }
     })
 }
 /************************************************ */
 
-/** Listes des enfant */
-function listeEnfant(titulaireId){
 
-    $("#listeEnfantModal").modal(
+/** Detal titulaire Global */
+function detailTitulaireGlobal(id) {
+
+    $('.nav-tabs .nav-link').removeClass('active').first().addClass('active');
+    
+    $('.tab-content .tab-pane').removeClass('active').first().addClass('active');
+
+    idCpn = id ;
+
+    formatPrixImput();
+
+    $("#detailGlobal").modal(
         { backdrop: "static", keyboard: false },
         "show"
-    ); 
+    );
+
+
+    detailTitulaire(id);
+    listeEnfant(id);
+
+}
+/*************************************** */
+
+/** Listes des enfant */
+function listeEnfant(titulaireId){
 
     $.ajax({
         beforeSend: function () {
