@@ -114,9 +114,8 @@ $("#createTitulaireForm").off("submit").on("submit", function (e) {
     let formData = new FormData(this);
     var photo = $("#photo")[0].files[0];
     var url = "ajout_titulaire";
-
     //verifier si c'st modifier
-    if ($('#titulaireId').val() != "0") {
+    if ($('#titulaireId').val() != 0) {
         url = "update_titulaire";
         if (!photo) {
             // Vérifiez le type de fichier et la taille

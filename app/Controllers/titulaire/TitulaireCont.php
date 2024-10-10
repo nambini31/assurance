@@ -295,13 +295,21 @@ class TitulaireCont extends BaseController
     }
     /******************************************************* */
 
-    //***** get By Id *****/
+    /** Get All enfant by Id  */
+    public function getAllEnfant($titulaireId){
+        $datas = $this->enfant->where("etat" , 1)->where("titulaireId" , $titulaireId)->orderBy("enfantId", 'desc')->findAll();
+        return $datas;
+    }
+    /**************************************************** */
+
+    //***** get Titulaire By Id *****/
     public function getTitulaireById(){
         $TitulaireId = $_POST['titulaireId'];
         // var_dump($selectedData[0]['membreId']); die;
 
         //generation de numCarte
         $selectedData = $this->titulaire->where("titulaireId" , $TitulaireId)->findAll();
+        $numCartGenere = '';
         if ($selectedData[0]["membreId"] != "") {
             $membreId = $selectedData[0]["membreId"];
             $nomMembre = $this->titulaire
@@ -320,10 +328,43 @@ class TitulaireCont extends BaseController
         }
         $selectedData["detailPhotoTitulaire"] = $photo;
         $selectedData["numCartGenere"] = $numCartGenere;
+        $selectedData["nomMembre"] = $nomMembre;
+
 
         echo json_encode(["data" => $selectedData]);
     }
     /** ********************************/ 
+
+    //***** get Titulaire By Id avec parametre*****/\
+    public function getTitulaireByIdParam($idTitulaire){
+
+        //generation de numCarte
+        $selectedData = $this->titulaire->where("titulaireId" , $idTitulaire)->findAll();
+        $numCartGenere = '';
+        $nomMembre = '';
+        if ($selectedData[0]["membreId"] != "") {
+            $membreId = $selectedData[0]["membreId"];
+            $nomMembre = $this->titulaire
+                        ->join('membre', 'membre.id_membre = titulaire.membreId', 'left')
+                        ->where('titulaire.membreId', $membreId)
+                        ->get()
+                        ->getRow()
+                        ->nom_membre;
+
+            $numCartGenere = $this->genererNumeroCarte($nomMembre, $idTitulaire);
+        }
+        
+        $photo = 'Pas de Photo';
+        if (!empty($selectedData[0]["photo"])) {
+            $photo = '<img src="' . base_url('assets/img/titulaire/' . $selectedData[0]["photo"]) . '" alt="User Image" style="width: 200px; height: auto; border-radius: 10px;">';
+        }
+        $selectedData["detailPhotoTitulaire"] = $photo;
+        $selectedData["numCartGenere"] = $numCartGenere;
+        $selectedData["nomMembre"] = $nomMembre;
+
+        return $selectedData;
+    }
+    /** ********************************/
 
     //** GEt Enfant By Id *****/
     public function getEnfantById(){
@@ -403,21 +444,32 @@ class TitulaireCont extends BaseController
         return $numCarte;
     }
 
-
     /** Imprimer carte */
     public function imprimerCarte1(){
         try {
+            $this->pdf = new \Mpdf\Mpdf([
+                'margin_left' => 0,
+                'margin_right' => 0,
+                'margin_top' => 0,
+                'margin_bottom' => 0,
+            ]);
             // Initialisation de mPDF
-            $this->pdf->SetMargins(0, 0, 8, 0);
-        
-            $titulaireId= $_POST['titulaireId'];
+            // $this->pdf->SetMargins(0, 0, 0);
+            $this->pdf->SetLeftMargin(0);
             
-            $selectedData = $this->titulaire->find($titulaireId);            
+            // new \Mpdf\Mpdf([
+            //     'margin_left' => 0,
+            // ]);
+
+
+            $titulaireId= $_POST['titulaireId'];
+            $selectedData = $this->getTitulaireByIdParam($titulaireId);
+            $enfantList = $this->getAllEnfant($titulaireId);
+            // var_dump($enfantList); die;
+            //$selectedData = $this->titulaire->find($titulaireId);
 
             // Génération du contenu HTML selectedExamen
-            // var_dump($selectedData); die;
-            $html = view('pdf/carteAffiliation/carteOmit', ["selectedData" => $selectedData]);
-        
+            $html = view('pdf/carteAffiliation/carteOmit', ["selectedData" => $selectedData, "enfantList" => $enfantList,]);
             // Configuration d'erreur
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
@@ -430,7 +482,7 @@ class TitulaireCont extends BaseController
             $this->pdf->WriteHTML($html);
         
             // Définition du nom du fichier PDF
-            $pdfFileName = 'Carte1_' . $selectedData['titulaireId'] .'_'.date("dmYhi"). '.pdf';
+            $pdfFileName = 'Carte1_' . $titulaireId .'_'.date("dmYhi"). '.pdf';
             $pdfFilePath = 'public/uploads/examen/' . $pdfFileName;
         
             // Vérification des permissions du dossier
@@ -440,6 +492,8 @@ class TitulaireCont extends BaseController
         
             // Enregistrement du fichier PDF
             $this->pdf->Output($pdfFilePath, "F");
+            // $this->pdf->Output($pdfFileName, "D");
+
         
             // Réponse JSON avec le chemin du fichier
             echo json_encode(['file' => base_url() . $pdfFilePath]);

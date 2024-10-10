@@ -65,7 +65,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="membreId" class="col-form-label">Membre</label>
-                                        <select name="membreId" id="membreId" class="selectpicker form-control" data-live-search='true' required>
+                                        <select name="membreId" id="membreId" class="selectpicker form-control" data-live-search='true'>
                                         </select>
                                     </div>
 
@@ -91,7 +91,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="nom" class="col-form-label">Nom</label>
-                                        <input name="nom" id="nom" type="text" class="form-control input-sm" required>
+                                        <input name="nom" id="nom" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
@@ -101,12 +101,12 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="cin" class="col-form-label">CIN</label>
-                                        <input name="cin" id="cin" type="number" class="form-control input-sm" required>
+                                        <input name="cin" id="cin" type="number" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label class="col-form-label">Adresse</label>
-                                        <input name="adresse" id="adresse" type="text" class="form-control input-sm" required>
+                                        <input name="adresse" id="adresse" type="text" class="form-control input-sm">
                                     </div>
                                 </div> 
                                 
@@ -118,7 +118,7 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="prenom" class="col-form-label">Fonction</label>
-                                        <input name="fonction" id="fonction" type="text" class="form-control input-sm" required>
+                                        <input name="fonction" id="fonction" type="text" class="form-control input-sm">
                                     </div>
 
                                     <div class="form-group col-md-3"> 
@@ -262,7 +262,7 @@
 </div>
 <!-- ::::::::::::::::::::::::::::::::::::::::: -->
 
-<!-- Affiche detail global -->
+<!-- Affiche detail c -->
 <div class="modal fade" id="detailGlobal" style="z-index: 99999999 ; margin-top: 1% !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
         <div class="modal-content" id="ListesLabocontent"  style = "box-shadow: 0px 19px 38px 10px rgb(0 0 0 / 30% )" >
