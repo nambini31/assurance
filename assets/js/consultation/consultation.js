@@ -579,6 +579,49 @@ function fill_paramettre(id) {
     $("#card_parametre").unblock();
 }
 
+function fill_conclusion(id) {
+
+    $.ajax({
+        beforeSend: function () {
+
+            $("#card_conclusion").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "affiche_conclusion",
+        type: "POST",
+
+        data: { id : id },
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+        var res = JSON.parse(res);
+
+        
+        $("#table_conclusion_vrai").empty();
+            $("#table_conclusion_vrai").append(res.table);
+
+            formatPrixImput();
+            $(".idDetailsCons").val(iddetail);
+            submitConclusion();
+        },
+    });
+
+    $("#card_conclusion").unblock();
+}
+
 function calculerPoidsTaille() {
     var poids = parseFloat($('#poids').val()) || 0;
     var taille = parseFloat($('#taille').val()) || 0;
@@ -592,6 +635,7 @@ function calculerPoidsTaille() {
         $('#poidstaille').attr('value', '');  // Vide l'attribut 'value'
     }
 }
+
 
 function fill_clinique(id) {
 
@@ -614,6 +658,60 @@ function fill_clinique(id) {
             $("#table_clinique_vrai").empty();
             $("#table_clinique_vrai").append(res.table);
             $('#table_clinique_vrai').DataTable({
+                destroy: true,
+                ordering: false,
+                responsive: true,
+                info: false,
+                paging: false,
+                deferRender: true,
+                searching : false ,
+                pageLength: 7,
+                "initComplete": function (settings, json) {
+                    $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
+                },
+                language: {
+                    "search": "",
+                    "zeroRecords": "Aucun enregistrement",
+                    paginate: {
+                        previous: "Précédent",
+                        next: "Suivant",
+                    },
+                },
+
+
+
+
+                dom: "frtip",
+               
+            });
+            
+
+            formatPrixImput();
+        },
+    });
+}
+
+function fill_antecedent(id) {
+
+    $.ajax({
+        url: base + "affiche_antecedent",
+        type: "POST",
+
+        data: { id : id },
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+        var res = JSON.parse(res);
+
+        if ($.fn.DataTable.isDataTable("#table_antecedent_vrai")) {
+            $("#table_antecedent_vrai").DataTable().destroy();
+        } else {
+        }
+
+
+            $("#table_antecedent_vrai").empty();
+            $("#table_antecedent_vrai").append(res.table);
+            $('#table_antecedent_vrai').DataTable({
                 destroy: true,
                 ordering: false,
                 responsive: true,
@@ -822,6 +920,8 @@ $("#ajout_patient").off("submit").on("submit", function (e) {
         },
     });
 });
+
+
 $("#add_parametre").off("submit").on("submit", function (e) {
     e.preventDefault();
 
@@ -850,6 +950,9 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         },
     });
 });
+
+
+
 $("#add_clinique").off("submit").on("submit", function (e) {
     e.preventDefault();
 
@@ -871,6 +974,35 @@ $("#add_clinique").off("submit").on("submit", function (e) {
     } ,success: function (res) {
 
                     alertCustom("success", "ft-check", "Examen clinique enregistré avec succée");
+                    affichage_details(idConsul , isFinished);
+
+
+
+        },
+    });
+});
+
+$("#add_antecedent").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+            
+        },
+        url: base + "add_antecedent",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (res) {
+
+                    alertCustom("success", "ft-check", "Antecedents enregistré avec succée");
                     affichage_details(idConsul , isFinished);
 
 
@@ -1023,6 +1155,66 @@ $("#add_consultation").off("submit").on("submit", function (e) {
 
 
 var iddetail ;
+
+function submitConclusion() {
+    $("#add_ceritificat").off("submit").on("submit", function (e) {
+
+        e.preventDefault();
+
+
+        let data = new FormData(this);
+
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: base + "add_ceritificat",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "JSON",
+            data: data,
+            error: function (xhr, status, error) {
+                alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            }, success: function (res) {
+
+                alertCustom("success", "ft-check", "Certification enregistré avec succée");
+                affichage_details(idConsul, isFinished);
+
+
+
+            },
+        });
+    });
+
+    $("#add_repos").off("submit").on("submit", function (e) {
+        e.preventDefault();
+
+        let data = new FormData(this);
+
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: base + "add_repos",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: "JSON",
+            data: data,
+            error: function (xhr, status, error) {
+                alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            }, success: function (res) {
+
+                alertCustom("success", "ft-check", "Repos medical enregistré avec succée");
+                affichage_details(idConsul, isFinished);
+
+
+
+            },
+        });
+    });
+}
 
 function delete_detailvisite(id) {
 
@@ -1365,6 +1557,8 @@ function affichage_demande(id) {
     fill_clinique(id);
     fill_labo(id);
     fill_prescription(id);
+    fill_conclusion(id);
+    fill_antecedent(id);
 }
 
 

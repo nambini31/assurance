@@ -328,12 +328,12 @@ let clave;
 
 function formatPrixImput() {
   // Appliquer la validation à chaque champ de saisie spécifié
-  $(' #qte , #durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille').on('input', function() {
+  $(' #qte , #durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille , #nbrrepos').on('input', function() {
       validateNumber($(this));
   });
 }
 
-$('#durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille').on('keydown', function(e) {
+$('#durreJours, #perimetreBras ,#perimetreCrane,#temperature, #tension, #poids, #taille , #presentation , #prix_unitaire, #poidstaille , #nbrrepos').on('keydown', function(e) {
     
   let value = parseFloat($(this).val());
 

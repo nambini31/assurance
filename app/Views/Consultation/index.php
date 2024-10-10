@@ -1,3 +1,4 @@
+
 <div class="app-content content">
     <div class="content-overlay"></div>
     <div class="content-wrapper">
@@ -297,7 +298,23 @@
                                         <?php  
                                                     
                                                 }
-                                                ?>
+                                              
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                        <div class="tab-pane"  id="tabIcon26" aria-expanded="true" aria-labelledby="baseIcon-tab26">
+                                <?= view("Consultation/conclusion.php") ?>
+                            </div>
+                                         
+                                        <?php 
+                                    } 
+                                    if (in_array($_SESSION['roleId'], ["8" , "5"])) {              
+                                        ?>
+                                        <div class="tab-pane"  id="tabIcon27" aria-expanded="true" aria-labelledby="baseIcon-tab27">
+                                <?= view("Consultation/antecedent.php") ?>
+                            </div>
+                                         
+                                        <?php 
+                                    } ?>
 
                                                 
 

@@ -15,7 +15,7 @@ class DetailconsultationModel extends Model
     protected $allowedFields    = [
         "motif"	, "TypepersonneMalade" , "idPersonneMalade" , "bilanHydrique"	, "etat" ,	"consultationId", "frequenceRespiratoire", "frequenceCardiaque", "etatConscience", "sf", "spo2", "perimetreBras", "perimetreCrane" ,
         "isFinished" , "dateParametre" ,	"dateDocteur"	, "temperature" , "titulaireId" , "isPharmacie" , "histoMaladie", "examClinique", "chirurgie", "alergie"
-        	, "tension" ,	"poids" , "taille" , "isLabo" , "poidstaille" ,	"descriptionDouleur" 
+        	, "tension" ,	"poids" , "taille" , "isLabo" , "poidstaille" ,	"descriptionDouleur" , "allergiieant", "autreant", "chirurgicauxant", "medicaux" ,  "ceritificationmedicale", "diagrepos", "nbrrepos"
     ];
 
     // Dates

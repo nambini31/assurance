@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-6">
+        <form method="POST" id="add_ceritificat">
+            <input type="hidden" name="idDetailsCons" class="idDetailsCons">
+            <div class="flowscroll">
+
+                <table id="table_ceritificat_vrai1"
+                    class="table table-white-space table-bordered table-sm no-wrap  text-center"
+                    style="width: 100% !important; overflow: auto; margin:auto">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 100px !important; width: 100% !important">CERTIFICATION MEDICALE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td style="min-width: 120px !important; width: 100%"><textarea name="ceritificationmedicale"
+                                    class="form-control input-sm" cols="30" rows="7"
+                                    placeholder="Certification">' . $value["ceritificationmedicale"] . '</textarea></td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <button style="width: 100%;" type="submit"
+                                    class="btn btn-sm btn-warning btn-min-width"><i class="la la-envelope"></i>
+                                    Enregistrer et Envoyer par email</button>
+                        </tr>
+
+                    </tbody>
+
+
+
+
+                </table>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="flowscroll">
+            <form method="POST" id="add_repos">
+                <input type="hidden" name="idDetailsCons" class="idDetailsCons">
+
+                <table id="table_reposer_vrai2"
+                    class="table table-white-space table-bordered table-sm no-wrap  text-center"
+                    style="width: 100% !important; overflow: auto; margin:auto">
+                    <thead>
+                        <tr>
+                            <th colspan="2">REPOS MEDICALE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th>Nombre des jours</th>
+                            <th style="min-width: 100px !important; width: 100% !important"><input type="text" class="form-control input-sm"  name="nbrrepos"> </th>
+                                
+                                </tr>
+                            <tr>
+                                <th>DIAGNOSTIQUE</th>
+                                <td><textarea name="diagrepos"  class="form-control input-sm" cols="5" rows="5" placeholder="Diagnostique">' .
+                                    $value["diagrepos"] . '</textarea></td>
+                                
+                            </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button style="width: 100%;" type="submit" class="btn btn-sm btn-warning btn-min-width"><i class="la la-envelope"></i> Enregistrer et Envoyer par email</button>
+                                    
+                                    </td>
+
+                                </tr>
+                            
+                            </tbody>
+                                </table>
+                                </form>
+                        </div>
+                        
+                    
+                    </div>
+                                
+                    </div>
