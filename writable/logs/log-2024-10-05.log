@@ -166,3 +166,27 @@ Stack trace:
 #8 E:\Wamp64\www\Assurance\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #9 E:\Wamp64\www\Assurance\index.php(79): CodeIgniter\CodeIgniter->run()
 #10 {main}
+CRITICAL - 2024-10-05 17:33:20 --> syntax error, unexpected token ")", expecting identifier or variable or "{" or "$"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 423.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\titulaire\\TitulaireCont')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\titulaire\\TitulaireCont')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\titulaire\\TitulaireCont', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-10-05 17:33:20 --> syntax error, unexpected token ")", expecting identifier or variable or "{" or "$"
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 423.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\assurance\\app\\Controllers\\titulaire\\TitulaireCont.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\titulaire\\TitulaireCont')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\titulaire\\TitulaireCont')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\titulaire\\TitulaireCont', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-10-05 17:44:46 --> Too few arguments to function App\Controllers\Titulaire\TitulaireCont::getTitulaireById(), 0 passed in C:\xampp\htdocs\assurance\system\CodeIgniter.php on line 942 and exactly 1 expected
+in APPPATH\Controllers\titulaire\TitulaireCont.php on line 299.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Titulaire\TitulaireCont->getTitulaireById()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Titulaire\TitulaireCont))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
