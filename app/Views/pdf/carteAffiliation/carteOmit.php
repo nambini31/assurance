@@ -117,6 +117,7 @@
             <td class="carte-container2">
                 <div class="carte-header">
                     ENFANTS A CHARGE (CNaPS)
+                    <?= $enfantList?>
                 </div>
             
                 <table class="child-section">
