@@ -6,7 +6,7 @@
 
             <?php
             //verifier si c'est superAdmin
-            if (in_array($_SESSION['roleId'], ["5" , "1" , "2" , "3" , "4" , "8" , "9"])){
+            if (in_array($_SESSION['roleId'], ["5" , "1" , "2" , "3" , "4" , "8" , "9" , "10"])){
              
             ?>
              <li class=" nav-item" title="Visualiser consultation"><a class="menu-item" data-id="consultation" href="<?php echo base_url("lienconsultation"); ?>"><i class="las la-stethoscope la-2x"></i><span data-i18n="DataTables">Visites
@@ -55,7 +55,7 @@
 
             <?php
             //verifier si c'est superAdmin
-            if (in_array($_SESSION['roleId'], ["5" , "3" , "4" , "9"])){
+            if (in_array($_SESSION['roleId'], ["5" , "3" , "4" , "9" , "10"])){
              
             ?>
             <li class=" nav-item" title="Visualiser CPN"><a class="menu-item" data-id="cpn" href="<?php echo base_url("liencpn"); ?>"><i class="la la-female"></i><span data-i18n="DataTables">CPN

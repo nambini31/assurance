@@ -8,7 +8,7 @@ class ConsultationCont extends BaseController
 {
     public function index()
     {
-        if (in_array($_SESSION['roleId'], ["5", "3", "4", "1", "2", "6", "8", "9"])) {
+        if (in_array($_SESSION['roleId'], ["5", "3", "4", "1", "2", "6", "8", "9", "10"])) {
 
             $content = view('consultation/index');
             return view('layout', ['content' => $content]);
@@ -25,7 +25,11 @@ class ConsultationCont extends BaseController
 
     public function ajout_consultation()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
 
             $_POST["id_user"] = $this->session->get("id_user");
@@ -70,16 +74,29 @@ class ConsultationCont extends BaseController
 
             $consul = $this->consultation->find($consultationId);
 
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
 
             echo json_encode($consul);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
 
     public function ajout_patient()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
 
             $data = explode("_", $_POST["personne"]);
@@ -103,27 +120,54 @@ class ConsultationCont extends BaseController
             }
 
             $this->detailconsultation->save($_POST);
+            $db->transComplete();
 
-            echo json_encode(["id" => 1]);
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
+            echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function delete_consultation()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
 
             $id = $_POST['id_consultation'];
             $this->consultation->update($id, ['etat' => 0]);
 
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
+            $db->transRollback();
+
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function envoyer_docteur()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
 
             $id = $_POST['id_consultation'];
 
@@ -149,33 +193,61 @@ class ConsultationCont extends BaseController
                 $this->detailconsultation->where("consultationId", $id)->update(null, ['isFinished' => 3]);
             }
 
+            // Valider la transaction
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
+            $db->transRollback();
+
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function delete_labo()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
 
             $this->envoieLbo->update($_POST['id_labo'], ['etat' => 0]);
 
             if ($_POST["type"] == "cpn") {
 
 
-                $this->detailconsultationcpn->update($_POST["iddetail"], ["isLabo" => 0]);
+                if ($_POST["typeDestinataire"] == "Echographie") {
+
+                    $this->detailconsultationcpn->update($_POST["iddetail"], ["isEchographie" => 0]);
+                } else {
+
+                    $this->detailconsultationcpn->update($_POST["iddetail"], ["isLabo" => 0]);
+                }
+
 
                 $id = $_POST['id'];
 
-                $this->verif_CPN($id);
+                $this->verif_CPN($id, $db);
             } else {
 
-                $this->detailconsultation->update($_POST['iddetail'], ["isLabo" => 0]);
+                if ($_POST["typeDestinataire"] == "Echographie") {
+
+                    $this->detailconsultation->update($_POST["iddetail"], ["isEchographie" => 0]);
+                } else {
+
+                    $this->detailconsultation->update($_POST["iddetail"], ["isLabo" => 0]);
+                }
 
                 $id = $_POST['id'];
 
-                $this->verif_visite($id);
+                $this->verif_visite($id, $db);
             }
 
 
@@ -185,12 +257,20 @@ class ConsultationCont extends BaseController
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
+
+            $db->transRollback();
+
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function delete_detail_medicament()
     {
+
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
             $this->detailMedicament->update($_POST['id'], ['etat' => 0]);
 
@@ -207,28 +287,48 @@ class ConsultationCont extends BaseController
                 $this->detailconsultation->update($_POST["iddetail"], ['isPharmacie' => 0]);
             }
 
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
+            $db->transRollback();
+
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function delete_detailconsul()
     {
+
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
             $id = $_POST['id'];
             $this->detailconsultation->update($id, ['etat' => 0]);
 
             $id1 = $_POST["idConsul"];
 
-            $this->verif_visite($id1);
+            $this->verif_visite($id1, $db);
+
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
 
 
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            var_dump($th);
-            die;
+            $db->transRollback();
+
             echo json_encode(['error' => $th->getMessage()]);
         }
     }
@@ -247,6 +347,76 @@ class ConsultationCont extends BaseController
             }
 
             echo $specialite;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function charge_laboratoire_echographie()
+    {
+        try {
+
+            $data = "";
+
+            if ($_POST["type"] == "Laboratoire") {
+                # code...
+
+
+                $data = " <div class='row'>
+                                    
+                <div class='col-md-12'>
+                    <div class='form-group'>
+                        <label for='analyse_select' class=''>Nature de l'examen</label>
+                        <select class='selectpicker  form-control btn-sm' name = 'nature[]'  required id='analyse_select' multiple data-live-search='true' data-size='5' title='analyse' data-selected-text-format='count > 3'
+                        data-count-selected-text='{0} Nature selected'>
+                                       
+                        </select>
+                    </div>
+                </div>
+            </div>
+           
+            
+            ";
+            }
+            if ($_POST["type"] == "Echographie") {
+
+
+
+                $data = "<div class='row'>
+                                
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='type_personne_select'>Type echographie ( Nature de l'examen )</label>
+                                                <select class='selectpicker  form-control btn-sm' name='typeEchographie' required id='typeEchographie' data-live-search='true' data-size='5' title='type destinataire'>
+                                                    <option value='pelvienne' selected >PELVIENNE</option>
+                                                    <option value='cervicale' selected >CERVICALE</option>
+                                                    <option value='thiroidienne' selected >THIROIDIENNE</option>
+                                                    <option value='abdominale' selected >ABDOMINALE</option>
+                                                    <option value='abdominalePelvienne' selected >ABDOMINALE PELVIENNE</option>
+                                                    <option value='obstetricalePrimo' selected >OBSTETRICALE( 1er TRIMESTRE )</option>
+                                                    <option value='obstetricaleSecondo' selected >OBSTETRICALE( 2eme TRIMESTRE )</option>
+                                                    <option value='obstetricaleTertio' selected >OBSTETRICALE( 3eme TRIMESTRE )</option>
+                                                </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                        
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='docteurEchographie'>Docteur destinataire</label>
+                                                <select class='selectpicker  form-control btn-sm' name='docteurEchographie' required id='docteurEchographie' data-live-search='true' data-size='5' title='Docteur'>
+
+                                                </select>
+                                </div>
+                            </div>
+                        </div>
+        
+        ";
+            }
+
+            echo $data;
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -611,96 +781,190 @@ class ConsultationCont extends BaseController
 
     public function add_parametre()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
             $_POST["dateParametre"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
 
+            $db->transComplete();
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
 
     public function add_clinique()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
             $_POST["dateDocteur"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
 
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function add_antecedent()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
             $_POST["dateDocteur"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
 
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function add_repos()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
             $_POST["dateDocteur"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
+            $db->transComplete();
+
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
 
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function add_ceritificat()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
             $_POST["dateDocteur"] = date("Y-m-d H:i:s");
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
 
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
 
     public function add_Examen()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
             $date = date("Y-m-d H:i:s");
-            $_POST["natureExamen"] = implode(",", $_POST["nature"]);
             $_POST["dateParametre"] = $date;
-            $_POST["isLabo"] = 1;
-            $data =  $this->detailconsultation->update($_POST["idDetails"], $_POST);
 
+            // Préparer les données pour l'envoi au laboratoire
             $envoie = [
-
                 "Source" => $this->session->get("roleName"),
                 "dateEnvoie" => $date,
                 "typeEnvoie" => "visite",
                 "idType" => $_POST["idDetails"],
                 "id_user" => $this->session->get("id_user"),
-                "natureExamen" => $_POST["natureExamen"],
-                "rc" => $_POST["rc"],
-                "resultats" => $_POST["resultats"],
+                "typeDestinataire" => $_POST["type_destinataire"],
                 "idenvoie_labo" => $_POST["idenvoie_labo"]
-
             ];
+
+            // Mettre à jour la consultation avec le statut isLabo = 1 ou isEcho
+            if ($_POST["type_destinataire"] == "Laboratoire") {
+
+                $_POST["natureExamen"] = implode(",", $_POST["nature"]);
+                $_POST["isLabo"] = 1;
+                $envoie["natureExamen"] = $_POST["natureExamen"];
+            } else {
+                $_POST["isEchographie"] = 1;
+                $envoie["typeEchographie"] = $_POST["typeEchographie"];
+                $envoie["docteurEchographie"] = $_POST["docteurEchographie"];
+            }
+
+
+            // Mettre à jour les détails de consultation
+            $this->detailconsultation->update($_POST["idDetails"], $_POST);
+
+
+            $envoie["rc"] = $_POST["rc"];
+            $envoie["resultats"] = $_POST["resultats"];
+
+            // Sauvegarder l'envoi au laboratoire
+
 
             $this->envoieLbo->save($envoie);
 
-            $data =  $this->consultation->update($_POST["idConsPour"], ["isLabo" => 1]);
+            $this->verif_visite($_POST["idConsPour"], $db);
 
-            echo json_encode($data);
+
+
+            echo json_encode(['success' => true, 'message' => 'Examen ajouté avec succès.']);
         } catch (\Throwable $th) {
-            echo $th;
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
+
     public function add_medicament()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
             $data =  $this->article
                 ->where("id_article", $_POST['medicamentId'])
@@ -740,9 +1004,19 @@ class ConsultationCont extends BaseController
             }
 
 
+            $db->transComplete();
+
+
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
             echo json_encode($data);
         } catch (\Throwable $th) {
-            echo $th;
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
     public function charge_titulaire()
@@ -764,6 +1038,26 @@ class ConsultationCont extends BaseController
             }
 
             echo $cabinet;
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
+
+    public function charge_doc_echographie()
+    {
+        try {
+
+            $data =  $this->utilisateur
+                ->where("roleId", 10)
+                ->where("etat", 1)
+                ->findAll();
+
+            $listeDocteur = '';
+            foreach ($data as $value) {
+                $listeDocteur .= '
+                    <option value="' . $value['id_user'] . '"> ' . $value['nom_user'] . ' ' . $value['prenom_user'] . '</option> ';
+            }
+            echo $listeDocteur;
         } catch (\Throwable $th) {
             echo $th;
         }
@@ -1101,6 +1395,14 @@ class ConsultationCont extends BaseController
                     }
                 }
 
+                if (in_array($_SESSION['roleId'], ["10"])) {
+
+                    if ($value["isEchographie"] != '1') {
+
+                        continue;
+                    }
+                }
+
                 if (in_array($_SESSION['roleId'], ["3", "4"])) {
 
                     if ($value["isFinished"] != '0') {
@@ -1166,9 +1468,17 @@ class ConsultationCont extends BaseController
 
                     $etat = "En attente docteur";
 
-                    if ($value["isLabo"] == 1) {
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'analyse && Echographie";
+                    }
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] != 1) {
 
                         $etat = "En attente d'analyse";
+                    }
+                    if ($value["isLabo"] != 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'echographie";
                     }
                 } else if ($value["isFinished"] == 2) {
 
@@ -1290,6 +1600,15 @@ class ConsultationCont extends BaseController
                     }
                 }
 
+                if (in_array($_SESSION['roleId'], ["10"])) {
+
+                    if ($value["isEchographie"] != '1') {
+
+                        $i++;
+                        continue;
+                    }
+                }
+
                 if (in_array($_SESSION['roleId'], ["8"])) {
 
                     if ($value["isFinished"] != '1') {
@@ -1332,9 +1651,17 @@ class ConsultationCont extends BaseController
 
                     $etat = 'En attente docteur';
 
-                    if ($value["isLabo"] == 1) {
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'analyse && Echographie";
+                    }
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] != 1) {
 
                         $etat = "En attente d'analyse";
+                    }
+                    if ($value["isLabo"] != 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'echographie";
                     }
                 } else if ($value["isFinished"] == '2') {
 
@@ -1347,7 +1674,7 @@ class ConsultationCont extends BaseController
 
 
                 $param = '';
-                $detail = '<a class="success mr-1"  onclick="affichage_demande(' . $value["detailConsultationId"] . ')"><i class=" la la-list"></i></a>';
+                $detail = '<a class="success mr-1"  onclick="affichage_demande(' . $value["detailConsultationId"] . ' , ' . $_SESSION['roleId'] . ')"><i class=" la la-list"></i></a>';
                 $medic = '<a class="danger mr-1" onclick="medic_docteur(' . $value["detailConsultationId"] . ')" ><i class="las la-briefcase-medical la-2x"></i></a>';
                 $print = '<a class="danger mr-1"  "><i class="las la-print la-2x"></i></a>';
                 $labo = '<a class="info mr-1"   onclick="laboratoire(' . $value["detailConsultationId"] . ',' . $value["isFinished"] . ')"><i class=" la la-microscope"></i></a>';
@@ -1442,7 +1769,7 @@ class ConsultationCont extends BaseController
                 'roleId' => $this->session->get("roleId"),
                 'isFinished' => $data["isFinished"],
                 'typeConsultationId' => $data["typeConsultationId"],
-                'isPharmacie' => $data["isPharmacie"],
+                'isEchographie' => $data["isEchographie"],
                 'isLabo' => $data["isLabo"],
                 'table' => $th,
                 'docteur' => $data["doc_full_name"],
@@ -1481,7 +1808,7 @@ class ConsultationCont extends BaseController
 
 
             $datas = $this->envoieLbo
-                ->select("dateEnvoie , dateValidation , Source , resultats , rc , natureExamen , idenvoie_labo , typeEnvoie,idType , resultatTelechargeable")
+                ->select("dateEnvoie , id_user ,typeDestinataire , docteurEchographie, typeEchographie , dateValidation , Source , resultats , rc , natureExamen , idenvoie_labo , typeEnvoie,idType , resultatTelechargeable")
                 ->where("etat", 1)
                 ->where("idType", $_POST["idType"]);
 
@@ -1499,12 +1826,14 @@ class ConsultationCont extends BaseController
                     <thead>
                       <tr>
                             <th>#</th>
-                            <th>Nature</th>
+                            <th>Type</th>
+                            <th>Nature/Echographie</th>
                             <th>Resultats</th>
                             <th>R.C</th>
                             <th>Date envoie</th>
                             <th>Date validation</th>
-                            <th>Source</th>
+                            <th>Prescripteur</th>
+                            <th>échographiste</th>
                             <th>Analyse</th>
                             <th>Action</th>
                         </tr></thead> 
@@ -1512,44 +1841,69 @@ class ConsultationCont extends BaseController
             $i = 1;
             foreach ($datas as $value) {
 
-                $natureExamen = $value["natureExamen"];
-                if (strpos($natureExamen, ',') !== false) {
-                    // Si plusieurs valeurs sont présentes, on les sépare avec explode
-                    $ids = explode(',', $natureExamen);
-                } else {
-                    // Si une seule valeur est présente, on la place dans un tableau
-                    $ids = [$natureExamen];
+                if (in_array($_SESSION['roleId'], ["6"])) {
+
+                    if ($value["typeDestinataire"] != 'Laboratoire') {
+
+                        continue;
+                    }
+                }
+
+                if (in_array($_SESSION['roleId'], ["10"])) {
+
+                    if ($value["typeDestinataire"] == 'Laboratoire') {
+
+                        continue;
+                    }
                 }
 
 
-                //var_dump($ids) ; die;
-
-                $analyses = $this->analyse
-                    ->select('analyse')
-                    ->whereIn('id_analyse', $ids)->findAll();
+                if ($value["typeDestinataire"] != "Laboratoire") {
 
 
-                $analysesArray = array_column($analyses, 'analyse');
-                $analysesString = implode(', ', $analysesArray);
+                    $analysesString = $value["typeEchographie"];
+                } else {
+                    # code...
+                    $natureExamen = $value["natureExamen"];
+                    if (strpos($natureExamen, ',') !== false) {
+                        // Si plusieurs valeurs sont présentes, on les sépare avec explode
+                        $ids = explode(',', $natureExamen);
+                    } else {
+                        // Si une seule valeur est présente, on la place dans un tableau
+                        $ids = [$natureExamen];
+                    }
+
+
+
+                    //var_dump($ids) ; die;
+
+                    $analyses = $this->analyse
+                        ->select('analyse')
+                        ->whereIn('id_analyse', $ids)->findAll();
+
+
+                    $analysesArray = array_column($analyses, 'analyse');
+                    $analysesString = implode(', ', $analysesArray);
+                }
+
                 $validerLabo = '';
                 $demande = '';
-                $delEdit = '';
+                $delEdit = '<a class="info mr-1" id="labedit' . $value["idenvoie_labo"] . '" data-docteurechographie = "' . $value["docteurEchographie"] . '" data-typeechographie = "' . $value["typeEchographie"] . '" data-typedestinataire = "' . $value["typeDestinataire"] . '" data-nature= ' . json_encode(explode(',', $value["natureExamen"])) . ' data-resultats= "' . $value["resultats"] . '" data-rc= "' . $value["rc"] . '" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
+                <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ';
 
 
                 if ($value["dateValidation"] == "") {
 
                     $demande = '<a class="danger mr-1" >En attente</a>';
 
-                    $delEdit = '<a class="info mr-1" id="labedit' . $value["idenvoie_labo"] . '" data-nature= ' . json_encode(explode(',', $value["natureExamen"])) . ' data-resultats= "' . $value["resultats"] . '" data-rc= "' . $value["rc"] . '" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                    <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ';
+                    $delEdit = $delEdit;
 
 
-                    if (in_array($_SESSION['roleId'], ["6"])) {
+                    if (in_array($_SESSION['roleId'], ["6", "10"])) {
 
                         if (in_array($_SESSION['roleId'], ["5"])) {
 
-                            $delEdit = '<a class="info mr-1" id="labedit' . $value["idenvoie_labo"] . '" data-nature= ' . json_encode(explode(',', $value["natureExamen"])) . ' data-resultats= "' . $value["resultats"] . '" data-rc= "' . $value["rc"] . '" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                            <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ';
+                            $delEdit = $delEdit;
                         } else {
 
                             $delEdit = "";
@@ -1568,20 +1922,28 @@ class ConsultationCont extends BaseController
                     $validerLabo = '';
                     if (in_array($_SESSION['roleId'], ["5"])) {
 
-                        $delEdit = '<a class="info mr-1" id="labedit' . $value["idenvoie_labo"] . '" data-nature= ' . json_encode(explode(',', $value["natureExamen"])) . ' data-resultats= "' . $value["resultats"] . '" data-rc= "' . $value["rc"] . '" onclick="edit_laboratoire(' . $value["idenvoie_labo"] . ')"><i class=" la la-pencil-square-o"></i></a>
-                        <a class="danger mr-1" onclick="delete_labo(' . $value["idenvoie_labo"] . ')"><i class=" la la-trash-o"></i></a> ';
+                        $delEdit = $delEdit;
                     }
                 }
+
+                $user = $this->utilisateur->select("CONCAT(nom_user, ' ', prenom_user) AS full_name")->find($value["id_user"]);
+                $user1 = $this->utilisateur->select("CONCAT(nom_user, ' ', prenom_user) AS full_name")->find($value["docteurEchographie"] ?? 0);
+
+
+                $fullname = $user ? $user['full_name'] : '';
+                $fullname1 = $user1 ? $user1['full_name'] : '';
 
                 $th .=
                     '<tr>
                         <td style="width : 10%;">' . $i . ' </td>
+                        <td style="width : 10%;">' . $value["typeDestinataire"] . ' </td>
                         <td style="width : 10%;">' . $analysesString . ' </td>
                         <td style="width : 10%;">' . $value["resultats"] . ' </td>
                         <td style="width : 10%;">' . $value["rc"] . ' </td>
                         <td style="width : 20%;">' . $value["dateEnvoie"] . ' </td>
                         <td style="width : 10%;">' . $value["dateValidation"] . ' </td>
-                        <td style="width : 10%;">' . $value["Source"] . '</td> 
+                        <td style="width : 10%;">' . $fullname . '</td> 
+                        <td style="width : 10%;">' . $fullname1 . '</td> 
                         <td style="width : 10%;">' . $demande . '</td> 
                         <td style="width : 10%;">' . $validerLabo . $delEdit . '</td> 
 
@@ -1687,7 +2049,12 @@ class ConsultationCont extends BaseController
     }
     public function valider_envoie_labo()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
             $date = date("Y-m-d H:i:s");
 
             // Initialiser les données à mettre à jour
@@ -1731,52 +2098,122 @@ class ConsultationCont extends BaseController
 
             // Traitement selon le type d'envoi
             if ($_POST["type"] == "visite") {
-                $this->detailconsultation->update($_POST["idType"], ["isLabo" => 2]);
-                $data = $this->detailconsultation->select("consultationId,isLabo")
-                    ->where("consultationId", $_POST["idConsult"])
-                    ->findAll();
 
-                $this->verif_visite($_POST["idConsult"]);
+                if ($_POST["typeDestinataire"] == "Echographie") {
+                    $this->detailconsultation->update($_POST["idType"], ["isEchographie" => 2]);
+                } else {
+                    $this->detailconsultation->update($_POST["idType"], ["isLabo" => 2]);
+                }
+
+
+
+                $this->verif_visite($_POST["idConsult"], $db);
             } else {
-                $this->detailconsultationcpn->update($_POST["idType"], ["isLabo" => 2]);
-                $data = $this->detailconsultationcpn->select("idcpn,isLabo")
-                    ->where("idcpn", $_POST["idConsult"])
-                    ->findAll();
-                $this->verif_CPN($_POST["idConsult"]);
+
+                if ($_POST["typeDestinataire"] == "Echographie") {
+                    $this->detailconsultationcpn->update($_POST["idType"], ["isEchographie" => 2]);
+                } else {
+                    $this->detailconsultationcpn->update($_POST["idType"], ["isLabo" => 2]);
+                }
+
+                $this->verif_CPN($_POST["idConsult"], $db);
             }
 
-            echo json_encode(["id" => 1]);
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+
+
+            echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            echo json_encode(["error" => $th->getMessage()]);
+            $db->transRollback();
+
+            echo json_encode(['error' => $th->getMessage()]);
         }
     }
 
 
-    public function verif_visite($idConsul)
+    public function verif_visite($idConsul, $db)
     {
 
-        $datas =  $this->envoieLbo
-            ->select("idType")
+
+
+        $datas = $this->detailconsultation
             ->where("detailconsultation.consultationId", $idConsul)
-            ->where("envoie_labo.typeEnvoie", 'visite')
-            ->where('envoie_labo.etat', 1)
-            ->where('envoie_labo.dateValidation IS NULL')
-            ->join("detailconsultation", "envoie_labo.idType = detailconsultation.detailconsultationId")
-            ->groupBy("envoie_labo.idType")
+            ->where('etat', 1)
             ->findAll();
 
+
         $isLaboPresent = false;
+        $isEchoPresent = false;
 
-        foreach ($datas as $row) {
 
-            $isLaboPresent = true;
-            $this->detailconsultation->update($row['idType'], ["isLabo" => 1]);
+        foreach ($datas as $rows) {
+
+
+            $data = $this->envoieLbo
+                ->select("envoie_labo.idType , envoie_labo.typeDestinataire")
+                ->where("idType", $rows["detailConsultationId"])
+                ->where("envoie_labo.typeEnvoie", 'visite')
+                ->where('envoie_labo.etat', 1)
+                ->findAll();
+
+            // Initialiser des variables de vérification
+            $laboratoireExiste = false;
+            $echographieExiste = false;
+
+            foreach ($data as $row) {
+                if ($row['typeDestinataire'] === 'Laboratoire') {
+                    $laboratoireExiste = true;
+                }
+                if ($row['typeDestinataire'] === 'Echographie') {
+                    $echographieExiste = true;
+                }
+            }
+
+            // Vérification des trois cas
+            if ($laboratoireExiste && $echographieExiste) {
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1 , "isEchographie" => 1]);
+                $isLaboPresent = $isLaboPresent || true;
+                $isEchoPresent = $isEchoPresent || true;
+            } elseif ($laboratoireExiste && !$echographieExiste) {
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1 , "isEchographie" => 0]);
+                $isLaboPresent = $isLaboPresent || true;
+                $isEchoPresent = $isEchoPresent || false;
+            } elseif ($echographieExiste && !$laboratoireExiste) {
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isEchographie" => 1 , "isLabo" => 0 ]);
+                $isEchoPresent = $isEchoPresent || true;
+                $isLaboPresent = $isLaboPresent || false;
+            }
+
         }
 
-        if ($isLaboPresent) {
-        } else {
-
+        if (!$isLaboPresent) {
             $this->consultation->update($idConsul, ["isLabo" => 0]);
+        }else {
+           
+            $this->consultation->update($idConsul, ["isLabo" => 1]);
+            
+        }
+        if (!$isEchoPresent) {
+            $this->consultation->update($idConsul, ["isEchographie" => 0]);
+        }
+        else {
+            
+            $this->consultation->update($idConsul, ["isEchographie" => 1]);
+        
+        }
+
+
+        // Valider la transaction
+        $db->transComplete();
+
+        // Vérifier si la transaction s'est bien déroulée
+        if ($db->transStatus() === FALSE) {
+            throw new \Exception('Erreur dans la transaction.');
         }
     }
 }

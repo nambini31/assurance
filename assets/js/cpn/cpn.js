@@ -31,6 +31,9 @@ var specialite_docteur ;
 var choix_docteur ;
 var personne_selectcpn ;
 var analyse_select ;
+var docteurEchographie ;
+var typeechographie;
+
 
 
 function charge_membre() {
@@ -111,6 +114,99 @@ function charge_personne_malade() {
 }
 
 
+
+
+function charge_laboratoire_echographie() {
+    $.ajax({
+        beforeSend: function () {
+
+            $("#modal_laboratoire").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + 'charge_laboratoire_echographie',
+        type: "POST",
+        data: { type: $("#type_destinataire").val() },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
+            $("#placeEchoLabo").empty();
+            $("#placeEchoLabo").html(data);
+
+            if ($("#type_destinataire").val() == "Echographie") {
+
+                $("#submitEchoLabo").text("Envoyer à l'échographie");
+                $('#typeEchographie').selectpicker('refresh');
+
+                charge_doc_echographie();
+                if (typeechographie != "") {
+                    $('#typeEchographie').val(typeechographie).selectpicker('refresh');
+                }
+                $("#hideValidLabo").show();
+
+            }
+            else if ($("#type_destinataire").val() == "Laboratoire") {
+
+                $("#submitEchoLabo").text("Envoyer au laboratoire");
+                charge_analyse();
+                $("#hideValidLabo").show();
+
+            } else {
+                $("#modal_laboratoire").unblock();
+                $("#hideValidLabo").hide();
+
+            }
+
+
+
+
+        }
+    });
+}
+
+
+  
+function charge_doc_echographie() {
+    $.ajax({
+        url: base + 'charge_doc_echographie',
+        type: "POST",
+        error: function(xhr, status, error) {
+       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+    } ,success: function (data) {
+            $("#docteurEchographie").empty();
+            $("#docteurEchographie").html(data);
+            $('#docteurEchographie').selectpicker('refresh');
+            if (docteurEchographie != "") {
+                $('#docteurEchographie').val(docteurEchographie).selectpicker('refresh');
+            }
+            $("#modal_laboratoire").unblock();
+  
+        }
+    });
+
+  }
+
+  $('#type_destinataire').on('change', function() {
+    
+    charge_laboratoire_echographie();
+
+    
+});
+
+
 $("#membre_select").on('change', function name(params) {
     
     charge_titulaire_coix();
@@ -130,10 +226,19 @@ function edit_laboratoire(id) {
     );
 
     var nature = $("#labedit" + id).data('nature');
-    
-    analyse_select = nature ;
-    
-    charge_analyse();
+    typeDestinataire = $("#labedit" + id).data("typedestinataire");
+    var typeecho = $("#labedit" + id).data("typeechographie");
+    var doc = $("#labedit" + id).data("docteurechographie");
+
+    analyse_select = nature;
+    docteurEchographie = doc;
+    typeechographie = typeecho;
+
+    $("#type_destinataire").val(typeDestinataire).selectpicker("refresh");
+
+
+    charge_laboratoire_echographie();
+
     $("#idDetails").val(iddetail);
     $("#idenvoielabo").val(id);
     $("#idConsPour").val(idCpn);
@@ -155,7 +260,6 @@ function laboratoire() {
     $("#idDetails").val(iddetail);
     $("#idConsPour").val(idCpn);
 
-    charge_analyse();
 
     $('#add_examen').find(':input:not([type="hidden"])').each(function() {
         if ($(this).is('select.selectpicker')) {
@@ -166,6 +270,8 @@ function laboratoire() {
     });
 
     $("#idenvoielabo").val("");
+
+    charge_laboratoire_echographie();
 
 }
 
@@ -215,6 +321,8 @@ function charge_analyse() {
             if (analyse_select != "") {
                 $('#analyse_select').val(analyse_select).selectpicker('refresh');
             }
+
+            $("#modal_laboratoire").unblock();
   
         }
     });
@@ -1064,6 +1172,19 @@ var typeEnvoie
 var idType
 
 
+var id_labo ;
+var typeDestinataire ;
+function delete_labo(id) {
+
+    id_labo = id ;
+    typeDestinataire = $("#labedit" + id).data("typedestinataire")
+    $("#deletelabo").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
+
+}
+
 function delete_laboExam() {
 
     $.ajax({
@@ -1071,7 +1192,7 @@ function delete_laboExam() {
         url: base + "delete_labo",
         type: "POST",
         dataType: "JSON",
-        data: { id_labo : id_labo , id : idCpn , iddetail : iddetail , type : "cpn"},
+        data: { id_labo : id_labo , id : idCpn , iddetail : iddetail , type : "cpn" , typeDestinataire : typeDestinataire},
         error: function(xhr, status, error) {
        alertCustom("danger", 'ft-x', "Une erreur s'est produite");
     } ,success: function (res) {
@@ -1093,7 +1214,7 @@ function delete_laboExam() {
 
             fill_labo(iddetail);
             fill_consult(idCpn);
-            liste_cpn
+            liste_cpn();
 
         },
     });
@@ -1137,6 +1258,7 @@ $("#form_analyse").off("submit").on("submit", function (e) {
 
     data.append('idenvoie_labo', idEnvoie);
     data.append('idType', idType);
+    data.append('typeDestinataire', typeDestinataire);
     data.append('type', typeEnvoie);
     data.append('idConsult', idCpn);
     data.append('type', "cpn");
@@ -1221,6 +1343,7 @@ function downloadFile(id) {
 function valider_demande(id , idType1) {
 
     var typeen = $("#labovalider" + id).data('typeenvoie');
+    typeDestinataire = $("#labedit" + id).data("typedestinataire");
 
     idEnvoie = id ;
     idType = idType1 ;

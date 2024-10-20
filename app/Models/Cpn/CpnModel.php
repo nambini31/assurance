@@ -16,7 +16,7 @@ class CpnModel extends Model
         'mariee', 'titulaireId', 'typePersonne', 'dateAccouchement', 'ageinf16', 
         'agesup35', 'taille', 'tension', 'parite', 'cesarienne', 
         'mortne', 'drepanocytose', 'vat1', 'vat2', 'vat3', 
-        'vat4', 'vat5' , 'etat' , 'isFinished' , "enfantId" , "id_user" , "isFinished" , "isPharmacie" , "isLabo"
+        'vat4', 'vat5' , 'etat' , 'isFinished' , "enfantId" , "id_user" , "isFinished" , "isEchographie" , "isLabo"
     ];
 
     // Dates

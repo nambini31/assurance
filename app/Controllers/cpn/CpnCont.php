@@ -9,17 +9,14 @@ class CpnCont extends BaseController
     public function index()
     {
 
-        if (in_array($_SESSION['roleId'], ["5" , "3" , "4" , "6" , "9"])){
+        if (in_array($_SESSION['roleId'], ["5", "3", "4", "6", "9" , "10"])) {
 
             $content = view('cpn/index');
             return view('layout', ['content' => $content]);
-            
-        }else{
+        } else {
             echo view('Access/index');
-                    exit();
+            exit();
         }
-
-       
     }
     public function lien()
     {
@@ -30,11 +27,16 @@ class CpnCont extends BaseController
 
     public function ajout_cpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+            $db->transComplete();
 
             $_POST["id_user"] = $this->session->get("id_user");
-            
-            $data = explode("_",$_POST["personne"]);
+
+            $data = explode("_", $_POST["personne"]);
             $_POST["enfantId"] = $data[0];
 
             $_POST["typePersonne"] = $data[1];
@@ -42,104 +44,199 @@ class CpnCont extends BaseController
             $this->cpn->save($_POST);
 
 
-            echo json_encode(["id" => 1]);
+             // Valider la transaction
+             $db->transComplete();
 
-        } catch (\Throwable $th) {
-            echo $th;
-        }
+             // Vérifier si la transaction s'est bien déroulée
+             if ($db->transStatus() === FALSE) {
+                 throw new \Exception('Erreur dans la transaction.');
+             }
+             echo json_encode(['id' => 1]);
+         } catch (\Throwable $th) {
+             // En cas d'erreur, faire un rollback
+             $db->transRollback();
+ 
+             echo  $th;
+         }
     }
 
     public function add_detailcpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
             $this->detailconsultationcpn->save($_POST);
 
-            $this->verif_CPN($_POST["idcpn"]);
+            $this->verif_CPN($_POST["idcpn"], $db);
 
-            echo json_encode(["id" => 1]);
+            // Valider la transaction
+            $db->transComplete();
 
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
+            echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            echo $th;
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
 
-    
+
     public function delete_cpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
 
             $id = $_POST['id_cpn'];
             $this->cpn->update($id, ['etat' => 0]);
 
+            $this->verif_CPN($id, $db);
+
+            // Valider la transaction
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
-            echo json_encode(['error' => $th->getMessage()]);
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
 
     public function delete_detailcpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
+            // Démarrer la transaction
+            $db->transStart();
+
 
             $id = $_POST['id'];
-            
+
             $this->detailconsultationcpn->update($id, ['etat' => 0]);
 
             $data = $this->detailconsultationcpn->select("idcpn")->find($id);
 
-            $this->verif_CPN($data["idcpn"]) ;
+            $this->verif_CPN($data["idcpn"], $db);
 
+
+            // Valider la transaction
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
             echo json_encode(['id' => 1]);
-
         } catch (\Throwable $th) {
-            echo json_encode(['error' => $th->getMessage()]);
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
 
 
     public function add_cpnParam()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
-            $data =  $this->cpn->update( $_POST["idcpn"] , $_POST);
+            // Démarrer la transaction
+            $db->transStart();
 
+            $data =  $this->cpn->update($_POST["idcpn"], $_POST);
+
+
+            // Valider la transaction
+            $db->transComplete();
+
+            // Vérifier si la transaction s'est bien déroulée
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
             echo json_encode($data);
-
         } catch (\Throwable $th) {
-            echo $th;
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
 
     public function add_Examen_cpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
         try {
-            $date = date("Y-m-d H:i:s") ;
-            $_POST["natureExamen"] = implode(",",$_POST["nature"]);
-            $_POST["dateLaboratoire"] = $date;
-            $_POST["isLabo"] = 1;
-            $data =  $this->detailconsultationcpn->update( $_POST["idDetails"] , $_POST);
+            // Démarrer la transaction
+            $db->transStart();
 
+            $date = date("Y-m-d H:i:s");
+            $_POST["dateParametre"] = $date;
+
+            // Préparer les données pour l'envoi au laboratoire
             $envoie = [
-
                 "Source" => $this->session->get("roleName"),
                 "dateEnvoie" => $date,
                 "typeEnvoie" => "cpn",
                 "idType" => $_POST["idDetails"],
                 "id_user" => $this->session->get("id_user"),
-                "natureExamen" =>$_POST["natureExamen"],
-                "rc" =>$_POST["rc"],
-                "resultats" =>$_POST["resultats"]
-
+                "typeDestinataire" => $_POST["type_destinataire"],
+                "idenvoie_labo" => $_POST["idenvoie_labo"]
             ];
+
+            // Mettre à jour la consultation avec le statut isLabo = 1 ou isEcho
+            if ($_POST["type_destinataire"] == "Laboratoire") {
+
+                $_POST["natureExamen"] = implode(",", $_POST["nature"]);
+                $_POST["isLabo"] = 1;
+                $envoie["natureExamen"] = $_POST["natureExamen"];
+            } else {
+                $_POST["isEchographie"] = 1;
+                $envoie["typeEchographie"] = $_POST["typeEchographie"];
+                $envoie["docteurEchographie"] = $_POST["docteurEchographie"];
+            }
+
+
+            // Mettre à jour les détails de consultation
+            $this->detailconsultationcpn->update($_POST["idDetails"], $_POST);
+
+
+            $envoie["rc"] = $_POST["rc"];
+            $envoie["resultats"] = $_POST["resultats"];
+
+            // Sauvegarder l'envoi au laboratoire
+
 
             $this->envoieLbo->save($envoie);
 
-            $data =  $this->cpn->update($_POST["idConsPour"] , ["isLabo" => 1]);
+            $this->verif_CPN($_POST["idConsPour"], $db);
 
-            echo json_encode($data);
 
+
+            echo json_encode(['success' => true, 'message' => 'Examen ajouté avec succès.']);
         } catch (\Throwable $th) {
-            echo $th;
+            // En cas d'erreur, faire un rollback
+            $db->transRollback();
+
+            echo  $th;
         }
     }
 
@@ -147,12 +244,12 @@ class CpnCont extends BaseController
     public function liste_cpn()
     {
         try {
-            $datas = $this->cpn ;
-            
-            if ($_POST["id_membre"] != "" ) {
-                
+            $datas = $this->cpn;
+
+            if ($_POST["id_membre"] != "") {
+
                 $datas = $datas
-    ->select("membre.id_membre , membre.nom_membre, 
+                    ->select("membre.id_membre , membre.nom_membre, 
               CASE 
                   WHEN cpn.Typepersonne = 'Titulaire' THEN CONCAT(titulaire.nom, ' ', titulaire.prenom)
                   WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.nomprenomconjoint
@@ -166,17 +263,16 @@ class CpnCont extends BaseController
               END AS fonction, 
               titulaire.adresse, 
               cpn.*")
-    ->where('cpn.etat', 1)
-    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
-    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
-    ->join("membre", "membre.id_membre = titulaire.membreId", "left")
-            ->where('membre.id_membre', $_POST["id_membre"] ) ;
-
-            }else{
+                    ->where('cpn.etat', 1)
+                    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
+                    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
+                    ->join("membre", "membre.id_membre = titulaire.membreId", "left")
+                    ->where('membre.id_membre', $_POST["id_membre"]);
+            } else {
 
 
                 $datas = $datas
-    ->select("membre.id_membre , membre.nom_membre, 
+                    ->select("membre.id_membre , membre.nom_membre, 
               CASE 
                   WHEN cpn.Typepersonne = 'Titulaire' THEN CONCAT(titulaire.nom, ' ', titulaire.prenom)
                   WHEN cpn.Typepersonne = 'Conjoint(e)' THEN titulaire.nomprenomconjoint
@@ -190,30 +286,27 @@ class CpnCont extends BaseController
               END AS fonction, 
               titulaire.adresse, 
               cpn.*")
-    ->where('cpn.etat', 1)
-    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
-    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
-    ->join("membre", "membre.id_membre = titulaire.membreId", "left");
-
+                    ->where('cpn.etat', 1)
+                    ->join("titulaire", "cpn.titulaireId = titulaire.titulaireId ", "left")
+                    ->join("enfant", "enfant.enfantId = cpn.enfantId AND enfant.titulaireId = titulaire.titulaireId AND cpn.Typepersonne IN ('Enfant', 'Parent')", "left")
+                    ->join("membre", "membre.id_membre = titulaire.membreId", "left");
             }
 
-            if ($_POST["date_debut"] != "" ) {
-                
-                $datas = $datas
-                ->where("date(cpn.createdAt) >= ", $_POST["date_debut"] );
+            if ($_POST["date_debut"] != "") {
 
+                $datas = $datas
+                    ->where("date(cpn.createdAt) >= ", $_POST["date_debut"]);
             }
-            if ( $_POST["date_fin"] != "") {
-                
-                $datas = $datas
-                ->where("date(cpn.createdAt) <= ", $_POST["date_fin"] );
+            if ($_POST["date_fin"] != "") {
 
+                $datas = $datas
+                    ->where("date(cpn.createdAt) <= ", $_POST["date_fin"]);
             }
 
             $datas = $datas->findAll();
 
-             // $ctegorie = ( $_POST["id_membre"] != ""  ) ? $datas : [];
-            $ctegorie =  $datas ;
+            // $ctegorie = ( $_POST["id_membre"] != ""  ) ? $datas : [];
+            $ctegorie =  $datas;
 
 
             $th = "
@@ -228,79 +321,68 @@ class CpnCont extends BaseController
                             <th>Marié(e)</th>
                             <th>Date Presumee</th>
                             <th>Date</th>
-                            <th>Etat</th> " ;
-                       
-                            $th .= "<th>Action</th>";
+                            <th>Etat</th> ";
 
-                    
-                       $th .= "</tr></thead> 
+            $th .= "<th>Action</th>";
+
+
+            $th .= "</tr></thead> 
                         <tbody>";
 
             foreach ($ctegorie as $value) {
 
 
                 if (in_array($_SESSION['roleId'], ["6"])) {
-                    
-                    if($value["isLabo"] != '1'){
-                    
-                        continue ;
-                        
-                    }
 
+                    if ($value["isLabo"] != '1') {
+
+                        continue;
+                    }
                 }
 
-                if (in_array($_SESSION['roleId'], ["9"])) {
-                    
-                    if($value["isPharmacie"] != '1'){
-                    
-                        continue ;
-                        
-                    }
-
-                }
+                
 
 
-                if ( $value["isFinished"] == 0 ) {
+                if ($value["isFinished"] == 0) {
 
                     $etat = "En cours";
 
-                    if($value["isLabo"] == '1'){
-                    
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'analyse && Echographie";
+                    }
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] != 1) {
+
                         $etat = "En attente d'analyse";
-                        
+                    }
+                    if ($value["isLabo"] != 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'echographie";
                     }
 
-                    if($value["isPharmacie"] == '1'){
-                    
-                        $etat = "En attente pharmacie";
-                        
-                    }
-                }
-                else { // pour 3 termine
-                    
+                } else { // pour 3 termine
+
                     $etat = "Terminé";
 
-                    if($value["isLabo"] == '1'){
-                    
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] == 1) {
+
+                        $etat = "En attente d'analyse && Echographie";
+                    }
+                    if ($value["isLabo"] == 1 && $value["isEchographie"] != 1) {
+
                         $etat = "En attente d'analyse";
-                        
                     }
+                    if ($value["isLabo"] != 1 && $value["isEchographie"] == 1) {
 
-                    if($value["isPharmacie"] == '1'){
-                    
-                        $etat = "En attente pharmacie";
-                        
+                        $etat = "En attente d'echographie";
                     }
-    
                 }
 
-                if ( $value["mariee"]) {
+                if ($value["mariee"]) {
                     $marie = "Oui";
-                }
-                else {
-                    
+                } else {
+
                     $marie = "Non";
-    
                 }
 
 
@@ -308,11 +390,11 @@ class CpnCont extends BaseController
                     '<tr>
                         <td style="width : 10%;">' .  $this->genererNumeroCarte("CPN", $value["idcpn"]) . ' </td>
                         <td style="width : 10%;">' .  $this->genererNumeroCarte($value["nom_membre"], $value["titulaireId"]) . ' </td>
-                        <td style="width : 20%;">' . $value["nom"] .' </td>
-                        <td style="width : 20%;">' . $value["typePersonne"] .' </td>
-                        <td style="width : 20%;">' . $value["fonction"] .' </td>
-                        <td style="width : 20%;">' . $value["adresse"] .' </td>
-                        <td style="width : 10%;">' . $marie. ' </td>
+                        <td style="width : 20%;">' . $value["nom"] . ' </td>
+                        <td style="width : 20%;">' . $value["typePersonne"] . ' </td>
+                        <td style="width : 20%;">' . $value["fonction"] . ' </td>
+                        <td style="width : 20%;">' . $value["adresse"] . ' </td>
+                        <td style="width : 10%;">' . $marie . ' </td>
                         <td style="width : 10%;">' . $value["dateAccouchement"] . '</td> 
                         <td style="width : 10%;">' . $value["createdAt"] . '</td>  
                         <td style="width : 10%;">' . $etat . '</td>  
@@ -335,45 +417,43 @@ class CpnCont extends BaseController
                         data-vat3="' . $value["vat3"] . '"
                         data-vat4="' . $value["vat4"] . '"
                         data-vat5="' . $value["vat5"] . '"
-                        onclick="details_cpn( ' . $value["idcpn"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>' ;
+                        onclick="details_cpn( ' . $value["idcpn"] . ' ,' . $value["isFinished"] . ')"><i class=" la la-list"></i></a>';
 
-                        if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4" || $this->session->get("roleId") == "5") {
+                if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4" || $this->session->get("roleId") == "5") {
 
 
-                            if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4") {
-                                $sumNum = $this->detailconsultationcpn
-                                ->select('SUM(num) as total_num')
-                                ->where('idcpn', $value["idcpn"])
-                                ->first();  // Utilisation de .first() pour récupérer la première ligne
+                    if ($this->session->get("roleId") == "3" || $this->session->get("roleId") == "4") {
+                        $sumNum = $this->detailconsultationcpn
+                            ->select('SUM(num) as total_num')
+                            ->where('idcpn', $value["idcpn"])
+                            ->first();  // Utilisation de .first() pour récupérer la première ligne
 
-                                // Vérifier si la somme est égale à 36
-                                if ($sumNum['total_num'] > 0) {
-                                    
-                                }else {
-                                    $th .= '
+                        // Vérifier si la somme est égale à 36
+                        if ($sumNum['total_num'] > 0) {
+                        } else {
+                            $th .= '
                                     <a class="info mr-1" 
-                                    id="cpnF'.$value["idcpn"].'"
-                                    data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
-                                    data-mariee="'. $value["mariee"].'"
+                                    id="cpnF' . $value["idcpn"] . '"
+                                    data-personne=' . json_encode(implode('_', [$value["enfantId"], $value["typePersonne"]])) . '
+                                    data-mariee="' . $value["mariee"] . '"
                                     onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
             
-                                    <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
-                                }
-                            }else {
-                                $th .= '
+                                    <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ';
+                        }
+                    } else {
+                        $th .= '
                                 <a class="info mr-1" 
-                                id="cpnF'.$value["idcpn"].'"
-                                data-personne='.json_encode(implode('_', [ $value["enfantId"] ,$value["typePersonne"] ])).'
-                                data-mariee="'. $value["mariee"].'"
+                                id="cpnF' . $value["idcpn"] . '"
+                                data-personne=' . json_encode(implode('_', [$value["enfantId"], $value["typePersonne"]])) . '
+                                data-mariee="' . $value["mariee"] . '"
                                 onclick="edit_cpn(' . $value["idcpn"] . ' , ' . $value["id_membre"] . ' , ' . $value["titulaireId"] . ')"><i class=" la la-pencil-square-o"></i></a>
         
-                                <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ' ;
-                            }
+                                <a class="danger mr-1" onclick="supprimercpn(' . $value["idcpn"] . ')"><i class=" la la-trash-o"></i></a> ';
+                    }
+                }
 
-                        }
 
-                        
-                       $th .= '</td> </tr>';
+                $th .= '</td> </tr>';
             }
 
             $th .= "</tbody> ";
@@ -383,15 +463,14 @@ class CpnCont extends BaseController
                 'table' => $th,
 
             ];
-            
-            echo json_encode($response);
 
+            echo json_encode($response);
         } catch (\Throwable $th) {
             echo $th;
         }
     }
 
-    
+
     public function listes_details_consult()
     {
         try {
@@ -401,7 +480,7 @@ class CpnCont extends BaseController
                 ->where('etat', "1")
                 ->orderBy('num', 'ASC')  // Assurer que les consultations sont triées dans le bon ordre (1ère, 2ème, etc.)
                 ->findAll();
-        
+
             // Initialisation de chaque ligne du tableau avec la première colonne (les libellés des éléments de surveillance)
             $rows = [
                 'Action' => "<tr><th style='text-align : left ; width : 10%'>Action</th>",
@@ -424,15 +503,15 @@ class CpnCont extends BaseController
                 'rechercheActive' => "<tr><th style='text-align : left ; width : 10%'>Recherche active</th>",
                 'dateRendevous' => "<tr><th style='text-align : left ; width : 10%'>Date de rendez-vous</th>"
             ];
-        
+
             // Tableau pour stocker les consultations par leur numéro
             $consultations = [];
-        
+
             // Ajouter les consultations récupérées dans le tableau avec leur num comme clé
             foreach ($datas as $row) {
                 $consultations[$row['num']] = $row;
             }
-        
+
             // Construction des colonnes pour chaque consultation (1ère à 8ème)
             for ($i = 1; $i <= 8; $i++) {
                 if (isset($consultations[$i])) {
@@ -459,23 +538,31 @@ class CpnCont extends BaseController
                     <i class="la la-pencil-square-o"></i>
                     </a>
                      <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
-                        
-                    
-                    if ($row["isLabo"] == "1") {
-                        
+
+                     if ($row["isLabo"] == 1 && $row["isEchographie"] == 1) {
+
+                        $th = "En attente d'analyse && Echographie";
+                        $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
+                    }
+                    else if ($row["isLabo"] == 1 && $row["isEchographie"] != 1) {
+
                         $th = "En attente d'analyse";
                         $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
-                        
-                    }else{
-                        if (in_array($_SESSION['roleId'], ["6"])) {
-                
-                            $th = "";
-                            
-                        }
-                            $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
-                            
                     }
-                    
+                    else if ($row["isLabo"] != 1 && $row["isEchographie"] == 1) {
+
+                        $th = "En attente d'echographie";
+                        $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
+                    }
+
+                    else {
+                        if (in_array($_SESSION['roleId'], ["6" , "10"])) {
+
+                            $th = "";
+                        }
+                        $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
+                    }
+
                     $rows['Action'] .= "<td>{$th}</td>";
                     $rows['Demande'] .= "<td>{$td}</td>";
                     $rows['ta'] .= "<td>{$row['ta']}</td>";
@@ -518,16 +605,16 @@ class CpnCont extends BaseController
                     $rows['dateRendevous'] .= "<td></td>";
                 }
             }
-        
+
             // Fermeture de chaque ligne
             foreach ($rows as &$row) {
                 $row .= "</tr>";
             }
 
-            
-                $action = $rows['Action'];
-            
-        
+
+            $action = $rows['Action'];
+
+
             // Construction finale du tableau
             $th = "
                 <thead>
@@ -565,38 +652,33 @@ class CpnCont extends BaseController
                     {$rows['dateRendevous']}
                 </tbody>";
 
-                
-                $data =  $this->detailconsultationcpn->select("num")
-                ->where('idcpn', $_POST["idcpn"] )
-                ->where('etat' , 1)
-                ->findAll() ;
 
-                if (empty($data)) {
-                    // Si $datas est vide, créer un tableau vide
-                    $nums = [];
-                } else {
-                    // Si $datas n'est pas vide, extraire les valeurs de 'num' et les stocker dans un autre tableau
-                    $nums = array_column($data, 'num');
-                }
+            $data =  $this->detailconsultationcpn->select("num")
+                ->where('idcpn', $_POST["idcpn"])
+                ->where('etat', 1)
+                ->findAll();
+
+            if (empty($data)) {
+                // Si $datas est vide, créer un tableau vide
+                $nums = [];
+            } else {
+                // Si $datas n'est pas vide, extraire les valeurs de 'num' et les stocker dans un autre tableau
+                $nums = array_column($data, 'num');
+            }
 
 
             $response = [
                 'roleId' => $this->session->get("roleId"),
-                'nums' => $nums ,
-                'table' => $th ,
-                'num_cpn' =>  $this->genererNumeroCarte( "CPN", $_POST["idcpn"]) 
+                'nums' => $nums,
+                'table' => $th,
+                'num_cpn' =>  $this->genererNumeroCarte("CPN", $_POST["idcpn"])
             ];
 
-        
+
             // Envoi du tableau en JSON pour être traité par le DataTable
             echo json_encode($response);
-        
         } catch (\Throwable $th) {
             echo $th;
         }
-        
     }
-    
-    
-      
 }

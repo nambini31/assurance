@@ -16,7 +16,7 @@ class DetailConsultationCpnModel extends Model
     protected $allowedFields = [
         'idcpn', 'ta', 'albOedemes', 'ictereConjonctive', 'saignement', 'ferAcFolique' , 'albendazole',
         'hauteurUterine', 'bdfc', 'presentation', 'referenceAccouchement', 'prisedepoids', 'vih' , 'bw' ,
-        'vat', 'spi' , 'etat' , 'rechercheActive' , 'dateRendevous' , 'num' , "isLabo"
+        'vat', 'spi' , 'etat' , 'rechercheActive' , 'dateRendevous' , 'num' , "isLabo" ,"isEchographie"
     ];
 
 

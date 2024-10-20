@@ -103,7 +103,7 @@ abstract class BaseController extends Controller
         $this->article = new ArticleModel();
         $this->fournisseur = new FournisseurModel();
         $this->autreActe = new AutreActeModel();
-        
+
         $this->categorie = new CategorieModel();
 
         $this->patient = new PatientModel();
@@ -119,7 +119,6 @@ abstract class BaseController extends Controller
         $this->pdf = new Mpdf();
         $this->envoieLbo = new EnvoieLaboModel();
         $this->adminMedicament = new AdminMedicamentModel();
-
     }
 
     /**
@@ -160,7 +159,6 @@ abstract class BaseController extends Controller
         $this->clientApi = \Config\Services::curlrequest();
 
         $this->teste_session();
-        
     }
 
     function formatPrixInput($data)
@@ -175,81 +173,120 @@ abstract class BaseController extends Controller
         return $formattedValue;
     }
 
-    function genererNumeroCarte($nomMembre, $numeroCarte) {
-        // Garder les trois premières lettres du nom en majuscules
-    $prefixe = strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $nomMembre), 0, 3));
-    
-    // Si le numéro a moins de 3 chiffres, on ajoute des zéros à gauche
-    if ($numeroCarte < 100) {
-        $numeroCarte = str_pad($numeroCarte, 3, '0', STR_PAD_LEFT);
-    }
-    
-    // Générer le numéro de carte complet
-    $numCarte = $prefixe . '-' . $numeroCarte;
-    
-    return $numCarte;
-    }
-
-    public function verif_CPN($idCpn)
+    function genererNumeroCarte($nomMembre, $numeroCarte)
     {
-   
-        $datas =  $this->envoieLbo
-        ->select("idType")
-        ->where("detailconsultationcpn.idcpn" , $idCpn)
-        ->where("envoie_labo.typeEnvoie" , 'cpn')
-        ->where('envoie_labo.etat' , 1)
-        ->where('envoie_labo.dateValidation IS NULL')
-        ->join("detailconsultationcpn" , "envoie_labo.idType = detailconsultationcpn.idconsultationcpn")
-        ->groupBy("envoie_labo.idType")
-        ->findAll();
-        
+        // Garder les trois premières lettres du nom en majuscules
+        $prefixe = strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $nomMembre), 0, 3));
+
+        // Si le numéro a moins de 3 chiffres, on ajoute des zéros à gauche
+        if ($numeroCarte < 100) {
+            $numeroCarte = str_pad($numeroCarte, 3, '0', STR_PAD_LEFT);
+        }
+
+        // Générer le numéro de carte complet
+        $numCarte = $prefixe . '-' . $numeroCarte;
+
+        return $numCarte;
+    }
+
+    public function verif_CPN($idCpn, $db)
+    {
+
+        $datas = $this->detailconsultationcpn
+            ->where("idcpn", $idCpn)
+            ->where('etat', 1)
+            ->findAll();
+
+
         $isLaboPresent = false;
-        
-        foreach ($datas as $row) {
-            
-            $isLaboPresent = true;
-            $this->detailconsultationcpn->update( $row['idType'] , ["isLabo" => 1]);
-            
+        $isEchoPresent = false;
+
+
+        foreach ($datas as $rows) {
+
+
+            $data = $this->envoieLbo
+                ->select("envoie_labo.idType , envoie_labo.typeDestinataire")
+                ->where("idType", $rows["idconsultationcpn"])
+                ->where("envoie_labo.typeEnvoie", 'cpn')
+                ->where('envoie_labo.etat', 1)
+                ->findAll();
+
+            // Initialiser des variables de vérification
+            $laboratoireExiste = false;
+            $echographieExiste = false;
+
+            foreach ($data as $row) {
+                if ($row['typeDestinataire'] === 'Laboratoire') {
+                    $laboratoireExiste = true;
+                }
+                if ($row['typeDestinataire'] === 'Echographie') {
+                    $echographieExiste = true;
+                }
+            }
+
+            // Vérification des trois cas
+            if ($laboratoireExiste && $echographieExiste) {
+                $this->detailconsultationcpn->update($rows['idconsultationcpn'], ["isLabo" => 1, "isEchographie" => 1]);
+                $isLaboPresent = $isLaboPresent || true;
+                $isEchoPresent = $isEchoPresent || true;
+            } elseif ($laboratoireExiste && !$echographieExiste) {
+                $this->detailconsultationcpn->update($rows['idconsultationcpn'], ["isLabo" => 1, "isEchographie" => 0]);
+                $isLaboPresent = $isLaboPresent || true;
+                $isEchoPresent = $isEchoPresent || false;
+            } elseif ($echographieExiste && !$laboratoireExiste) {
+                $this->detailconsultationcpn->update($rows['idconsultationcpn'], ["isEchographie" => 1, "isLabo" => 0]);
+                $isEchoPresent = $isEchoPresent || true;
+                $isLaboPresent = $isLaboPresent || false;
+            }
         }
 
-        if ($isLaboPresent) {  
-            
-        }else{
-            
-            $this->cpn->update( $idCpn , ["isLabo" => 0]);
+        if (!$isLaboPresent) {
+            $this->cpn->update($idCpn, ["isLabo" => 0]);
+        } else {
 
+            $this->cpn->update($idCpn, ["isLabo" => 1]);
+        }
+        if (!$isEchoPresent) {
+            $this->cpn->update($idCpn, ["isEchographie" => 0]);
+        } else {
+
+            $this->cpn->update($idCpn, ["isEchographie" => 1]);
         }
 
 
-                $sumNum = $this->detailconsultationcpn
-                   ->select('SUM(num) as total_num , isFinished , cpn.isLabo')
-                   ->join('cpn', "detailconsultationcpn.idcpn = cpn.idcpn")
-                   ->where('detailconsultationcpn.idcpn', $idCpn)
-                   ->where('detailconsultationcpn.etat', 1)
-                   ->first();  
 
-                   
-                   // Vérifier si la somme est égale à 36
-                   if ($sumNum['isLabo'] != 1) {
-                           
-                           if ($sumNum['isFinished'] == 0) {
-                               
-                               if ($sumNum['total_num'] == 36) {
-                                   $this->cpn->update($idCpn, ['isFinished' => 3]);
-                                }
-                                
-                            }else { // si 3 ou 2 valide toy
-                                
-                                if ($sumNum['total_num'] != 36) {
-                                    $this->cpn->update($idCpn, ['isFinished' => 0]);
-                                  }
-                
-                            }
-                   }
+        $sumNum = $this->detailconsultationcpn
+            ->select('SUM(num) as total_num , isFinished , cpn.isLabo , cpn.isEchographie')
+            ->join('cpn', "detailconsultationcpn.idcpn = cpn.idcpn")
+            ->where('detailconsultationcpn.idcpn', $idCpn)
+            ->where('detailconsultationcpn.etat', 1)
+            ->first();
 
-           
 
-      
+        // Vérifier si la somme est égale à 36
+        if ($sumNum['isLabo'] != 1 || $sumNum['isEchographie'] != 1) {
+
+            if ($sumNum['isFinished'] == 0) {
+
+                if ($sumNum['total_num'] == 36) {
+                    $this->cpn->update($idCpn, ['isFinished' => 3]);
+                }
+            } else { // si 3 ou 2 valide toy
+
+                if ($sumNum['total_num'] != 36) {
+                    $this->cpn->update($idCpn, ['isFinished' => 0]);
+                }
+            }
+        }
+
+        // Valider la transaction
+        $db->transComplete();
+
+        // Vérifier si la transaction s'est bien déroulée
+        if ($db->transStatus() === FALSE) {
+            throw new \Exception('Erreur dans la transaction.');
+        }
     }
 
     public function teste_session()
@@ -257,10 +294,10 @@ abstract class BaseController extends Controller
 
         try {
 
-             
+
             if ($this->request->uri->getPath() === '/index.php/consultation_histo' || $this->request->uri->getPath() === "/Assurance/index.php/consultation_histo") {
-                
-                return ;
+
+                return;
             }
 
             // Vérifier si la requête est destinée à une API
@@ -284,8 +321,7 @@ abstract class BaseController extends Controller
             }
         } catch (\Throwable $th) {
             // Gérer les erreurs éventuelles
-            echo $th ;
+            echo $th;
         }
     }
-    
 }

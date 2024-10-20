@@ -7,27 +7,29 @@ $(document).ready(function () {
     charge_administration();
     $("#AddpatientMalade").insertAfter("#AddConsultation");
     $("#deletepatient").insertAfter("#AddConsultation");
-    
+
 
 });
 
-var membre_select ;
-var titulaire_select ;
-var specialite_docteur ;
-var choix_docteur ;
-var analyse_select ;
-var medicament_select ;
-var personne_select ;
-var idAdministration ;
+var membre_select;
+var titulaire_select;
+var specialite_docteur;
+var choix_docteur;
+var analyse_select;
+var medicament_select;
+var personne_select;
+var idAdministration;
+var docteurEchographie;
+var typeechographie;
 
 
 function charge_membre() {
     $.ajax({
         url: base + 'charge_membre1',
         type: "POST",
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#membre_select").empty();
             $("#membre_select").append(data);
             $('select').selectpicker('refresh');
@@ -37,15 +39,15 @@ function charge_membre() {
             }
         }
     });
-  }
+}
 
 function charge_administration() {
     $.ajax({
         url: base + 'charge_administration',
         type: "POST",
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#idAdministration").empty();
             $("#idAdministration").append(data);
             $('select').selectpicker('refresh');
@@ -54,45 +56,129 @@ function charge_administration() {
             }
         }
     });
-  }
+}
 
 function charge_membre1() {
     $.ajax({
         url: base + 'charge_membre',
         type: "POST",
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#membre_choix").empty();
             $("#membre_choix").append(data);
             $('select').selectpicker('refresh');
-  
+
         }
     });
-  }
+}
+
+
+function charge_laboratoire_echographie() {
+    $.ajax({
+        beforeSend: function () {
+
+            $("#modal_laboratoire").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + 'charge_laboratoire_echographie',
+        type: "POST",
+        data: { type: $("#type_destinataire").val() },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
+            $("#placeEchoLabo").empty();
+            $("#placeEchoLabo").html(data);
+
+            if ($("#type_destinataire").val() == "Echographie") {
+
+                $("#submitEchoLabo").text("Envoyer à l'échographie");
+                $('#typeEchographie').selectpicker('refresh');
+
+                charge_doc_echographie();
+                if (typeechographie != "") {
+                    $('#typeEchographie').val(typeechographie).selectpicker('refresh');
+                }
+                $("#hideValidLabo").show();
+
+            }
+            else if ($("#type_destinataire").val() == "Laboratoire") {
+
+                $("#submitEchoLabo").text("Envoyer au laboratoire");
+                charge_analyse();
+                $("#hideValidLabo").show();
+
+            } else {
+                $("#modal_laboratoire").unblock();
+                $("#hideValidLabo").hide();
+
+            }
+
+
+
+
+        }
+    });
+}
 
 function charge_analyse() {
     $.ajax({
         url: base + 'charge_analyse',
         type: "POST",
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#analyse_select").empty();
             $("#analyse_select").append(data);
             $('select').selectpicker('refresh');
             if (analyse_select != "") {
                 $('#analyse_select').val(analyse_select).selectpicker('refresh');
             }
-  
+            $("#modal_laboratoire").unblock();
+
         }
     });
 
-  }
+}
+
+function charge_doc_echographie() {
+    $.ajax({
+        url: base + 'charge_doc_echographie',
+        type: "POST",
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
+            $("#docteurEchographie").empty();
+            $("#docteurEchographie").html(data);
+            $('#docteurEchographie').selectpicker('refresh');
+            if (docteurEchographie != "") {
+                $('#docteurEchographie').val(docteurEchographie).selectpicker('refresh');
+            }
+
+            $("#modal_laboratoire").unblock();
+
+        }
+    });
+
+}
 
 function charge_medicament() {
     $.ajax({
-        
+
         beforeSend: function () {
 
             $("#modal_medicament").block({
@@ -114,13 +200,13 @@ function charge_medicament() {
         },
         url: base + 'charge_medicament',
         type: "POST",
-        data:{
-            qte : ancienQte ,
-            medicament_select : medicament_select
+        data: {
+            qte: ancienQte,
+            medicament_select: medicament_select
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#medicament_select").empty();
             $("#medicament_select").append(data);
             $('select').selectpicker('refresh');
@@ -129,14 +215,14 @@ function charge_medicament() {
             }
 
             $("#modal_medicament").unblock();
-  
+
         }
     });
 
 }
 
-$('#medicament_select').on('change', function() {
-    
+$('#medicament_select').on('change', function () {
+
     $('#qte').val("");  // Stocker la quantité max dans le champ qte
     var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
     // Si maxQuantity est 0, vider le champ et sortir
@@ -144,15 +230,22 @@ $('#medicament_select').on('change', function() {
         alertCustom("warning", 'ft-x', "Stock epuisé");
     }
 
-    
+
 });
 
-$('#qte').on('keydown', function(e) {
+$('#type_destinataire').on('change', function () {
+
+    charge_laboratoire_echographie();
+
+
+});
+
+$('#qte').on('keydown', function (e) {
 
     var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
 
     if (maxQuantity === 0) {
-        $(this).val(''); 
+        $(this).val('');
         alertCustom("warning", 'ft-x', "Stock epuisé");
         return;
     }
@@ -161,33 +254,33 @@ $('#qte').on('keydown', function(e) {
         return;
     }
 
-    
+
     let value = parseInt($(this).val());
-  
+
     if (e.key === 'ArrowUp') {
         e.preventDefault(); // Empêcher le comportement par défaut
 
         if (value == maxQuantity) {
             $(this).val(maxQuantity);
         }
-        else{
+        else {
 
             $(this).val(value + 1); // Incrémenter la valeur
         }
-        
+
     } else if (e.key === 'ArrowDown') {
         e.preventDefault(); // Empêcher le comportement par défaut
         if (value == 1) {
             $(this).val(1);
         }
-        else{
+        else {
             $(this).val(value - 1); // Décrémenter la valeur
         }
     }
-  });
+});
 
 
-$('#qte').on('input', function() {
+$('#qte').on('input', function () {
     var enteredQuantity = $(this).val();  // Obtenir la valeur actuelle
     var maxQuantity = $('#medicament_select').find('option:selected').data('qte-max');
 
@@ -198,7 +291,7 @@ $('#qte').on('input', function() {
 
     // Si maxQuantity est 0, vider le champ et sortir
     if (maxQuantity === 0) {
-        $(this).val(''); 
+        $(this).val('');
         alertCustom("warning", 'ft-x', "Stock epuisé");
         return;
     }
@@ -218,9 +311,9 @@ function charge_type() {
     $.ajax({
         url: base + 'getSpecialiteMedecin',
         type: "POST",
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#specialite_docteur").empty();
             $("#specialite_docteur").append(data);
             $('select').selectpicker('refresh');
@@ -230,7 +323,7 @@ function charge_type() {
             }
         }
     });
-  }
+}
 
 function charge_titulaire_coix() {
     $("#AddVisites").block({
@@ -251,12 +344,12 @@ function charge_titulaire_coix() {
     $.ajax({
         url: base + 'charge_titulaire',
         type: "POST",
-        data:{
-            id_membre : $("#membre_select").val()
+        data: {
+            id_membre: $("#membre_select").val()
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#titulaire_select").empty();
             $("#titulaire_select").append(data);
             $('select').selectpicker('refresh');
@@ -265,7 +358,7 @@ function charge_titulaire_coix() {
             }
 
             $("#AddVisites").unblock();
-  
+
         }
     });
 }
@@ -274,19 +367,19 @@ function getDocteurSelonType() {
     $.ajax({
         url: base + 'getDocteurSelonType',
         type: "POST",
-        data:{
-            id : $("#specialite_docteur").val()
+        data: {
+            id: $("#specialite_docteur").val()
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#choix_docteur").empty();
             $("#choix_docteur").append(data);
             $('select').selectpicker('refresh');
             if (choix_docteur != "") {
                 $('#choix_docteur').val(choix_docteur).selectpicker('refresh');
             }
-  
+
         }
     });
 }
@@ -295,27 +388,27 @@ function charge_personne_malade() {
     $.ajax({
         url: base + 'charge_personne_malade',
         type: "POST",
-        data:{
-            id : $("#titulaire_id").val()
+        data: {
+            id: $("#titulaire_id").val()
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (data) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (data) {
             $("#personne_select").empty();
             $("#personne_select").append(data);
             $('select').selectpicker('refresh');
             if (personne_select != "") {
                 $('#personne_select').val(personne_select).selectpicker('refresh');
             }
-  
+
         }
     });
 }
 
 
 $("#membre_select").on('change', function name(params) {
-    
-    
+
+
     charge_titulaire_coix();
 })
 $("#specialite_docteur").on('change', function name(params) {
@@ -351,20 +444,20 @@ function liste_consultation() {
         },
         url: base + "listes_consultation",
         type: "POST",
-        data:{
-            id_membre :  $('#membre_choix').val() ,
-            date_debut :  $('#date_debut').val() ,
-            date_fin :  $('#date_fin').val()
+        data: {
+            id_membre: $('#membre_choix').val(),
+            date_debut: $('#date_debut').val(),
+            date_fin: $('#date_fin').val()
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
 
             var res = JSON.parse(res);
 
-            var hide = ["5" , "1" , "2"].includes(res.roleId) ? "" : 'hidden';
-            
+            var hide = ["5", "1", "2"].includes(res.roleId) ? "" : 'hidden';
+
             if ($.fn.DataTable.isDataTable("table_consultation")) {
                 $("#table_consultation").DataTable().destroy();
             } else {
@@ -410,15 +503,15 @@ function liste_consultation() {
                         },
                     },
 
-                 
+
                     {
-                        className: "btn btn-sm btn-warning btn-min-width "+hide,
+                        className: "btn btn-sm btn-warning btn-min-width " + hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
                             $('#id_consultation').val('');
 
-                            $('#add_consultation').find(':input:not([type="hidden"])').each(function() {
+                            $('#add_consultation').find(':input:not([type="hidden"])').each(function () {
                                 if ($(this).is('select.selectpicker')) {
                                     $(this).selectpicker('val', []); // Réinitialiser le selectpicker
                                 } else {
@@ -432,12 +525,12 @@ function liste_consultation() {
                                 { backdrop: "static", keyboard: false },
                                 "show"
                             );
-                            
+
 
 
                         },
                     },
-                    
+
 
 
                 ],
@@ -474,21 +567,21 @@ function fill_paramettre(id) {
         url: base + "affiche_parametre",
         type: "POST",
 
-        data: { id : id },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
-        var res = JSON.parse(res);
+        data: { id: id },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
 
-        
-        if ($.fn.DataTable.isDataTable("#table_parametre_vrai1")) {
-            $("#table_parametre_vrai1").DataTable().destroy();
-        } else {
-        }
-        if ($.fn.DataTable.isDataTable("#table_parametre_vrai2")) {
-            $("#table_parametre_vrai2").DataTable().destroy();
-        } else {
-        }
+
+            if ($.fn.DataTable.isDataTable("#table_parametre_vrai1")) {
+                $("#table_parametre_vrai1").DataTable().destroy();
+            } else {
+            }
+            if ($.fn.DataTable.isDataTable("#table_parametre_vrai2")) {
+                $("#table_parametre_vrai2").DataTable().destroy();
+            } else {
+            }
 
 
             $("#table_parametre_vrai").empty();
@@ -500,7 +593,7 @@ function fill_paramettre(id) {
                 info: false,
                 paging: false,
                 deferRender: true,
-                searching : false ,
+                searching: false,
                 pageLength: 7,
                 "initComplete": function (settings, json) {
                     $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
@@ -518,7 +611,7 @@ function fill_paramettre(id) {
 
 
                 dom: "frtip",
-               
+
             });
             $('#table_parametre_vrai2').DataTable({
                 destroy: true,
@@ -527,7 +620,7 @@ function fill_paramettre(id) {
                 info: false,
                 paging: false,
                 deferRender: true,
-                searching : false ,
+                searching: false,
                 pageLength: 7,
                 "initComplete": function (settings, json) {
                     $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
@@ -545,33 +638,33 @@ function fill_paramettre(id) {
 
 
                 dom: "frtip",
-               
+
             });
 
-            if (["3"].includes(isFinished) ) {
+            if (["3"].includes(isFinished)) {
                 $("#hideValidParam").hide();
-            }else{
+            } else {
                 $("#hideValidParam").show();
             }
 
             if (["6"].includes(res.roleId)) {
-                $('#add_parametre').find(':input').each(function() {
+                $('#add_parametre').find(':input').each(function () {
                     $(this).prop('disabled', true);
                 });
-                
-            }else{
-                $('#add_parametre').find(':input').each(function() {
-                    $(this).prop('disabled', false); 
+
+            } else {
+                $('#add_parametre').find(':input').each(function () {
+                    $(this).prop('disabled', false);
                 });
             }
 
-            
-        
+
+
             // Appel de la fonction quand le poids ou la taille change
-            $('#poids, #taille').on('input', function() {
+            $('#poids, #taille').on('input', function () {
                 calculerPoidsTaille();
             });
-    
+
             formatPrixImput();
         },
     });
@@ -603,14 +696,14 @@ function fill_conclusion(id) {
         url: base + "affiche_conclusion",
         type: "POST",
 
-        data: { id : id },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
-        var res = JSON.parse(res);
+        data: { id: id },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
 
-        
-        $("#table_conclusion_vrai").empty();
+
+            $("#table_conclusion_vrai").empty();
             $("#table_conclusion_vrai").append(res.table);
 
             formatPrixImput();
@@ -643,16 +736,16 @@ function fill_clinique(id) {
         url: base + "affiche_clinique",
         type: "POST",
 
-        data: { id : id },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
-        var res = JSON.parse(res);
+        data: { id: id },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
 
-        if ($.fn.DataTable.isDataTable("#table_clinique_vrai")) {
-            $("#table_clinique_vrai").DataTable().destroy();
-        } else {
-        }
+            if ($.fn.DataTable.isDataTable("#table_clinique_vrai")) {
+                $("#table_clinique_vrai").DataTable().destroy();
+            } else {
+            }
 
 
             $("#table_clinique_vrai").empty();
@@ -664,7 +757,7 @@ function fill_clinique(id) {
                 info: false,
                 paging: false,
                 deferRender: true,
-                searching : false ,
+                searching: false,
                 pageLength: 7,
                 "initComplete": function (settings, json) {
                     $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
@@ -682,9 +775,9 @@ function fill_clinique(id) {
 
 
                 dom: "frtip",
-               
+
             });
-            
+
 
             formatPrixImput();
         },
@@ -697,16 +790,16 @@ function fill_antecedent(id) {
         url: base + "affiche_antecedent",
         type: "POST",
 
-        data: { id : id },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
-        var res = JSON.parse(res);
+        data: { id: id },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
 
-        if ($.fn.DataTable.isDataTable("#table_antecedent_vrai")) {
-            $("#table_antecedent_vrai").DataTable().destroy();
-        } else {
-        }
+            if ($.fn.DataTable.isDataTable("#table_antecedent_vrai")) {
+                $("#table_antecedent_vrai").DataTable().destroy();
+            } else {
+            }
 
 
             $("#table_antecedent_vrai").empty();
@@ -718,7 +811,7 @@ function fill_antecedent(id) {
                 info: false,
                 paging: false,
                 deferRender: true,
-                searching : false ,
+                searching: false,
                 pageLength: 7,
                 "initComplete": function (settings, json) {
                     $('div.dataTables_wrapper div.dataTables_filter input').attr('placeholder', 'Recherche').css("font-size", "7px");
@@ -736,9 +829,9 @@ function fill_antecedent(id) {
 
 
                 dom: "frtip",
-               
+
             });
-            
+
 
             formatPrixImput();
         },
@@ -748,17 +841,26 @@ function fill_antecedent(id) {
 
 
 function edit_laboratoire(id) {
-   
+
     $("#AddLaboratoire").modal(
         { backdrop: "static", keyboard: false },
         "show"
     );
 
     var nature = $("#labedit" + id).data('nature');
+    typeDestinataire = $("#labedit" + id).data("typedestinataire");
+    var typeecho = $("#labedit" + id).data("typeechographie");
+    var doc = $("#labedit" + id).data("docteurechographie");
 
-    analyse_select = nature ;
-    
-    charge_analyse();
+    analyse_select = nature;
+    docteurEchographie = doc;
+    typeechographie = typeecho;
+
+    $("#type_destinataire").val(typeDestinataire).selectpicker("refresh");
+
+
+    charge_laboratoire_echographie();
+
     $("#idDetails").val(iddetail);
     $("#idenvoielabo").val(id);
     $("#idConsPour").val(idConsul);
@@ -771,24 +873,24 @@ function edit_laboratoire(id) {
 
 }
 
-var ancienQte ;
+var ancienQte;
 
-var iddetailmedicament ;
+var iddetailmedicament;
 
 function delete_medic(id) {
 
-    iddetailmedicament = id ;
-   
-   $("#deletemedicament").modal(
-       { backdrop: "static", keyboard: false },
-       "show"
-   );
+    iddetailmedicament = id;
+
+    $("#deletemedicament").modal(
+        { backdrop: "static", keyboard: false },
+        "show"
+    );
 
 
 }
 
 function edit_medic(id) {
-   
+
     $("#AddMedicament").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -797,15 +899,15 @@ function edit_medic(id) {
     var idAdmin = $("#medicedit" + id).data('idadministration');
     var idMedic = $("#medicedit" + id).data('medicamentid');
 
-    idAdministration = idAdmin ;
-    medicament_select = idMedic ;
+    idAdministration = idAdmin;
+    medicament_select = idMedic;
     var qte = $("#medicedit" + id).data('qte');
-    
-    ancienQte = qte ;
-    
+
+    ancienQte = qte;
+
     charge_medicament();
     charge_administration();
-    
+
     $("#idDetails1").val(iddetail);
     $("#iddetailmedicament").val(id);
     $("#idConsPour1").val(idConsul);
@@ -822,7 +924,7 @@ function edit_medic(id) {
 
 }
 function laboratoire() {
-   
+
     $("#AddLaboratoire").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -831,25 +933,25 @@ function laboratoire() {
     $("#idDetails").val(iddetail);
     $("#idConsPour").val(idConsul);
 
-    $('#add_examen').find(':input:not([type="hidden"])').each(function() {
+    $('#add_examen').find(':input:not([type="hidden"])').each(function () {
         if ($(this).is('select.selectpicker')) {
             $(this).selectpicker('val', []); // Réinitialiser le selectpicker
         } else {
             $(this).val('');
         }
     });
-
+    charge_laboratoire_echographie();
     $("#idenvoielabo").val("");
 
 }
 
-var idConsul ;
-var isFinished ;
+var idConsul;
+var isFinished;
 
-function liste_patient(idconsultation , isFinished1) {
+function liste_patient(idconsultation, isFinished1) {
 
-     idConsul = idconsultation;
-     isFinished = isFinished1;
+    idConsul = idconsultation;
+    isFinished = isFinished1;
 
     affichage_details(idconsultation, isFinished);
     $("#AddConsultation").modal(
@@ -857,7 +959,7 @@ function liste_patient(idconsultation , isFinished1) {
         "show"
     );
 
-    
+
 
 }
 
@@ -879,41 +981,41 @@ $("#ajout_patient").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
             if ($('#btn_add_patient').text() === "Modifier") {
                 if (res.id == 1) {
                     alertCustom("success", "ft-check", "Modification effectué avec succée");
 
                     $("#AddpatientMalade").modal("hide");
-                    affichage_details(idConsul , isFinished);
+                    affichage_details(idConsul, isFinished);
                     $('#motif_persMalade').val("");
-                    
 
-                }  else {
+
+                } else {
                     alertCustom("danger", "ft-x", "Ajout non effectué");
 
                 }
-                
+
             } else {
 
                 if (res.id == 1) {
-                   
+
                     alertCustom("success", "ft-check", "Ajout effectué avec succée");
-                    affichage_details(idConsul , isFinished);
+                    affichage_details(idConsul, isFinished);
                     $('#motif_persMalade').val("");
 
 
-                }else {
+                } else {
                     alertCustom("danger", "ft-x", "Ajout non effectué");
 
                 }
             }
-           
 
-            
+
+
 
 
 
@@ -929,7 +1031,7 @@ $("#add_parametre").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            
+
         },
         url: base + "add_parametre",
         type: "POST",
@@ -938,12 +1040,12 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
-                    
-                    alertCustom("success", "ft-check", "Parametrage effectué avec succée");
-                    affichage_details(idConsul , isFinished);
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+
+            alertCustom("success", "ft-check", "Parametrage effectué avec succée");
+            affichage_details(idConsul, isFinished);
 
 
 
@@ -960,7 +1062,7 @@ $("#add_clinique").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            
+
         },
         url: base + "add_clinique",
         type: "POST",
@@ -969,12 +1071,12 @@ $("#add_clinique").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
-                    alertCustom("success", "ft-check", "Examen clinique enregistré avec succée");
-                    affichage_details(idConsul , isFinished);
+            alertCustom("success", "ft-check", "Examen clinique enregistré avec succée");
+            affichage_details(idConsul, isFinished);
 
 
 
@@ -989,7 +1091,7 @@ $("#add_antecedent").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            
+
         },
         url: base + "add_antecedent",
         type: "POST",
@@ -998,12 +1100,12 @@ $("#add_antecedent").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
-                    alertCustom("success", "ft-check", "Antecedents enregistré avec succée");
-                    affichage_details(idConsul , isFinished);
+            alertCustom("success", "ft-check", "Antecedents enregistré avec succée");
+            affichage_details(idConsul, isFinished);
 
 
 
@@ -1018,7 +1120,7 @@ $("#add_examen").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-            
+
         },
         url: base + "add_Examen",
         type: "POST",
@@ -1027,16 +1129,16 @@ $("#add_examen").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
             $("#AddLaboratoire").modal("hide"
             );
             fill_labo(iddetail);
-                    alertCustom("success", "ft-check", "Demande d'examen envoyé");
-                    
-                    affichage_details(idConsul , isFinished);
-                    liste_consultation();
+            alertCustom("success", "ft-check", "Demande d'examen envoyé");
+
+            affichage_details(idConsul, isFinished);
+            liste_consultation();
 
         },
     });
@@ -1073,37 +1175,37 @@ $("#add_medicament").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
-                    $("#modal_medicament").unblock();
+            $("#modal_medicament").unblock();
 
-                    if(res.id == 1 && $("#iddetailmedicament").val() == ""){
+            if (res.id == 1 && $("#iddetailmedicament").val() == "") {
 
-                        fill_prescription(iddetail);
-                        alertCustom("success", "ft-check", "Ajout effectué avec succée");
+                fill_prescription(iddetail);
+                alertCustom("success", "ft-check", "Ajout effectué avec succée");
 
-                        addMedicModal();
+                addMedicModal();
 
-                        affichage_details(idConsul , isFinished);
-                        liste_consultation();
+                affichage_details(idConsul, isFinished);
+                liste_consultation();
 
-                    }
-                    else if (res.id == 1 && $("#iddetailmedicament").val() != "") {
-                        alertCustom("success", "ft-check", "Modification effectué avec succée");
-                        $("#AddMedicament").modal("hide");
-                        fill_prescription(iddetail);
+            }
+            else if (res.id == 1 && $("#iddetailmedicament").val() != "") {
+                alertCustom("success", "ft-check", "Modification effectué avec succée");
+                $("#AddMedicament").modal("hide");
+                fill_prescription(iddetail);
 
-                        affichage_details(idConsul , isFinished);
-                        liste_consultation();
-                    }
-                    else {
+                affichage_details(idConsul, isFinished);
+                liste_consultation();
+            }
+            else {
 
-                        alertCustom("warning", "ft-check", res.message);
-                        
-                    }
-                    
+                alertCustom("warning", "ft-check", res.message);
+
+            }
+
 
         },
     });
@@ -1131,7 +1233,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
                     backgroundColor: "transparent"
                 }
             });
-           
+
         },
         url: base + "ajout_consultation",
         type: "POST",
@@ -1140,12 +1242,12 @@ $("#add_consultation").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
             $("#AddVisites").modal("hide");
             $("#modal_visites").unblock();
-            liste_patient(res.consultationId , res.isFinished);
+            liste_patient(res.consultationId, res.isFinished);
             liste_consultation();
 
         },
@@ -1154,7 +1256,7 @@ $("#add_consultation").off("submit").on("submit", function (e) {
 
 
 
-var iddetail ;
+var iddetail;
 
 function submitConclusion() {
     $("#add_ceritificat").off("submit").on("submit", function (e) {
@@ -1218,7 +1320,7 @@ function submitConclusion() {
 
 function delete_detailvisite(id) {
 
-    iddetail = id ;
+    iddetail = id;
 
     $("#deletepatient").modal(
         { backdrop: "static", keyboard: false },
@@ -1226,12 +1328,12 @@ function delete_detailvisite(id) {
     );
 
 }
-var id_labo ;
-
+var id_labo;
+var typeDestinataire;
 function delete_labo(id) {
 
-    id_labo = id ;
-
+    id_labo = id;
+    typeDestinataire = $("#labedit" + id).data("typedestinataire");
     $("#deletelabo").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -1245,10 +1347,10 @@ function delete_detail() {
         url: base + "delete_detailconsul",
         type: "POST",
         dataType: "JSON",
-        data: { id : iddetail , idConsul : idConsul },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        data: { id: iddetail, idConsul: idConsul },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
 
             $("#deletepatient").modal(
@@ -1258,8 +1360,8 @@ function delete_detail() {
             if (res.id > 0) {
 
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
-                affichage_details(idConsul , isFinished);
-            liste_consultation();
+                affichage_details(idConsul, isFinished);
+                liste_consultation();
 
             } else {
 
@@ -1267,7 +1369,7 @@ function delete_detail() {
 
             }
 
-            
+
 
         },
     });
@@ -1280,10 +1382,10 @@ function delete_medicament() {
         url: base + "delete_detail_medicament",
         type: "POST",
         dataType: "JSON",
-        data: { id : iddetailmedicament , iddetail : iddetail},
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        data: { id: iddetailmedicament, iddetail: iddetail },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
 
             $("#deletemedicament").modal(
@@ -1294,7 +1396,7 @@ function delete_medicament() {
 
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
                 fill_prescription(iddetail);
-                affichage_details(idConsul , isFinished);
+                affichage_details(idConsul, isFinished);
                 liste_consultation();
 
             } else {
@@ -1316,10 +1418,10 @@ function delete_laboExam() {
         url: base + "delete_labo",
         type: "POST",
         dataType: "JSON",
-        data: { id_labo : id_labo , id : idConsul , iddetail : iddetail , type : "visite"},
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        data: { id_labo: id_labo, id: idConsul, iddetail: iddetail, type: "visite", typeDestinataire: typeDestinataire },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
 
             $("#deletelabo").modal(
@@ -1329,9 +1431,9 @@ function delete_laboExam() {
             if (res.id > 0) {
 
                 alertCustom("success", 'ft-check', "Suppression effectué avec succée");
-                affichage_details(idConsul , isFinished);
-            fill_labo(iddetail);
-            liste_consultation();
+                affichage_details(idConsul, isFinished);
+                fill_labo(iddetail);
+                liste_consultation();
 
             } else {
 
@@ -1339,7 +1441,7 @@ function delete_laboExam() {
 
             }
 
-            
+
 
         },
     });
@@ -1347,7 +1449,7 @@ function delete_laboExam() {
 }
 
 function affichage_details(idconsultation, isFinished) {
-    
+
     $.ajax({
         beforeSend: function () {
 
@@ -1373,14 +1475,14 @@ function affichage_details(idconsultation, isFinished) {
             idconsultation: idconsultation,
             isFinished: isFinished,
         },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
             var res = JSON.parse(res);
-            isFinished = res.isFinished ;
-            var hide = ["5" , "1" , "2"].includes(res.roleId) ? "" : 'hidden';
+            isFinished = res.isFinished;
+            var hide = ["5", "1", "2"].includes(res.roleId) ? "" : 'hidden';
 
-            if (["1" , "2"].includes(res.roleId)) {
+            if (["1", "2"].includes(res.roleId)) {
 
                 if (res.isFinished != "0" && res.typeConsultationId == "1") {
                     hide = "hidden"
@@ -1392,63 +1494,66 @@ function affichage_details(idconsultation, isFinished) {
             }
 
             if (res.isFinished == "0") {
-                
+
                 $("#textParamDoc").text("Souhaitez-vous valider le paramétrage et envoyer le(s) patient(s) au docteur ?");
+
+                $('.pourDoc').addClass('hidden');
             }
             else {
                 $("#textParamDoc").text("Souhaitez-vous valider et envoyer le(s) patient(s) au pahrmacie si nécessaire ?");
+                $('.pourDoc').removeClass('hidden');
             }
 
 
-            if (res.isLabo == "1" ) {
+            if (res.isLabo == "1" || res.isEchographie == "1") {
                 $("#hideValidParamDoc").hide();
-            }else{
-                
-                    if (res.isFinished == "3" ) {
-                        
+            } else {
+
+                if (res.isFinished == "3") {
+
+                    $("#hideValidParamDoc").hide();
+                }
+
+                else {
+
+                    if (["1", "2", "6"].includes(res.roleId)) {
+
                         $("#hideValidParamDoc").hide();
-                    }
-                    
-                    else{
-                        
-                        if (["1", "2" ,"6"].includes(res.roleId)) {
-                            
+
+                    } else {
+                        if (["8"].includes(res.roleId) && res.isFinished == "2") {
+
                             $("#hideValidParamDoc").hide();
-                            
-                        }else{
-                            if (["8"].includes(res.roleId) &&res.isFinished == "2" ) {
-                                
-                                $("#hideValidParamDoc").hide();
-                            }
-                            else if (["3","4"].includes(res.roleId) &&res.isFinished == "1" ) {
-                                
-                                $("#hideValidParamDoc").hide();
-                            }
-                            else{
-
-                                $("#hideValidParamDoc").show();
-    
-                                if (["3","4","5"].includes(res.roleId) && res.isFinished == "0") {
-                                    $("#btn_add_patie").text("Envoyer au docteur");
-                                }
-                                if (["8","5"].includes(res.roleId) && res.isFinished == "1") {
-
-     
-                                        $("#btn_add_patie").text("Valider ou Envoyer au pharmacie");
-                                        
-                            
-
-                                }
-                                if (["9","5"].includes(res.roleId) && res.isFinished == "2") {
-                                    $("#btn_add_patie").text("Terminer");
-                                }
-                            }
-                           
                         }
-                        
+                        else if (["3", "4"].includes(res.roleId) && res.isFinished == "1") {
+
+                            $("#hideValidParamDoc").hide();
+                        }
+                        else {
+
+                            $("#hideValidParamDoc").show();
+
+                            if (["3", "4", "5"].includes(res.roleId) && res.isFinished == "0") {
+                                $("#btn_add_patie").text("Envoyer au docteur");
+                            }
+                            if (["8", "5"].includes(res.roleId) && res.isFinished == "1") {
+
+
+                                $("#btn_add_patie").text("Valider ou Envoyer au pharmacie");
+
+
+
+                            }
+                            if (["9", "5"].includes(res.roleId) && res.isFinished == "2") {
+                                $("#btn_add_patie").text("Terminer");
+                            }
+                        }
 
                     }
-                
+
+
+                }
+
 
             }
 
@@ -1495,28 +1600,28 @@ function affichage_details(idconsultation, isFinished) {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        className: "btn btn-sm btn-warning btn-min-width "+ hide ,
+                        className: "btn btn-sm btn-warning btn-min-width " + hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
                             $('#id_detail_consultattion').val('');
 
-                            $('#ajout_patient').find(':input:not([type="hidden"])').each(function() {
+                            $('#ajout_patient').find(':input:not([type="hidden"])').each(function () {
                                 if ($(this).is('select.selectpicker')) {
                                     $(this).selectpicker('val', []); // Réinitialiser le selectpicker
                                 } else {
                                     $(this).val('');
                                 }
                             });
-                            
+
                             $("#AddpatientMalade").modal(
                                 { backdrop: "static", keyboard: false },
                                 "show"
-                                );
-                            
-                                
-                                $('.entete_modal_pat').text("Ajout patient");
-                                $('#btn_add_patient').text("Ajouter");
+                            );
+
+
+                            $('.entete_modal_pat').text("Ajout patient");
+                            $('#btn_add_patient').text("Ajouter");
 
                         },
                     },
@@ -1524,21 +1629,21 @@ function affichage_details(idconsultation, isFinished) {
             });
             $("#AddConsultation").unblock();
             charge_personne_malade();
-            
+
         },
     });
 }
 
-function affichage_demande(id) {
+function affichage_demande(id, role) {
 
     $('.nav-tabs .nav-link').removeClass('active').first().addClass('active');
-    
+
     $('.tab-content .tab-pane').removeClass('active').first().addClass('active');
 
-    iddetail = id ;
-    if (["3"].includes(isFinished) ) {
+    iddetail = id;
+    if (["3"].includes(isFinished)) {
         $("#hideValidParam").hide();
-    }else{
+    } else {
         $("#hideValidParam").show();
     }
     formatPrixImput();
@@ -1549,16 +1654,28 @@ function affichage_demande(id) {
     $("#ListesLabo").modal(
         { backdrop: "static", keyboard: false },
         "show"
-        );
-    
-        iddetail = id ;
+    );
+
+    iddetail = id;
 
     fill_paramettre(id);
-    fill_clinique(id);
-    fill_labo(id);
-    fill_prescription(id);
-    fill_conclusion(id);
-    fill_antecedent(id);
+
+    if ([8, 5].includes(role)) {
+
+        fill_labo(id);
+        fill_prescription(id);
+        fill_conclusion(id);
+        fill_clinique(id);
+        fill_antecedent(id);
+    }
+
+    if ([6, 10].includes(role)) {
+        fill_labo(id);
+    }
+
+    if ([9].includes(role)) {
+        fill_prescription(id);
+    }
 }
 
 
@@ -1593,11 +1710,11 @@ function fill_labo(id) {
         }, success: function (res) {
             var res = JSON.parse(res);
 
-            if (["4" , "3"].includes(res.isFinished) ) {
+            if (["4", "3"].includes(res.isFinished)) {
                 $("#hideValidLabo").hide();
-            }else{
+            } else {
                 $("#hideValidLabo").show();
-        
+
             }
 
             if ($.fn.DataTable.isDataTable("#table_demande")) {
@@ -1635,7 +1752,7 @@ function fill_labo(id) {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        className: "btn btn-sm btn-warning btn-min-width "+res.hide ,
+                        className: "btn btn-sm btn-warning btn-min-width " + res.hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
                             $("#idenvoielabo").val(id);
@@ -1681,11 +1798,11 @@ function fill_prescription(id) {
         }, success: function (res) {
             var res = JSON.parse(res);
 
-            var hide = ["5" , "8"].includes(res.roleId) ? "" : 'hidden';
+            var hide = ["5", "8"].includes(res.roleId) ? "" : 'hidden';
 
-            if ([0].includes(res.ishide) ) {
+            if ([0].includes(res.ishide)) {
                 $("#hideImprimeMedic").hide();
-            }else{
+            } else {
                 $("#hideImprimeMedic").show();
             }
 
@@ -1725,7 +1842,7 @@ function fill_prescription(id) {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        className: "btn btn-sm btn-warning btn-min-width "+ hide ,
+                        className: "btn btn-sm btn-warning btn-min-width " + hide,
                         text: '<i class="ft-plus"> Ajouter</i>',
                         action: function () {
 
@@ -1776,8 +1893,8 @@ function close_del_consultation() {
 // *************************dialogue suppression deleate
 function supprimerconsultation(id) {
 
-     idConsul = id ;
-    
+    idConsul = id;
+
     $("#deleteconsultation").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -1787,8 +1904,8 @@ function supprimerconsultation(id) {
 }
 function medic_docteur(id) {
 
-     iddetail = id ;
-    
+    iddetail = id;
+
     $("#AddDocteur").modal(
         { backdrop: "static", keyboard: false },
         "show"
@@ -1815,7 +1932,7 @@ function confirmer_anvoie_doc() {
         "hide"
     );
 
-    
+
 
     $.ajax({
         beforeSend: function () {
@@ -1839,12 +1956,12 @@ function confirmer_anvoie_doc() {
         url: base + "envoyer_docteur",
         type: "POST",
         dataType: "JSON",
-        data: { id_consultation : idConsul , isFinished : isFinished},
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        data: { id_consultation: idConsul, isFinished: isFinished },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
-        $("#AddConsultation").unblock();
+            $("#AddConsultation").unblock();
 
             if (res.id > 0) {
 
@@ -1856,7 +1973,7 @@ function confirmer_anvoie_doc() {
 
             }
 
-            affichage_details(idConsul , isFinished);
+            affichage_details(idConsul, isFinished);
             liste_consultation();
 
         },
@@ -1874,10 +1991,10 @@ function delete_consultation() {
         url: base + "delete_consultation",
         type: "POST",
         dataType: "JSON",
-        data: { id_consultation : idConsul },
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        data: { id_consultation: idConsul },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
 
             $("#deleteconsultation").modal(
                 "hide"
@@ -1893,21 +2010,21 @@ function delete_consultation() {
 
             }
 
-            affichage_details(idConsul , isFinished);
+            affichage_details(idConsul, isFinished);
             liste_consultation();
 
         },
     });
 
-    
+
 
 }
 
 // *****************modification consultation
 
-function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docteur1 , specialite_docteur1) {
+function edit_consultation(id, membre_select1, titulaire_select1, choix_docteur1, specialite_docteur1) {
     membre_select = membre_select1;
-    titulaire_select =  titulaire_select1;
+    titulaire_select = titulaire_select1;
     specialite_docteur = specialite_docteur1;
     choix_docteur = choix_docteur1;
     $('#id_consultation').val(id);
@@ -1924,7 +2041,7 @@ function edit_consultation(id , membre_select1 , titulaire_select1 , choix_docte
 
 
 
-var idEnvoie ;
+var idEnvoie;
 var typeEnvoie
 var idType
 
@@ -1966,6 +2083,7 @@ $("#form_analyse").off("submit").on("submit", function (e) {
 
     data.append('idenvoie_labo', idEnvoie);
     data.append('idType', idType);
+    data.append('typeDestinataire', typeDestinataire);
     data.append('type', typeEnvoie);
     data.append('idConsult', idConsul);
     data.append('type', "visite");
@@ -2000,9 +2118,9 @@ $("#form_analyse").off("submit").on("submit", function (e) {
         cache: false,
         dataType: "JSON",
         data: data,
-        error: function(xhr, status, error) {
-       alertCustom("danger", 'ft-x', "Une erreur s'est produite");
-    } ,success: function (res) {
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
             alertCustom("success", 'ft-check', "Confirmation effectué avec succée");
             $("#ListesLabocontent").unblock();
             fill_labo(idType);
@@ -2014,7 +2132,7 @@ $("#form_analyse").off("submit").on("submit", function (e) {
 
 function downloadFile(id) {
     // Sélectionnez l'élément de fichier pour vérifier ses propriétés
-    
+
 
     $.ajax({
         url: base + "downloadFile",
@@ -2025,34 +2143,35 @@ function downloadFile(id) {
         xhrFields: {
             responseType: 'blob' // Important pour le téléchargement de fichiers
         },
-        success: function(response, status, xhr) {
+        success: function (response, status, xhr) {
             var contentType = xhr.getResponseHeader('Content-Type');
-        var blob = new Blob([response], { type: contentType });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = $("#idlabed" + id).data("file");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
+            var blob = new Blob([response], { type: contentType });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = $("#idlabed" + id).data("file");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(link.href);
             alertCustom("success", 'ft-check', "Téléchargement effectué avec succès");
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             // Affichez des informations de débogage en cas d'erreur
             alertCustom("success", 'ft-check', "Téléchargement effectué avec succès");
 
         }
     });
-    
+
 }
 
 
-function valider_demande(id , idType1) {
+function valider_demande(id, idType1) {
 
     var typeen = $("#labovalider" + id).data('typeenvoie');
+    typeDestinataire = $("#labedit" + id).data("typedestinataire");
 
-    idEnvoie = id ;
-    idType = idType1 ;
+    idEnvoie = id;
+    idType = idType1;
     typeEnvoie = typeen
     $('#fichierAnalyse').val("");
 
@@ -2060,7 +2179,7 @@ function valider_demande(id , idType1) {
         { backdrop: "static", keyboard: false },
         "show"
     );
-    
+
 
 }
 

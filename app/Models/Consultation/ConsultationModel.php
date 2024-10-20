@@ -12,7 +12,7 @@ class ConsultationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user" , "isLabo" ]; // ispharmacie tsy misy satria mandiny validation doc vo pharmacie rozy iaby
+    protected $allowedFields    = ["titulaireId" , "docteurId" , "typeConsultationId" , "etat" , "isFinished" , "id_user" , "isLabo" , "isEchographie" ]; // ispharmacie tsy misy satria mandiny validation doc vo pharmacie rozy iaby
 
     // Dates
     protected $useTimestamps = true;

@@ -107,6 +107,8 @@ use CodeIgniter\Router\RouteCollection;
     $routes->post('affiche_clinique', 'consultation\ConsultationCont::affiche_clinique');
     $routes->post('add_ceritificat', 'consultation\ConsultationCont::add_ceritificat');
     $routes->post('add_repos', 'consultation\ConsultationCont::add_repos');
+    $routes->post('charge_doc_echographie', 'consultation\ConsultationCont::charge_doc_echographie');
+    $routes->post('charge_laboratoire_echographie', 'consultation\ConsultationCont::charge_laboratoire_echographie');
     $routes->post('affiche_antecedent', 'consultation\ConsultationCont::affiche_antecedent');
     $routes->post('add_parametre', 'consultation\ConsultationCont::add_parametre');
     $routes->post('add_clinique', 'consultation\ConsultationCont::add_clinique');
