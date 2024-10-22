@@ -189,7 +189,7 @@
                                                     <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" aria-expanded="false"><i class="ft-layers"></i> Examen clinique</a>
                                                 </li>
                                                 <li class="nav-item pourDoc">
-                                                    <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon24" aria-expanded="false"><i class="ft-layers"></i> Autres actes</a>
+                                                    <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon24" href="#tabIcon24" aria-expanded="false"><i class="ft-layers"></i> Autres actes</a>
                                                 </li>
 
                                             <?php
@@ -267,6 +267,10 @@
                                     ?>
                                         <div class="tab-pane" id="tabIcon23" aria-expanded="true" aria-labelledby="baseIcon-tab23">
                                             <?= view("Consultation/clinique.php") ?>
+                                        </div>
+
+                                        <div class="tab-pane" id="tabIcon24" aria-expanded="true" aria-labelledby="baseIcon-tab23">
+                                            <?= view("Consultation/autreActes.php") ?>
                                         </div>
 
                                     <?php

@@ -548,7 +548,7 @@ function fill_paramettre(id) {
     $.ajax({
         beforeSend: function () {
 
-            $("#card_parametre").block({
+            $("#ListesLabocontent").block({
                 message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
 
                 overlayCSS: {
@@ -669,7 +669,7 @@ function fill_paramettre(id) {
         },
     });
 
-    $("#card_parametre").unblock();
+    $("#ListesLabocontent").unblock();
 }
 
 function fill_conclusion(id) {
@@ -780,6 +780,27 @@ function fill_clinique(id) {
 
 
             formatPrixImput();
+        },
+    });
+}
+function fill_autre_acte(id) {
+
+    $.ajax({
+        url: base + "affiche_autreacte",
+        type: "POST",
+
+        data: { id: id },
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            var res = JSON.parse(res);
+            
+            $("#table_autreacte_vrai").empty();
+            $("#table_autreacte_vrai").append(res.table);
+
+            $("select").selectpicker("refresh")
+
+        
         },
     });
 }
@@ -1031,7 +1052,21 @@ $("#add_parametre").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+            
         },
         url: base + "add_parametre",
         type: "POST",
@@ -1042,9 +1077,13 @@ $("#add_parametre").off("submit").on("submit", function (e) {
         data: data,
         error: function (xhr, status, error) {
             alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            $("#ListesLabocontent").unblock();
+
         }, success: function (res) {
 
             alertCustom("success", "ft-check", "Parametrage effectué avec succée");
+            $("#ListesLabocontent").unblock();
+
             affichage_details(idConsul, isFinished);
 
 
@@ -1062,7 +1101,21 @@ $("#add_clinique").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+            
         },
         url: base + "add_clinique",
         type: "POST",
@@ -1073,9 +1126,59 @@ $("#add_clinique").off("submit").on("submit", function (e) {
         data: data,
         error: function (xhr, status, error) {
             alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            $("#ListesLabocontent").unblock();
+
         }, success: function (res) {
 
             alertCustom("success", "ft-check", "Examen clinique enregistré avec succée");
+            $("#ListesLabocontent").unblock();
+
+            affichage_details(idConsul, isFinished);
+
+
+
+        },
+    });
+});
+
+$("#add_autreacte").off("submit").on("submit", function (e) {
+    e.preventDefault();
+
+    let data = new FormData(this);
+
+    $.ajax({
+        beforeSend: function () {
+
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "add_autreacte",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: "JSON",
+        data: data,
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            $("#ListesLabocontent").unblock();
+        }, success: function (res) {
+
+            $("#ListesLabocontent").unblock();
+            alertCustom("success", "ft-check", "Autre acte envoyé avec succée");
             affichage_details(idConsul, isFinished);
 
 
@@ -1091,7 +1194,21 @@ $("#add_antecedent").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+            
         },
         url: base + "add_antecedent",
         type: "POST",
@@ -1102,12 +1219,14 @@ $("#add_antecedent").off("submit").on("submit", function (e) {
         data: data,
         error: function (xhr, status, error) {
             alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            $("#ListesLabocontent").unblock();
         }, success: function (res) {
-
+            
+            $("#ListesLabocontent").unblock();
             alertCustom("success", "ft-check", "Antecedents enregistré avec succée");
             affichage_details(idConsul, isFinished);
-
-
+            
+            
 
         },
     });
@@ -1120,7 +1239,21 @@ $("#add_examen").off("submit").on("submit", function (e) {
 
     $.ajax({
         beforeSend: function () {
-
+            $("#modal_laboratoire").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+            
         },
         url: base + "add_Examen",
         type: "POST",
@@ -1131,11 +1264,14 @@ $("#add_examen").off("submit").on("submit", function (e) {
         data: data,
         error: function (xhr, status, error) {
             alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+            $("#modal_laboratoire").unblock();
+            
         }, success: function (res) {
             $("#AddLaboratoire").modal("hide"
             );
             fill_labo(iddetail);
             alertCustom("success", "ft-check", "Demande d'examen envoyé");
+            $("#modal_laboratoire").unblock();
 
             affichage_details(idConsul, isFinished);
             liste_consultation();
@@ -1143,6 +1279,42 @@ $("#add_examen").off("submit").on("submit", function (e) {
         },
     });
 });
+
+function annulerActe() {
+    
+     $.ajax({
+        beforeSend: function () {
+            $("#ListesLabocontent").block({
+                message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+
+                overlayCSS: {
+                    backgroundColor: "black",
+                    opacity: 0.1,
+                    cursor: "wait",
+                },
+                css: {
+                    border: 0,
+                    padding: 0,
+                    backgroundColor: "transparent"
+                }
+            });
+
+        },
+        url: base + "annuler_acte",
+        type: "POST",
+        data : {iddetail : iddetail},
+        dataType: "JSON",
+        error: function (xhr, status, error) {
+            alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+        }, success: function (res) {
+            fill_autre_acte(iddetail);
+            alertCustom("success", "ft-check", "Annulation effectué avec succée");
+            $("#ListesLabocontent").unblock();
+
+        },
+    });
+
+}
 
 $("#add_medicament").off("submit").on("submit", function (e) {
     e.preventDefault();
@@ -1268,6 +1440,21 @@ function submitConclusion() {
 
         $.ajax({
             beforeSend: function () {
+                $("#ListesLabocontent").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });
+                
             },
             url: base + "add_ceritificat",
             type: "POST",
@@ -1278,9 +1465,13 @@ function submitConclusion() {
             data: data,
             error: function (xhr, status, error) {
                 alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+                $("#ListesLabocontent").unblock();
+
             }, success: function (res) {
 
                 alertCustom("success", "ft-check", "Certification enregistré avec succée");
+                $("#ListesLabocontent").unblock();
+
                 affichage_details(idConsul, isFinished);
 
 
@@ -1296,6 +1487,21 @@ function submitConclusion() {
 
         $.ajax({
             beforeSend: function () {
+                $("#ListesLabocontent").block({
+                    message: '<div class="ft-refresh-cw icon-spin font-medium-2" style="margin:auto , font-size : 80px !important"></div>',
+                    
+                    overlayCSS: {
+                        backgroundColor: "black",
+                        opacity: 0.1,
+                        cursor: "wait",
+                    },
+                    css: {
+                        border: 0,
+                        padding: 0,
+                        backgroundColor: "transparent"
+                    }
+                });
+                
             },
             url: base + "add_repos",
             type: "POST",
@@ -1306,9 +1512,13 @@ function submitConclusion() {
             data: data,
             error: function (xhr, status, error) {
                 alertCustom("danger", 'ft-x', "Une erreur s'est produite");
+                $("#ListesLabocontent").unblock();
+
             }, success: function (res) {
 
                 alertCustom("success", "ft-check", "Repos medical enregistré avec succée");
+                $("#ListesLabocontent").unblock();
+
                 affichage_details(idConsul, isFinished);
 
 
@@ -1497,11 +1707,12 @@ function affichage_details(idconsultation, isFinished) {
 
                 $("#textParamDoc").text("Souhaitez-vous valider le paramétrage et envoyer le(s) patient(s) au docteur ?");
 
-                $('.pourDoc').addClass('hidden');
+                $('.pourDoc').css('display','none');
+
             }
             else {
                 $("#textParamDoc").text("Souhaitez-vous valider et envoyer le(s) patient(s) au pahrmacie si nécessaire ?");
-                $('.pourDoc').removeClass('hidden');
+                $('.pourDoc').css('display',"block");
             }
 
 
@@ -1666,6 +1877,7 @@ function affichage_demande(id, role) {
         fill_prescription(id);
         fill_conclusion(id);
         fill_clinique(id);
+        fill_autre_acte(id);
         fill_antecedent(id);
     }
 

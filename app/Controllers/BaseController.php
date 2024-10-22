@@ -35,6 +35,7 @@ use App\Models\Gestion\MethodePfModel;
 use App\Models\Gestion\Type_analyseModel;
 use App\Models\Labo\EnvoieLaboModel;
 use App\Models\Pf\PfModel;
+use App\Models\SoinIndex\SoinindexModel;
 use Mpdf\Mpdf;
 
 
@@ -84,6 +85,7 @@ abstract class BaseController extends Controller
     protected $fournisseur;
     protected $adminMedicament;
     protected $detailMedicament;
+    protected $soinindex;
     protected $autreActe;
 
 
@@ -114,6 +116,7 @@ abstract class BaseController extends Controller
         $this->membre = new MembreModel();
         $this->examen = new ExamenModel();
         $this->enfant = new EnfantModel();
+        $this->soinindex = new SoinindexModel();
 
         $this->pf = new PfModel();
         $this->pdf = new Mpdf();

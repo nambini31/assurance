@@ -78,7 +78,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -86,7 +86,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
 
@@ -124,7 +124,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -132,7 +132,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function delete_consultation()
@@ -149,7 +149,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -157,7 +157,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function envoyer_docteur()
@@ -198,7 +198,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -206,7 +206,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function delete_labo()
@@ -260,7 +260,7 @@ class ConsultationCont extends BaseController
 
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function delete_detail_medicament()
@@ -291,7 +291,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -299,7 +299,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function delete_detailconsul()
@@ -318,10 +318,10 @@ class ConsultationCont extends BaseController
 
             $this->verif_visite($id1, $db);
 
-
+            $db->transComplete();
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -329,7 +329,36 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
+        }
+    }
+    public function annuler_acte()
+    {
+
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
+        try {
+            // Démarrer la transaction
+            $db->transStart();
+
+            $id = $_POST['iddetail'];
+            
+            $this->detailconsultation->update($id, ['diagnostique' => "" , "idAutreActe"=>"" , "idDocSoin"=>""]);
+
+            $this->soinindex->where("idDetailConsultattion" , $id)->delete(null);
+
+            $db->transComplete();
+
+            if ($db->transStatus() === FALSE) {
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
+            }
+
+
+            echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+            $db->transRollback();
+
+            echo $th;
         }
     }
 
@@ -689,6 +718,112 @@ class ConsultationCont extends BaseController
             echo $th;
         }
     }
+    public function affiche_autreacte()
+    {
+        try {
+
+            $data =  $this->detailconsultation->find($_POST["id"]);
+
+            $natureExamen = $data["idAutreActe"];
+            $ids = [];
+
+            if (strpos($natureExamen, ',') !== false) {
+                // Si plusieurs valeurs sont présentes, on les sépare avec explode
+                $ids = explode(',', $natureExamen);
+            } else {
+                // Si une seule valeur est présente, on la place dans un tableau
+                $ids = [$natureExamen];
+            }
+
+            $autreacte = $this->autreActe
+                ->select('idautreActe,autreActe')
+                ->where('etat', 1)->findAll();
+
+            $patient = '<select class="selectpicker  form-control btn-sm" name="idAutreActe[]" required id="idAutreActe" data-live-search="true" multiple data-size="5" title="Types d\'actes">
+                ';
+
+
+            foreach ($autreacte as $values) {
+                $selected = "";
+                if (in_array($values["idautreActe"], $ids)) {
+                    $selected = "selected";
+                }
+                $patient .= '<option value="' . $values['idautreActe'] . '" ' . $selected . ' > ' . $values['autreActe'] . '</option> ';
+            }
+
+            $patient .= `</select>`;
+
+            $datas =  $this->utilisateur
+                ->where("roleId", 11)
+                ->where("etat", 1)
+                ->findAll();
+
+            $listeDocteur = '';
+            foreach ($datas as $value) {
+            }
+
+            $listeDocteur = '<select class="selectpicker  form-control btn-sm" name="idDocSoin" required id="idDocSoin" data-live-search="true" data-size="5" title="Docteur">
+                ';
+
+
+            foreach ($datas as $values) {
+                $selected = "";
+                if ($data["idDocSoin"]== $values["id_user"] ) {
+                    $selected = "selected";
+                }
+                $listeDocteur .= '
+                <option value="' . $values['id_user'] . '" ' . $selected . ' > ' . $values['nom_user'] . ' ' . $values['prenom_user'] . '</option> ';
+            }
+
+            $listeDocteur .= `</select>`;
+
+
+            $th = "";
+
+            $th =
+                '                      
+                
+                        <thead> 
+                            <tr>
+
+                            <th style="width: 100em !important; min-width: 300px !important;">TYPES D\'ACTES</th>
+                            <th style="width: 100em !important; min-width: 300px !important;">DESTINATEUR ( SOINS )</th>
+                            </tr>        
+                        </thead>
+                    
+                        <tbody> 
+                    
+                            <tr>
+                               
+                                <td style="width: 100em !important; min-width: 300px !important;">
+                                    ' . $patient . '
+                                </td>
+                                <td style="width: 100em !important; min-width: 300px !important;">
+                                    ' . $listeDocteur . '
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td colspan="2" style="width: 100em !important; min-width: 300px !important;">DIAGNISTIQUE PRELIMINAIRE</td>
+                            </tr> 
+                            
+                            <tr>
+                                <td colspan="2" style="width: 100em !important; min-width: 300px !important;">
+                                    
+                                    <textarea name="diagnostique" class="form-control input-sm" cols="5" rows="5" placeholder="DIAGNISTIQUE">' . $data["diagnostique"] . '</textarea>
+
+                                </td>
+                            </tr> 
+                
+                            </tbody>
+                 ';
+
+
+            echo json_encode(["table" => $th]);
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+    }
 
 
     public function affiche_antecedent()
@@ -793,7 +928,7 @@ class ConsultationCont extends BaseController
             $db->transComplete();
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -801,7 +936,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
 
@@ -817,7 +952,7 @@ class ConsultationCont extends BaseController
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -825,10 +960,10 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
-    public function add_antecedent()
+    public function add_autreacte()
     {
         $db = \Config\Database::connect();  // Connexion à la base de données
 
@@ -836,11 +971,24 @@ class ConsultationCont extends BaseController
             // Démarrer la transaction
             $db->transStart();
             $_POST["dateDocteur"] = date("Y-m-d H:i:s");
+            $_POST["idAutreActe"] = implode(",", $_POST["idAutreActe"]);
+
+            
             $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
+            
+            $data = $this->soinindex->where("idDetailConsultattion" , $_POST["idDetailsCons"] )->first();
+
+            
+            if (!$data) {
+                
+                $this->soinindex->save(["idDetailConsultattion" => $_POST["idDetailsCons"]]);
+
+            }
 
             $db->transComplete();
+            
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -848,7 +996,30 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
+        }
+    }
+    public function add_antecedent()
+    {
+        $db = \Config\Database::connect();  // Connexion à la base de données
+
+        try {
+
+            $db->transStart();
+            $_POST["dateDocteur"] = date("Y-m-d H:i:s");
+            $data =  $this->detailconsultation->update($_POST["idDetailsCons"], $_POST);
+
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
+            }
+
+
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            $db->transRollback();
+
+            echo $th;
         }
     }
     public function add_repos()
@@ -863,7 +1034,7 @@ class ConsultationCont extends BaseController
             $db->transComplete();
 
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -871,7 +1042,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function add_ceritificat()
@@ -886,7 +1057,7 @@ class ConsultationCont extends BaseController
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -894,7 +1065,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
 
@@ -1008,7 +1179,7 @@ class ConsultationCont extends BaseController
 
 
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -1016,7 +1187,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
     public function charge_titulaire()
@@ -2123,7 +2294,7 @@ class ConsultationCont extends BaseController
 
             // Vérifier si la transaction s'est bien déroulée
             if ($db->transStatus() === FALSE) {
-                throw new \Exception('Erreur dans la transaction.');
+               throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
             }
 
 
@@ -2131,7 +2302,7 @@ class ConsultationCont extends BaseController
         } catch (\Throwable $th) {
             $db->transRollback();
 
-            echo json_encode(['error' => $th->getMessage()]);
+            echo $th;
         }
     }
 
@@ -2176,35 +2347,31 @@ class ConsultationCont extends BaseController
 
             // Vérification des trois cas
             if ($laboratoireExiste && $echographieExiste) {
-                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1 , "isEchographie" => 1]);
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1, "isEchographie" => 1]);
                 $isLaboPresent = $isLaboPresent || true;
                 $isEchoPresent = $isEchoPresent || true;
             } elseif ($laboratoireExiste && !$echographieExiste) {
-                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1 , "isEchographie" => 0]);
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isLabo" => 1, "isEchographie" => 0]);
                 $isLaboPresent = $isLaboPresent || true;
                 $isEchoPresent = $isEchoPresent || false;
             } elseif ($echographieExiste && !$laboratoireExiste) {
-                $this->detailconsultation->update($rows['detailConsultationId'], ["isEchographie" => 1 , "isLabo" => 0 ]);
+                $this->detailconsultation->update($rows['detailConsultationId'], ["isEchographie" => 1, "isLabo" => 0]);
                 $isEchoPresent = $isEchoPresent || true;
                 $isLaboPresent = $isLaboPresent || false;
             }
-
         }
 
         if (!$isLaboPresent) {
             $this->consultation->update($idConsul, ["isLabo" => 0]);
-        }else {
-           
+        } else {
+
             $this->consultation->update($idConsul, ["isLabo" => 1]);
-            
         }
         if (!$isEchoPresent) {
             $this->consultation->update($idConsul, ["isEchographie" => 0]);
-        }
-        else {
-            
+        } else {
+
             $this->consultation->update($idConsul, ["isEchographie" => 1]);
-        
         }
 
 
@@ -2213,7 +2380,7 @@ class ConsultationCont extends BaseController
 
         // Vérifier si la transaction s'est bien déroulée
         if ($db->transStatus() === FALSE) {
-            throw new \Exception('Erreur dans la transaction.');
+           throw new \Exception('Erreur dans la transaction. Détails : ' . json_encode($db->error()));
         }
     }
 }
