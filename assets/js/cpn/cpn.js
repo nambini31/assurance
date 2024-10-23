@@ -923,7 +923,7 @@ function edit_detailcpn(id) {
         'vat',
         'spi',
         'bdcf',
-        'rechercheActive',
+        'rechercheactive',
         'presentation',
         'refeaccouche',
         'serologierdr',
@@ -938,7 +938,7 @@ function edit_detailcpn(id) {
         'tpha',
         'nfs',
         'feracfolique',
-        'dateRendevous',
+        'daterendevous',
         'createdAt'
     ];
     

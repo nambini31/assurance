@@ -62,17 +62,20 @@ class CpnCont extends BaseController
 
     public function add_detailcpn()
     {
+        $db = \Config\Database::connect();  // Connexion à la base de données
 
         try {
             // Démarrer la transaction
+            $db->transStart();
 
             $this->detailconsultationcpn->save($_POST);
 
-
-            // Valider la transaction
+            $this->verif_CPN($_POST["idcpn"], $db);
 
             // Vérifier si la transaction s'est bien déroulée
-           
+            if ($db->transStatus() === FALSE) {
+                throw new \Exception('Erreur dans la transaction.');
+            }
             echo json_encode(['id' => 1]);
         } catch (\Throwable $th) {
            
