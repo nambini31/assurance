@@ -14,14 +14,12 @@ class DetailConsultationCpnModel extends Model
     protected $useSoftDeletes = false;
 
     protected $allowedFields = [
-        'idcpn', 'ta', 'albOedemes', 'ictereConjonctive', 'saignement', 'ferAcFolique' , 'albendazole',
-        'hauteurUterine', 'bdfc', 'presentation', 'referenceAccouchement', 'prisedepoids', 'vih' , 'bw' ,
-        'vat', 'spi' , 'etat' , 'rechercheActive' , 'dateRendevous' , 'num' , "isLabo" ,"isEchographie"
+        "idcpn",  "num", "tagd", "poids", "taille", "alboedemes", "vedese", "cpnconjonctive", "saignement", "hauteuruterine", "largue", "ddr", "dpa", "hu", "maf", "omi", "vat", "spi", "bdcf", "rechercheActive", "presentation", "refeaccouche", "serologierdr", "serologievidal", "asaurine", "groupage", "hiv", "fcv", "bw", "toxoplasmose", "rubuole", "tpha", "nfs", "feracfolique", "dateRendevous", "createdAt" , "isLabo" , "isEchographie"
     ];
 
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'createdAt';
     protected $updatedField  = 'updatedAt';

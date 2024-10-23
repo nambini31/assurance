@@ -9,7 +9,7 @@ class CpnCont extends BaseController
     public function index()
     {
 
-        if (in_array($_SESSION['roleId'], ["5", "3", "4", "6", "9" , "10"])) {
+        if (in_array($_SESSION['roleId'], ["5", "3", "4", "6", "9", "10"])) {
 
             $content = view('cpn/index');
             return view('layout', ['content' => $content]);
@@ -44,34 +44,6 @@ class CpnCont extends BaseController
             $this->cpn->save($_POST);
 
 
-             // Valider la transaction
-             $db->transComplete();
-
-             // Vérifier si la transaction s'est bien déroulée
-             if ($db->transStatus() === FALSE) {
-                 throw new \Exception('Erreur dans la transaction.');
-             }
-             echo json_encode(['id' => 1]);
-         } catch (\Throwable $th) {
-             // En cas d'erreur, faire un rollback
-             $db->transRollback();
- 
-             echo  $th;
-         }
-    }
-
-    public function add_detailcpn()
-    {
-        $db = \Config\Database::connect();  // Connexion à la base de données
-
-        try {
-            // Démarrer la transaction
-            $db->transStart();
-
-            $this->detailconsultationcpn->save($_POST);
-
-            $this->verif_CPN($_POST["idcpn"], $db);
-
             // Valider la transaction
             $db->transComplete();
 
@@ -84,6 +56,26 @@ class CpnCont extends BaseController
             // En cas d'erreur, faire un rollback
             $db->transRollback();
 
+            echo  $th;
+        }
+    }
+
+    public function add_detailcpn()
+    {
+
+        try {
+            // Démarrer la transaction
+
+            $this->detailconsultationcpn->save($_POST);
+
+
+            // Valider la transaction
+
+            // Vérifier si la transaction s'est bien déroulée
+           
+            echo json_encode(['id' => 1]);
+        } catch (\Throwable $th) {
+           
             echo  $th;
         }
     }
@@ -340,7 +332,7 @@ class CpnCont extends BaseController
                     }
                 }
 
-                
+
 
 
                 if ($value["isFinished"] == 0) {
@@ -359,7 +351,6 @@ class CpnCont extends BaseController
 
                         $etat = "En attente d'echographie";
                     }
-
                 } else { // pour 3 termine
 
                     $etat = "Terminé";
@@ -485,23 +476,40 @@ class CpnCont extends BaseController
             $rows = [
                 'Action' => "<tr><th style='text-align : left ; width : 10%'>Action</th>",
                 'Demande' => "<tr><th style='text-align : left ; width : 10%'>Demande d'analyse</th>",
-                'ta' => "<tr><th style='text-align : left ; width : 10%'>T.A</th>",
-                'albOedemes' => "<tr><th style='text-align : left ; width : 10%'>ALB/Oedèmes</th>",
-                'prisedepoids' => "<tr><th style='text-align : left ; width : 10%'>Prise de poids</th>",
-                'ictereConjonctive' => "<tr><th style='text-align : left ; width : 10%'>Ictère (Conjonctives)</th>",
-                'saignement' => "<tr><th style='text-align : left ; width : 10%'>Saignement</th>",
-                'hauteurUterine' => "<tr><th style='text-align : left ; width : 10%'>Hauteur Utérine</th>",
-                'bdfc' => "<tr><th style='text-align : left ; width : 10%'>BDFC</th>",
-                'presentation' => "<tr><th style='text-align : left ; width : 10%'>Présentation</th>",
-                'referenceAccouchement' => "<tr><th style='text-align : left ; width : 10%'>Référence pour accouchement</th>",
-                'vat' => "<tr><th style='text-align : left ; width : 10%'>TD</th>",
-                'spi' => "<tr><th style='text-align : left ; width : 10%'>SPI</th>",
-                'ferAcFolique' => "<tr><th style='text-align : left ; width : 10%'>Fer/Acide folique</th>",
-                'albendazole' => "<tr><th style='text-align : left ; width : 10%'>Albendazole</th>",
-                'vih' => "<tr><th style='text-align : left ; width : 10%'>VIH</th>",
-                'bw' => "<tr><th style='text-align : left ; width : 10%'>BW</th>",
-                'rechercheActive' => "<tr><th style='text-align : left ; width : 10%'>Recherche active</th>",
-                'dateRendevous' => "<tr><th style='text-align : left ; width : 10%'>Date de rendez-vous</th>"
+                'tagd' => "<tr><th style='text-align: left; width: 10%;'>Tagd</th>",
+                'poids' => "<tr><th style='text-align: left; width: 10%;'>Poids</th>",
+                'taille' => "<tr><th style='text-align: left; width: 10%;'>Taille</th>",
+                'alboedemes' => "<tr><th style='text-align: left; width: 10%;'>ALB/Oedèmes</th>",
+                'vedese' => "<tr><th style='text-align: left; width: 10%;'>Vedese</th>",
+                'cpnconjonctive' => "<tr><th style='text-align: left; width: 10%;'>CPN Conjonctive</th>",
+                'saignement' => "<tr><th style='text-align: left; width: 10%;'>Saignement</th>",
+                'hauteuruterine' => "<tr><th style='text-align: left; width: 10%;'>Hauteur Utérine</th>",
+                'largue' => "<tr><th style='text-align: left; width: 10%;'>Largue</th>",
+                'ddr' => "<tr><th style='text-align: left; width: 10%;'>DDR</th>",
+                'dpa' => "<tr><th style='text-align: left; width: 10%;'>DPA</th>",
+                'hu' => "<tr><th style='text-align: left; width: 10%;'>HU</th>",
+                'maf' => "<tr><th style='text-align: left; width: 10%;'>MAF</th>",
+                'omi' => "<tr><th style='text-align: left; width: 10%;'>OMI</th>",
+                'vat' => "<tr><th style='text-align: left; width: 10%;'>VAT</th>",
+                'spi' => "<tr><th style='text-align: left; width: 10%;'>SPI</th>",
+                'bdcf' => "<tr><th style='text-align: left; width: 10%;'>BDFC</th>",
+                'rechercheActive' => "<tr><th style='text-align: left; width: 10%;'>Recherche Active</th>",
+                'presentation' => "<tr><th style='text-align: left; width: 10%;'>Présentation</th>",
+                'refeaccouche' => "<tr><th style='text-align: left; width: 10%;'>Réf. Accouchement</th>",
+                'serologierdr' => "<tr><th style='text-align: left; width: 10%;'>Sérologie RDR</th>",
+                'serologievidal' => "<tr><th style='text-align: left; width: 10%;'>Sérologie Vidal</th>",
+                'asaurine' => "<tr><th style='text-align: left; width: 10%;'>ASA Urine</th>",
+                'groupage' => "<tr><th style='text-align: left; width: 10%;'>Groupage</th>",
+                'hiv' => "<tr><th style='text-align: left; width: 10%;'>HIV</th>",
+                'fcv' => "<tr><th style='text-align: left; width: 10%;'>FCV</th>",
+                'bw' => "<tr><th style='text-align: left; width: 10%;'>BW</th>",
+                'toxoplasmose' => "<tr><th style='text-align: left; width: 10%;'>Toxoplasmose</th>",
+                'rubuole' => "<tr><th style='text-align: left; width: 10%;'>Rubéole</th>",
+                'tpha' => "<tr><th style='text-align: left; width: 10%;'>TPHA</th>",
+                'nfs' => "<tr><th style='text-align: left; width: 10%;'>NFS</th>",
+                'feracfolique' => "<tr><th style='text-align: left; width: 10%;'>Fer Ac. Folique</th>",
+                'dateRendevous' => "<tr><th style='text-align: left; width: 10%;'>Date de Rendez-vous</th>",
+                'createdAt' => "<tr><th style='text-align: left; width: 10%;'>Date</th>"
             ];
 
             // Tableau pour stocker les consultations par leur numéro
@@ -518,26 +526,45 @@ class CpnCont extends BaseController
                     $row = $consultations[$i];
                     $th = '<a class="info mr-1"  id = "detailcpn' . $row["idconsultationcpn"] . '"
                     onclick="edit_detailcpn(' . $row["idconsultationcpn"] . ')" 
-                    data-ta="' . $row["ta"] . '" 
-                    data-num="' . $row["num"] . '" 
-                    data-alboedemes="' . $row["albOedemes"] . '" 
-                    data-prisedepoids="' . $row["prisedepoids"] . '" 
-                    data-ictereconjonctive="' . $row["ictereConjonctive"] . '" 
+                    data-tagd="' . $row["tagd"] . '" 
+                    data-poids="' . $row["poids"] . '" 
+                    data-taille="' . $row["taille"] . '" 
+                    data-alboedemes="' . $row["alboedemes"] . '" 
+                    data-vedese="' . $row["vedese"] . '" 
+                    data-cpnconjonctive="' . $row["cpnconjonctive"] . '" 
                     data-saignement="' . $row["saignement"] . '" 
-                    data-hauteuruterine="' . $row["hauteurUterine"] . '" 
-                    data-bdfc="' . $row["bdfc"] . '" 
-                    data-presentation="' . $row["presentation"] . '" 
-                    data-referenceaccouchement="' . $row["referenceAccouchement"] . '" 
+                    data-hauteuruterine="' . $row["hauteuruterine"] . '" 
+                    data-largue="' . $row["largue"] . '" 
+                    data-ddr="' . $row["ddr"] . '" 
+                    data-dpa="' . $row["dpa"] . '" 
+                    data-hu="' . $row["hu"] . '" 
+                    data-maf="' . $row["maf"] . '" 
+                    data-omi="' . $row["omi"] . '" 
                     data-vat="' . $row["vat"] . '" 
                     data-spi="' . $row["spi"] . '" 
-                    data-feracfolique="' . $row["ferAcFolique"] . '" 
-                    data-albendazole="' . $row["albendazole"] . '" 
-                    data-vih="' . $row["vih"] . '" 
+                    data-bdcf="' . $row["bdcf"] . '" 
+                    data-rechercheActive="' . $row["rechercheActive"] . '" 
+                    data-presentation="' . $row["presentation"] . '" 
+                    data-refeaccouche="' . $row["refeaccouche"] . '" 
+                    data-serologierdr="' . $row["serologierdr"] . '" 
+                    data-serologievidal="' . $row["serologievidal"] . '" 
+                    data-asaurine="' . $row["asaurine"] . '" 
+                    data-groupage="' . $row["groupage"] . '" 
+                    data-hiv="' . $row["hiv"] . '" 
+                    data-fcv="' . $row["fcv"] . '" 
                     data-bw="' . $row["bw"] . '" 
-                    data-rechercheactive="' . $row["rechercheActive"] . '" data-daterendevous="' . $row["dateRendevous"] . '">
+                    data-toxoplasmose="' . $row["toxoplasmose"] . '" 
+                    data-rubuole="' . $row["rubuole"] . '" 
+                    data-tpha="' . $row["tpha"] . '" 
+                    data-nfs="' . $row["nfs"] . '" 
+                    data-feracfolique="' . $row["feracfolique"] . '" 
+                    data-dateRendevous="' . $row["dateRendevous"] . '"
+                    data-createdAt="' . $row["createdAt"] . '"
+                    data-num="' . $row["num"] . '">
                     <i class="la la-pencil-square-o"></i>
                     </a>
                      <a class="danger mr-1" onclick="delete_detailcpn(' . $row["idconsultationcpn"] . ')"><i class="la la-trash-o"></i></a>';
+
 
                      if ($row["isLabo"] == 1 && $row["isEchographie"] == 1) {
 
@@ -563,46 +590,81 @@ class CpnCont extends BaseController
                         $td = '<a class="success mr-1" onclick="affichage_demande(' . $row["idconsultationcpn"] . ')">Analyse</a>';
                     }
 
+                    // Remplissage des données dans le tableau
                     $rows['Action'] .= "<td>{$th}</td>";
                     $rows['Demande'] .= "<td>{$td}</td>";
-                    $rows['ta'] .= "<td>{$row['ta']}</td>";
-                    $rows['albOedemes'] .= "<td>{$row['albOedemes']}</td>";
-                    $rows['prisedepoids'] .= "<td>{$row['prisedepoids']}</td>";
-                    $rows['ictereConjonctive'] .= "<td>{$row['ictereConjonctive']}</td>";
+                    $rows['tagd'] .= "<td>{$row['tagd']}</td>";
+                    $rows['poids'] .= "<td>{$row['poids']}</td>";
+                    $rows['taille'] .= "<td>{$row['taille']}</td>";
+                    $rows['alboedemes'] .= "<td>{$row['alboedemes']}</td>";
+                    $rows['vedese'] .= "<td>{$row['vedese']}</td>";
+                    $rows['cpnconjonctive'] .= "<td>{$row['cpnconjonctive']}</td>";
                     $rows['saignement'] .= "<td>{$row['saignement']}</td>";
-                    $rows['hauteurUterine'] .= "<td>{$row['hauteurUterine']}</td>";
-                    $rows['bdfc'] .= "<td>{$row['bdfc']}</td>";
-                    $rows['presentation'] .= "<td>{$row['presentation']}</td>";
-                    $rows['referenceAccouchement'] .= "<td>{$row['referenceAccouchement']}</td>";
+                    $rows['hauteuruterine'] .= "<td>{$row['hauteuruterine']}</td>";
+                    $rows['largue'] .= "<td>{$row['largue']}</td>";
+                    $rows['ddr'] .= "<td>{$row['ddr']}</td>";
+                    $rows['dpa'] .= "<td>{$row['dpa']}</td>";
+                    $rows['hu'] .= "<td>{$row['hu']}</td>";
+                    $rows['maf'] .= "<td>{$row['maf']}</td>";
+                    $rows['omi'] .= "<td>{$row['omi']}</td>";
                     $rows['vat'] .= "<td>{$row['vat']}</td>";
                     $rows['spi'] .= "<td>{$row['spi']}</td>";
-                    $rows['ferAcFolique'] .= "<td>{$row['ferAcFolique']}</td>";
-                    $rows['albendazole'] .= "<td>{$row['albendazole']}</td>";
-                    $rows['vih'] .= "<td>{$row['vih']}</td>";
-                    $rows['bw'] .= "<td>{$row['bw']}</td>";
+                    $rows['bdcf'] .= "<td>{$row['bdcf']}</td>";
                     $rows['rechercheActive'] .= "<td>{$row['rechercheActive']}</td>";
+                    $rows['presentation'] .= "<td>{$row['presentation']}</td>";
+                    $rows['refeaccouche'] .= "<td>{$row['refeaccouche']}</td>";
+                    $rows['serologierdr'] .= "<td>{$row['serologierdr']}</td>";
+                    $rows['serologievidal'] .= "<td>{$row['serologievidal']}</td>";
+                    $rows['asaurine'] .= "<td>{$row['asaurine']}</td>";
+                    $rows['groupage'] .= "<td>{$row['groupage']}</td>";
+                    $rows['hiv'] .= "<td>{$row['hiv']}</td>";
+                    $rows['fcv'] .= "<td>{$row['fcv']}</td>";
+                    $rows['bw'] .= "<td>{$row['bw']}</td>";
+                    $rows['toxoplasmose'] .= "<td>{$row['toxoplasmose']}</td>";
+                    $rows['rubuole'] .= "<td>{$row['rubuole']}</td>";
+                    $rows['tpha'] .= "<td>{$row['tpha']}</td>";
+                    $rows['nfs'] .= "<td>{$row['nfs']}</td>";
+                    $rows['feracfolique'] .= "<td>{$row['feracfolique']}</td>";
                     $rows['dateRendevous'] .= "<td>{$row['dateRendevous']}</td>";
+                    $rows['createdAt'] .= "<td>{$row['createdAt']}</td>";
                 } else {
-                    // Si la consultation pour ce numéro n'existe pas, ajouter une cellule vide
+                    // Si la consultation pour ce numéro n'existe pas, ajouter une cellule vide pour chaque colonne
                     $rows['Action'] .= "<td></td>";
                     $rows['Demande'] .= "<td></td>";
-                    $rows['ta'] .= "<td></td>";
-                    $rows['albOedemes'] .= "<td></td>";
-                    $rows['prisedepoids'] .= "<td></td>";
-                    $rows['ictereConjonctive'] .= "<td></td>";
+                    $rows['tagd'] .= "<td></td>";
+                    $rows['poids'] .= "<td></td>";
+                    $rows['taille'] .= "<td></td>";
+                    $rows['alboedemes'] .= "<td></td>";
+                    $rows['vedese'] .= "<td></td>";
+                    $rows['cpnconjonctive'] .= "<td></td>";
                     $rows['saignement'] .= "<td></td>";
-                    $rows['hauteurUterine'] .= "<td></td>";
-                    $rows['bdfc'] .= "<td></td>";
-                    $rows['presentation'] .= "<td></td>";
-                    $rows['referenceAccouchement'] .= "<td></td>";
+                    $rows['hauteuruterine'] .= "<td></td>";
+                    $rows['largue'] .= "<td></td>";
+                    $rows['ddr'] .= "<td></td>";
+                    $rows['dpa'] .= "<td></td>";
+                    $rows['hu'] .= "<td></td>";
+                    $rows['maf'] .= "<td></td>";
+                    $rows['omi'] .= "<td></td>";
                     $rows['vat'] .= "<td></td>";
                     $rows['spi'] .= "<td></td>";
-                    $rows['ferAcFolique'] .= "<td></td>";
-                    $rows['albendazole'] .= "<td></td>";
-                    $rows['vih'] .= "<td></td>";
-                    $rows['bw'] .= "<td></td>";
+                    $rows['bdcf'] .= "<td></td>";
                     $rows['rechercheActive'] .= "<td></td>";
+                    $rows['presentation'] .= "<td></td>";
+                    $rows['refeaccouche'] .= "<td></td>";
+                    $rows['serologierdr'] .= "<td></td>";
+                    $rows['serologievidal'] .= "<td></td>";
+                    $rows['asaurine'] .= "<td></td>";
+                    $rows['groupage'] .= "<td></td>";
+                    $rows['hiv'] .= "<td></td>";
+                    $rows['fcv'] .= "<td></td>";
+                    $rows['bw'] .= "<td></td>";
+                    $rows['toxoplasmose'] .= "<td></td>";
+                    $rows['rubuole'] .= "<td></td>";
+                    $rows['tpha'] .= "<td></td>";
+                    $rows['nfs'] .= "<td></td>";
+                    $rows['feracfolique'] .= "<td></td>";
                     $rows['dateRendevous'] .= "<td></td>";
+                    $rows['createdAt'] .= "<td></td>";
                 }
             }
 
@@ -633,23 +695,41 @@ class CpnCont extends BaseController
                 <tbody>
                     {$action}
                     {$rows['Demande']}
-                    {$rows['ta']}
-                    {$rows['albOedemes']}
-                    {$rows['prisedepoids']}
-                    {$rows['ictereConjonctive']}
+                    {$rows['createdAt']}
+                    {$rows['tagd']}
+                    {$rows['poids']}
+                    {$rows['taille']}
+                    {$rows['alboedemes']}
+                    {$rows['vedese']}
+                    {$rows['cpnconjonctive']}
                     {$rows['saignement']}
-                    {$rows['hauteurUterine']}
-                    {$rows['bdfc']}
-                    {$rows['presentation']}
-                    {$rows['referenceAccouchement']}
+                    {$rows['hauteuruterine']}
+                    {$rows['largue']}
+                    {$rows['ddr']}
+                    {$rows['dpa']}
+                    {$rows['hu']}
+                    {$rows['maf']}
+                    {$rows['omi']}
                     {$rows['vat']}
                     {$rows['spi']}
-                    {$rows['ferAcFolique']}
-                    {$rows['albendazole']}
-                    {$rows['vih']}
-                    {$rows['bw']}
+                    {$rows['bdcf']}
                     {$rows['rechercheActive']}
+                    {$rows['presentation']}
+                    {$rows['refeaccouche']}
+                    {$rows['serologierdr']}
+                    {$rows['serologievidal']}
+                    {$rows['asaurine']}
+                    {$rows['groupage']}
+                    {$rows['hiv']}
+                    {$rows['fcv']}
+                    {$rows['bw']}
+                    {$rows['toxoplasmose']}
+                    {$rows['rubuole']}
+                    {$rows['tpha']}
+                    {$rows['nfs']}
+                    {$rows['feracfolique']}
                     {$rows['dateRendevous']}
+
                 </tbody>";
 
 

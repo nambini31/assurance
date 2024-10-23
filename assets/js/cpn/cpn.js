@@ -865,6 +865,8 @@ function fill_consult(idcpn) {
                                 { backdrop: "static", keyboard: false },
                                 "show"
                                 );
+                                $("#ListesLabo").css("overflow-y" , "auto") ;
+                                $("#AddConsultCpn").css("overflow-y" , "auto") ;
                                 
                                 $('.entete_modal_patpo').text("Ajout consultation");
                                 
@@ -903,23 +905,47 @@ function edit_detailcpn(id) {
     var element = $("#detailcpn" + id);
     
     // Utiliser jQuery pour sélectionner les inputs par leur 'name' et assigner les valeurs des attributs 'data-*'
-    $('input[name="ta"]').val(element.data('ta'));
-    $('input[name="albOedemes"]').val(element.data('alboedemes'));
-    $('input[name="prisedepoids"]').val(element.data('prisedepoids'));
-    $('input[name="ictereConjonctive"]').val(element.data('ictereconjonctive'));
-    $('input[name="saignement"]').val(element.data('saignement'));
-    $('input[name="hauteurUterine"]').val(element.data('hauteuruterine'));
-    $('input[name="bdfc"]').val(element.data('bdfc'));
-    $('input[name="presentation"]').val(element.data('presentation'));
-    $('input[name="referenceAccouchement"]').val(element.data('referenceaccouchement'));
-    $('input[name="vat"]').val(element.data('vat'));
-    $('input[name="spi"]').val(element.data('spi'));
-    $('input[name="ferAcFolique"]').val(element.data('feracfolique'));
-    $('input[name="albendazole"]').val(element.data('albendazole'));
-    $('input[name="vih"]').val(element.data('vih'));
-    $('input[name="bw"]').val(element.data('bw'));
-    $('input[name="rechercheActive"]').val(element.data('rechercheactive'));
-    $('input[name="dateRendevous"]').val(element.data('daterendevous'));
+    const dataFields = [
+        'tagd',
+        'poids',
+        'taille',
+        'alboedemes',
+        'vedese',
+        'cpnconjonctive',
+        'saignement',
+        'hauteuruterine',
+        'largue',
+        'ddr',
+        'dpa',
+        'hu',
+        'maf',
+        'omi',
+        'vat',
+        'spi',
+        'bdcf',
+        'rechercheActive',
+        'presentation',
+        'refeaccouche',
+        'serologierdr',
+        'serologievidal',
+        'asaurine',
+        'groupage',
+        'hiv',
+        'fcv',
+        'bw',
+        'toxoplasmose',
+        'rubuole',
+        'tpha',
+        'nfs',
+        'feracfolique',
+        'dateRendevous',
+        'createdAt'
+    ];
+    
+    dataFields.forEach(field => {
+        $('input[name="' + field + '"]').val(element.data(field));
+    });
+
     numedit = element.data('num') ;
     $('#numCons').val(element.data('num')).selectpicker('refresh');
     $("#idDetailsCons").val(id);
@@ -934,9 +960,10 @@ function edit_detailcpn(id) {
     $("#AddConsultCpn").modal(
         { backdrop: "static", keyboard: false },
         "show"
-    );
-
-
+        );
+        
+        
+        $("#ListesLabo").css("overflow-y" , "auto") ;
 }
 
 
@@ -1027,6 +1054,7 @@ function details_cpn(id) {
         { backdrop: "static", keyboard: false },
         "show"
         );
+        $("#ListesLabo").css("overflow-y" , "auto") ;
 
     fill_consult(id);
     liste_descendant(id);

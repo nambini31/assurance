@@ -94,9 +94,9 @@
                                 <div class="row">
                                     <div class="col-xl-6">
 
-                                        <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                        <table id="table_parametre_1" class="table table-white-space table-bordered table-sm no-wrap text-center" style="width: 100% !important; overflow: auto;">
                                             <tr>
-                                                <th colspan="2" style="text-align:left ; min-width: 130px;">ELEMENTS DE SURVEILLANCE</th>
+                                                <th colspan="2" style="text-align:left; min-width: 130px;">ELEMENTS DE SURVEILLANCE</th>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:left">N° Consultation</th>
@@ -113,110 +113,159 @@
 
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">T.A </th>
-                                                <td><input type="text" class="form-control input-sm" name="ta"></td>
-
+                                                <td style="text-align:left">T/A (G/D)</td>
+                                                <td><input type="text" class="form-control input-sm" name="tagd"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">ALB/ OEDEMES</th>
-                                                <td><input type="text" class="form-control input-sm" name="albOedemes"></td>
-
+                                                <td style="text-align:left">Taille</td>
+                                                <td><input type="text" class="form-control input-sm" name="taille"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">Prise de poids</th>
-                                                <td><input type="text" class="form-control input-sm" name="prisedepoids"></td>
-
+                                                <td style="text-align:left">Poids</td>
+                                                <td><input type="text" class="form-control input-sm" name="poids"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">ICTERE (Conjonctives)</th>
-                                                <td><input type="text" class="form-control input-sm" name="ictereConjonctive"></td>
-
+                                                <td style="text-align:left">ALB/OEDEMES</td>
+                                                <td><input type="text" class="form-control input-sm" name="alboedemes"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">SAIGNEMENT</th>
+                                                <td style="text-align:left">Védèse</td>
+                                                <td><input type="text" class="form-control input-sm" name="vedese"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">CPN Conjonctives</td>
+                                                <td><input type="text" class="form-control input-sm" name="cpnconjonctive"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Saignement</td>
                                                 <td><input type="text" class="form-control input-sm" name="saignement"></td>
-
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">HAUTEUR UTERINE</th>
-                                                <td><input type="text" class="form-control input-sm" name="hauteurUterine"></td>
-
+                                                <td style="text-align:left">Hauteur Utérine</td>
+                                                <td><input type="text" class="form-control input-sm" name="hauteuruterine"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">B D C F</th>
-                                                <td><input type="text" class="form-control input-sm" name="bdfc"></td>
-
+                                                <td style="text-align:left">Largeur</td>
+                                                <td><input type="text" class="form-control input-sm" name="largue"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">PRESENTAIION</th>
-                                                <td><input type="text" class="form-control input-sm" name="presentation"></td>
-
+                                                <td style="text-align:left">DDR</td>
+                                                <td><input type="text" class="form-control input-sm" name="ddr"></td>
                                             </tr>
-
-
+                                            <tr>
+                                                <td style="text-align:left">DPA</td>
+                                                <td><input type="text" class="form-control input-sm" name="dpa"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">HU</td>
+                                                <td><input type="text" class="form-control input-sm" name="hu"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">MAF</td>
+                                                <td><input type="text" class="form-control input-sm" name="maf"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">OMI</td>
+                                                <td><input type="text" class="form-control input-sm" name="omi"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">VAT</td>
+                                                <td><input type="text" class="form-control input-sm" name="vat"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">SPI</td>
+                                                <td><input type="text" class="form-control input-sm" name="spi"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">B.D.C.F</td>
+                                                <td><input type="text" class="form-control input-sm" name="bdcf"></td>
+                                            </tr>
                                         </table>
 
                                     </div>
-
 
                                     <div class="col-xl-6">
 
-                                        <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap  text-center" style="width: 100% !important; overflow: auto;">
+                                        <table id="table_parametre" class="table table-white-space table-bordered table-sm no-wrap text-center" style="width: 100% !important; overflow: auto;">
                                             <tr>
-                                                <th colspan="2" style="text-align:left ; min-width: 170px;">ELEMENTS DE SURVEILLANCE</th>
+                                                <th colspan="2" style="text-align:left; min-width: 130px;">ELEMENTS DE SURVEILLANCE</th>
+                                            </tr>
+                                            
+                                           
+                                            <tr>
+                                                <td style="text-align:left">Présentation</td>
+                                                <td><input type="text" class="form-control input-sm" name="presentation"></td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left ; text-wrap: wrap;">Référence pour Accouchement</th>
-                                                <td><input type="text" class="form-control input-sm" name="referenceAccouchement"></td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td style="text-align:left">TD</th>
-                                                <td><input type="text" class="form-control input-sm" name="vat"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">SPI</th>
-                                                <td><input type="text" class="form-control input-sm" name="spi"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">Fer Ac/folique</th>
-                                                <td><input type="text" class="form-control input-sm" name="ferAcFolique"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">Albendazole</th>
-                                                <td><input type="text" class="form-control input-sm" name="albendazole"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">VIH</th>
-                                                <td><input type="text" class="form-control input-sm" name="vih"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">BW</th>
-                                                <td><input type="text" class="form-control input-sm" name="bw"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:left">Recherche active</th>
+                                                <td style="text-align:left">Recherche active</td>
                                                 <td><input type="text" class="form-control input-sm" name="rechercheActive"></td>
-
                                             </tr>
                                             <tr>
-                                                <td style="text-align:left">Date de rendez-vous</th>
-                                                <td><input type="date" class="form-control input-sm" name="dateRendevous"></td>
-
+                                                <td style="text-align:left">Référence pour Accouchement</td>
+                                                <td><input type="text" class="form-control input-sm" name="refeaccouche"></td>
                                             </tr>
-
+                                            <tr>
+                                                <td style="text-align:left">Sérologie RDR</td>
+                                                <td><input type="text" class="form-control input-sm" name="serologierdr"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Sérologie VIDAL</td>
+                                                <td><input type="text" class="form-control input-sm" name="serologievidal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">A.S.A d’Urine</td>
+                                                <td><input type="text" class="form-control input-sm" name="asaurine"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Groupage</td>
+                                                <td><input type="text" class="form-control input-sm" name="groupage"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">HIV</td>
+                                                <td><input type="text" class="form-control input-sm" name="hiv"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">FCV</td>
+                                                <td><input type="text" class="form-control input-sm" name="fcv"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">BW</td>
+                                                <td><input type="text" class="form-control input-sm" name="bw"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Toxoplasmose</td>
+                                                <td><input type="text" class="form-control input-sm" name="toxoplasmose"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Rubuole</td>
+                                                <td><input type="text" class="form-control input-sm" name="rubuole"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">TPHA</td>
+                                                <td><input type="text" class="form-control input-sm" name="tpha"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">NFS</td>
+                                                <td><input type="text" class="form-control input-sm" name="nfs"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Fér Ac/folique</td>
+                                                <td><input type="text" class="form-control input-sm" name="feracfolique"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Albendazole</td>
+                                                <td><input type="text" class="form-control input-sm" name="albendazole"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left">Date RDV</td>
+                                                <td><input type="date" class="form-control input-sm" name="dateRendevous"></td>
+                                            </tr>
+                                            
                                         </table>
 
                                     </div>
-
                                 </div>
+
 
 
 
